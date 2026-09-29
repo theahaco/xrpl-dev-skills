@@ -1,0 +1,23 @@
+{
+  "status": "checked",
+  "tscPath": "/private/tmp/ws/07f4f4083e6b/project/node_modules/typescript/bin/tsc",
+  "tscVersion": "Version 7.0.2",
+  "tscSource": "project",
+  "tsFiles": [
+    "src/index.ts"
+  ],
+  "project": {
+    "config": "tsconfig.json",
+    "exitCode": 0,
+    "errorCount": 0,
+    "errorsInProject": 0,
+    "output": ""
+  },
+  "strict": {
+    "config": "tsconfig.xrpl-eval-strict.json",
+    "exitCode": 0,
+    "errorCount": 0,
+    "errorsInProject": 0,
+    "output": ""
+  }
+}

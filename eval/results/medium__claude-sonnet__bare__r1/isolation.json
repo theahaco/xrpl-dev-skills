@@ -1,0 +1,102 @@
+{
+  "mechanism": "macOS sandbox-exec (Seatbelt) profile + scrubbed env + throwaway HOME/config dir",
+  "passed": true,
+  "checks": [
+    {
+      "name": "read ~/.jev",
+      "expect": "denied",
+      "ok": true,
+      "detail": "head: /Users/willem/.jev: Operation not permitted"
+    },
+    {
+      "name": "read ~/.claude",
+      "expect": "denied",
+      "ok": true,
+      "detail": "head: /Users/willem/.claude/.credentials.json: Operation not permitted"
+    },
+    {
+      "name": "read ~/.claude.json",
+      "expect": "denied",
+      "ok": true,
+      "detail": "head: /Users/willem/.claude.json: Operation not permitted"
+    },
+    {
+      "name": "read ~/.codex",
+      "expect": "denied",
+      "ok": true,
+      "detail": "head: /Users/willem/.codex/auth.json: Operation not permitted"
+    },
+    {
+      "name": "read theahaco repos",
+      "expect": "denied",
+      "ok": true,
+      "detail": "head: /Users/willem/c/theahaco/.DS_Store: Operation not permitted"
+    },
+    {
+      "name": "read firstmate home",
+      "expect": "denied",
+      "ok": true,
+      "detail": "head: /Users/willem/c/willemneal/firstmate/.gitattributes: Operation not permitted"
+    },
+    {
+      "name": "read eval harness repo",
+      "expect": "denied",
+      "ok": true,
+      "detail": "head: /Users/willem/.treehouse/xrpl-dev-skills-b23c5f/1/xrpl-dev-skills/eval/package.json: Operation not permitted"
+    },
+    {
+      "name": "list operator home",
+      "expect": "denied",
+      "ok": true,
+      "detail": "ls: /Users/willem: Operation not permitted"
+    },
+    {
+      "name": "list /private/tmp",
+      "expect": "denied",
+      "ok": true,
+      "detail": "ls: /private/tmp: Operation not permitted"
+    },
+    {
+      "name": "keychain: Claude credentials",
+      "expect": "denied",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "write outside workspace",
+      "expect": "denied",
+      "ok": true,
+      "detail": "/bin/sh: /private/tmp/.xrpl-eval-escape-probe: Operation not permitted"
+    },
+    {
+      "name": "node runs a project file",
+      "expect": "allowed",
+      "ok": true,
+      "detail": "v24.18.0"
+    },
+    {
+      "name": "npm available",
+      "expect": "allowed",
+      "ok": true,
+      "detail": "11.16.0"
+    },
+    {
+      "name": "npx runs a command",
+      "expect": "allowed",
+      "ok": true,
+      "detail": "v24.18.0"
+    },
+    {
+      "name": "git available",
+      "expect": "allowed",
+      "ok": true,
+      "detail": "git version 2.54.0"
+    },
+    {
+      "name": "registry reachable",
+      "expect": "allowed",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

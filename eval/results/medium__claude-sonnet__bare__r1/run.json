@@ -1,0 +1,347 @@
+{
+  "agent": "claude-sonnet",
+  "tier": "medium",
+  "arm": "bare",
+  "rep": 1,
+  "runId": "medium__claude-sonnet__bare__r1",
+  "status": "complete",
+  "attempt": 1,
+  "startedAt": "2026-09-29T00:52:13.637Z",
+  "endedAt": "2026-09-29T00:56:36.680Z",
+  "timeCapMinutes": 40,
+  "host": {
+    "platform": "darwin",
+    "osVersion": "26.5.2",
+    "node": "v24.18.0",
+    "npm": "11.16.0"
+  },
+  "isolation": {
+    "mechanism": "macOS sandbox-exec (Seatbelt) profile + scrubbed env + throwaway HOME/config dir",
+    "passed": true,
+    "checks": [
+      {
+        "name": "read ~/.jev",
+        "expect": "denied",
+        "ok": true,
+        "detail": "head: /Users/willem/.jev: Operation not permitted"
+      },
+      {
+        "name": "read ~/.claude",
+        "expect": "denied",
+        "ok": true,
+        "detail": "head: /Users/willem/.claude/.credentials.json: Operation not permitted"
+      },
+      {
+        "name": "read ~/.claude.json",
+        "expect": "denied",
+        "ok": true,
+        "detail": "head: /Users/willem/.claude.json: Operation not permitted"
+      },
+      {
+        "name": "read ~/.codex",
+        "expect": "denied",
+        "ok": true,
+        "detail": "head: /Users/willem/.codex/auth.json: Operation not permitted"
+      },
+      {
+        "name": "read theahaco repos",
+        "expect": "denied",
+        "ok": true,
+        "detail": "head: /Users/willem/c/theahaco/.DS_Store: Operation not permitted"
+      },
+      {
+        "name": "read firstmate home",
+        "expect": "denied",
+        "ok": true,
+        "detail": "head: /Users/willem/c/willemneal/firstmate/.gitattributes: Operation not permitted"
+      },
+      {
+        "name": "read eval harness repo",
+        "expect": "denied",
+        "ok": true,
+        "detail": "head: /Users/willem/.treehouse/xrpl-dev-skills-b23c5f/1/xrpl-dev-skills/eval/package.json: Operation not permitted"
+      },
+      {
+        "name": "list operator home",
+        "expect": "denied",
+        "ok": true,
+        "detail": "ls: /Users/willem: Operation not permitted"
+      },
+      {
+        "name": "list /private/tmp",
+        "expect": "denied",
+        "ok": true,
+        "detail": "ls: /private/tmp: Operation not permitted"
+      },
+      {
+        "name": "keychain: Claude credentials",
+        "expect": "denied",
+        "ok": true,
+        "detail": ""
+      },
+      {
+        "name": "write outside workspace",
+        "expect": "denied",
+        "ok": true,
+        "detail": "/bin/sh: /private/tmp/.xrpl-eval-escape-probe: Operation not permitted"
+      },
+      {
+        "name": "node runs a project file",
+        "expect": "allowed",
+        "ok": true,
+        "detail": "v24.18.0"
+      },
+      {
+        "name": "npm available",
+        "expect": "allowed",
+        "ok": true,
+        "detail": "11.16.0"
+      },
+      {
+        "name": "npx runs a command",
+        "expect": "allowed",
+        "ok": true,
+        "detail": "v24.18.0"
+      },
+      {
+        "name": "git available",
+        "expect": "allowed",
+        "ok": true,
+        "detail": "git version 2.54.0"
+      },
+      {
+        "name": "registry reachable",
+        "expect": "allowed",
+        "ok": true,
+        "detail": ""
+      }
+    ]
+  },
+  "network": {
+    "at": "2026-09-29T00:52:15.152Z",
+    "rpcUrl": "https://s.altnet.rippletest.net:51234/",
+    "buildVersion": "3.4.1",
+    "networkId": 1,
+    "validatedLedger": 21130904,
+    "reserveBaseXrp": 1,
+    "reserveIncXrp": 0.2,
+    "enabledAmendments": [
+      "AMM",
+      "AMMClawback",
+      "CheckCashMakesTrustLine",
+      "Checks",
+      "Clawback",
+      "Credentials",
+      "DID",
+      "DeepFreeze",
+      "DeletableAccounts",
+      "DepositAuth",
+      "DepositPreauth",
+      "DisallowIncoming",
+      "DynamicNFT",
+      "ExpandedSignerList",
+      "Flow",
+      "FlowCross",
+      "FlowSortStrands",
+      "HardenedValidations",
+      "ImmediateOfferKilled",
+      "MPTokensV1",
+      "MultiSignReserve",
+      "NFTokenMintOffer",
+      "NegativeUNL",
+      "NonFungibleTokensV1_1",
+      "PermissionedDEX",
+      "PermissionedDomains",
+      "PriceOracle",
+      "RequireFullyCanonicalSig",
+      "TicketBatch",
+      "TokenEscrow",
+      "XRPFees",
+      "fix1513",
+      "fix1515",
+      "fix1543",
+      "fix1571",
+      "fix1578",
+      "fix1623",
+      "fix1781",
+      "fixAMMClawbackRounding",
+      "fixAMMOverflowOffer",
+      "fixAMMv1_1",
+      "fixAMMv1_2",
+      "fixAMMv1_3",
+      "fixAmendmentMajorityCalc",
+      "fixCheckThreading",
+      "fixCleanup3_1_3",
+      "fixCleanup3_2_0",
+      "fixCleanup3_3_0",
+      "fixDirectoryLimit",
+      "fixDisallowIncomingV1",
+      "fixEmptyDID",
+      "fixEnforceNFTokenTrustline",
+      "fixEnforceNFTokenTrustlineV2",
+      "fixFillOrKill",
+      "fixFrozenLPTokenTransfer",
+      "fixIncludeKeyletFields",
+      "fixInnerObjTemplate",
+      "fixInnerObjTemplate2",
+      "fixInvalidTxFlags",
+      "fixMPTDeliveredAmount",
+      "fixMasterKeyAsRegularKey",
+      "fixNFTokenPageLinks",
+      "fixNFTokenRemint",
+      "fixNFTokenReserve",
+      "fixNonFungibleTokensV1_2",
+      "fixPayChanCancelAfter",
+      "fixPayChanRecipientOwnerDir",
+      "fixPreviousTxnID",
+      "fixPriceOracleOrder",
+      "fixQualityUpperBound",
+      "fixReducedOffersV1",
+      "fixReducedOffersV2",
+      "fixRemoveNFTokenAutoTrustLine",
+      "fixRmSmallIncreasedQOffers",
+      "fixSTAmountCanonicalize",
+      "fixTakerDryOfferRemoval",
+      "fixTokenEscrowV1",
+      "fixTrustLinesToSelf",
+      "fixUniversalNumber"
+    ]
+  },
+  "account": {
+    "address": "rJRH1GWyAGwyHdmU4St62stH5c9rNQfc9w",
+    "fundedXrp": 100
+  },
+  "quota": {
+    "before": {
+      "provider": "claude",
+      "percentRemaining": 91,
+      "windowId": "seven_day",
+      "resetsAt": "2026-10-03T15:59:59.636635+00:00",
+      "readAt": "2026-09-29T00:52:22.820Z"
+    },
+    "after": {
+      "provider": "claude",
+      "percentRemaining": 91,
+      "windowId": "seven_day",
+      "resetsAt": "2026-10-03T15:59:59.592182+00:00",
+      "readAt": "2026-09-29T00:56:35.864Z"
+    }
+  },
+  "agentSeconds": 253,
+  "agentInfo": {
+    "cli": "claude",
+    "cliVersion": "2.1.281 (Claude Code)",
+    "model": "claude-sonnet-5",
+    "modelMatchesExpected": true,
+    "sessionId": "6216e2bf-3b3b-4bca-bd00-5f0efe167150",
+    "tools": [
+      "Task",
+      "Bash",
+      "CronCreate",
+      "CronDelete",
+      "CronList",
+      "DesignSync",
+      "Edit",
+      "EnterWorktree",
+      "ExitWorktree",
+      "ListAgents",
+      "Monitor",
+      "NotebookEdit",
+      "PushNotification",
+      "Read",
+      "RemoteTrigger",
+      "ReportFindings",
+      "ScheduleWakeup",
+      "SendMessage",
+      "Skill",
+      "TaskStop",
+      "ToolSearch",
+      "WebFetch",
+      "WebSearch",
+      "Workflow",
+      "Write"
+    ],
+    "skillsVisible": [
+      "deep-research",
+      "design",
+      "design-sync",
+      "dataviz",
+      "update-config",
+      "verify",
+      "debug",
+      "code-review",
+      "simplify",
+      "batch",
+      "fewer-permission-prompts",
+      "doctor",
+      "loop",
+      "schedule",
+      "claude-api",
+      "workflow-authoring",
+      "run",
+      "run-skill-generator"
+    ],
+    "mcpServers": []
+  },
+  "usage": {
+    "inputTokens": 86,
+    "cachedInputTokens": 1946576,
+    "cacheCreationTokens": 41734,
+    "outputTokens": 14680,
+    "reasoningTokens": 4529,
+    "costUsd": 0.7032232000000003
+  },
+  "turns": [
+    {
+      "index": 0,
+      "startedAt": "2026-09-29T00:52:22.833Z",
+      "endedAt": "2026-09-29T00:56:35.374Z",
+      "exitCode": 0,
+      "timedOut": false,
+      "isError": false,
+      "askedQuestion": false,
+      "usage": {
+        "inputTokens": 86,
+        "cachedInputTokens": 1946576,
+        "cacheCreationTokens": 41734,
+        "outputTokens": 14680,
+        "reasoningTokens": 4529,
+        "costUsd": 0.7032232000000003
+      },
+      "numTurns": 43,
+      "terminalReason": "completed",
+      "finalTextChars": 1529
+    }
+  ],
+  "clarifyReplies": 0,
+  "timedOut": false,
+  "check": {
+    "status": "pass",
+    "failed": []
+  },
+  "xrpl": {
+    "installedVersion": "5.3.0",
+    "dependencySpec": "^5.3.0"
+  },
+  "infra": {
+    "verdict": "ok",
+    "rerun": false,
+    "reasons": [],
+    "signals": {
+      "faucetErrors": [],
+      "rippledErrors": [],
+      "sandboxDenials": [],
+      "healthOutageProbes": 0,
+      "healthProbes": 9
+    }
+  },
+  "wallClockSeconds": 263,
+  "redactedFiles": 4,
+  "capture": {
+    "files": 7,
+    "skippedLarge": [],
+    "renamedGitignores": [
+      ".gitignore"
+    ]
+  }
+}

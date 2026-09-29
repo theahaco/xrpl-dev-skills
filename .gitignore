@@ -2,3 +2,9 @@
 *.swp
 *.swo
 *~
+
+# eval harness
+eval/node_modules/
+eval/.cache/
+eval/results/.reservations/
+eval/results/.selftest-*

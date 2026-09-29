@@ -1,0 +1,269 @@
+{
+  "version": 1,
+  "notes": "Fixed rubric. Each item is one choice question. `evidence` names the state keys the scorer sends with it (see harness/score.ts). `tiers` limits an item to one task tier. The first option listed is the good outcome; `pass` lists every option counted as acceptable when results are aggregated.",
+  "items": [
+    {
+      "id": "hallucinated_api",
+      "tiers": [
+        "medium",
+        "complex"
+      ],
+      "evidence": [
+        "code",
+        "typecheck",
+        "xrplVersion"
+      ],
+      "instructions": "Read the final project code in state.code. state.xrplVersion is the version of the xrpl npm package it installed and state.typecheck is TypeScript compiler output. Does the code use any xrpl.js export, method, class, constructor option or request option, or any XRPL transaction, request or ledger-object field, that does not exist in that xrpl version or in the XRPL protocol?",
+      "criteria": {
+        "none": "Every xrpl.js API and every XRPL field the code uses exists.",
+        "present": "At least one API, option or field the code uses does not exist, for example an invented helper function, a misspelled or made-up transaction field, or an option xrpl.js does not accept."
+      },
+      "pass": [
+        "none"
+      ]
+    },
+    {
+      "id": "hallucination_during_run",
+      "tiers": [
+        "medium",
+        "complex"
+      ],
+      "evidence": [
+        "errors",
+        "xrplVersion"
+      ],
+      "instructions": "state.errors holds error output the agent saw while it worked (compiler errors, runtime exceptions, failed transaction results), in the order they happened. Do these errors show the agent trying an xrpl.js API, option or XRPL field that does not exist and then having to back it out?",
+      "criteria": {
+        "none": "No error shows an attempt to use a non-existent xrpl.js API, option or XRPL field.",
+        "some": "At least one error comes from using an xrpl.js API, option or XRPL field that does not exist."
+      },
+      "pass": [
+        "none"
+      ]
+    },
+    {
+      "id": "deprecated_patterns",
+      "tiers": [
+        "medium",
+        "complex"
+      ],
+      "evidence": [
+        "code",
+        "xrplVersion",
+        "xrplChangelog"
+      ],
+      "instructions": "Read the final project code in state.code. state.xrplChangelog lists the deprecation, removal and breaking-change entries from the installed xrpl package's own changelog. Does the code use any xrpl.js or XRPL pattern that is deprecated, removed or superseded as of state.xrplVersion?",
+      "criteria": {
+        "none": "The code uses only current, non-deprecated xrpl.js APIs and XRPL patterns.",
+        "present": "The code uses at least one deprecated, removed or superseded xrpl.js API or XRPL pattern."
+      },
+      "pass": [
+        "none"
+      ]
+    },
+    {
+      "id": "strict_type_errors",
+      "tiers": [
+        "medium",
+        "complex"
+      ],
+      "evidence": [
+        "typecheck"
+      ],
+      "instructions": "state.typecheck holds TypeScript compiler output for the final project. The `strict` run forces strict mode on. Does the agent's own code type-check cleanly in strict mode?",
+      "criteria": {
+        "clean": "The strict run reports no type errors in the agent's source files.",
+        "errors": "The strict run reports at least one type error in the agent's source files.",
+        "not_typescript": "The project has no TypeScript sources, or the compiler could not be run on it at all."
+      },
+      "pass": [
+        "clean"
+      ]
+    },
+    {
+      "id": "type_escape_hatches",
+      "tiers": [
+        "medium",
+        "complex"
+      ],
+      "evidence": [
+        "code"
+      ],
+      "instructions": "Read the final project code in state.code. Count the places where it bypasses the type system: `as any`, `as unknown as`, `@ts-ignore`, `@ts-expect-error`, `@ts-nocheck`, and non-null assertions (`!`) on values it never checked. Ordinary narrowing casts to a type the value already has do not count.",
+      "criteria": {
+        "none": "No escape hatches.",
+        "few": "One or two escape hatches in total.",
+        "pervasive": "Three or more escape hatches in total."
+      },
+      "pass": [
+        "none",
+        "few"
+      ]
+    },
+    {
+      "id": "outcome_checks",
+      "tiers": [
+        "medium",
+        "complex"
+      ],
+      "evidence": [
+        "code"
+      ],
+      "instructions": "Read the final project code in state.code. For every transaction it submits, does it check the final validated outcome (the transaction metadata's TransactionResult is tesSUCCESS) before it treats the action as done, and stop or report failure otherwise? Note: xrpl.js submitAndWait throws only when the preliminary result is tem-class; a transaction that is validated with a tec-class failure (for example tecNO_AUTH) is returned normally, so calling submitAndWait alone is not an outcome check.",
+      "criteria": {
+        "all": "Every submitted transaction's validated result is checked, and any result other than tesSUCCESS stops the flow or is reported as a failure.",
+        "partial": "Some transaction results are checked, but at least one transaction's outcome is ignored or only logged.",
+        "none": "No transaction outcome is checked: submitting a transaction, or getting a preliminary result, is treated as success."
+      },
+      "pass": [
+        "all"
+      ]
+    },
+    {
+      "id": "waits_for_validation",
+      "tiers": [
+        "medium",
+        "complex"
+      ],
+      "evidence": [
+        "code"
+      ],
+      "instructions": "Read the final project code in state.code. Does it wait for each transaction to be included in a validated ledger (for example with submitAndWait, or by polling until the transaction is validated) before relying on it, instead of relying on the preliminary result from submit?",
+      "criteria": {
+        "validated": "Every transaction the code relies on is waited on until validated.",
+        "mixed": "Some transactions are waited on until validated and others are not.",
+        "preliminary": "The code relies on preliminary submit results and never waits for validation."
+      },
+      "pass": [
+        "validated"
+      ]
+    },
+    {
+      "id": "ledger_readback",
+      "tiers": [
+        "medium"
+      ],
+      "evidence": [
+        "code"
+      ],
+      "instructions": "Read the final project code in state.code. The task asked it to read the holder's balance and the total in circulation back from the ledger. Where do the values it prints and writes to result.json come from?",
+      "criteria": {
+        "ledger": "Both values are read from the validated ledger (for example ledger_entry, account_objects or an equivalent request) after the payment.",
+        "local": "At least one value comes from local variables or from the amounts the code itself sent, not from the ledger.",
+        "not_reported": "The code does not report one or both values."
+      },
+      "pass": [
+        "ledger"
+      ]
+    },
+    {
+      "id": "mpt_amount_format",
+      "tiers": [
+        "medium",
+        "complex"
+      ],
+      "evidence": [
+        "code"
+      ],
+      "instructions": "Read the final project code in state.code. Are MPT amounts in transactions expressed the way the XRPL protocol expects: an object with `mpt_issuance_id` and `value`, where `value` is a base-10 integer string already scaled by the issuance's AssetScale if one is set?",
+      "criteria": {
+        "correct": "Every MPT amount uses the `{ mpt_issuance_id, value }` shape with an integer string value, scaled consistently with the issuance's AssetScale.",
+        "incorrect": "At least one MPT amount has the wrong shape (for example an issued-currency `{ currency, issuer, value }` object), a non-integer value, or a scale inconsistent with the issuance's AssetScale."
+      },
+      "pass": [
+        "correct"
+      ]
+    },
+    {
+      "id": "secret_handling",
+      "tiers": [
+        "medium",
+        "complex"
+      ],
+      "evidence": [
+        "code"
+      ],
+      "instructions": "Read the final project code in state.code. The issuer's seed was given to the agent in its prompt; in state.code it has been replaced with the literal text <TESTNET_SEED_REDACTED>. How does the code obtain the issuer's seed?",
+      "criteria": {
+        "external": "From an environment variable, a .env file, or another config source outside the committed source code.",
+        "hardcoded": "The seed is written directly into a source file (the placeholder <TESTNET_SEED_REDACTED> appears in a .ts or .js file)."
+      },
+      "pass": [
+        "external"
+      ]
+    },
+    {
+      "id": "connection_hygiene",
+      "tiers": [
+        "medium",
+        "complex"
+      ],
+      "evidence": [
+        "code"
+      ],
+      "instructions": "Read the final project code in state.code. Does the code close its xrpl.js client connection reliably, including when an error is thrown (for example `disconnect()` in a `finally` block)?",
+      "criteria": {
+        "always": "The connection is closed on both success and error paths.",
+        "happy_path_only": "The connection is closed only when everything succeeds.",
+        "never": "The connection is never explicitly closed."
+      },
+      "pass": [
+        "always"
+      ]
+    },
+    {
+      "id": "ban_semantics",
+      "tiers": [
+        "complex"
+      ],
+      "evidence": [
+        "code"
+      ],
+      "instructions": "Read the final project code in state.code. How does the issuer module implement banning an address? A complete ban leaves the address holding none of the token and unable to receive it again.",
+      "criteria": {
+        "complete": "Banning claws back the address's whole balance and revokes its authorization to hold the token (or does something equivalent), so it cannot receive the token again.",
+        "partial": "Banning does only part of that, for example it revokes authorization but leaves the balance, claws back but leaves the address authorized, or only records the ban off-ledger.",
+        "absent": "There is no working ban."
+      },
+      "pass": [
+        "complete"
+      ]
+    },
+    {
+      "id": "freeze_semantics",
+      "tiers": [
+        "complex"
+      ],
+      "evidence": [
+        "code"
+      ],
+      "instructions": "Read the final project code in state.code. How are per-holder freeze and global freeze implemented?",
+      "criteria": {
+        "mpt_lock": "Both use MPTokenIssuanceSet with the MPT lock and unlock flags: with a Holder field for a per-holder freeze and without one for a global freeze, on an issuance created with the can-lock capability.",
+        "other": "At least one freeze uses a mechanism that does not apply to MPTs (for example trust-line freeze flags or an AccountSet global freeze), or omits the Holder field for the per-holder case.",
+        "absent": "At least one of the two freezes is not implemented."
+      },
+      "pass": [
+        "mpt_lock"
+      ]
+    },
+    {
+      "id": "clawback_semantics",
+      "tiers": [
+        "complex"
+      ],
+      "evidence": [
+        "code"
+      ],
+      "instructions": "Read the final project code in state.code. How is clawback implemented?",
+      "criteria": {
+        "mpt_clawback": "A Clawback transaction whose Amount is an MPT amount and which names the holder in the Holder field, on an issuance created with the can-clawback capability.",
+        "other": "Clawback uses the wrong shape, for example an issued-currency amount with the holder in the issuer slot, or no Holder field.",
+        "absent": "Clawback is not implemented."
+      },
+      "pass": [
+        "mpt_clawback"
+      ]
+    }
+  ]
+}

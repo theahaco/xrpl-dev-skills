@@ -1,0 +1,55 @@
+// Scrubs secrets from everything written under a results directory before it
+// can be committed: the harness's known secrets (the funded seed, copied OAuth
+// tokens) plus anything shaped like an XRPL seed or private key, since agents
+// print the keys of the holder wallets they create.
+import fs from "node:fs";
+import { isProbablyText, walkFiles } from "./util.ts";
+
+export const SEED_PLACEHOLDER = "<TESTNET_SEED_REDACTED>";
+const TOKEN_PLACEHOLDER = "<CREDENTIAL_REDACTED>";
+const KEY_PLACEHOLDER = "<TESTNET_PRIVATE_KEY_REDACTED>";
+
+const B58 = "[1-9A-HJ-NP-Za-km-z]";
+const PATTERNS: Array<[RegExp, string]> = [
+  [new RegExp(`\\bsEd${B58}{28}\\b`, "g"), SEED_PLACEHOLDER],
+  [new RegExp(`\\bs${B58}{28}\\b`, "g"), SEED_PLACEHOLDER],
+  [/\bED[0-9A-Fa-f]{64}\b/g, KEY_PLACEHOLDER],
+  [/\b00[0-9A-F]{64}\b/g, KEY_PLACEHOLDER],
+];
+
+export type Secret = { value: string; kind: "seed" | "token" };
+
+export function redactText(text: string, secrets: Secret[]): string {
+  let out = text;
+  for (const s of secrets) {
+    if (s.value.length < 8) continue;
+    out = out.split(s.value).join(s.kind === "seed" ? SEED_PLACEHOLDER : TOKEN_PLACEHOLDER);
+  }
+  for (const [re, placeholder] of PATTERNS) out = out.replace(re, placeholder);
+  return out;
+}
+
+export function redactTree(dir: string, secrets: Secret[]): number {
+  let changed = 0;
+  for (const f of walkFiles(dir, [])) {
+    const buf = fs.readFileSync(f.abs);
+    if (!isProbablyText(buf)) continue;
+    const before = buf.toString("utf8");
+    const after = redactText(before, secrets);
+    if (after !== before) {
+      fs.writeFileSync(f.abs, after);
+      changed++;
+    }
+  }
+  return changed;
+}
+
+// Files that still contain a known secret after redaction.
+export function leakedSecrets(dir: string, secrets: Secret[]): string[] {
+  const leaks: string[] = [];
+  for (const f of walkFiles(dir, [])) {
+    const text = fs.readFileSync(f.abs, "utf8");
+    if (secrets.some((s) => s.value.length >= 8 && text.includes(s.value))) leaks.push(f.rel);
+  }
+  return leaks;
+}

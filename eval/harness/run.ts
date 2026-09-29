@@ -1,0 +1,286 @@
+// One run: (agent, tier, arm, rep) -> a results directory.
+import fs from "node:fs";
+import path from "node:path";
+import { launchAgent, type AgentRun } from "./agents.ts";
+import { type CheckResult, checkRun } from "./check.ts";
+import {
+  AGENTS,
+  type AgentName,
+  type Arm,
+  armHasResearch,
+  armHasSkill,
+  CACHE_DIR,
+  RESULTS_DIR,
+  SANDBOX_ROOT,
+  SKILL_INSTALL_DIR,
+  TASKS_DIR,
+  type Tier,
+  TIME_CAP_MINUTES,
+  UPSTREAM_SKILL_REF,
+  UPSTREAM_SKILL_REPO,
+} from "./config.ts";
+import { type Credential, claudeCredential, codexCredential, removeCredentialFiles, writeCredentialFiles } from "./credentials.ts";
+import { classify, HealthMonitor, type InfraVerdict } from "./infra.ts";
+import { weeklyQuota, type QuotaReading } from "./budget.ts";
+import { leakedSecrets, redactText, redactTree, type Secret } from "./redact.ts";
+import { agentEnv, createWorkspace, isolationSelfTest, linkToolchain, resolveToolchain, writeProfile, type IsolationCheck } from "./sandbox.ts";
+import { typecheck } from "./typecheck.ts";
+import { copyFiles, exec, execOk, hashTree, log, nowIso, randomHex, readJsonIfExists, walkFiles, writeJson } from "./util.ts";
+import { fundAccount, type FundedAccount, InfraError, networkSnapshot, type NetworkSnapshot } from "./xrpl-rpc.ts";
+
+export type RunSpec = { agent: AgentName; tier: Tier; arm: Arm; rep: number };
+
+export type RunRecord = RunSpec & {
+  runId: string;
+  status: "complete" | "infra" | "error";
+  attempt: number;
+  rerunOf?: string;
+  startedAt: string;
+  endedAt: string;
+  timeCapMinutes: number;
+  wallClockSeconds?: number;
+  agentSeconds?: number;
+  host: { platform: string; osVersion: string; node: string; npm: string };
+  agentInfo?: {
+    cli: string;
+    cliVersion: string;
+    model?: string;
+    effort?: string;
+    modelMatchesExpected?: boolean;
+    sessionId?: string;
+    tools?: string[];
+    skillsVisible?: string[];
+    mcpServers?: unknown[];
+  };
+  skill?: { repo: string; ref: string; commit: string; installCommand: string; installDir: string; hashBefore: string; hashAfter?: string };
+  account?: { address: string; fundedXrp: number };
+  network?: NetworkSnapshot;
+  isolation?: { mechanism: string; passed: boolean; checks: IsolationCheck[] };
+  usage?: AgentRun["usage"];
+  turns?: Array<Omit<AgentRun["turns"][number], "finalText" | "input"> & { finalTextChars: number }>;
+  clarifyReplies?: number;
+  timedOut?: boolean;
+  quota?: { before?: QuotaReading; after?: QuotaReading };
+  xrpl?: { installedVersion?: string; dependencySpec?: string };
+  check?: { status: CheckResult["status"]; failed: string[] };
+  infra?: InfraVerdict;
+  error?: string;
+  redactedFiles?: number;
+  capture?: { files: number; skippedLarge: string[]; renamedGitignores: string[] };
+};
+
+export const runId = (s: RunSpec): string => `${s.tier}__${s.agent}__${s.arm}__r${s.rep}`;
+
+export function composePrompt(tier: Tier, arm: Arm, account: FundedAccount): string {
+  const task = fs.readFileSync(path.join(TASKS_DIR, `${tier}.md`), "utf8").trim();
+  const env = fs
+    .readFileSync(path.join(TASKS_DIR, "environment.md"), "utf8")
+    .replace("{{ADDRESS}}", account.address)
+    .replace("{{SEED}}", account.seed)
+    .replace("{{FUNDED_XRP}}", String(Math.floor(account.fundedXrp)))
+    .trim();
+  const parts = armHasResearch(arm) ? [fs.readFileSync(path.join(TASKS_DIR, "research-preamble.md"), "utf8").trim(), task, env] : [task, env];
+  return `${parts.join("\n\n")}\n`;
+}
+
+// Clones upstream once per harness process, pinned to one commit for the set.
+let upstreamCache: { dir: string; commit: string } | undefined;
+async function upstreamSkill(): Promise<{ dir: string; commit: string }> {
+  if (upstreamCache) return upstreamCache;
+  const dir = path.join(CACHE_DIR, "upstream-skill");
+  fs.rmSync(dir, { recursive: true, force: true });
+  await execOk("git", ["clone", "--quiet", "--depth", "1", "--branch", UPSTREAM_SKILL_REF, UPSTREAM_SKILL_REPO, dir]);
+  const commit = (await execOk("git", ["-C", dir, "rev-parse", "HEAD"])).trim();
+  upstreamCache = { dir, commit };
+  return upstreamCache;
+}
+
+async function installSkill(spec: RunSpec, projectDir: string, env: NodeJS.ProcessEnv): Promise<NonNullable<RunRecord["skill"]>> {
+  const up = await upstreamSkill();
+  const provider = AGENTS[spec.agent].provider;
+  const installDir = SKILL_INSTALL_DIR[provider];
+  // Upstream's own installer. Claude gets its documented --project form; for
+  // Codex the installer has no matching option, so --path points it at the
+  // directory Codex loads.
+  const args = provider === "claude" ? ["--project"] : ["--path", installDir];
+  await execOk("/bin/bash", [path.join(up.dir, "install.sh"), ...args], { cwd: projectDir, env });
+  return {
+    repo: UPSTREAM_SKILL_REPO,
+    ref: UPSTREAM_SKILL_REF,
+    commit: up.commit,
+    installCommand: `install.sh ${args.join(" ")}`,
+    installDir,
+    hashBefore: hashTree(path.join(projectDir, installDir)),
+  };
+}
+
+async function hostInfo(): Promise<RunRecord["host"]> {
+  const os = process.platform === "darwin" ? (await exec("/usr/bin/sw_vers", ["-productVersion"])).stdout.trim() : "";
+  return { platform: process.platform, osVersion: os, node: process.version, npm: (await exec("npm", ["--version"])).stdout.trim() };
+}
+
+async function quotaSafe(provider: "claude" | "codex"): Promise<QuotaReading | undefined> {
+  try {
+    return await weeklyQuota(provider);
+  } catch (err) {
+    log(`quota read failed: ${String(err)}`);
+    return undefined;
+  }
+}
+
+export type RunOptions = { keepWorkspace?: boolean; attempt?: number; rerunOf?: string; outDir?: string };
+
+export async function runOne(spec: RunSpec, opts: RunOptions = {}): Promise<RunRecord> {
+  const id = runId(spec);
+  const outDir = opts.outDir ?? path.join(RESULTS_DIR, id);
+  if (fs.existsSync(outDir)) throw new Error(`${outDir} already exists; move it aside to re-run`);
+  const transcriptDir = path.join(outDir, "transcript");
+  fs.mkdirSync(transcriptDir, { recursive: true });
+  const provider = AGENTS[spec.agent].provider;
+  const capMs = TIME_CAP_MINUTES[spec.tier] * 60_000;
+  const record: RunRecord = {
+    ...spec,
+    runId: id,
+    status: "error",
+    attempt: opts.attempt ?? 1,
+    ...(opts.rerunOf ? { rerunOf: opts.rerunOf } : {}),
+    startedAt: nowIso(),
+    endedAt: "",
+    timeCapMinutes: TIME_CAP_MINUTES[spec.tier],
+    host: await hostInfo(),
+  };
+  const secrets: Secret[] = [];
+  const started = Date.now();
+  const wsRoot = path.join(SANDBOX_ROOT, randomHex(6));
+  const ws = createWorkspace(wsRoot, outDir);
+  let cred: Credential | undefined;
+  let monitor: HealthMonitor | undefined;
+  try {
+    cred = provider === "claude" ? await claudeCredential(capMs + 20 * 60_000) : await codexCredential(capMs + 20 * 60_000);
+    for (const s of cred.secrets) secrets.push({ value: s, kind: "token" });
+    const tc = await resolveToolchain();
+    await writeProfile(ws, tc);
+    const pathVar = linkToolchain(ws, tc);
+    const extra: Record<string, string> =
+      provider === "claude"
+        ? { CLAUDE_CONFIG_DIR: ws.config, ENABLE_CLAUDEAI_MCP_SERVERS: "false", DISABLE_AUTOUPDATER: "1" }
+        : { CODEX_HOME: ws.config };
+    const env = agentEnv(ws, pathVar, extra);
+    await execOk("git", ["init", "--quiet", ws.project], { env });
+    if (armHasSkill(spec.arm)) record.skill = await installSkill(spec, ws.project, env);
+
+    const checks = await isolationSelfTest(ws, env);
+    fs.rmSync(path.join(ws.home, ".npm"), { recursive: true, force: true });
+    record.isolation = { mechanism: "macOS sandbox-exec (Seatbelt) profile + scrubbed env + throwaway HOME/config dir", passed: checks.every((c) => c.ok), checks };
+    writeJson(path.join(outDir, "isolation.json"), record.isolation);
+    if (!record.isolation.passed) throw new Error(`isolation self-test failed: ${checks.filter((c) => !c.ok).map((c) => c.name).join(", ")}`);
+
+    let account: FundedAccount;
+    try {
+      record.network = await networkSnapshot();
+      account = await fundAccount();
+    } catch (err) {
+      if (!(err instanceof InfraError)) throw err;
+      record.status = "infra";
+      record.infra = classify({ preflightError: err.message, transcriptFile: "", probes: [] });
+      writeJson(path.join(outDir, "infra.json"), record.infra);
+      return record;
+    }
+    secrets.push({ value: account.seed, kind: "seed" });
+    record.account = { address: account.address, fundedXrp: account.fundedXrp };
+    const prompt = composePrompt(spec.tier, spec.arm, account);
+    fs.writeFileSync(path.join(outDir, "prompt.md"), redactText(prompt, secrets));
+
+    writeCredentialFiles(ws.config, cred);
+    record.quota = { before: await quotaSafe(provider) };
+    monitor = new HealthMonitor(path.join(outDir, "health.jsonl"));
+    monitor.start();
+    log(`${id}: launching ${spec.agent} in ${ws.project} (cap ${TIME_CAP_MINUTES[spec.tier]} min)`);
+    const agentStarted = Date.now();
+    const agentRun = await launchAgent({
+      agent: spec.agent,
+      ws,
+      env,
+      prompt,
+      deadline: agentStarted + capMs,
+      transcriptDir,
+      deliverablePath: path.join(ws.project, "result.json"),
+    });
+    record.agentSeconds = Math.round((Date.now() - agentStarted) / 1000);
+    const probes = monitor.stop();
+    removeCredentialFiles(ws.config, cred);
+    record.quota.after = await quotaSafe(provider);
+
+    const expect = AGENTS[spec.agent];
+    record.agentInfo = {
+      cli: provider,
+      cliVersion: agentRun.cliVersion,
+      model: agentRun.model,
+      effort: agentRun.effort,
+      ...("expectModel" in expect && agentRun.model ? { modelMatchesExpected: expect.expectModel.test(agentRun.model) } : {}),
+      sessionId: agentRun.sessionId,
+      tools: agentRun.tools,
+      skillsVisible: agentRun.skillsVisible,
+      mcpServers: agentRun.mcpServers,
+    };
+    record.usage = agentRun.usage;
+    record.turns = agentRun.turns.map(({ finalText, input: _input, ...t }) => ({ ...t, finalTextChars: finalText.length }));
+    record.clarifyReplies = agentRun.clarifyReplies;
+    record.timedOut = agentRun.timedOut;
+    fs.writeFileSync(path.join(transcriptDir, "final-message.md"), agentRun.turns.at(-1)?.finalText ?? "");
+    const sessionsDir = path.join(transcriptDir, "sessions");
+    for (const f of agentRun.sessionFiles) {
+      fs.mkdirSync(sessionsDir, { recursive: true });
+      fs.copyFileSync(f, path.join(sessionsDir, path.basename(f)));
+    }
+
+    log(`${id}: checking ledger state for ${account.address}`);
+    const check = await checkRun(spec.tier, account.address, ws.project);
+    writeJson(path.join(outDir, "check.json"), check);
+    record.check = { status: check.status, failed: check.criteria.filter((c) => !c.pass).map((c) => c.id) };
+
+    const tcResult = await typecheck(ws.project, env);
+    writeJson(path.join(outDir, "typecheck.json"), tcResult);
+
+    const skip = ["node_modules", ".git", SKILL_INSTALL_DIR[provider]];
+    const all = walkFiles(ws.project, skip);
+    const files = all.filter((f) => f.size <= 2_000_000);
+    const finalDir = path.join(outDir, "final");
+    copyFiles(files, finalDir);
+    // An agent's .gitignore would hide captured files (dist/, .env) from the
+    // results commit, so it is stored under another name.
+    const renamed: string[] = [];
+    for (const f of walkFiles(finalDir, [])) {
+      if (path.basename(f.rel) !== ".gitignore") continue;
+      fs.renameSync(f.abs, path.join(path.dirname(f.abs), "_gitignore"));
+      renamed.push(f.rel);
+    }
+    record.capture = { files: files.length, skippedLarge: all.filter((f) => f.size > 2_000_000).map((f) => f.rel), renamedGitignores: renamed };
+    const xrplPkg = readJsonIfExists<{ version?: string }>(path.join(ws.project, "node_modules", "xrpl", "package.json"));
+    const projectPkg = readJsonIfExists<{ dependencies?: Record<string, string>; devDependencies?: Record<string, string> }>(path.join(ws.project, "package.json"));
+    record.xrpl = { installedVersion: xrplPkg?.version, dependencySpec: projectPkg?.dependencies?.xrpl ?? projectPkg?.devDependencies?.xrpl };
+    if (record.skill) record.skill.hashAfter = hashTree(path.join(ws.project, record.skill.installDir));
+
+    record.infra = classify({ check, transcriptFile: path.join(transcriptDir, "agent.jsonl"), probes });
+    writeJson(path.join(outDir, "infra.json"), record.infra);
+    record.status = record.infra.verdict === "infra" ? "infra" : "complete";
+    return record;
+  } catch (err) {
+    record.status = "error";
+    record.error = err instanceof Error ? err.message : String(err);
+    return record;
+  } finally {
+    monitor?.stop();
+    if (cred) removeCredentialFiles(ws.config, cred);
+    record.endedAt = nowIso();
+    record.wallClockSeconds = Math.round((Date.now() - started) / 1000);
+    if (record.error) record.error = redactText(record.error, secrets);
+    writeJson(path.join(outDir, "run.json"), record);
+    record.redactedFiles = redactTree(outDir, secrets);
+    writeJson(path.join(outDir, "run.json"), record);
+    const leaks = leakedSecrets(outDir, secrets);
+    if (leaks.length) throw new Error(`secrets survived redaction in ${leaks.join(", ")}; do not commit ${outDir}`);
+    if (!opts.keepWorkspace) fs.rmSync(wsRoot, { recursive: true, force: true });
+    log(`${id}: ${record.status}${record.check ? ` / ledger check ${record.check.status}` : ""}${record.error ? ` (${record.error})` : ""}`);
+  }
+}
