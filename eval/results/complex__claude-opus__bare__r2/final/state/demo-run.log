@@ -1,0 +1,177 @@
+
+▶ Loading issuer (ISSUER_SEED)
+  ✓ issuer rfu13rmCe5pMqgUjYXRgXoe9mXx3nUuZWm, balance 100 XRP
+
+▶ Creating holder accounts A, B, C (funded with 5 XRP each from the issuer)
+    · tx.submit txType=Payment hash=C6E3D24A381899B2F87BEAC5DEE23718C178ACD3F980F51C6695F923EC6F81E7 account=rfu13rmCe5pMqgUjYXRgXoe9mXx3nUuZWm sequence=21143527 lastLedgerSequence=21143937
+    · tx.validated txType=Payment hash=C6E3D24A381899B2F87BEAC5DEE23718C178ACD3F980F51C6695F923EC6F81E7 resultCode=tesSUCCESS ledgerIndex=21143918
+    · tx.submit txType=Payment hash=7A9B97D29EC55485BDF6C462121FA695B8DE64D7A734F89989030BE3FA65451D account=rfu13rmCe5pMqgUjYXRgXoe9mXx3nUuZWm sequence=21143528 lastLedgerSequence=21143938
+    · tx.validated txType=Payment hash=7A9B97D29EC55485BDF6C462121FA695B8DE64D7A734F89989030BE3FA65451D resultCode=tesSUCCESS ledgerIndex=21143920
+    · tx.submit txType=Payment hash=2E926FB6F007C71C9239C2FD945C284AFEA888560C23614B34EDA63EC791601D account=rfu13rmCe5pMqgUjYXRgXoe9mXx3nUuZWm sequence=21143529 lastLedgerSequence=21143940
+    · tx.validated txType=Payment hash=2E926FB6F007C71C9239C2FD945C284AFEA888560C23614B34EDA63EC791601D resultCode=tesSUCCESS ledgerIndex=21143921
+  ✓ holder A: r4hQCa3vDnSjkMgQBgrx1kGGBZ5PFJDH2B
+  ✓ holder B: rU5Ct6S1Gz2vTu28tVTtQWZJZ9JMJSJRPU
+  ✓ holder C: rnuKDS6p2QuYJK8nHRN5GpJQ7ypTVfof1T
+
+▶ Creating the MPT issuance (allowlist + clawback + freeze controls)
+    · tx.submit txType=MPTokenIssuanceCreate hash=403F3E1F4E5BF7382F90A88929CABA481AFF72BB53CBB603E67412F7FF91648C account=rfu13rmCe5pMqgUjYXRgXoe9mXx3nUuZWm sequence=21143530 lastLedgerSequence=21143941
+    · tx.validated txType=MPTokenIssuanceCreate hash=403F3E1F4E5BF7382F90A88929CABA481AFF72BB53CBB603E67412F7FF91648C resultCode=tesSUCCESS ledgerIndex=21143923
+    · issuance.created issuanceId=01429FEA4BD0393AACA89CDFC3B04BFA43AE2854272BCB2C txHash=403F3E1F4E5BF7382F90A88929CABA481AFF72BB53CBB603E67412F7FF91648C
+  ✓ issuance 01429FEA4BD0393AACA89CDFC3B04BFA43AE2854272BCB2C
+
+▶ Allowlist: holders opt in; nothing moves until the issuer approves them
+    · tx.submit txType=MPTokenAuthorize hash=1C634F5075F65A148E32ECBD69C13CA7A31ECB0FD027E8E5195E07AC4EB6A6CA account=r4hQCa3vDnSjkMgQBgrx1kGGBZ5PFJDH2B sequence=21143918 lastLedgerSequence=21143943
+    · tx.validated txType=MPTokenAuthorize hash=1C634F5075F65A148E32ECBD69C13CA7A31ECB0FD027E8E5195E07AC4EB6A6CA resultCode=tesSUCCESS ledgerIndex=21143925
+    · tx.submit txType=MPTokenAuthorize hash=D6CD39836E1D741687C1316390C6856C0CFC63FCD2A6AD04844FBA7E6B8152F7 account=rU5Ct6S1Gz2vTu28tVTtQWZJZ9JMJSJRPU sequence=21143920 lastLedgerSequence=21143945
+    · tx.validated txType=MPTokenAuthorize hash=D6CD39836E1D741687C1316390C6856C0CFC63FCD2A6AD04844FBA7E6B8152F7 resultCode=tesSUCCESS ledgerIndex=21143926
+    · tx.submit txType=MPTokenAuthorize hash=CBF7CB2CD18619ADCF35F1BD17349B598DB55870CFFD256AB5845AA49E293FCA account=rnuKDS6p2QuYJK8nHRN5GpJQ7ypTVfof1T sequence=21143921 lastLedgerSequence=21143946
+    · tx.validated txType=MPTokenAuthorize hash=CBF7CB2CD18619ADCF35F1BD17349B598DB55870CFFD256AB5845AA49E293FCA resultCode=tesSUCCESS ledgerIndex=21143927
+  ✓ issue to A before approval (module) → refused by the issuer module (HOLDER_NOT_AUTHORIZED)
+    · tx.submit txType=Payment hash=3261FBC0D958BB1C043A1FB47FE18DD17D4103E05E02D4B00DC3F38AADEA8BF5 account=rfu13rmCe5pMqgUjYXRgXoe9mXx3nUuZWm sequence=21143531 lastLedgerSequence=21143947
+    ! tx.validated txType=Payment hash=3261FBC0D958BB1C043A1FB47FE18DD17D4103E05E02D4B00DC3F38AADEA8BF5 resultCode=tecNO_AUTH ledgerIndex=21143929
+  ✓ raw issuer payment to unapproved A (ledger) → rejected by the ledger with tecNO_AUTH
+    · tx.submit txType=MPTokenAuthorize hash=0092EBD8960112058C62AC55D692BC95090011F5E48F347FFDC7475768AF6D49 account=rfu13rmCe5pMqgUjYXRgXoe9mXx3nUuZWm sequence=21143532 lastLedgerSequence=21143949
+    · tx.validated txType=MPTokenAuthorize hash=0092EBD8960112058C62AC55D692BC95090011F5E48F347FFDC7475768AF6D49 resultCode=tesSUCCESS ledgerIndex=21143931
+    · holder.authorized issuanceId=01429FEA4BD0393AACA89CDFC3B04BFA43AE2854272BCB2C holder=r4hQCa3vDnSjkMgQBgrx1kGGBZ5PFJDH2B txHash=0092EBD8960112058C62AC55D692BC95090011F5E48F347FFDC7475768AF6D49
+    · tx.submit txType=MPTokenAuthorize hash=8A048525570F2ED1B8486E1B236D480D01DC5BB948284F9FD03D02D7F95213C3 account=rfu13rmCe5pMqgUjYXRgXoe9mXx3nUuZWm sequence=21143533 lastLedgerSequence=21143951
+    · tx.validated txType=MPTokenAuthorize hash=8A048525570F2ED1B8486E1B236D480D01DC5BB948284F9FD03D02D7F95213C3 resultCode=tesSUCCESS ledgerIndex=21143933
+    · holder.authorized issuanceId=01429FEA4BD0393AACA89CDFC3B04BFA43AE2854272BCB2C holder=rU5Ct6S1Gz2vTu28tVTtQWZJZ9JMJSJRPU txHash=8A048525570F2ED1B8486E1B236D480D01DC5BB948284F9FD03D02D7F95213C3
+    · tx.submit txType=MPTokenAuthorize hash=F4567FE0B0AA95EEFB2B59507A9B197F249299713D49C34B42A5CB56BA6BA3E0 account=rfu13rmCe5pMqgUjYXRgXoe9mXx3nUuZWm sequence=21143534 lastLedgerSequence=21143953
+    · tx.validated txType=MPTokenAuthorize hash=F4567FE0B0AA95EEFB2B59507A9B197F249299713D49C34B42A5CB56BA6BA3E0 resultCode=tesSUCCESS ledgerIndex=21143934
+    · holder.authorized issuanceId=01429FEA4BD0393AACA89CDFC3B04BFA43AE2854272BCB2C holder=rnuKDS6p2QuYJK8nHRN5GpJQ7ypTVfof1T txHash=F4567FE0B0AA95EEFB2B59507A9B197F249299713D49C34B42A5CB56BA6BA3E0
+  ✓ A, B and C approved after (simulated) KYC
+
+▶ Issuing: A 400, B 1000, C 150; C sends 50 to A (approved holders can transfer)
+    · tx.submit txType=Payment hash=5FD9DCBCA838E4CDF6378598DAB9B7C0C2CF2382512EE0157C76C3E4782A504E account=rfu13rmCe5pMqgUjYXRgXoe9mXx3nUuZWm sequence=21143535 lastLedgerSequence=21143954
+    · tx.validated txType=Payment hash=5FD9DCBCA838E4CDF6378598DAB9B7C0C2CF2382512EE0157C76C3E4782A504E resultCode=tesSUCCESS ledgerIndex=21143936
+    · tokens.issued issuanceId=01429FEA4BD0393AACA89CDFC3B04BFA43AE2854272BCB2C holder=r4hQCa3vDnSjkMgQBgrx1kGGBZ5PFJDH2B amount=400 txHash=5FD9DCBCA838E4CDF6378598DAB9B7C0C2CF2382512EE0157C76C3E4782A504E
+    · tx.submit txType=Payment hash=F60D5FF1B6ADBC5D58AA5B1D11A62DBF763D0CDD73BC920053E57EDF224942BB account=rfu13rmCe5pMqgUjYXRgXoe9mXx3nUuZWm sequence=21143536 lastLedgerSequence=21143956
+    · tx.validated txType=Payment hash=F60D5FF1B6ADBC5D58AA5B1D11A62DBF763D0CDD73BC920053E57EDF224942BB resultCode=tesSUCCESS ledgerIndex=21143938
+    · tokens.issued issuanceId=01429FEA4BD0393AACA89CDFC3B04BFA43AE2854272BCB2C holder=rU5Ct6S1Gz2vTu28tVTtQWZJZ9JMJSJRPU amount=1000 txHash=F60D5FF1B6ADBC5D58AA5B1D11A62DBF763D0CDD73BC920053E57EDF224942BB
+    · tx.submit txType=Payment hash=51C6F44540F571C6C03976A0F8011A6C8E63654BB8E98110DDFEC52716FFE5DB account=rfu13rmCe5pMqgUjYXRgXoe9mXx3nUuZWm sequence=21143537 lastLedgerSequence=21143958
+    · tx.validated txType=Payment hash=51C6F44540F571C6C03976A0F8011A6C8E63654BB8E98110DDFEC52716FFE5DB resultCode=tesSUCCESS ledgerIndex=21143940
+    · tokens.issued issuanceId=01429FEA4BD0393AACA89CDFC3B04BFA43AE2854272BCB2C holder=rnuKDS6p2QuYJK8nHRN5GpJQ7ypTVfof1T amount=150 txHash=51C6F44540F571C6C03976A0F8011A6C8E63654BB8E98110DDFEC52716FFE5DB
+    · tx.submit txType=Payment hash=C646D8C57CEA07A0DDA7FCC8C9137A725A0C1477E39BCA7BD64EBF5FF3F4678E account=rnuKDS6p2QuYJK8nHRN5GpJQ7ypTVfof1T sequence=21143922 lastLedgerSequence=21143960
+    · tx.validated txType=Payment hash=C646D8C57CEA07A0DDA7FCC8C9137A725A0C1477E39BCA7BD64EBF5FF3F4678E resultCode=tesSUCCESS ledgerIndex=21143942
+  ✓ balances: A 450, B 1000, C 100
+
+▶ Clawback: 300 from B
+    · tx.submit txType=Clawback hash=DC21508248F38371E09468046EA70993519B124E37269187EE1F0E42D6F3A4BE account=rfu13rmCe5pMqgUjYXRgXoe9mXx3nUuZWm sequence=21143538 lastLedgerSequence=21143962
+    · tx.validated txType=Clawback hash=DC21508248F38371E09468046EA70993519B124E37269187EE1F0E42D6F3A4BE resultCode=tesSUCCESS ledgerIndex=21143944
+    · tokens.clawed_back issuanceId=01429FEA4BD0393AACA89CDFC3B04BFA43AE2854272BCB2C holder=rU5Ct6S1Gz2vTu28tVTtQWZJZ9JMJSJRPU requested=300 clawedBack=300 txHash=DC21508248F38371E09468046EA70993519B124E37269187EE1F0E42D6F3A4BE
+  ✓ claw back more than B holds → refused by the issuer module (INSUFFICIENT_BALANCE)
+  ✓ B now holds 700
+
+▶ Per-holder freeze: freeze A, confirm A can neither send nor receive, then unfreeze
+    · tx.submit txType=MPTokenIssuanceSet hash=EC90EC938559E54F130F7AE3939986F937347BFE2D345E73F84C2E018496EEB0 account=rfu13rmCe5pMqgUjYXRgXoe9mXx3nUuZWm sequence=21143539 lastLedgerSequence=21143964
+    · tx.validated txType=MPTokenIssuanceSet hash=EC90EC938559E54F130F7AE3939986F937347BFE2D345E73F84C2E018496EEB0 resultCode=tesSUCCESS ledgerIndex=21143946
+    · holder.frozen issuanceId=01429FEA4BD0393AACA89CDFC3B04BFA43AE2854272BCB2C holder=r4hQCa3vDnSjkMgQBgrx1kGGBZ5PFJDH2B txHash=EC90EC938559E54F130F7AE3939986F937347BFE2D345E73F84C2E018496EEB0
+    · tx.submit txType=Payment hash=70823D2DC82F98A16902F169B5D2610678DFCB8C62A29A4B23E95A97A702C528 account=r4hQCa3vDnSjkMgQBgrx1kGGBZ5PFJDH2B sequence=21143919 lastLedgerSequence=21143966
+    ! tx.validated txType=Payment hash=70823D2DC82F98A16902F169B5D2610678DFCB8C62A29A4B23E95A97A702C528 resultCode=tecLOCKED ledgerIndex=21143947
+  ✓ frozen A sends to B → rejected by the ledger with tecLOCKED
+    · tx.submit txType=Payment hash=33CF07C851DCB3183B36872654F2787EE125B18100E6CE8160A91FA1A4F5ED38 account=rU5Ct6S1Gz2vTu28tVTtQWZJZ9JMJSJRPU sequence=21143921 lastLedgerSequence=21143967
+    ! tx.validated txType=Payment hash=33CF07C851DCB3183B36872654F2787EE125B18100E6CE8160A91FA1A4F5ED38 resultCode=tecLOCKED ledgerIndex=21143949
+  ✓ B sends to frozen A → rejected by the ledger with tecLOCKED
+  ✓ issue to frozen A → refused by the issuer module (HOLDER_FROZEN)
+    · tx.submit txType=MPTokenIssuanceSet hash=8CC5CE0D5E1350E42CEFCD3202DF6ACC42816B8D215AD50CADBADA2F55BC58C0 account=rfu13rmCe5pMqgUjYXRgXoe9mXx3nUuZWm sequence=21143540 lastLedgerSequence=21143969
+    · tx.validated txType=MPTokenIssuanceSet hash=8CC5CE0D5E1350E42CEFCD3202DF6ACC42816B8D215AD50CADBADA2F55BC58C0 resultCode=tesSUCCESS ledgerIndex=21143951
+    · holder.unfrozen issuanceId=01429FEA4BD0393AACA89CDFC3B04BFA43AE2854272BCB2C holder=r4hQCa3vDnSjkMgQBgrx1kGGBZ5PFJDH2B txHash=8CC5CE0D5E1350E42CEFCD3202DF6ACC42816B8D215AD50CADBADA2F55BC58C0
+    · tx.submit txType=Payment hash=99BAD536615DED61912DD39919BBA875DEAA33051F4FA443CFE51829E1FC31A5 account=rfu13rmCe5pMqgUjYXRgXoe9mXx3nUuZWm sequence=21143541 lastLedgerSequence=21143971
+    · tx.validated txType=Payment hash=99BAD536615DED61912DD39919BBA875DEAA33051F4FA443CFE51829E1FC31A5 resultCode=tesSUCCESS ledgerIndex=21143953
+    · tokens.issued issuanceId=01429FEA4BD0393AACA89CDFC3B04BFA43AE2854272BCB2C holder=r4hQCa3vDnSjkMgQBgrx1kGGBZ5PFJDH2B amount=50 txHash=99BAD536615DED61912DD39919BBA875DEAA33051F4FA443CFE51829E1FC31A5
+  ✓ A unfrozen and received 50 → holds 500
+
+▶ Global freeze: freeze the whole token, confirm nothing moves, then lift it
+    · tx.submit txType=MPTokenIssuanceSet hash=5BACDF98C9CC7B287BCF79D51B57EA3F6C12AF0E977CC5C3159E95902BDBEDF6 account=rfu13rmCe5pMqgUjYXRgXoe9mXx3nUuZWm sequence=21143542 lastLedgerSequence=21143973
+    · tx.validated txType=MPTokenIssuanceSet hash=5BACDF98C9CC7B287BCF79D51B57EA3F6C12AF0E977CC5C3159E95902BDBEDF6 resultCode=tesSUCCESS ledgerIndex=21143955
+    · issuance.frozen issuanceId=01429FEA4BD0393AACA89CDFC3B04BFA43AE2854272BCB2C txHash=5BACDF98C9CC7B287BCF79D51B57EA3F6C12AF0E977CC5C3159E95902BDBEDF6
+    · tx.submit txType=Payment hash=CDEB4CFD8E359B315EBE596FDACE0FB9D37124DA3ACAAA4F8E03D166E13E87D7 account=rU5Ct6S1Gz2vTu28tVTtQWZJZ9JMJSJRPU sequence=21143922 lastLedgerSequence=21143975
+    ! tx.validated txType=Payment hash=CDEB4CFD8E359B315EBE596FDACE0FB9D37124DA3ACAAA4F8E03D166E13E87D7 resultCode=tecLOCKED ledgerIndex=21143957
+  ✓ B sends to C during global freeze → rejected by the ledger with tecLOCKED
+    · tx.submit txType=Payment hash=CD8C3CE52CB93CC05DAA2442A2FC397987BF92C29690D4E4DA2C334C81AAD127 account=r4hQCa3vDnSjkMgQBgrx1kGGBZ5PFJDH2B sequence=21143920 lastLedgerSequence=21143977
+    ! tx.validated txType=Payment hash=CD8C3CE52CB93CC05DAA2442A2FC397987BF92C29690D4E4DA2C334C81AAD127 resultCode=tecLOCKED ledgerIndex=21143959
+  ✓ A sends to B during global freeze → rejected by the ledger with tecLOCKED
+  ✓ issue to C during global freeze → refused by the issuer module (TOKEN_FROZEN)
+    · tx.submit txType=MPTokenIssuanceSet hash=78281F5FD2E56E0EDFE542F59E336A7427C34CB8E40697E4EA4B140620A9F741 account=rfu13rmCe5pMqgUjYXRgXoe9mXx3nUuZWm sequence=21143543 lastLedgerSequence=21143979
+    · tx.validated txType=MPTokenIssuanceSet hash=78281F5FD2E56E0EDFE542F59E336A7427C34CB8E40697E4EA4B140620A9F741 resultCode=tesSUCCESS ledgerIndex=21143961
+    · issuance.unfrozen issuanceId=01429FEA4BD0393AACA89CDFC3B04BFA43AE2854272BCB2C txHash=78281F5FD2E56E0EDFE542F59E336A7427C34CB8E40697E4EA4B140620A9F741
+  ✓ global freeze lifted
+
+▶ Ban: ban C (claw back everything, remove from allowlist, freeze position)
+    · holder.ban_recorded issuanceId=01429FEA4BD0393AACA89CDFC3B04BFA43AE2854272BCB2C holder=rnuKDS6p2QuYJK8nHRN5GpJQ7ypTVfof1T reason=Demo: sanctions screening match
+    · tx.submit txType=MPTokenAuthorize hash=833DF081E62B2D35B5D3CA62A157022465EE9DA7A4288B636AF7DBA877D391F2 account=rfu13rmCe5pMqgUjYXRgXoe9mXx3nUuZWm sequence=21143544 lastLedgerSequence=21143981
+    · tx.validated txType=MPTokenAuthorize hash=833DF081E62B2D35B5D3CA62A157022465EE9DA7A4288B636AF7DBA877D391F2 resultCode=tesSUCCESS ledgerIndex=21143963
+    · holder.deauthorized issuanceId=01429FEA4BD0393AACA89CDFC3B04BFA43AE2854272BCB2C holder=rnuKDS6p2QuYJK8nHRN5GpJQ7ypTVfof1T txHash=833DF081E62B2D35B5D3CA62A157022465EE9DA7A4288B636AF7DBA877D391F2
+    · tx.submit txType=Clawback hash=D16C4E3C2E3EA2C0BD459A31AFC341E34A48F7049DF23A7B355E4271B4CB5F81 account=rfu13rmCe5pMqgUjYXRgXoe9mXx3nUuZWm sequence=21143545 lastLedgerSequence=21143983
+    · tx.validated txType=Clawback hash=D16C4E3C2E3EA2C0BD459A31AFC341E34A48F7049DF23A7B355E4271B4CB5F81 resultCode=tesSUCCESS ledgerIndex=21143965
+    · tokens.clawed_back issuanceId=01429FEA4BD0393AACA89CDFC3B04BFA43AE2854272BCB2C holder=rnuKDS6p2QuYJK8nHRN5GpJQ7ypTVfof1T requested=100 clawedBack=100 txHash=D16C4E3C2E3EA2C0BD459A31AFC341E34A48F7049DF23A7B355E4271B4CB5F81
+    · tx.submit txType=MPTokenIssuanceSet hash=B77ED08E3A27D7EB6E8C07C3B08D400D3A027B01CA174E31B2562BC34103A98C account=rfu13rmCe5pMqgUjYXRgXoe9mXx3nUuZWm sequence=21143546 lastLedgerSequence=21143985
+    · tx.validated txType=MPTokenIssuanceSet hash=B77ED08E3A27D7EB6E8C07C3B08D400D3A027B01CA174E31B2562BC34103A98C resultCode=tesSUCCESS ledgerIndex=21143967
+    · holder.frozen issuanceId=01429FEA4BD0393AACA89CDFC3B04BFA43AE2854272BCB2C holder=rnuKDS6p2QuYJK8nHRN5GpJQ7ypTVfof1T txHash=B77ED08E3A27D7EB6E8C07C3B08D400D3A027B01CA174E31B2562BC34103A98C
+    · holder.banned issuanceId=01429FEA4BD0393AACA89CDFC3B04BFA43AE2854272BCB2C holder=rnuKDS6p2QuYJK8nHRN5GpJQ7ypTVfof1T clawedBack=100 txHashes=833DF081E62B2D35B5D3CA62A157022465EE9DA7A4288B636AF7DBA877D391F2,D16C4E3C2E3EA2C0BD459A31AFC341E34A48F7049DF23A7B355E4271B4CB5F81,B77ED08E3A27D7EB6E8C07C3B08D400D3A027B01CA174E31B2562BC34103A98C
+  ✓ C banned; clawed back 100 in 3 transactions
+  ✓ issue to banned C → refused by the issuer module (HOLDER_BANNED)
+  ✓ re-approve banned C → refused by the issuer module (HOLDER_BANNED)
+    · tx.submit txType=Payment hash=D8DBF3647F0639FF3FBDAD8E345EE1CD24B61305075688591688F7CCAAD7D6EB account=r4hQCa3vDnSjkMgQBgrx1kGGBZ5PFJDH2B sequence=21143921 lastLedgerSequence=21143987
+    ! tx.validated txType=Payment hash=D8DBF3647F0639FF3FBDAD8E345EE1CD24B61305075688591688F7CCAAD7D6EB resultCode=tecNO_AUTH ledgerIndex=21143969
+  ✓ A sends to banned C → rejected by the ledger with tecNO_AUTH
+    · tx.submit txType=Payment hash=04034FE081D20A3A2676C3DDBDCD42DDDC6E1BDF32F262E8254DBAB862C80C00 account=rfu13rmCe5pMqgUjYXRgXoe9mXx3nUuZWm sequence=21143547 lastLedgerSequence=21143989
+    ! tx.validated txType=Payment hash=04034FE081D20A3A2676C3DDBDCD42DDDC6E1BDF32F262E8254DBAB862C80C00 resultCode=tecNO_AUTH ledgerIndex=21143971
+  ✓ raw issuer payment to banned C, bypassing the module → rejected by the ledger with tecNO_AUTH
+
+▶ Freezing B (final state)
+    · tx.submit txType=MPTokenIssuanceSet hash=A799F8967B6487BD431A5F10F2575488579763AD428E8FA53433F3476C41AD1B account=rfu13rmCe5pMqgUjYXRgXoe9mXx3nUuZWm sequence=21143548 lastLedgerSequence=21143991
+    · tx.validated txType=MPTokenIssuanceSet hash=A799F8967B6487BD431A5F10F2575488579763AD428E8FA53433F3476C41AD1B resultCode=tesSUCCESS ledgerIndex=21143972
+    · holder.frozen issuanceId=01429FEA4BD0393AACA89CDFC3B04BFA43AE2854272BCB2C holder=rU5Ct6S1Gz2vTu28tVTtQWZJZ9JMJSJRPU txHash=A799F8967B6487BD431A5F10F2575488579763AD428E8FA53433F3476C41AD1B
+
+▶ Verifying final ledger state
+{
+  "issuance": {
+    "issuanceId": "01429FEA4BD0393AACA89CDFC3B04BFA43AE2854272BCB2C",
+    "issuer": "rfu13rmCe5pMqgUjYXRgXoe9mXx3nUuZWm",
+    "assetScale": 0,
+    "outstanding": "1200",
+    "globallyFrozen": false,
+    "capabilities": {
+      "canLock": true,
+      "requireAuth": true,
+      "canTransfer": true,
+      "canClawback": true,
+      "canEscrow": false,
+      "canTrade": false,
+      "canHoldConfidentialBalance": false
+    }
+  },
+  "holders": {
+    "A": {
+      "address": "r4hQCa3vDnSjkMgQBgrx1kGGBZ5PFJDH2B",
+      "optedIn": true,
+      "authorized": true,
+      "frozen": false,
+      "balance": "500",
+      "lockedAmount": "0"
+    },
+    "B": {
+      "address": "rU5Ct6S1Gz2vTu28tVTtQWZJZ9JMJSJRPU",
+      "optedIn": true,
+      "authorized": true,
+      "frozen": true,
+      "balance": "700",
+      "lockedAmount": "0"
+    },
+    "C": {
+      "address": "rnuKDS6p2QuYJK8nHRN5GpJQ7ypTVfof1T",
+      "optedIn": true,
+      "authorized": false,
+      "frozen": true,
+      "balance": "0",
+      "lockedAmount": "0",
+      "ban": {
+        "address": "rnuKDS6p2QuYJK8nHRN5GpJQ7ypTVfof1T",
+        "reason": "Demo: sanctions screening match",
+        "bannedAt": "2026-09-29T13:02:15.727Z"
+      }
+    }
+  }
+}
+  ✓ wrote /private/tmp/ws/9f16c266a2f3/project/result.json

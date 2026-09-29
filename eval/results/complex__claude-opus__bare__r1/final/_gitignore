@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.env
+# Demo holder wallets (testnet secrets) and the local ban registry
+.demo-wallets.json
+data/

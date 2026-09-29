@@ -1,0 +1,15 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [],
+    "sandboxDenials": [
+      "7C4D51563D98509A7BCD59475618F2DF0F82141\", \"holder\": \"rXakofve3pbda9dftxKiLATsDjHPzc8TD\", \"holderBalance\": \"1000\", \"outstandingAmount\": \"1000\" } (eval):1: operation not permitted: /tmp/verify.mjs cp: /tmp/verify.mjs: No such file or directory rm: .verify.mjs: No such file or directory ?? .claude/ ?? .gitignore ?? "
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 5
+  }
+}

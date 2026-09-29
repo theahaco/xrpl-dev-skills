@@ -1,0 +1,18 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [
+      "andard. ## 4.4.2 (2025-09-25) ### Fixed * improve Batch inner transaction typing ## 4.4.1 (2025-08-29) ### Fixed * Prevent Node.js process termination when WebSocket send() errors after the connection is closed. ## 4.4.0 (2025-07-29) ### Added * Support for `PermissionedDEX` (XLS-81d) * Support for `Token Escrow`",
+      "rors */ class UnexpectedError extends XrplError {} /** * Error thrown when xrpl.js has an error with connection to rippled. * * @category Errors */ class ConnectionError extends XrplError {} /** * Error thrown when xrpl.js is not connected to rippled server. * * @category Errors */ class NotConnectedError ex"
+    ],
+    "sandboxDenials": [
+      "Exit code 1 mkdir: xrplpkg: Operation not permitted"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 31
+  }
+}

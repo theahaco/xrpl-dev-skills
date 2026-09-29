@@ -1,0 +1,157 @@
+[
+  {
+    "operation": "createIssuance",
+    "issuanceId": null,
+    "timestamp": "2026-09-29T12:59:03.016Z",
+    "hash": "1A2007BE8C76ACFF0FC481C98023DAA6589A6C41025F3162DA103891B0F76EB9",
+    "resultCode": "tesSUCCESS",
+    "ledgerIndex": 21143906
+  },
+  {
+    "operation": "authorizeHolder",
+    "issuanceId": "01429FE7EBBB5754775E4CABDE50826E3EAFD2EDDB0395DA",
+    "timestamp": "2026-09-29T12:59:47.138Z",
+    "holder": "raDmSzETNamgHhBgh63ULDVFxyiZF27dzA",
+    "hash": "BDC89693B137447D2988A4B906E8D4C1E4D084E65C895FD5AB09D4DE43FDCC55",
+    "resultCode": "tesSUCCESS",
+    "ledgerIndex": 21143919
+  },
+  {
+    "operation": "authorizeHolder",
+    "issuanceId": "01429FE7EBBB5754775E4CABDE50826E3EAFD2EDDB0395DA",
+    "timestamp": "2026-09-29T12:59:54.292Z",
+    "holder": "rHhBqdQTRHpwT5XzqjhGYDAdh5d6DzWC6c",
+    "hash": "A38B8E073CDE3689D0BC93BEF13EE6CE2BC3FEEEA9CB0EBB43A6D3361CB4DCC5",
+    "resultCode": "tesSUCCESS",
+    "ledgerIndex": 21143921
+  },
+  {
+    "operation": "issue",
+    "issuanceId": "01429FE7EBBB5754775E4CABDE50826E3EAFD2EDDB0395DA",
+    "timestamp": "2026-09-29T13:00:01.208Z",
+    "holder": "raDmSzETNamgHhBgh63ULDVFxyiZF27dzA",
+    "amount": "1000",
+    "hash": "F51ADE7D4FFF5AA677E1E16D3667453D74C4474F4D2A9BA2C869E188B0661C83",
+    "resultCode": "tesSUCCESS",
+    "ledgerIndex": 21143923
+  },
+  {
+    "operation": "issue",
+    "issuanceId": "01429FE7EBBB5754775E4CABDE50826E3EAFD2EDDB0395DA",
+    "timestamp": "2026-09-29T13:00:08.109Z",
+    "holder": "rHhBqdQTRHpwT5XzqjhGYDAdh5d6DzWC6c",
+    "amount": "250",
+    "hash": "EC07A6AD63A9F68C716E95CEB527F243AB1D0A22CAA03B8BDEA40E6F1775B337",
+    "resultCode": "tesSUCCESS",
+    "ledgerIndex": 21143925
+  },
+  {
+    "operation": "authorizeHolder",
+    "issuanceId": "01429FE7EBBB5754775E4CABDE50826E3EAFD2EDDB0395DA",
+    "timestamp": "2026-09-29T13:00:15.537Z",
+    "holder": "rKLNoo8RjpEeWAToYKyBQCZnV5JJgKjy6c",
+    "hash": "626B0AAE15176E4E38D9DC315801DD093D76FACBB9888468248B25F6D4D48E15",
+    "resultCode": "tesSUCCESS",
+    "ledgerIndex": 21143927
+  },
+  {
+    "operation": "issue",
+    "issuanceId": "01429FE7EBBB5754775E4CABDE50826E3EAFD2EDDB0395DA",
+    "timestamp": "2026-09-29T13:00:22.442Z",
+    "holder": "rKLNoo8RjpEeWAToYKyBQCZnV5JJgKjy6c",
+    "amount": "500",
+    "hash": "7ACB677E2F6C370D55BCF7BFCF9DBA7E187A5C785E5B182A1798B7C4E08C982A",
+    "resultCode": "tesSUCCESS",
+    "ledgerIndex": 21143929
+  },
+  {
+    "operation": "clawback",
+    "issuanceId": "01429FE7EBBB5754775E4CABDE50826E3EAFD2EDDB0395DA",
+    "timestamp": "2026-09-29T13:00:29.343Z",
+    "holder": "raDmSzETNamgHhBgh63ULDVFxyiZF27dzA",
+    "amount": "300",
+    "hash": "9EE45892C8BEF307E942D90AF240F52093412FE16D22570213CAA79345BAFA45",
+    "resultCode": "tesSUCCESS",
+    "ledgerIndex": 21143931
+  },
+  {
+    "operation": "freezeHolder",
+    "issuanceId": "01429FE7EBBB5754775E4CABDE50826E3EAFD2EDDB0395DA",
+    "timestamp": "2026-09-29T13:00:36.257Z",
+    "holder": "rKLNoo8RjpEeWAToYKyBQCZnV5JJgKjy6c",
+    "hash": "AECD3D5F7EF003DDF059218F02029148287B7ABDE9ACDFF28F48256DC50D0CF3",
+    "resultCode": "tesSUCCESS",
+    "ledgerIndex": 21143933
+  },
+  {
+    "operation": "unfreezeHolder",
+    "issuanceId": "01429FE7EBBB5754775E4CABDE50826E3EAFD2EDDB0395DA",
+    "timestamp": "2026-09-29T13:00:58.993Z",
+    "holder": "rKLNoo8RjpEeWAToYKyBQCZnV5JJgKjy6c",
+    "hash": "99B6071EFB9A046AA53EA50D4022415FF8FF00F6682DA06B5C2F1D054788CCDB",
+    "resultCode": "tesSUCCESS",
+    "ledgerIndex": 21143939
+  },
+  {
+    "operation": "freezeGlobal",
+    "issuanceId": "01429FE7EBBB5754775E4CABDE50826E3EAFD2EDDB0395DA",
+    "timestamp": "2026-09-29T13:01:19.429Z",
+    "hash": "79D47C359639E1542A7B43CFAC3A9B697983A7A3F404B2AF7848D671729BD5E7",
+    "resultCode": "tesSUCCESS",
+    "ledgerIndex": 21143945
+  },
+  {
+    "operation": "unfreezeGlobal",
+    "issuanceId": "01429FE7EBBB5754775E4CABDE50826E3EAFD2EDDB0395DA",
+    "timestamp": "2026-09-29T13:01:43.540Z",
+    "hash": "3AC3D87FFF8A8F517D8C9EF3E7E30E8260EAECFA7B68AD71FDE124C6869A175A",
+    "resultCode": "tesSUCCESS",
+    "ledgerIndex": 21143952
+  },
+  {
+    "operation": "freezeHolder",
+    "issuanceId": "01429FE7EBBB5754775E4CABDE50826E3EAFD2EDDB0395DA",
+    "timestamp": "2026-09-29T13:02:05.146Z",
+    "holder": "raDmSzETNamgHhBgh63ULDVFxyiZF27dzA",
+    "hash": "087E9B0096F6A38F5ED6A502764B261957489C9215F76B64FFF7866FC1521AC4",
+    "resultCode": "tesSUCCESS",
+    "ledgerIndex": 21143958
+  },
+  {
+    "operation": "freezeHolder",
+    "issuanceId": "01429FE7EBBB5754775E4CABDE50826E3EAFD2EDDB0395DA",
+    "timestamp": "2026-09-29T13:02:18.805Z",
+    "holder": "rHhBqdQTRHpwT5XzqjhGYDAdh5d6DzWC6c",
+    "hash": "ED9A0A1488FBC927759CC00FBEDC84CB42170F632722F7506CE99D7381390D45",
+    "resultCode": "tesSUCCESS",
+    "ledgerIndex": 21143962
+  },
+  {
+    "operation": "revokeHolder",
+    "issuanceId": "01429FE7EBBB5754775E4CABDE50826E3EAFD2EDDB0395DA",
+    "timestamp": "2026-09-29T13:02:25.563Z",
+    "holder": "rHhBqdQTRHpwT5XzqjhGYDAdh5d6DzWC6c",
+    "hash": "E05853B952AAF9C41E8A0F1F46677E53C8944E22816DD717C4D356B40B9F124C",
+    "resultCode": "tesSUCCESS",
+    "ledgerIndex": 21143964
+  },
+  {
+    "operation": "clawback",
+    "issuanceId": "01429FE7EBBB5754775E4CABDE50826E3EAFD2EDDB0395DA",
+    "timestamp": "2026-09-29T13:02:32.394Z",
+    "holder": "rHhBqdQTRHpwT5XzqjhGYDAdh5d6DzWC6c",
+    "amount": "249",
+    "hash": "99F53F824F6A7E03C40EE2A3AB4CCEE742FCBBBB3715F1B93229D625D6E5151A",
+    "resultCode": "tesSUCCESS",
+    "ledgerIndex": 21143966
+  },
+  {
+    "operation": "freezeHolder",
+    "issuanceId": "01429FE7EBBB5754775E4CABDE50826E3EAFD2EDDB0395DA",
+    "timestamp": "2026-09-29T13:03:07.644Z",
+    "holder": "rHhBqdQTRHpwT5XzqjhGYDAdh5d6DzWC6c",
+    "hash": "C183763C971BBC731DE79E878AF37D0D8C6686E449D892E848074E1A584923D3",
+    "resultCode": "tesSUCCESS",
+    "ledgerIndex": 21143976
+  }
+]

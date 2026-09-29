@@ -1,0 +1,123 @@
+Issuer rhwhp3PViiD64KcgSUvKBM9vRgXyVmeuEa on wss://s.altnet.rippletest.net:51233, 100 XRP
+
+[1] Create holder accounts A, B, C and fund them from the issuer
+    A: rBEcfE98XHfGvVYLAxwsrDjq3TPdR7fLmD
+      ✓ Payment 54BB7315270E1CC9D0D84FE59369802F3A83F99B086FC36691C56A3A6F838666
+    B: r1owxQbmF4JMs7gAv2eD2svSgDmhuyWac
+      ✓ Payment A0D314EDCA26454ACADFE5DF34F8243F4617A09262F57807661623E927E1F90E
+    C: r39G2Ra9F8xucJNLu4WFdwmk6yKVEfoHef
+      ✓ Payment DC9A76F4C091C94740CA3B39B8ADE723CD8588F97B90FEB16CF677FF290149C5
+
+[2] Create the MPT issuance with RequireAuth, CanLock, CanClawback, CanTransfer
+      ✓ MPTokenIssuanceCreate 52CE9C68AF0EA70D217911779163D4B8016E61173E3206769C6884B0F9AF008A
+    Issuance ID: 0142A0FA229EA439CCE822725C77073B54504996DC1798D4
+      ✔ issuance has RequireAuth, CanLock, CanClawback and CanTransfer
+      ✔ issuance has escrow and DEX trading disabled
+
+[3] Allowlist: holders opt in; unapproved holders cannot receive
+      ✓ MPTokenAuthorize 969558D74A6B77FD15EE6A2BF89EA015B81E45A2019D5254181455FD3881BDE0
+      ✓ MPTokenAuthorize 22EC9B56F68D5836E797235F1AB419D359F88A80F67C342F2F427A17A5846DA8
+      ✓ MPTokenAuthorize 5B9C8A5DEB564DB253C96DCD07258EC5650C1482C98B592B9BD8105A7A20AB00
+      ✔ module refused issuing to unapproved A (HOLDER_NOT_APPROVED)
+      ✗ Payment tecNO_AUTH 36A0323ED80F36C73C510D24FAED85195ED29335FE134B0F09C094FD759B9AC0
+      ✔ ledger rejected direct payment to unapproved A (tecNO_AUTH)
+
+[4] Allowlist: approve A, B, C after KYC and issue tokens
+      ✓ MPTokenAuthorize CD2C4FDED46DF02E02B5138EBDAE2A35AD987AD10CDF9B2FF6E1A7BB485B4BF1
+      ✓ MPTokenAuthorize 532C51F8BF90F00D5F0F121D99DE4823151D47801F59BCBE06C1691E3985FFF6
+      ✓ MPTokenAuthorize 675A64AA9FEA159BD13B8CA62B86AA8FD04AF79EA259D2BCFE76A45C3F7FE5C4
+      ✔ re-approving A is a no-op
+      ✓ Payment 281CE4914A5017723D4303A72EAFC9258BE2ACC06310AD5F859226346953090F
+      ✓ Payment 8F4D2763976EFBED85BD6FFBCBED87363517AB847EBFD547407C7AB202D3BD51
+      ✓ Payment 13E89805BD7797074C068FF5A377FDA35C74DBAE1942A2C013C3AB5FCB59571F
+      ✔ A holds 500
+      ✔ B holds 1000
+      ✔ C holds 200
+
+[5] Per-holder freeze: freeze A
+      ✓ MPTokenIssuanceSet CA9E0B5FF18D17ABC2529AEE8E3C2F8327D302D5F137580903AB0B73EE1C3412
+      ✔ A is frozen
+      ✗ Payment tecLOCKED C788403F619A9B019A2AF68D269FAE62CF7BB731EACF2C46284A956C5E5552C6
+      ✔ ledger rejected frozen A sending to C (tecLOCKED)
+      ✗ Payment tecLOCKED DB0AF117A6E81D572F092BAB937F3024BF64417FC32E0C37C52F5A9A450231B2
+      ✔ ledger rejected C sending to frozen A (tecLOCKED)
+      ✔ module refused issuing to frozen A (HOLDER_FROZEN)
+      ✓ Payment BF1FD3405C68403B542272F1CB89901205B62E93623FD40AEF5A139063A258F6
+      ✓ Payment E9D8170C373481CE2CE86A16AC80671D5D9968FFED99A231891ADACC10AB2C2E
+      ✔ other holders (B <-> C) can still transact
+
+[6] Per-holder freeze: unfreeze A
+      ✓ MPTokenIssuanceSet 35FC9F26A2F408223AD03392CF5C827CF586AA62CEDF29EFDD24B8D5B4F7951E
+      ✔ A is no longer frozen
+      ✓ Payment 462EE9BAEB316BABD0C146039F587875B2E82A805F3DE68F82CDF7FABD22DC95
+      ✓ Payment F987253E840B30354B6ADDE2D69A54E7F227344C6FC304EC36D59AEDAAA5F111
+      ✔ A can send and receive again (A -> C 50, C -> A 50)
+      ✔ A still holds 500
+
+[7] Global freeze: freeze all movement of the token
+      ✓ MPTokenIssuanceSet D4B0233332317F19B3FB33C939228C9C900C923C1C47D58ED66911BFD43F93DC
+      ✔ token is globally frozen
+      ✗ Payment tecLOCKED 40FA7E6037BF0448B9E074B4D0192BC29F1E8E8A69E53672F7C30017F8ADDCAD
+      ✔ ledger rejected B sending to C during global freeze (tecLOCKED)
+      ✗ Payment tecLOCKED EE5CECFA10EE868B68519F009E53F45C618B6B68823883A413AB7990B7974CBC
+      ✔ ledger rejected C sending to A during global freeze (tecLOCKED)
+      ✔ module refused issuing during global freeze (GLOBALLY_FROZEN)
+
+[8] Global freeze: lift the freeze
+      ✓ MPTokenIssuanceSet 6BB92DA89F5F42A8C2D571EF249CD9185F288C2A3907AA5631647E6795BC99D1
+      ✔ token is no longer globally frozen
+      ✓ Payment A67E333C2FD891E5E7112CD2555FECB8AA6D22FEBF7F7DA6ADDA2746C65FC2F6
+      ✓ Payment FCB01FDAF0798624101557623E6020B0761133757C0E0E27CA5B1D3BBC369F74
+      ✔ transfers work again (C -> A 25, A -> C 25)
+
+[9] Clawback: claw back 300 from B
+      ✓ Clawback 20A2347A3D9EB52F692E2BBE671CE769BE5003941A40F63CBB5F468793A8E054
+      ✔ metadata shows 300 clawed back
+      ✔ B holds 700
+
+[10] Per-holder freeze: freeze B (stays frozen)
+      ✓ MPTokenIssuanceSet D7D357BEE84597EB60FC02D2E1FB7389BEB41136C663FABC35EA01F1608E6368
+      ✔ B is frozen
+      ✗ Payment tecLOCKED 09D54AD56413CC6088E1E5125F82F37049219A40492F994DEB0CFBC6AD157A06
+      ✔ ledger rejected frozen B sending to A (tecLOCKED)
+
+[11] Ban: ban C
+      ✓ MPTokenIssuanceSet 2436668C5C147E44AB64A87FBE4916F0E4B71D7CCE2D8D0D01C28A88B24812E9
+      ✓ Clawback B7F74B5430990B43B86C0F26CE3E1EEAE484A53A3C902A93BC3AEE579AA5F169
+      ✓ MPTokenAuthorize E602466A0534FD57F5C0410F4D14069C5F66314A06E171D46B0A1D2B16EF203A
+      ✔ ban clawed back all 200 of C
+      ✔ C is banned, holds 0, not approved
+      ✔ module refused issuing to banned C (HOLDER_BANNED)
+      ✔ module refused re-approving banned C (HOLDER_BANNED)
+      ✔ module refused unfreezing banned C (HOLDER_BANNED)
+      ✗ Payment tecNO_AUTH 702091314B015C7A0F6C6314FF2129971196714C1D2CEE386C8F8A584AAB4AB0
+      ✔ ledger rejected direct issuer payment to banned C (tecNO_AUTH)
+      ✗ Payment tecNO_AUTH 8ECEA32D0D36F9B78027FCBD0BAE668FFAF56E56B8AD40A60FD14FF367BBECBC
+      ✔ ledger rejected A sending to banned C (tecNO_AUTH)
+
+[12] Ban: C tries to evade by deleting and re-creating its MPToken
+      ✓ MPTokenAuthorize 26DD6513BEDD2AB065F3144E5B0A36736091DE601BC89C042F3C151E8700653B
+      C deleted its locked, empty MPToken (allowed on testnet: fixCleanup3_4_0 is not enabled)
+      ✓ MPTokenAuthorize 5C1DCD294CC97990E1B6771F70F0A211E18ED92BC14100AA7233A9B39F7E084F
+      C re-created its MPToken; it starts unapproved
+      ✗ Payment tecNO_AUTH D9C9AB5B5DC886888C18BEB6DB719D2AD7204E0BAE69C93DC27429B9B1D39815
+      ✔ ledger rejected A sending to C after re-opt-in (tecNO_AUTH)
+      ✓ MPTokenIssuanceSet 822E9EAB884962A87713EE139CE4780A16BC8DCC56F12957B30D5D13D9957612
+      enforceBans() re-applied 1 ban(s)
+      ✔ C holds 0, is unapproved and frozen
+
+[13] Verify final ledger state
+    A rBEcfE98XHfGvVYLAxwsrDjq3TPdR7fLmD: balance=500 approved=true frozen=false banned=false
+    B r1owxQbmF4JMs7gAv2eD2svSgDmhuyWac: balance=700 approved=true frozen=true banned=false
+    C r39G2Ra9F8xucJNLu4WFdwmk6yKVEfoHef: balance=0 approved=false frozen=true banned=true
+    Issuance: outstanding=1200 globallyFrozen=false
+      ✔ token is issued by the issuer account
+      ✔ all controls are available on the issuance
+      ✔ token is not globally frozen
+      ✔ A: approved, not frozen, holds 500
+      ✔ B: approved, frozen, holds 700
+      ✔ C: banned, not approved, holds 0
+      ✔ outstanding supply is 1200 (A 500 + B 700)
+
+Wrote result.json. Issuer XRP balance now 90.999736 XRP.
+Explorer: https://testnet.xrpl.org/accounts/rhwhp3PViiD64KcgSUvKBM9vRgXyVmeuEa

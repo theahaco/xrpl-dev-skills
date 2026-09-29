@@ -1,0 +1,15 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [],
+    "sandboxDenials": [
+      "Exit code 1 (eval):1: operation not permitted: /tmp/probe.mjs cp: /tmp/probe.mjs: No such file or directory rm: probe.mjs: No such file or directory"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 53
+  }
+}
