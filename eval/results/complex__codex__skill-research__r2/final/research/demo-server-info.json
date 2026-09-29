@@ -1,0 +1,67 @@
+{
+  "build_version": "3.4.1",
+  "complete_ledgers": "13073099-21144609",
+  "hostid": "MUFF",
+  "initial_sync_duration_us": "414545113",
+  "io_latency_ms": 1,
+  "jq_trans_overflow": "365",
+  "last_close": {
+    "converge_time_s": 3.001,
+    "proposers": 6
+  },
+  "load_factor": 1,
+  "network_id": 1,
+  "peer_disconnects": "9466",
+  "peer_disconnects_resources": "25",
+  "peers": 90,
+  "ports": [
+    {
+      "port": "2459",
+      "protocol": [
+        "peer"
+      ]
+    },
+    {
+      "port": "50051",
+      "protocol": [
+        "grpc"
+      ]
+    }
+  ],
+  "pubkey_node": "n94fvDin1mzPPqyK6cm6DWKpvYzVavSwvCRijCWwYiKkmaADHNED",
+  "server_state": "full",
+  "server_state_duration_us": "79688690270",
+  "state_accounting": {
+    "connected": {
+      "duration_us": "409485651",
+      "transitions": "2"
+    },
+    "disconnected": {
+      "duration_us": "1054320",
+      "transitions": "2"
+    },
+    "full": {
+      "duration_us": "79688690270",
+      "transitions": "1"
+    },
+    "syncing": {
+      "duration_us": "4005135",
+      "transitions": "1"
+    },
+    "tracking": {
+      "duration_us": "5",
+      "transitions": "1"
+    }
+  },
+  "time": "2026-Sep-29 13:39:21.678001 UTC",
+  "uptime": 80103,
+  "validated_ledger": {
+    "age": 1,
+    "base_fee_xrp": 0.00001,
+    "hash": "1B80B36209C1AD56666CBCE4655FFECA0AA6D614A0273EDFF141602C1C58EDCF",
+    "reserve_base_xrp": 1,
+    "reserve_inc_xrp": 0.2,
+    "seq": 21144609
+  },
+  "validation_quorum": 5
+}

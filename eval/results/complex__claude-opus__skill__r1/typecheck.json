@@ -1,0 +1,72 @@
+{
+  "status": "checked",
+  "tscPath": "node_modules/typescript/bin/tsc",
+  "tscVersion": "Version 5.9.3",
+  "tscSource": "project",
+  "tsFiles": [
+    "scripts/demo.ts",
+    "scripts/lib/env.ts",
+    "scripts/lib/expected-state.ts",
+    "scripts/verify.ts",
+    "src/amounts.ts",
+    "src/errors.ts",
+    "src/holder.ts",
+    "src/index.ts",
+    "src/issuer.ts",
+    "src/registry.ts",
+    "src/submit.ts",
+    "test/unit.test.ts"
+  ],
+  "projectStrictness": {
+    "source": "showConfig",
+    "strict": true,
+    "optOuts": []
+  },
+  "project": {
+    "config": "tsconfig.json",
+    "exitCode": 0,
+    "errorCount": 0,
+    "errorsInProject": 0,
+    "output": ""
+  },
+  "strictConfig": {
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+      "strict": true,
+      "noImplicitAny": true,
+      "noImplicitThis": true,
+      "strictNullChecks": true,
+      "strictFunctionTypes": true,
+      "strictBindCallApply": true,
+      "strictPropertyInitialization": true,
+      "alwaysStrict": true,
+      "useUnknownInCatchVariables": true,
+      "strictBuiltinIteratorReturn": true,
+      "noCheck": false,
+      "noEmit": true,
+      "rootDir": "."
+    },
+    "files": [
+      "scripts/demo.ts",
+      "scripts/lib/env.ts",
+      "scripts/lib/expected-state.ts",
+      "scripts/verify.ts",
+      "src/amounts.ts",
+      "src/errors.ts",
+      "src/holder.ts",
+      "src/index.ts",
+      "src/issuer.ts",
+      "src/registry.ts",
+      "src/submit.ts",
+      "test/unit.test.ts"
+    ],
+    "include": []
+  },
+  "strict": {
+    "config": "tsconfig.xrpl-eval-strict.json",
+    "exitCode": 0,
+    "errorCount": 0,
+    "errorsInProject": 0,
+    "output": ""
+  }
+}

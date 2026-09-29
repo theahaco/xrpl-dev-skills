@@ -1,0 +1,129 @@
+{
+  "tier": "complex",
+  "issuer": "rsGdajs49wqpyofW5LVjWH9ZVJdmWJSEDm",
+  "checkedAt": "2026-09-29T13:47:39.437Z",
+  "status": "pass",
+  "criteria": [
+    {
+      "id": "result_json",
+      "pass": true,
+      "detail": "has issuanceId and holders A, B, C"
+    },
+    {
+      "id": "issuance_exists",
+      "pass": true,
+      "detail": "issuance 0142A3A218E49FEAB5100EF247B7EAE12F550E592464B51B (result.json)"
+    },
+    {
+      "id": "issuance_capabilities",
+      "pass": true,
+      "detail": "flags 0x66: {\"canLock\":true,\"requireAuth\":true,\"canClawback\":true}"
+    },
+    {
+      "id": "holder_a_state",
+      "pass": true,
+      "detail": "rHXScpb1KfuqxV7WxJ9kj51AcMTPoSaY67: balance 500, flags 0x2; expected authorized, 500, not locked"
+    },
+    {
+      "id": "holder_a_freeze_cycle",
+      "pass": true,
+      "detail": "per-holder lock/unlock on A: lock, unlock"
+    },
+    {
+      "id": "holder_b_state",
+      "pass": true,
+      "detail": "rPDdM1tgdm2Sik2n77npN63hok7D5fmMXx: balance 700, flags 0x3; expected authorized, 700, locked"
+    },
+    {
+      "id": "holder_b_sent_1000",
+      "pass": true,
+      "detail": "issuer delivered 1000 to B"
+    },
+    {
+      "id": "holder_b_clawback_300",
+      "pass": true,
+      "detail": "validated Clawback from B totals 300"
+    },
+    {
+      "id": "holder_c_banned",
+      "pass": true,
+      "detail": "rfQ7t5UcLvwRNoKQAgHRbr9wEnJakZbgW2: balance 0, flags 0x0; expected zero balance and no issuer authorization on a require-auth issuance"
+    },
+    {
+      "id": "holder_c_received_before_ban",
+      "pass": true,
+      "detail": "issuer delivered 100 to C"
+    },
+    {
+      "id": "global_freeze_cycle",
+      "pass": true,
+      "detail": "issuance-wide lock/unlock: lock, unlock"
+    },
+    {
+      "id": "not_globally_frozen",
+      "pass": true,
+      "detail": "issuance lsfMPTLocked clear"
+    },
+    {
+      "id": "outstanding_consistent",
+      "pass": true,
+      "detail": "OutstandingAmount 1200; A+B+C 1200"
+    }
+  ],
+  "observed": {
+    "issuance": {
+      "Flags": 102,
+      "Issuer": "rsGdajs49wqpyofW5LVjWH9ZVJdmWJSEDm",
+      "LedgerEntryType": "MPTokenIssuance",
+      "MaximumAmount": "9223372036854775807",
+      "OutstandingAmount": "1200",
+      "OwnerNode": "0",
+      "PreviousTxnID": "3A64703EF23064E0FF2100276EB67CF1D2D93046C4A4CA2805C59DC987B98FD8",
+      "PreviousTxnLgrSeq": 21144712,
+      "Sequence": 21144482,
+      "index": "6C4AF2C4EA428A536582E1DD0207184ADD90173D47300C140F54337BF7D62D73",
+      "mpt_issuance_id": "0142A3A218E49FEAB5100EF247B7EAE12F550E592464B51B"
+    },
+    "holders": {
+      "A": "rHXScpb1KfuqxV7WxJ9kj51AcMTPoSaY67",
+      "B": "rPDdM1tgdm2Sik2n77npN63hok7D5fmMXx",
+      "C": "rfQ7t5UcLvwRNoKQAgHRbr9wEnJakZbgW2"
+    },
+    "holderTokens": {
+      "A": {
+        "Account": "rHXScpb1KfuqxV7WxJ9kj51AcMTPoSaY67",
+        "Flags": 2,
+        "LedgerEntryType": "MPToken",
+        "MPTAmount": "500",
+        "MPTokenIssuanceID": "0142A3A218E49FEAB5100EF247B7EAE12F550E592464B51B",
+        "OwnerNode": "0",
+        "PreviousTxnID": "41D8BF7F67C299ED30AB3C1E14B95A2499ED98133CD90F25511228DEA19F30A7",
+        "PreviousTxnLgrSeq": 21144698,
+        "index": "45A0D009FDF03F89DE6672C56B79519EBCEF58E2300E6B11203C98469AAA68B4"
+      },
+      "B": {
+        "Account": "rPDdM1tgdm2Sik2n77npN63hok7D5fmMXx",
+        "Flags": 3,
+        "LedgerEntryType": "MPToken",
+        "MPTAmount": "700",
+        "MPTokenIssuanceID": "0142A3A218E49FEAB5100EF247B7EAE12F550E592464B51B",
+        "OwnerNode": "0",
+        "PreviousTxnID": "E5B5B812EFC458F8711C9ACE25A2673B2EBCB3533208A0D5D972F1F0A3FD4D03",
+        "PreviousTxnLgrSeq": 21144702,
+        "index": "E8CF69B551112AF2E12B03FE976CF4D71E383E87FF67C56961EADCE02C950E18"
+      },
+      "C": {
+        "Account": "rfQ7t5UcLvwRNoKQAgHRbr9wEnJakZbgW2",
+        "Flags": 0,
+        "LedgerEntryType": "MPToken",
+        "MPTokenIssuanceID": "0142A3A218E49FEAB5100EF247B7EAE12F550E592464B51B",
+        "OwnerNode": "0",
+        "PreviousTxnID": "BFBA39FE2A5A46C45B01DA28B561E4240A98ED3E12DCA860E0B026CD060BDD6F",
+        "PreviousTxnLgrSeq": 21144738,
+        "index": "9AA5F704F792B3CD5908828CB0C0525D4336BC367B63C514B95EA338BFAF5D37"
+      }
+    },
+    "cUnauthorizedByIssuer": true,
+    "txCount": 36
+  }
+}

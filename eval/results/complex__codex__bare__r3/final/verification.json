@@ -1,0 +1,251 @@
+{
+  "ledger": 21144576,
+  "issuance": {
+    "Flags": 102,
+    "Issuer": "rUUyBzBvySZY8NSEysNkFgjk9wiro4Qqx7",
+    "LedgerEntryType": "MPTokenIssuance",
+    "MaximumAmount": "9223372036854775807",
+    "OutstandingAmount": "1200",
+    "OwnerNode": "0",
+    "PreviousTxnID": "030F9A55623F0DC3209CBE9C2F7101EAD6CE6924C9A6122C78A741B532E7C25E",
+    "PreviousTxnLgrSeq": 21144562,
+    "Sequence": 21144446,
+    "index": "42D757513E8AF0CE1B0DEAF27F1B5F3DF72B07606BCA54CCD9DD4E215C844A2C",
+    "mpt_issuance_id": "0142A37E7AECDD1F7FBF7D7B363ABF288DA9BB9C1A01E7C0"
+  },
+  "holders": {
+    "A": {
+      "Account": "rsbPmvSJKGGvew7H8k2PetRWC92cRKjvns",
+      "Flags": 2,
+      "LedgerEntryType": "MPToken",
+      "MPTAmount": "500",
+      "MPTokenIssuanceID": "0142A37E7AECDD1F7FBF7D7B363ABF288DA9BB9C1A01E7C0",
+      "OwnerNode": "0",
+      "PreviousTxnID": "F8ECB3446EBE6B2B7B6E67E21760D395C69C7FB3043B4AFE4755A65DDCBF8ABC",
+      "PreviousTxnLgrSeq": 21144556,
+      "index": "7AB5CABFF6766A088141D121E212F863CBA3952208F6D016B9B850E41BBFCEA5"
+    },
+    "B": {
+      "Account": "rKcs2GkMGsSnE8Z3XSdV6k1Yo1CWvMGmDY",
+      "Flags": 3,
+      "LedgerEntryType": "MPToken",
+      "MPTAmount": "700",
+      "MPTokenIssuanceID": "0142A37E7AECDD1F7FBF7D7B363ABF288DA9BB9C1A01E7C0",
+      "OwnerNode": "0",
+      "PreviousTxnID": "89A92F363B298AC6598574CF11E9D8117CFFA7F4928684C263AEFBCDABADB612",
+      "PreviousTxnLgrSeq": 21144558,
+      "index": "DA78BDEA7F6DB9874DC34903E13C737681CB994F019CC66266C11ADD911321EF"
+    },
+    "C": {
+      "Account": "rB6c2jX16UtDAH1WhUD6nEnmuXCkf8Z14A",
+      "Flags": 0,
+      "LedgerEntryType": "MPToken",
+      "MPTokenIssuanceID": "0142A37E7AECDD1F7FBF7D7B363ABF288DA9BB9C1A01E7C0",
+      "OwnerNode": "0",
+      "PreviousTxnID": "030F9A55623F0DC3209CBE9C2F7101EAD6CE6924C9A6122C78A741B532E7C25E",
+      "PreviousTxnLgrSeq": 21144562,
+      "index": "7ECB016FCCE7D0AF81352B08B169973A14C0C3B4723CDFFDFBEE37826B074804",
+      "MPTAmount": "0"
+    }
+  },
+  "transactions": [
+    {
+      "kind": "validated",
+      "hash": "8DA8E011066C5274AA2666EC56823363BC22E5A5DAEE5C10219083642ACC0EE7",
+      "ledger": 21144510,
+      "code": "tesSUCCESS"
+    },
+    {
+      "kind": "validated",
+      "hash": "7B682CDD139A8DAEA4B8B4E289A21765AC36BFD16B40DE45C58B0057EF52EEC3",
+      "ledger": 21144512,
+      "code": "tesSUCCESS"
+    },
+    {
+      "kind": "validated",
+      "hash": "5C7A75D02AB9F13C50A6EC5B84A09AFFA81B82D4E06FBE41408F4AFCFAEADAD9",
+      "ledger": 21144513,
+      "code": "tesSUCCESS"
+    },
+    {
+      "kind": "validated",
+      "hash": "83CC07F939B486622927220B7EC60D24EC75121AD7579C341FC3BFC11D202754",
+      "ledger": 21144515,
+      "code": "tesSUCCESS"
+    },
+    {
+      "kind": "validated",
+      "hash": "796B0EB3C749CCBFA938D92ADC84266A500ABAE137C190BF173D15485486AFD8",
+      "ledger": 21144517,
+      "code": "tesSUCCESS"
+    },
+    {
+      "kind": "validated",
+      "hash": "CABDA563A8CE4AFA049C3742A520BEA04545A91E1D459847881C93E768D5406D",
+      "ledger": 21144519,
+      "code": "tecNO_AUTH"
+    },
+    {
+      "kind": "validated",
+      "hash": "6446BBEDFD7A6637822F8408E557A64FF1D9E7F850D881DD4C0026D194845AE3",
+      "ledger": 21144521,
+      "code": "tesSUCCESS"
+    },
+    {
+      "kind": "validated",
+      "hash": "C2D303782ADB4E1C4FE2398D5B91A9FB50A45183F5B8F5680B62DBD7A363EFD4",
+      "ledger": 21144523,
+      "code": "tesSUCCESS"
+    },
+    {
+      "kind": "validated",
+      "hash": "61A8E7A3E48A3AFEB84109581C04ABE48D6347F8487C24AF8687209CD24CB654",
+      "ledger": 21144525,
+      "code": "tecNO_AUTH"
+    },
+    {
+      "kind": "validated",
+      "hash": "60023B9BCC31B06FBD430D13BBD7A42503E4C912419D7C0DA8F6B60991BC16EC",
+      "ledger": 21144527,
+      "code": "tesSUCCESS"
+    },
+    {
+      "kind": "validated",
+      "hash": "DE62915DDD853F8D4EB00B0E7408B2F8DABA3566CB10C594440E9EA214E9D47B",
+      "ledger": 21144528,
+      "code": "tesSUCCESS"
+    },
+    {
+      "kind": "validated",
+      "hash": "2649AD670D73CAF2F77DD99158BFC4E577F88C6C2D02EDFBF14093FE6E2CDFC0",
+      "ledger": 21144529,
+      "code": "tecNO_AUTH"
+    },
+    {
+      "kind": "validated",
+      "hash": "D7880BC90DDEFD66898FDD0F8E4055DBDF563A992259600B699A0B900928ADCB",
+      "ledger": 21144531,
+      "code": "tesSUCCESS"
+    },
+    {
+      "kind": "validated",
+      "hash": "DDD872B062CF401C9338F0253AD2E6B789779FA8043DF6E27EBB1B3BDE7CFC18",
+      "ledger": 21144533,
+      "code": "tesSUCCESS"
+    },
+    {
+      "kind": "validated",
+      "hash": "108349F44D23BEFA99B202456549F983A09515E4A24E4C7DED9A9CEA1BCF7507",
+      "ledger": 21144535,
+      "code": "tesSUCCESS"
+    },
+    {
+      "kind": "validated",
+      "hash": "DB93C02E49131BF57831DE7D778E8C9A09B891679BF36D50578097025B6AFE35",
+      "ledger": 21144537,
+      "code": "tesSUCCESS"
+    },
+    {
+      "kind": "validated",
+      "hash": "EA4F9AC8E616D8B58863DA7C05A14345B36069ECD782D89FB6CB4D72ADD583CD",
+      "ledger": 21144539,
+      "code": "tesSUCCESS"
+    },
+    {
+      "kind": "validated",
+      "hash": "BC994517E79FA5321E97C039D6460B4E1CFCD21515C3638434C349BF614244F0",
+      "ledger": 21144541,
+      "code": "tecLOCKED"
+    },
+    {
+      "kind": "validated",
+      "hash": "A1EE5F4CD241A206BBD5A6E0776F707ABA8C18BBA138357B6DB78B51F3E6B72C",
+      "ledger": 21144542,
+      "code": "tecLOCKED"
+    },
+    {
+      "kind": "validated",
+      "hash": "E90FEEF7562FCB5FD0884CAD56F74FF895414FF407EFC58B414ADAFA3D454787",
+      "ledger": 21144544,
+      "code": "tesSUCCESS"
+    },
+    {
+      "kind": "validated",
+      "hash": "F7CA294B15D8BA12442E520AB0032D868737F2DA99E777C81ACF489B48CCB6E8",
+      "ledger": 21144546,
+      "code": "tesSUCCESS"
+    },
+    {
+      "kind": "validated",
+      "hash": "9A31D8EB19370B358517AF65657D1F6CB149CF382F165F3197D6C3B49746E590",
+      "ledger": 21144547,
+      "code": "tesSUCCESS"
+    },
+    {
+      "kind": "validated",
+      "hash": "F31E308EF72FFCC40599DC6247B9A7FCABDD83AA6E452EDEFAF72128E3C71396",
+      "ledger": 21144549,
+      "code": "tesSUCCESS"
+    },
+    {
+      "kind": "validated",
+      "hash": "ED737467C09BEE8BDA5E03F07C3DDF9A03EA0AA24CB4D105EC5BEB2114CF5EFB",
+      "ledger": 21144550,
+      "code": "tesSUCCESS"
+    },
+    {
+      "kind": "validated",
+      "hash": "8FDC36A963C2F27308E07E1619DB5A60EC4C99AFD2CC080CEBED79765A42D566",
+      "ledger": 21144552,
+      "code": "tecLOCKED"
+    },
+    {
+      "kind": "validated",
+      "hash": "FDB406E5AC67213998BA8507E77F51C9C9839688CB34AFFF0C9E1519E42D5C87",
+      "ledger": 21144554,
+      "code": "tesSUCCESS"
+    },
+    {
+      "kind": "validated",
+      "hash": "212E8CB3ED3B22041072BF46721E9D07E7A71179E074DF8A7FB1BFC87679F331",
+      "ledger": 21144555,
+      "code": "tesSUCCESS"
+    },
+    {
+      "kind": "validated",
+      "hash": "F8ECB3446EBE6B2B7B6E67E21760D395C69C7FB3043B4AFE4755A65DDCBF8ABC",
+      "ledger": 21144556,
+      "code": "tesSUCCESS"
+    },
+    {
+      "kind": "validated",
+      "hash": "89A92F363B298AC6598574CF11E9D8117CFFA7F4928684C263AEFBCDABADB612",
+      "ledger": 21144558,
+      "code": "tesSUCCESS"
+    },
+    {
+      "kind": "validated",
+      "hash": "86080837322D3DC210F6BC2C273426CD724694FD738142A7D55C9447EB4BA853",
+      "ledger": 21144560,
+      "code": "tesSUCCESS"
+    },
+    {
+      "kind": "validated",
+      "hash": "030F9A55623F0DC3209CBE9C2F7101EAD6CE6924C9A6122C78A741B532E7C25E",
+      "ledger": 21144562,
+      "code": "tesSUCCESS"
+    },
+    {
+      "kind": "validated",
+      "hash": "683C092C9043D30377D4E8F58499C063ED2EB468EBB2C1A6AB7914A9714A5842",
+      "ledger": 21144574,
+      "code": "tecNO_AUTH"
+    },
+    {
+      "kind": "validated",
+      "hash": "D599A98E290A7F79AF6E094797615EAC2EEABDF5B3A588008BCA69B5B896F381",
+      "ledger": 21144576,
+      "code": "tecNO_AUTH"
+    }
+  ]
+}

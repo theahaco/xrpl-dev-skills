@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.env
+# Secrets and local state written by the demo (testnet holder seeds, ban registry).
+.demo-wallets.json
+data/

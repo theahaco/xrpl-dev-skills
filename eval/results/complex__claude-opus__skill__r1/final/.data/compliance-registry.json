@@ -1,0 +1,10 @@
+{
+  "bans": [
+    {
+      "issuanceId": "01429FE7EBBB5754775E4CABDE50826E3EAFD2EDDB0395DA",
+      "address": "rHhBqdQTRHpwT5XzqjhGYDAdh5d6DzWC6c",
+      "reason": "Demo: sanctions screening hit",
+      "bannedAt": "2026-09-29T13:02:11.979Z"
+    }
+  ]
+}

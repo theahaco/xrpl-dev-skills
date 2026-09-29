@@ -1,0 +1,1 @@
+{"name":"testnet-mpt-demo","version":"1.0.0","private":true,"type":"module","scripts":{"build":"tsc","start":"npm run build && node dist/index.js","verify":"npm run build && node dist/index.js --verify","test":"npm run build && node --test dist/transactions.test.js"},"dependencies":{"xrpl":"5.3.0"},"devDependencies":{"@types/node":"26.6.3","typescript":"7.0.2"}}

@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0",
+  "name": "regulated-mpt-issuer",
+  "dependencies": {
+    "@types/node": {
+      "version": "26.6.3",
+      "resolved": "https://registry.npmjs.org/@types/node/-/node-26.6.3.tgz",
+      "overridden": false
+    },
+    "tsx": {
+      "version": "4.23.15",
+      "resolved": "https://registry.npmjs.org/tsx/-/tsx-4.23.15.tgz",
+      "overridden": false
+    },
+    "typescript": {
+      "version": "7.0.2",
+      "resolved": "https://registry.npmjs.org/typescript/-/typescript-7.0.2.tgz",
+      "overridden": false
+    },
+    "xrpl": {
+      "version": "5.3.0",
+      "resolved": "https://registry.npmjs.org/xrpl/-/xrpl-5.3.0.tgz",
+      "overridden": false
+    }
+  }
+}

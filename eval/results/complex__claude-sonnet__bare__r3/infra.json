@@ -1,0 +1,15 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [],
+    "sandboxDenials": [
+      "Exit code 1 tee: /tmp/demo_run.log: Operation not permitted > mpt-issuer@1.0.0 demo > npm run build && node dist/demo.js > mpt-issuer@1.0.0 build > tsc -p tsconfig.json [demo] Connected to Tes"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 28
+  }
+}

@@ -1,0 +1,214 @@
+{
+  "packetId": "d012069323f110db",
+  "rubricVersion": 1,
+  "scoredAt": "2026-09-29T04:15:05.848Z",
+  "calibrate": false,
+  "confidenceFloor": 0.6,
+  "jev": {
+    "requests": 5,
+    "inputTokens": 17478,
+    "outputTokens": 410,
+    "errors": [],
+    "model": "jev-1.13.0"
+  },
+  "modelScorer": {
+    "requests": 2,
+    "costUsd": 0.10530400000000001,
+    "errors": [],
+    "model": "claude-opus-5-5"
+  },
+  "evidence": {
+    "codeTruncated": false,
+    "chars": {
+      "task": 952,
+      "code": 8056,
+      "typecheck": 430,
+      "errors": 1560,
+      "xrplVersion": 5,
+      "xrplChangelog": 17696
+    }
+  },
+  "items": {
+    "hallucinated_api": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.48,
+        "probabilities": {
+          "none": 0.74,
+          "present": 0.26
+        }
+      },
+      "model": {
+        "choice": "none",
+        "confidence": 0.88,
+        "rationale": "All xrpl.js APIs used exist in 5.3.0, including Client maxFeeXRP, MPTokenIssuanceCreateFlags, autofill and submitAndWait. The XRPL fields are also real: mpt_issuance_id metadata, the ledger_entry mptoken/mpt_issuance lookups, and MPTAmount/OutstandingAmount with the correct flag bits. Strict typecheck passes."
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "model"
+      }
+    },
+    "hallucination_during_run": {
+      "jev": {
+        "choice": "some",
+        "confidence": 0.65,
+        "probabilities": {
+          "some": 0.82,
+          "none": 0.18
+        }
+      },
+      "final": {
+        "choice": "some",
+        "pass": false,
+        "source": "jev"
+      }
+    },
+    "deprecated_patterns": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.75,
+        "probabilities": {
+          "none": 0.88,
+          "present": 0.12
+        }
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "strict_type_errors": {
+      "jev": {
+        "choice": "clean",
+        "confidence": 0.98,
+        "probabilities": {
+          "not_typescript": 0.01,
+          "clean": 0.99,
+          "errors": 0
+        }
+      },
+      "final": {
+        "choice": "clean",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "type_escape_hatches": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.57,
+        "probabilities": {
+          "few": 0.27,
+          "pervasive": 0.02,
+          "none": 0.71
+        }
+      },
+      "model": {
+        "choice": "none",
+        "confidence": 0.93,
+        "rationale": "src/index.ts has no `as any`, no `as unknown as`, no `@ts-*` directives and no non-null `!` assertions. The only `!` characters are logical negations such as `!existsSync(...)`. Where the xrpl types fall short (MPToken), the code widens the value to `unknown` and narrows it with runtime `assert` checks instead of casting."
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "model"
+      }
+    },
+    "outcome_checks": {
+      "jev": {
+        "choice": "all",
+        "confidence": 0.99,
+        "probabilities": {
+          "all": 0.99,
+          "partial": 0.01,
+          "none": 0
+        }
+      },
+      "final": {
+        "choice": "all",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "waits_for_validation": {
+      "jev": {
+        "choice": "validated",
+        "confidence": 0.94,
+        "probabilities": {
+          "preliminary": 0,
+          "mixed": 0.04,
+          "validated": 0.96
+        }
+      },
+      "final": {
+        "choice": "validated",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "ledger_readback": {
+      "jev": {
+        "choice": "ledger",
+        "confidence": 0.98,
+        "probabilities": {
+          "ledger": 0.98,
+          "local": 0.02,
+          "not_reported": 0
+        }
+      },
+      "final": {
+        "choice": "ledger",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "mpt_amount_format": {
+      "jev": {
+        "choice": "correct",
+        "confidence": 1,
+        "probabilities": {
+          "correct": 1,
+          "incorrect": 0
+        }
+      },
+      "final": {
+        "choice": "correct",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "secret_handling": {
+      "jev": {
+        "choice": "external",
+        "confidence": 0.99,
+        "probabilities": {
+          "hardcoded": 0.01,
+          "external": 0.99
+        }
+      },
+      "final": {
+        "choice": "external",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "connection_hygiene": {
+      "jev": {
+        "choice": "always",
+        "confidence": 1,
+        "probabilities": {
+          "never": 0,
+          "always": 1,
+          "happy_path_only": 0
+        }
+      },
+      "final": {
+        "choice": "always",
+        "pass": true,
+        "source": "jev"
+      }
+    }
+  }
+}

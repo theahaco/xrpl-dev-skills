@@ -1,0 +1,60 @@
+{
+  "close_time_iso": "2026-09-29T04:17:02Z",
+  "ctid": "C1427CDC002E0001",
+  "hash": "B269BDA0286529D3FAABCAC9E9E275ED2500C3EC08AA7A8174E649AB62B3BEC6",
+  "ledger_hash": "840596255287DB2CFEB06E7BAD92F04CA0BF35E26ECE9DF69464352E06CBDA45",
+  "ledger_index": 21134556,
+  "meta": {
+    "AffectedNodes": [
+      {
+        "CreatedNode": {
+          "LedgerEntryType": "AccountRoot",
+          "LedgerIndex": "698E722F573182AD5B831106C6AFB7B95EB4A2458F73BE5A06D04E8D4D8B114A",
+          "NewFields": {
+            "Account": "rMu311S7WKSSsQVNwCfky3HM6JhKPEKHv1",
+            "Balance": "5000000",
+            "Sequence": 21134556
+          }
+        }
+      },
+      {
+        "ModifiedNode": {
+          "FinalFields": {
+            "Account": "rE93cZ289p6yHdZ68UQZR26jbCPG6rbzQx",
+            "Balance": "94999988",
+            "Flags": 0,
+            "OwnerCount": 0,
+            "Sequence": 21134502
+          },
+          "LedgerEntryType": "AccountRoot",
+          "LedgerIndex": "ADD4E0165912C603FB935658945A4DD65BF1C2206E0D7F86AE85B5160D912AB5",
+          "PreviousFields": {
+            "Balance": "100000000",
+            "Sequence": 21134501
+          },
+          "PreviousTxnID": "68CD73EB608850D12A4D6686DE944320085C308342C7A623C060A0D0F64BDEC3",
+          "PreviousTxnLgrSeq": 21134501
+        }
+      }
+    ],
+    "TransactionIndex": 46,
+    "TransactionResult": "tesSUCCESS",
+    "delivered_amount": "5000000"
+  },
+  "tx_json": {
+    "Account": "rE93cZ289p6yHdZ68UQZR26jbCPG6rbzQx",
+    "DeliverMax": "5000000",
+    "Destination": "rMu311S7WKSSsQVNwCfky3HM6JhKPEKHv1",
+    "Fee": "12",
+    "Flags": 0,
+    "LastLedgerSequence": 21134574,
+    "Sequence": 21134501,
+    "SigningPubKey": "<TESTNET_PRIVATE_KEY_REDACTED>",
+    "TransactionType": "Payment",
+    "TxnSignature": "A814C9252D6A36B63D4D1D5E0B1C599EA77B9ECBCAEE3B4AE7D727BF8602300FF090299F1AD94704AFED994700409212DB2BBBCC099CD60EA5102135A30A8306",
+    "ctid": "C1427CDC002E0001",
+    "date": 843970622,
+    "ledger_index": 21134556
+  },
+  "validated": true
+}

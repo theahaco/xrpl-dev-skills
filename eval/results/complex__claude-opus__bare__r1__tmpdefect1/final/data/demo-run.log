@@ -1,0 +1,88 @@
+
+> mpt-compliance-issuer@1.0.0 demo
+> tsx --env-file=.env scripts/demo.ts
+
+
+=== Issuer r9e83mrK9Ps69gVixqhbx8kEULvDB7RAvk: creating and funding holder accounts A, B, C
+  funded A r3rWvoamWg3vQYpcphTWT4xGnUbtz8Q9wx with 3 XRP (https://testnet.xrpl.org/transactions/B059F7FA8299B041EED2B4CF615745BB4D3AF5639A407C8636C94345A63F9C4E)
+  funded B r4YHCUEWMb4RNBjGxP5KU3qCWVuFLbomyF with 3 XRP (https://testnet.xrpl.org/transactions/42CBB281B2C3DBBD04C348020A41F6080453307C507A50F6DCF284E9A254F771)
+  funded C rPrLeipvy9yh3uyJEcmMFcoWas73piEr2R with 3 XRP (https://testnet.xrpl.org/transactions/3AED3FB4FD6187E097BDAB9F146E4819A1F5AC9ED106C29A46C1469F4B8C058A)
+
+=== Creating the MPT issuance
+  [audit] createIssuance   → success https://testnet.xrpl.org/transactions/A26028A85E7AE46FF33E481458B85CF8C54BB8F04345576F694BFE4065D82A86
+  issuance ID 014277075EE61297F2E13500B9A887302AFB0A1204C7C5A8
+  flags 0x66: RequireAuth, CanLock, CanClawback, CanTransfer; no escrow/trade/confidential
+
+=== Holders opt in to the token
+  A opted in (https://testnet.xrpl.org/transactions/74CC2366117B071D877E0ACCD26776A1BB4C80F4DFC22B113A28D4A3A0858970)
+  B opted in (https://testnet.xrpl.org/transactions/EF11D3CD2D3A1B35159197376C6AB943250D3BD78AA663E12BEA4C85345B95EF)
+  C opted in (https://testnet.xrpl.org/transactions/905BEC5A5AF7EF52A1F3856CC989A9E1C1131C7EA714602893F6687EE15C2B9B)
+
+=== Allowlist: unapproved holders cannot receive the token
+  [audit] issue r3rWvoamWg3vQYpcphTWT4xGnUbtz8Q9wx 500 → error https://testnet.xrpl.org/transactions/FE714EDB2A116A7EA81EAAC043EE038DAACE00C2A7502C9FE166FD88ED2C9EE0
+  ✔ issue 500 to A before approval: refused as expected — ledger returned tecNO_AUTH
+  [audit] approveHolder r3rWvoamWg3vQYpcphTWT4xGnUbtz8Q9wx  → success https://testnet.xrpl.org/transactions/F5AD6ACC7D92A8967FF35F852A9C517D6D7AB495A7594052F8ED1C47E22E142D
+  [audit] approveHolder r4YHCUEWMb4RNBjGxP5KU3qCWVuFLbomyF  → success https://testnet.xrpl.org/transactions/271247AA343061012E3D300D28F5ECA69B19D2138FCAB8AF57F4AACF496837EC
+  [audit] approveHolder rPrLeipvy9yh3uyJEcmMFcoWas73piEr2R  → success https://testnet.xrpl.org/transactions/2C522B584EAD94CE3F109A3552534E081C2D3D150D0B374C5715B042D413FDF4
+
+=== Issuing to approved holders
+  [audit] issue r3rWvoamWg3vQYpcphTWT4xGnUbtz8Q9wx 500 → success https://testnet.xrpl.org/transactions/BA5FF2F15F25F773417716D5730E9C62D21F40F61F4CF94933479EEE3B69BDB3
+  [audit] issue r4YHCUEWMb4RNBjGxP5KU3qCWVuFLbomyF 1000 → success https://testnet.xrpl.org/transactions/35E4E7F47ABAB214B78F1A22FC9F4E7AD9EE4E1C7F8E912A10F1FF29298E637C
+  [audit] issue rPrLeipvy9yh3uyJEcmMFcoWas73piEr2R 250 → success https://testnet.xrpl.org/transactions/25E8EA8A338100BA0EA35C500B9CF536B34E13B93185B1021C120DD97A1E7CE1
+
+=== Per-holder freeze of A
+  [audit] freezeHolder r3rWvoamWg3vQYpcphTWT4xGnUbtz8Q9wx  → success https://testnet.xrpl.org/transactions/CF23E14114298E8BA526B294FEDD9B5000E93AAF111A12C0B52BB096990BD894
+  [audit] issue r3rWvoamWg3vQYpcphTWT4xGnUbtz8Q9wx 1 → error
+  ✔ issuer sends 1 to frozen A: refused as expected — module refused (FrozenError)
+  ✔ frozen A sends 1 to B: refused as expected — ledger returned tecLOCKED
+  ✔ B sends 1 to frozen A: refused as expected — ledger returned tecLOCKED
+  [audit] unfreezeHolder r3rWvoamWg3vQYpcphTWT4xGnUbtz8Q9wx  → success https://testnet.xrpl.org/transactions/9920787A01301D6F7C6F449109AB2E4BFB67948CE021B71E35751F5290E21F5F
+  ✔ after unfreeze, A→B and B→A transfers succeed
+
+=== Global freeze
+  [audit] freezeAll   → success https://testnet.xrpl.org/transactions/AF35B57CEBB61F592ABA22CF24A07D682DBA5E508A9A1480D0714C314CE7A1DC
+  ✔ A sends 1 to B during global freeze: refused as expected — ledger returned tecLOCKED
+  ✔ B sends 1 to A during global freeze: refused as expected — ledger returned tecLOCKED
+  [audit] issue r4YHCUEWMb4RNBjGxP5KU3qCWVuFLbomyF 1 → error
+  ✔ issuer sends 1 to B during global freeze: refused as expected — module refused (FrozenError)
+  [audit] unfreezeAll   → success https://testnet.xrpl.org/transactions/58DAFF02211324FEAEBDAA3B1D88BCBA05BB763B5924B96D46E77E46A6440ABF
+  ✔ after global unfreeze, transfers succeed
+
+=== Clawback of 300 from B
+  [audit] clawback r4YHCUEWMb4RNBjGxP5KU3qCWVuFLbomyF 300 → success https://testnet.xrpl.org/transactions/5199D533CA218F90715A162AC8397071C275D375B6DE595F00D69F125A7542CF
+  clawed back 300
+
+=== Per-holder freeze of B (left frozen)
+  [audit] freezeHolder r4YHCUEWMb4RNBjGxP5KU3qCWVuFLbomyF  → success https://testnet.xrpl.org/transactions/DE64587496456C20D0B486994067DCEE5A35D10A4FB1E729DD83B1D6C45772A6
+
+=== Ban C
+  [audit] ban rPrLeipvy9yh3uyJEcmMFcoWas73piEr2R  → success https://testnet.xrpl.org/transactions/D6CBD6CF9D2723145A9C53A6F3B8546C3E0DBAE2F012E67819B1F59694A7853F https://testnet.xrpl.org/transactions/A6935C0AE4B7DC95C4495E11976BB4598D16950677B4D310F5CD3486F7FCB061
+  banned; clawed back 250
+  [audit] approveHolder rPrLeipvy9yh3uyJEcmMFcoWas73piEr2R  → error
+  ✔ re-approve banned C: refused as expected — module refused (BannedHolderError)
+  [audit] issue rPrLeipvy9yh3uyJEcmMFcoWas73piEr2R 1 → error
+  ✔ issue to banned C via module: refused as expected — module refused (BannedHolderError)
+  ✔ raw issuer Payment to C: refused as expected — ledger returned tecNO_AUTH
+  ✔ A sends 1 to banned C: refused as expected — ledger returned tecNO_AUTH
+
+=== Verifying final ledger state
+  A r3rWvoamWg3vQYpcphTWT4xGnUbtz8Q9wx: balance=500 authorized=true frozen=false banned=false
+  B r4YHCUEWMb4RNBjGxP5KU3qCWVuFLbomyF: balance=700 authorized=true frozen=true banned=false
+  C rPrLeipvy9yh3uyJEcmMFcoWas73piEr2R: balance=0 authorized=false frozen=false banned=true
+  ✔ issuer is the configured account
+  ✔ RequireAuth, CanLock, CanClawback all set
+  ✔ token is not globally frozen
+  ✔ A approved, holds 500, not frozen
+  ✔ B approved, holds 700, frozen
+  ✔ C banned: unapproved, holds 0
+  ✔ outstanding supply is 1200
+
+Wrote result.json:
+{
+  "issuanceId": "014277075EE61297F2E13500B9A887302AFB0A1204C7C5A8",
+  "holders": {
+    "A": "r3rWvoamWg3vQYpcphTWT4xGnUbtz8Q9wx",
+    "B": "r4YHCUEWMb4RNBjGxP5KU3qCWVuFLbomyF",
+    "C": "rPrLeipvy9yh3uyJEcmMFcoWas73piEr2R"
+  }
+}

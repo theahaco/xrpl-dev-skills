@@ -1,0 +1,15 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [],
+    "sandboxDenials": [
+      "6A3A6B4CF86D4225FCB34138A9D8C3116A6F40\", \"holder\": \"rL9oN7tcSobKnHLsdRHCnwskYevxLW4To8\", \"holderBalance\": \"1000\", \"outstandingAmount\": \"1000\" } (eval):1: operation not permitted: /tmp/verify.mjs node:internal/modules/cjs/loader:1520 throw err; ^ Error: Cannot find module '/tmp/verify.mjs' at Module._reso"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 5
+  }
+}

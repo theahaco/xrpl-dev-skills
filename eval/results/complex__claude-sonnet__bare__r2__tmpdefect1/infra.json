@@ -1,0 +1,21 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [
+      "toString(): string; inspect(): string; } declare class RippledError extends XrplError { } declare class UnexpectedError extends XrplError { } declare class ConnectionError extends XrplError { } declare class NotConnectedError extends ConnectionError { } declare class DisconnectedError extends ConnectionError { } de",
+      "node_modules/xrpl/dist/npm/client/connection.js:45: reject(new errors_1.DisconnectedError(error.message, error)); node_modules/xrpl/dist/npm/client/connection.js:94: return Promise.reject(new errors_1.ConnectionError(",
+      " error, 50: promise.reject(error); 53: rejectAll(error) { 55: this.reject(id, error); 70: this.reject(newId, new errors_1.TimeoutError(`Timeout for request: ${JSON.stringify(request)} with id ${newId}`, request)); 78: throw new errors_1.XrplError(`Response with id '${new"
+    ],
+    "sandboxDenials": [
+      "mkdir: xrpl-check: Operation not permitted",
+      "(eval):1: can't create temp file for here document: operation not permitted"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 54
+  },
+  "suspect": "connectivity errors in command output while the health monitor saw testnet healthy; scored as an agent failure, review by hand"
+}

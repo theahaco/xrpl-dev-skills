@@ -1,0 +1,100 @@
+
+> mpt-issuer@1.0.0 demo
+> tsx --env-file=.env scripts/demo.ts
+
+Issuer rPmjGdHVjznFtNExiqnZbh1vLKatu6Gs3z on network 1
+
+▶ Create the token issuance (allowlist + lock + clawback, no escrow/DEX)
+    · Created MPT issuance {"issuanceId":"0142A124F9C85AB27786378530B70D4E4D5665E19A865094","tx":"FF462E1A6A624666A63EF05155C80BA08BCF7D59954D69272F17E67DACE31464"}
+    ✓ issuance has RequireAuth, CanLock and CanClawback
+
+▶ Create and fund holder accounts A, B, C
+    · A = rneB6ko7rZEJC6ayExErG1vAgrcV6fZToa (funded 5 XRP)
+    · B = r44pVnRqpDRZxA3m4SPRss9fb3zPZzpwiD (funded 5 XRP)
+    · C = r974o58ZXXKAWPtK5aFUaMjesPKq6MkPax (funded 5 XRP)
+
+▶ Holders opt in (create their MPToken)
+    ✓ A has opted in but is not yet approved
+
+▶ Allowlist: unapproved holders cannot receive the token
+    ✓ issuing 1 to unapproved A — rejected on ledger with tecNO_AUTH (tx 6BAC788EDE9CB279F48802CD9659E5BD8040E108B07A8C6F8CCD6051C737E6AA)
+
+▶ Approve A, B and C after KYC
+    · Approved holder {"address":"rneB6ko7rZEJC6ayExErG1vAgrcV6fZToa","tx":"AD5DB02130DA045F08C2CA9E591AC2754A88E4FDA5047CE5E9C4686DF3A08E21"}
+    · Approved holder {"address":"r44pVnRqpDRZxA3m4SPRss9fb3zPZzpwiD","tx":"4B58E79E592BAE161A431B011BAB08934CC9996831206C4145FF89818EF0F091"}
+    · Approved holder {"address":"r974o58ZXXKAWPtK5aFUaMjesPKq6MkPax","tx":"F09DE76757B45893632E26AFC12AE27AC488B1B503168C2DFF6C8BDC0B9E7CD5"}
+    ✓ rneB6ko7rZEJC6ayExErG1vAgrcV6fZToa approved
+    ✓ r44pVnRqpDRZxA3m4SPRss9fb3zPZzpwiD approved
+    ✓ r974o58ZXXKAWPtK5aFUaMjesPKq6MkPax approved
+
+▶ Issue tokens: A 400, B 1000, C 250
+    · Issued tokens {"address":"rneB6ko7rZEJC6ayExErG1vAgrcV6fZToa","amount":"400","tx":"43D3C5441686AC861E116DC4736A49896235FD9CF9B64811F7434DB7724D0618"}
+    · Issued tokens {"address":"r44pVnRqpDRZxA3m4SPRss9fb3zPZzpwiD","amount":"1000","tx":"F6414F28BB683A32325BE6EE6B1ADD08A2F5579A336E471F7B71F7C8B18B5B5B"}
+    · Issued tokens {"address":"r974o58ZXXKAWPtK5aFUaMjesPKq6MkPax","amount":"250","tx":"BDBB9472816B43CA279BF80F3892E8EE7292E3FFF6447735C2A91ECF0F5E439D"}
+
+▶ Clawback: recover 300 from B
+    · Clawed back tokens {"address":"r44pVnRqpDRZxA3m4SPRss9fb3zPZzpwiD","amount":"300","tx":"3FBD9B52210B98D202B971BA1857E7CB317BE6D34F3D1DF32E9EE489ADE2AEE7"}
+    ✓ B holds 700
+    ✓ clawing back more than B holds — refused by issuer module: Cannot claw back 701 from r44pVnRqpDRZxA3m4SPRss9fb3zPZzpwiD: balance is 700
+
+▶ Per-holder freeze: freeze A
+    · Froze holder {"address":"rneB6ko7rZEJC6ayExErG1vAgrcV6fZToa","tx":"39A7852E6DF7C9214F21275639441F859A01A397C7760C8E52C8C64D4767145F"}
+    ✓ A is frozen
+    ✓ issuing 100 to frozen A — refused by issuer module: rneB6ko7rZEJC6ayExErG1vAgrcV6fZToa is frozen
+    ✓ frozen A sending 1 to B — rejected on ledger with tecLOCKED (tx D6DDC13DF33F0D37A0C6ECB28259AF21CAE8346BF743163BB1698CB9A567DE4D)
+    ✓ B sending 1 to frozen A — rejected on ledger with tecLOCKED (tx 1A16AB513C6A398D32EC92A9B494305EF3416A83650B668E56B0513133465127)
+
+▶ Per-holder freeze: unfreeze A, then A can receive again
+    · Unfroze holder {"address":"rneB6ko7rZEJC6ayExErG1vAgrcV6fZToa","tx":"9AB2F00B7F59537E18E249921FBC32F89702DB59442FAF65312E821975532B78"}
+    ✓ A is not frozen
+    · Issued tokens {"address":"rneB6ko7rZEJC6ayExErG1vAgrcV6fZToa","amount":"100","tx":"BE71635D2EE9AA5173B6F6BC2BAC377677C4130ED5C3BE5A11C0E14CE4760555"}
+    ✓ A holds 500
+
+▶ Global freeze: freeze all movement of the token
+    ! Global freeze enabled {"tx":"11B1DA432853F1A8F0F0394BB22361B1833933FFB508EB0805FE6C26DCB7C76D"}
+    ✓ token is globally frozen
+    ✓ A sending 1 to B during global freeze — rejected on ledger with tecLOCKED (tx 02D9A6EAB0E8CA899816E653CB955A7F0FA183A52D08C086CFFC1853EE96AD3C)
+    ✓ issuing 1 to B during global freeze — refused by issuer module: Token 0142A124F9C85AB27786378530B70D4E4D5665E19A865094 is globally frozen
+
+▶ Global freeze: lift it
+    ! Global freeze lifted {"tx":"1CCEE5CBFC48AB26A2C39804EEE1D87018CA573BA04D25BEF91B63F48B166EAC"}
+    ✓ token is not globally frozen
+
+▶ Ban C
+    ✓ C holds 250 before the ban
+    ! Ban recorded {"address":"r974o58ZXXKAWPtK5aFUaMjesPKq6MkPax","reason":"Demo: sanctions screening hit"}
+    · Froze holder {"address":"r974o58ZXXKAWPtK5aFUaMjesPKq6MkPax","tx":"95F70788CA68EC35149BCFF28A2312EB8D1E816509C7F82D1CEB4C6A8DC5CF5A"}
+    · Clawed back tokens {"address":"r974o58ZXXKAWPtK5aFUaMjesPKq6MkPax","amount":"250","tx":"5BB18AFADE412A81A7FE3B717ED468F3EE51B5FB93E462A0632C40C75945D2C1"}
+    · Revoked holder approval {"address":"r974o58ZXXKAWPtK5aFUaMjesPKq6MkPax","tx":"27E87C9257EA6EC91C1B742EDFBFC62CBF087DD2445B4B30F7F572B4C0EB8E64"}
+    ! Holder banned {"address":"r974o58ZXXKAWPtK5aFUaMjesPKq6MkPax","clawedBack":"250","transactions":["95F70788CA68EC35149BCFF28A2312EB8D1E816509C7F82D1CEB4C6A8DC5CF5A","5BB18AFADE412A81A7FE3B717ED468F3EE51B5FB93E462A0632C40C75945D2C1","27E87C9257EA6EC91C1B742EDFBFC62CBF087DD2445B4B30F7F572B4C0EB8E64"]}
+    ✓ ban clawed back all 250 from C
+    ✓ C holds 0, is unapproved and banned
+
+▶ Banned C cannot receive the token again
+    ✓ module issuing 1 to C — refused by issuer module: r974o58ZXXKAWPtK5aFUaMjesPKq6MkPax is banned from holding this token
+    ✓ module re-approving C — refused by issuer module: r974o58ZXXKAWPtK5aFUaMjesPKq6MkPax is banned from holding this token
+    ✓ raw issuer Payment to C bypassing the module — rejected on ledger with tecNO_AUTH (tx D7A6A294B94E81B43BB12A5D6EE4234139B0EC7077160FC38389B85A950542C7)
+    ✓ A sending 1 to C — rejected on ledger with tecNO_AUTH (tx 011D913BDEA3E2023D56551FECBC43AE685A8822AFF9453E1359D7E2362F5803)
+
+▶ Freeze B
+    · Froze holder {"address":"r44pVnRqpDRZxA3m4SPRss9fb3zPZzpwiD","tx":"ACCBE567F9424C2996E29D58904C85AD8AD4F3CAFD824FFEBF7F556C07567FCB"}
+    ✓ frozen B sending 1 to A — rejected on ledger with tecLOCKED (tx C3F7D84F37E393A9B0AF378E1928EA687221568CDFA49FE77B47E900A5B5F882)
+
+▶ Verify final ledger state
+    ✓ issuance 0142A124F9C85AB27786378530B70D4E4D5665E19A865094 is issued by rPmjGdHVjznFtNExiqnZbh1vLKatu6Gs3z
+    ✓ all controls available (RequireAuth, CanLock, CanClawback)
+    ✓ token is not globally frozen
+    ✓ A: approved, 500, not frozen
+    ✓ B: approved, 700, frozen
+    ✓ C: banned, 0, not approved
+    ✓ outstanding supply is 1200
+
+Done. Wrote /private/tmp/ws/df2c377e5b30/project/result.json:
+{
+  "issuanceId": "0142A124F9C85AB27786378530B70D4E4D5665E19A865094",
+  "holders": {
+    "A": "rneB6ko7rZEJC6ayExErG1vAgrcV6fZToa",
+    "B": "r44pVnRqpDRZxA3m4SPRss9fb3zPZzpwiD",
+    "C": "r974o58ZXXKAWPtK5aFUaMjesPKq6MkPax"
+  }
+}

@@ -1,0 +1,246 @@
+{
+  "packetId": "4e2f66a808858f2b",
+  "rubricVersion": 1,
+  "scoredAt": "2026-09-29T13:07:26.348Z",
+  "calibrate": false,
+  "confidenceFloor": 0.6,
+  "jev": {
+    "requests": 5,
+    "inputTokens": 47847,
+    "outputTokens": 500,
+    "errors": [],
+    "model": "jev-1.13.0"
+  },
+  "modelScorer": {
+    "requests": 2,
+    "costUsd": 0.234016,
+    "errors": [],
+    "model": "claude-opus-5-5"
+  },
+  "evidence": {
+    "codeTruncated": true,
+    "chars": {
+      "task": 1949,
+      "code": 39584,
+      "typecheck": 430,
+      "errors": 3458,
+      "xrplVersion": 5,
+      "xrplChangelog": 17696
+    }
+  },
+  "items": {
+    "hallucinated_api": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.43,
+        "probabilities": {
+          "none": 0.72,
+          "present": 0.28
+        }
+      },
+      "model": {
+        "choice": "none",
+        "confidence": 0.72,
+        "rationale": "The project typechecks with 0 errors under strict settings against xrpl 5.3.0, which confirms the imports and typed transaction fields exist, and the requests and fields used are real. The only doubtful item is the locally defined 0x80 confidential-balance flag, which is used just to reject such issuances, and parts of the code were cut off in the evidence."
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "model"
+      }
+    },
+    "hallucination_during_run": {
+      "jev": {
+        "choice": "some",
+        "confidence": 0.54,
+        "probabilities": {
+          "none": 0.23,
+          "some": 0.77
+        }
+      },
+      "model": {
+        "choice": "some",
+        "confidence": 0.55,
+        "rationale": "Error 5 is a TypeScript error from using `LedgerEntry` as a type (TS2709). In xrpl.js, `LedgerEntry` is a namespace, not a type, so the agent assumed a type that doesn't exist and had to fix it. The other errors are expected ledger rejections from deliberate tests, or grep output from the library's source code."
+      },
+      "final": {
+        "choice": "some",
+        "pass": false,
+        "source": "model"
+      }
+    },
+    "deprecated_patterns": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.79,
+        "probabilities": {
+          "present": 0.1,
+          "none": 0.9
+        }
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "strict_type_errors": {
+      "jev": {
+        "choice": "clean",
+        "confidence": 0.98,
+        "probabilities": {
+          "not_typescript": 0.01,
+          "errors": 0,
+          "clean": 0.99
+        }
+      },
+      "final": {
+        "choice": "clean",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "type_escape_hatches": {
+      "jev": {
+        "choice": "few",
+        "confidence": 0.69,
+        "probabilities": {
+          "none": 0.09,
+          "pervasive": 0.12,
+          "few": 0.79
+        }
+      },
+      "final": {
+        "choice": "few",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "outcome_checks": {
+      "jev": {
+        "choice": "all",
+        "confidence": 0.8,
+        "probabilities": {
+          "partial": 0.13,
+          "none": 0.01,
+          "all": 0.86
+        }
+      },
+      "final": {
+        "choice": "all",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "waits_for_validation": {
+      "jev": {
+        "choice": "validated",
+        "confidence": 0.97,
+        "probabilities": {
+          "mixed": 0.02,
+          "preliminary": 0,
+          "validated": 0.98
+        }
+      },
+      "final": {
+        "choice": "validated",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "mpt_amount_format": {
+      "jev": {
+        "choice": "correct",
+        "confidence": 0.78,
+        "probabilities": {
+          "incorrect": 0.11,
+          "correct": 0.89
+        }
+      },
+      "final": {
+        "choice": "correct",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "secret_handling": {
+      "jev": {
+        "choice": "external",
+        "confidence": 1,
+        "probabilities": {
+          "external": 1,
+          "hardcoded": 0
+        }
+      },
+      "final": {
+        "choice": "external",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "connection_hygiene": {
+      "jev": {
+        "choice": "always",
+        "confidence": 1,
+        "probabilities": {
+          "never": 0,
+          "happy_path_only": 0,
+          "always": 1
+        }
+      },
+      "final": {
+        "choice": "always",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "ban_semantics": {
+      "jev": {
+        "choice": "complete",
+        "confidence": 0.83,
+        "probabilities": {
+          "partial": 0.08,
+          "complete": 0.89,
+          "absent": 0.03
+        }
+      },
+      "final": {
+        "choice": "complete",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "freeze_semantics": {
+      "jev": {
+        "choice": "mpt_lock",
+        "confidence": 0.88,
+        "probabilities": {
+          "other": 0.07,
+          "absent": 0.01,
+          "mpt_lock": 0.92
+        }
+      },
+      "final": {
+        "choice": "mpt_lock",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "clawback_semantics": {
+      "jev": {
+        "choice": "mpt_clawback",
+        "confidence": 0.66,
+        "probabilities": {
+          "other": 0.13,
+          "mpt_clawback": 0.77,
+          "absent": 0.1
+        }
+      },
+      "final": {
+        "choice": "mpt_clawback",
+        "pass": true,
+        "source": "jev"
+      }
+    }
+  }
+}

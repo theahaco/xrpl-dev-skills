@@ -3,12 +3,12 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { test } from "node:test";
-import { type AgentRun, collectSessions, endsWithQuestion } from "./agents.ts";
+import { type AgentRun, asksQuestion, collectSessions } from "./agents.ts";
 import { withBudgetLock, reserve } from "./budget.ts";
 import { type CheckResult, type Ctx, deliveredTo, sameAmount } from "./check.ts";
 import { codexCredential } from "./credentials.ts";
 import { classify, outageProbes } from "./infra.ts";
-import { redactedJson, redactText, SEED_PLACEHOLDER } from "./redact.ts";
+import { redactBinary, redactedJson, redactText, SEED_PLACEHOLDER } from "./redact.ts";
 import { blind, buildEvidence, codeEvidence, errorEvidence, type RubricItem, scoreRun } from "./score.ts";
 import type { Workspace } from "./sandbox.ts";
 import { parseJsonc, strictFamily, typecheck } from "./typecheck.ts";
@@ -17,11 +17,14 @@ import { accountIdHex, issuanceId, type MptIssuance, type TxRecord } from "./xrp
 
 const buildErrors = (file: string): string => errorEvidence(file, 10_000);
 
-test("endsWithQuestion spots a trailing question, not one mid-message", () => {
-  assert.equal(endsWithQuestion("Which network should I use?"), true);
-  assert.equal(endsWithQuestion("Done.\n\nShould I also add tests?**"), true);
-  assert.equal(endsWithQuestion("Is it testnet? Yes, so I used testnet.\nAll done."), false);
-  assert.equal(endsWithQuestion(""), false);
+test("asksQuestion finds a question anywhere in the final message", () => {
+  assert.equal(asksQuestion("Which network should I use?"), true);
+  assert.equal(asksQuestion("Done.\n\nShould I also add tests?**"), true);
+  // Asked, then a closing sentence: complex__codex__research__r2 (first attempt).
+  assert.equal(asksQuestion("Should I use native MPT freezes, or extend the design?\n\nThis affects the compliance guarantee. No code has been run."), true);
+  assert.equal(asksQuestion("All done."), false);
+  assert.equal(asksQuestion("See https://xrpl.org/x?y=1 and `a?.b` for details.\n```ts\nconst v = x?.y ?? z\n```"), false);
+  assert.equal(asksQuestion(""), false);
 });
 
 test("redactText removes known secrets and anything seed- or key-shaped", () => {
@@ -35,6 +38,16 @@ test("redactText removes known secrets and anything seed- or key-shaped", () => 
   assert.ok(!out.includes("A1A1A1"));
   assert.ok(!out.includes("abcdefghijkl"));
   assert.ok(out.includes(SEED_PLACEHOLDER));
+});
+
+test("redactBinary masks seeds in binary files without changing their length", () => {
+  const seed = "sEdSKaCy2JT7JaM7v95H9SxkhP9wS2r";
+  const buf = Buffer.concat([Buffer.from([0, 1, 2, 0xff]), Buffer.from(`x${seed}\0`, "latin1"), Buffer.from([0xfe, 0])]);
+  const out = redactBinary(buf, []);
+  assert.equal(out.length, buf.length);
+  assert.ok(!out.toString("latin1").includes(seed));
+  assert.deepEqual([...out.subarray(0, 4)], [0, 1, 2, 0xff]);
+  assert.deepEqual([...out.subarray(-2)], [0xfe, 0]);
 });
 
 test("blind strips skill tells", () => {

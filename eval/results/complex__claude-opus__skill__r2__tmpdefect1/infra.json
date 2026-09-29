@@ -1,0 +1,17 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [],
+    "sandboxDenials": [
+      ") npm warn allow-scripts npm warn allow-scripts Run `npm approve-scripts --allow-scripts-pending` to review, or `npm approve-scripts <pkg>` to allow. (eval):1: operation not permitted: /tmp/probe.mjs cp: /tmp/probe.mjs: No such file or directory rm: probe.mjs: No such file or directory",
+      "(eval):1: can't create temp file for here document: operation not permitted project@1.0.0 /private/tmp/ws/0a88c8de571e/project └── xrpl@5.3.0",
+      "(eval):1: can't create temp file for here document: operation not permitted python heredoc blocked"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 25
+  }
+}

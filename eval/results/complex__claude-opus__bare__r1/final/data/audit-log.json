@@ -1,0 +1,219 @@
+[
+  {
+    "action": "create_issuance",
+    "outcome": "succeeded",
+    "txHash": "ED5DAC4E242B105B3928BD5E9A8B8BC97C1DC272BAF9AB8F836C06182D7C40B9",
+    "actor": "demo-script",
+    "issuanceId": "01429FEA40F14B91F8C0303C922463F407D18E4253169A53",
+    "timestamp": "2026-09-29T12:52:59.189Z"
+  },
+  {
+    "action": "issue",
+    "holder": "rake3rQuoaSrnefwUkQvx9ckNXEbxjmYCU",
+    "amount": "500",
+    "outcome": "refused",
+    "error": "ComplianceViolationError: rake3rQuoaSrnefwUkQvx9ckNXEbxjmYCU has not opted in to 01429FEA40F14B91F8C0303C922463F407D18E4253169A53",
+    "issuanceId": "01429FEA40F14B91F8C0303C922463F407D18E4253169A53",
+    "timestamp": "2026-09-29T12:52:59.496Z"
+  },
+  {
+    "action": "issue",
+    "holder": "rake3rQuoaSrnefwUkQvx9ckNXEbxjmYCU",
+    "amount": "500",
+    "outcome": "refused",
+    "error": "ComplianceViolationError: rake3rQuoaSrnefwUkQvx9ckNXEbxjmYCU is not an approved holder",
+    "issuanceId": "01429FEA40F14B91F8C0303C922463F407D18E4253169A53",
+    "timestamp": "2026-09-29T12:53:21.388Z"
+  },
+  {
+    "action": "approve_holder",
+    "holder": "rake3rQuoaSrnefwUkQvx9ckNXEbxjmYCU",
+    "reference": "KYC-A",
+    "outcome": "succeeded",
+    "txHash": "05C83E2C6F075635A48FC615DDE6FF45F55720F4FD7DD5BC52463AB4DFD81EE1",
+    "issuanceId": "01429FEA40F14B91F8C0303C922463F407D18E4253169A53",
+    "timestamp": "2026-09-29T12:53:28.713Z"
+  },
+  {
+    "action": "approve_holder",
+    "holder": "rnNyt3Bx6yR6gTh7unA45uXXeCyYinAAfR",
+    "reference": "KYC-B",
+    "outcome": "succeeded",
+    "txHash": "C356A2F5586352D18F8190C900C240BBC08823B698C54F1C73D64E4AB673EC8E",
+    "issuanceId": "01429FEA40F14B91F8C0303C922463F407D18E4253169A53",
+    "timestamp": "2026-09-29T12:53:36.026Z"
+  },
+  {
+    "action": "issue",
+    "holder": "rake3rQuoaSrnefwUkQvx9ckNXEbxjmYCU",
+    "amount": "500",
+    "outcome": "succeeded",
+    "txHash": "34F81A66F11BCE36D69BAE561B6BC691DDD51AF11E812522CADD5624687DFDBD",
+    "issuanceId": "01429FEA40F14B91F8C0303C922463F407D18E4253169A53",
+    "timestamp": "2026-09-29T12:53:42.269Z"
+  },
+  {
+    "action": "issue",
+    "holder": "rnNyt3Bx6yR6gTh7unA45uXXeCyYinAAfR",
+    "amount": "1000",
+    "outcome": "succeeded",
+    "txHash": "15BEF737B1B021459BC0CE3C67163191D8E03C26C2CD31E0DF706DF78BB26274",
+    "issuanceId": "01429FEA40F14B91F8C0303C922463F407D18E4253169A53",
+    "timestamp": "2026-09-29T12:53:48.538Z"
+  },
+  {
+    "action": "approve_holder",
+    "holder": "rNZRXie4ZwBL7axmyj46BgHbMLrvtpaV5h",
+    "reference": "KYC-C",
+    "outcome": "succeeded",
+    "txHash": "284848A2212D2240C876AE9EDE44D0DFA7B686CCDB8EEFB68635C4FEC18AB840",
+    "issuanceId": "01429FEA40F14B91F8C0303C922463F407D18E4253169A53",
+    "timestamp": "2026-09-29T12:53:59.660Z"
+  },
+  {
+    "action": "issue",
+    "holder": "rNZRXie4ZwBL7axmyj46BgHbMLrvtpaV5h",
+    "amount": "250",
+    "outcome": "succeeded",
+    "txHash": "4E0B5276723E0241209A2D8240F4F184178B7668ACB04AF880A957843A2B2CDA",
+    "issuanceId": "01429FEA40F14B91F8C0303C922463F407D18E4253169A53",
+    "timestamp": "2026-09-29T12:54:07.071Z"
+  },
+  {
+    "action": "approve_holder",
+    "holder": "rNZRXie4ZwBL7axmyj46BgHbMLrvtpaV5h",
+    "outcome": "no_op",
+    "issuanceId": "01429FEA40F14B91F8C0303C922463F407D18E4253169A53",
+    "timestamp": "2026-09-29T12:54:07.147Z"
+  },
+  {
+    "action": "freeze_holder",
+    "holder": "rake3rQuoaSrnefwUkQvx9ckNXEbxjmYCU",
+    "reason": "Suspicious activity review",
+    "reference": "CASE-1",
+    "outcome": "succeeded",
+    "txHash": "3C72430B56333F348FED6B6E64113A3D8F25E2A6F632BDD8BC7717F4D5423280",
+    "issuanceId": "01429FEA40F14B91F8C0303C922463F407D18E4253169A53",
+    "timestamp": "2026-09-29T12:54:13.310Z"
+  },
+  {
+    "action": "issue",
+    "holder": "rake3rQuoaSrnefwUkQvx9ckNXEbxjmYCU",
+    "amount": "1",
+    "outcome": "refused",
+    "error": "ComplianceViolationError: rake3rQuoaSrnefwUkQvx9ckNXEbxjmYCU is frozen",
+    "issuanceId": "01429FEA40F14B91F8C0303C922463F407D18E4253169A53",
+    "timestamp": "2026-09-29T12:54:26.892Z"
+  },
+  {
+    "action": "unfreeze_holder",
+    "holder": "rake3rQuoaSrnefwUkQvx9ckNXEbxjmYCU",
+    "reason": "Review cleared",
+    "reference": "CASE-1",
+    "outcome": "succeeded",
+    "txHash": "9D058333C89B55CF42F8880B847445ABDA4E5D2DB9B9CF276B137EE87EA9FAF8",
+    "issuanceId": "01429FEA40F14B91F8C0303C922463F407D18E4253169A53",
+    "timestamp": "2026-09-29T12:54:34.202Z"
+  },
+  {
+    "action": "freeze_all",
+    "reason": "Incident drill",
+    "reference": "INC-1",
+    "outcome": "succeeded",
+    "txHash": "FF34AEEB58388151F64C108E641953D35389C5A8C874E60B353A523502CD9BA2",
+    "issuanceId": "01429FEA40F14B91F8C0303C922463F407D18E4253169A53",
+    "timestamp": "2026-09-29T12:54:56.091Z"
+  },
+  {
+    "action": "issue",
+    "holder": "rnNyt3Bx6yR6gTh7unA45uXXeCyYinAAfR",
+    "amount": "1",
+    "outcome": "refused",
+    "error": "ComplianceViolationError: The token is globally frozen",
+    "issuanceId": "01429FEA40F14B91F8C0303C922463F407D18E4253169A53",
+    "timestamp": "2026-09-29T12:55:10.800Z"
+  },
+  {
+    "action": "unfreeze_all",
+    "reason": "Incident resolved",
+    "reference": "INC-1",
+    "outcome": "succeeded",
+    "txHash": "18981BA887FDCB2BA2FB3D75F13C3A89617FFF06D5E01D9F090E6A552FB796AD",
+    "issuanceId": "01429FEA40F14B91F8C0303C922463F407D18E4253169A53",
+    "timestamp": "2026-09-29T12:55:18.113Z"
+  },
+  {
+    "action": "clawback",
+    "holder": "rnNyt3Bx6yR6gTh7unA45uXXeCyYinAAfR",
+    "amount": "1001",
+    "reason": "over-balance test",
+    "outcome": "refused",
+    "error": "ComplianceViolationError: rnNyt3Bx6yR6gTh7unA45uXXeCyYinAAfR holds 1000, less than the 1001 requested",
+    "issuanceId": "01429FEA40F14B91F8C0303C922463F407D18E4253169A53",
+    "timestamp": "2026-09-29T12:55:32.770Z"
+  },
+  {
+    "action": "clawback",
+    "holder": "rnNyt3Bx6yR6gTh7unA45uXXeCyYinAAfR",
+    "amount": "300",
+    "reason": "Court order",
+    "reference": "ORDER-7",
+    "outcome": "succeeded",
+    "txHash": "5FFBCB9772FE9C30280549A5BD070F5933008705980AE36BE853D4A28AE85502",
+    "issuanceId": "01429FEA40F14B91F8C0303C922463F407D18E4253169A53",
+    "timestamp": "2026-09-29T12:55:38.939Z"
+  },
+  {
+    "action": "ban",
+    "holder": "rNZRXie4ZwBL7axmyj46BgHbMLrvtpaV5h",
+    "reason": "Sanctions list match",
+    "reference": "SANCTIONS-3",
+    "outcome": "succeeded",
+    "issuanceId": "01429FEA40F14B91F8C0303C922463F407D18E4253169A53",
+    "timestamp": "2026-09-29T12:55:54.127Z"
+  },
+  {
+    "action": "issue",
+    "holder": "rNZRXie4ZwBL7axmyj46BgHbMLrvtpaV5h",
+    "amount": "1",
+    "outcome": "refused",
+    "error": "ComplianceViolationError: rNZRXie4ZwBL7axmyj46BgHbMLrvtpaV5h is banned",
+    "issuanceId": "01429FEA40F14B91F8C0303C922463F407D18E4253169A53",
+    "timestamp": "2026-09-29T12:56:00.299Z"
+  },
+  {
+    "action": "approve_holder",
+    "holder": "rNZRXie4ZwBL7axmyj46BgHbMLrvtpaV5h",
+    "outcome": "refused",
+    "error": "ComplianceViolationError: rNZRXie4ZwBL7axmyj46BgHbMLrvtpaV5h is banned",
+    "issuanceId": "01429FEA40F14B91F8C0303C922463F407D18E4253169A53",
+    "timestamp": "2026-09-29T12:56:00.300Z"
+  },
+  {
+    "action": "unfreeze_holder",
+    "holder": "rNZRXie4ZwBL7axmyj46BgHbMLrvtpaV5h",
+    "reason": "test",
+    "outcome": "refused",
+    "error": "ComplianceViolationError: rNZRXie4ZwBL7axmyj46BgHbMLrvtpaV5h is banned",
+    "issuanceId": "01429FEA40F14B91F8C0303C922463F407D18E4253169A53",
+    "timestamp": "2026-09-29T12:56:00.300Z"
+  },
+  {
+    "action": "ban",
+    "holder": "rNZRXie4ZwBL7axmyj46BgHbMLrvtpaV5h",
+    "reason": "repeat",
+    "outcome": "succeeded",
+    "issuanceId": "01429FEA40F14B91F8C0303C922463F407D18E4253169A53",
+    "timestamp": "2026-09-29T12:56:00.529Z"
+  },
+  {
+    "action": "freeze_holder",
+    "holder": "rnNyt3Bx6yR6gTh7unA45uXXeCyYinAAfR",
+    "reason": "Pending investigation",
+    "reference": "CASE-2",
+    "outcome": "succeeded",
+    "txHash": "03D19B7073B52A89CC33336A801B9AB666DFB071C90909A1E11F32295403E385",
+    "issuanceId": "01429FEA40F14B91F8C0303C922463F407D18E4253169A53",
+    "timestamp": "2026-09-29T12:56:06.696Z"
+  }
+]

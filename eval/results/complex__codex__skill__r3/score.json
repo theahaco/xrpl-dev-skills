@@ -1,0 +1,246 @@
+{
+  "packetId": "124ea754352b9ec5",
+  "rubricVersion": 1,
+  "scoredAt": "2026-09-29T13:42:36.432Z",
+  "calibrate": false,
+  "confidenceFloor": 0.6,
+  "jev": {
+    "requests": 5,
+    "inputTokens": 43527,
+    "outputTokens": 500,
+    "errors": [],
+    "model": "jev-1.13.0"
+  },
+  "modelScorer": {
+    "requests": 2,
+    "costUsd": 0.3762468,
+    "errors": [],
+    "model": "claude-opus-5-5"
+  },
+  "evidence": {
+    "codeTruncated": false,
+    "chars": {
+      "task": 1949,
+      "code": 35831,
+      "typecheck": 430,
+      "errors": 3428,
+      "xrplVersion": 5,
+      "xrplChangelog": 17696
+    }
+  },
+  "items": {
+    "hallucinated_api": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.43,
+        "probabilities": {
+          "none": 0.72,
+          "present": 0.28
+        }
+      },
+      "model": {
+        "choice": "none",
+        "confidence": 0.8,
+        "rationale": "All the xrpl.js APIs used exist in 5.3.0, including the Client options, MPT flag enums, ledger_entry mpt_issuance/mptoken, Clawback Holder, Wallet.fromEntropy and meta.mpt_issuance_id. Strict typechecking passes with no errors. The raw flag check for 128 only requires that bit to be zero and doesn't invent an API."
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "model"
+      }
+    },
+    "hallucination_during_run": {
+      "jev": {
+        "choice": "some",
+        "confidence": 0.98,
+        "probabilities": {
+          "some": 0.99,
+          "none": 0.01
+        }
+      },
+      "final": {
+        "choice": "some",
+        "pass": false,
+        "source": "jev"
+      }
+    },
+    "deprecated_patterns": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.27,
+        "probabilities": {
+          "none": 0.64,
+          "present": 0.36
+        }
+      },
+      "model": {
+        "choice": "none",
+        "confidence": 0.8,
+        "rationale": "I found no deprecated or removed pattern. `Wallet.fromEntropy` gets exactly 16 bytes as a Buffer, which is a Uint8Array, as 5.2.0 requires. `Wallet.fromSeed` relies on the algorithm being inferred, which is the behaviour since 5.0.0. The client uses the current `maxFeeXRP` option, not the deprecated per-transaction `maxFee`, and reads `ledger_hash`, not the removed `hash` field. The deprecated `setTransactionFlagsToNumber` is never called."
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "model"
+      }
+    },
+    "strict_type_errors": {
+      "jev": {
+        "choice": "clean",
+        "confidence": 0.97,
+        "probabilities": {
+          "clean": 0.98,
+          "not_typescript": 0.02,
+          "errors": 0
+        }
+      },
+      "final": {
+        "choice": "clean",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "type_escape_hatches": {
+      "jev": {
+        "choice": "few",
+        "confidence": 0.63,
+        "probabilities": {
+          "few": 0.76,
+          "pervasive": 0.21,
+          "none": 0.03
+        }
+      },
+      "final": {
+        "choice": "few",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "outcome_checks": {
+      "jev": {
+        "choice": "all",
+        "confidence": 0.82,
+        "probabilities": {
+          "partial": 0.12,
+          "none": 0,
+          "all": 0.88
+        }
+      },
+      "final": {
+        "choice": "all",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "waits_for_validation": {
+      "jev": {
+        "choice": "validated",
+        "confidence": 0.89,
+        "probabilities": {
+          "validated": 0.93,
+          "preliminary": 0,
+          "mixed": 0.07
+        }
+      },
+      "final": {
+        "choice": "validated",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "mpt_amount_format": {
+      "jev": {
+        "choice": "correct",
+        "confidence": 0.99,
+        "probabilities": {
+          "correct": 1,
+          "incorrect": 0
+        }
+      },
+      "final": {
+        "choice": "correct",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "secret_handling": {
+      "jev": {
+        "choice": "external",
+        "confidence": 0.97,
+        "probabilities": {
+          "hardcoded": 0.02,
+          "external": 0.98
+        }
+      },
+      "final": {
+        "choice": "external",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "connection_hygiene": {
+      "jev": {
+        "choice": "always",
+        "confidence": 1,
+        "probabilities": {
+          "happy_path_only": 0,
+          "never": 0,
+          "always": 1
+        }
+      },
+      "final": {
+        "choice": "always",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "ban_semantics": {
+      "jev": {
+        "choice": "complete",
+        "confidence": 0.99,
+        "probabilities": {
+          "absent": 0,
+          "partial": 0,
+          "complete": 1
+        }
+      },
+      "final": {
+        "choice": "complete",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "freeze_semantics": {
+      "jev": {
+        "choice": "mpt_lock",
+        "confidence": 1,
+        "probabilities": {
+          "other": 0,
+          "mpt_lock": 1,
+          "absent": 0
+        }
+      },
+      "final": {
+        "choice": "mpt_lock",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "clawback_semantics": {
+      "jev": {
+        "choice": "mpt_clawback",
+        "confidence": 1,
+        "probabilities": {
+          "other": 0,
+          "mpt_clawback": 1,
+          "absent": 0
+        }
+      },
+      "final": {
+        "choice": "mpt_clawback",
+        "pass": true,
+        "source": "jev"
+      }
+    }
+  }
+}

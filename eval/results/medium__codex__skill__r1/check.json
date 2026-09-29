@@ -1,0 +1,76 @@
+{
+  "tier": "medium",
+  "issuer": "rfWb2bXAar5BKcGcTwfqpTQaF4rXnuQ59N",
+  "checkedAt": "2026-09-29T13:54:28.763Z",
+  "status": "pass",
+  "criteria": [
+    {
+      "id": "result_json",
+      "pass": true,
+      "detail": "has issuanceId, holder, holderBalance, outstandingAmount"
+    },
+    {
+      "id": "issuance_exists",
+      "pass": true,
+      "detail": "issuance 0142A4EC4769AED16BB1CBDFF451CC516E3B81BC965432EC (result.json)"
+    },
+    {
+      "id": "requires_approval",
+      "pass": true,
+      "detail": "issuance flags 0x24; lsfMPTRequireAuth set"
+    },
+    {
+      "id": "holder_authorized",
+      "pass": true,
+      "detail": "MPToken flags 0x2"
+    },
+    {
+      "id": "holder_balance_1000",
+      "pass": true,
+      "detail": "holder balance 1000; expected 1000"
+    },
+    {
+      "id": "payment_validated",
+      "pass": true,
+      "detail": "validated tesSUCCESS issuer→holder MPT payments delivered 1000; expected 1000"
+    },
+    {
+      "id": "outstanding_matches",
+      "pass": true,
+      "detail": "OutstandingAmount 1000; holder balance 1000"
+    },
+    {
+      "id": "readback_matches_ledger",
+      "pass": true,
+      "detail": "result.json holderBalance=\"1000\" outstandingAmount=\"1000\"; ledger 1000 / 1000"
+    }
+  ],
+  "observed": {
+    "issuance": {
+      "Flags": 36,
+      "Issuer": "rfWb2bXAar5BKcGcTwfqpTQaF4rXnuQ59N",
+      "LedgerEntryType": "MPTokenIssuance",
+      "MaximumAmount": "1000000",
+      "OutstandingAmount": "1000",
+      "OwnerNode": "0",
+      "PreviousTxnID": "3F01561DAA4AA8ADB1D76FFAF2840D04D1DD23E0C2C51CDBD5EBFA72AB394B03",
+      "PreviousTxnLgrSeq": 21144869,
+      "Sequence": 21144812,
+      "index": "76796618722E640CAEF9AE5264AE018059862985CF472FF6302E8157EA71EE27",
+      "mpt_issuance_id": "0142A4EC4769AED16BB1CBDFF451CC516E3B81BC965432EC"
+    },
+    "holder": "rKe8Fgzz5viver2ZWcR221bdUHEHeGQjuK",
+    "mptoken": {
+      "Account": "rKe8Fgzz5viver2ZWcR221bdUHEHeGQjuK",
+      "Flags": 2,
+      "LedgerEntryType": "MPToken",
+      "MPTAmount": "1000",
+      "MPTokenIssuanceID": "0142A4EC4769AED16BB1CBDFF451CC516E3B81BC965432EC",
+      "OwnerNode": "0",
+      "PreviousTxnID": "3F01561DAA4AA8ADB1D76FFAF2840D04D1DD23E0C2C51CDBD5EBFA72AB394B03",
+      "PreviousTxnLgrSeq": 21144869,
+      "index": "C0C9DAC8A2C091207723FCE89B6C11C2DD0BFDFC44A439CC12BB1A1ED205BE63"
+    },
+    "txCount": 6
+  }
+}

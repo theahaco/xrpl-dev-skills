@@ -1,0 +1,1988 @@
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..218857c
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,4 @@
++node_modules/
++dist/
++.env*
++.private/
+diff --git a/package.json b/package.json
+new file mode 100644
+index 0000000..c32504c
+--- /dev/null
++++ b/package.json
+@@ -0,0 +1,7 @@
++{
++  "name": "regulated-mpt-issuer", "version": "1.0.0", "private": true,
++  "type": "module", "exports": "./dist/src/issuer.js",
++  "scripts": {"build":"tsc", "test":"tsx --test test/*.test.ts", "demo":"tsx src/demo.ts", "verify":"tsx src/verify.ts"},
++  "dependencies": {"xrpl":"5.3.0"},
++  "devDependencies": {"@types/node":"26.6.3", "tsx":"4.23.15", "typescript":"7.0.2"}
++}
+diff --git a/package-lock.json b/package-lock.json
+new file mode 100644
+index 0000000..e012eee
+--- /dev/null
++++ b/package-lock.json
+@@ -0,0 +1,1133 @@
++{
++  "name": "regulated-mpt-issuer",
++  "version": "1.0.0",
++  "lockfileVersion": 3,
++  "requires": true,
++  "packages": {
++    "": {
++      "name": "regulated-mpt-issuer",
++      "version": "1.0.0",
++      "dependencies": {
++        "xrpl": "5.3.0"
++      },
++      "devDependencies": {
++        "@types/node": "26.6.3",
++        "tsx": "4.23.15",
++        "typescript": "7.0.2"
++      }
++    },
++    "node_modules/@esbuild/aix-ppc64": {
++      "version": "0.28.2",
++      "resolved": "https://registry.npmjs.org/@esbuild/aix-ppc64/-/aix-ppc64-0.28.2.tgz",
++      "integrity": "sha512-XExcO+dvLKvVtNTibSTBej1NCAbaGhWn9Ww1ZPx80qsahhPFe/8jgWP0IchNe0F3HwkU7n8ejhH8bjonqht8mQ==",
++      "cpu": [
++        "ppc64"
++      ],
++      "dev": true,
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "aix"
++      ],
++      "engines": {
++        "node": ">=18"
++      }
++    },
++    "node_modules/@esbuild/android-arm": {
++      "version": "0.28.2",
++      "resolved": "https://registry.npmjs.org/@esbuild/android-arm/-/android-arm-0.28.2.tgz",
++      "integrity": "sha512-kXXoiPVVGQcnIYGOeaovwOURpniDBpSq4A03qkQ+BMQqtGG6HYap3xne9C1O1yo4TR3qxlCX5IqqmX6fFo2Lqg==",
++      "cpu": [
++        "arm"
++      ],
++      "dev": true,
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "android"
++      ],
++      "engines": {
++        "node": ">=18"
++      }
++    },
++    "node_modules/@esbuild/android-arm64": {
++      "version": "0.28.2",
++      "resolved": "https://registry.npmjs.org/@esbuild/android-arm64/-/android-arm64-0.28.2.tgz",
++      "integrity": "sha512-5YfKeeI8qWfBZIX+u2xZC3Zlb3Os/gLS2sbEKM+I4ZOcsWmHS2WLysCcQZDAFRslDUU5Oiq44gf6PYN1vGwG5A==",
++      "cpu": [
++        "arm64"
++      ],
++      "dev": true,
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "android"
++      ],
++      "engines": {
++        "node": ">=18"
++      }
++    },
++    "node_modules/@esbuild/android-x64": {
++      "version": "0.28.2",
++      "resolved": "https://registry.npmjs.org/@esbuild/android-x64/-/android-x64-0.28.2.tgz",
++      "integrity": "sha512-O387ite7SzUyCcy3JQX4P4bLtEA7bLLkx+esve5JHnyYfNTxcVpXZo9jhdB0lTKN44gztELTdU7nS8Nr16Fs1Q==",
++      "cpu": [
++        "x64"
++      ],
++      "dev": true,
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "android"
++      ],
++      "engines": {
++        "node": ">=18"
++      }
++    },
++    "node_modules/@esbuild/darwin-arm64": {
++      "version": "0.28.2",
++      "resolved": "https://registry.npmjs.org/@esbuild/darwin-arm64/-/darwin-arm64-0.28.2.tgz",
++      "integrity": "sha512-n4KqkOQrraxHJcgjM1RvwbigfQKIKJVpM7xp+KsxiyUSrRdIXnt73VhrPAx0fV44hgfmIVKjxMN9J1t5jySVkw==",
++      "cpu": [
++        "arm64"
++      ],
++      "dev": true,
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "darwin"
++      ],
++      "engines": {
++        "node": ">=18"
++      }
++    },
++    "node_modules/@esbuild/darwin-x64": {
++      "version": "0.28.2",
++      "resolved": "https://registry.npmjs.org/@esbuild/darwin-x64/-/darwin-x64-0.28.2.tgz",
++      "integrity": "sha512-uq6suIWYP37qzGddBKPw5QEQPi6HiLGsO7UmkpfyaYNQ3D+rN6w6WfwH+nuqcGXWvawGwxOEroO4YGnFh95azw==",
++      "cpu": [
++        "x64"
++      ],
++      "dev": true,
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "darwin"
++      ],
++      "engines": {
++        "node": ">=18"
++      }
++    },
++    "node_modules/@esbuild/freebsd-arm64": {
++      "version": "0.28.2",
++      "resolved": "https://registry.npmjs.org/@esbuild/freebsd-arm64/-/freebsd-arm64-0.28.2.tgz",
++      "integrity": "sha512-n+I0BTSRIoy+d6RPKnEVwql5UwBJolytvY4mAOIEJorKlqgPII8ix6slVVrfZ5Tnj7glIZvloylbB/EJPMWEXw==",
++      "cpu": [
++        "arm64"
++      ],
++      "dev": true,
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "freebsd"
++      ],
++      "engines": {
++        "node": ">=18"
++      }
++    },
++    "node_modules/@esbuild/freebsd-x64": {
++      "version": "0.28.2",
++      "resolved": "https://registry.npmjs.org/@esbuild/freebsd-x64/-/freebsd-x64-0.28.2.tgz",
++      "integrity": "sha512-78XJTJkvPs0kz2w61301PJjXl4g7q3JqiYMZ/M/yVI73EHBrCRTgkhu9oqG7vPqq+a/yadEW8aD+agKlk5xrmg==",
++      "cpu": [
++        "x64"
++      ],
++      "dev": true,
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "freebsd"
++      ],
++      "engines": {
++        "node": ">=18"
++      }
++    },
++    "node_modules/@esbuild/linux-arm": {
++      "version": "0.28.2",
++      "resolved": "https://registry.npmjs.org/@esbuild/linux-arm/-/linux-arm-0.28.2.tgz",
++      "integrity": "sha512-XlDnu2q5yoqems+xay6wSAcg9DDD7K9RLKZEBOMZm3ckNpJBvOX20tSfby8KfrrhINDyv9V2YVZKY/SpoGJI8w==",
++      "cpu": [
++        "arm"
++      ],
++      "dev": true,
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "linux"
++      ],
++      "engines": {
++        "node": ">=18"
++      }
++    },
++    "node_modules/@esbuild/linux-arm64": {
++      "version": "0.28.2",
++      "resolved": "https://registry.npmjs.org/@esbuild/linux-arm64/-/linux-arm64-0.28.2.tgz",
++      "integrity": "sha512-pW4AC0P3it8c7do9MVM4p51FzHzdM/TZrerurgRcHJ2WTa1VQ1CIq18xncfpBJw4ojkiZZrKW2yIBWBP92j6Ug==",
++      "cpu": [
++        "arm64"
++      ],
++      "dev": true,
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "linux"
++      ],
++      "engines": {
++        "node": ">=18"
++      }
++    },
++    "node_modules/@esbuild/linux-ia32": {
++      "version": "0.28.2",
++      "resolved": "https://registry.npmjs.org/@esbuild/linux-ia32/-/linux-ia32-0.28.2.tgz",
++      "integrity": "sha512-CYbnj78HsIeA+DhgUKgFCfvNsTHFhMMrinUrMZpDXJXKN8T3XViTZ/+wtHeVxEWY8ewSzTFN+nRmSwO2tZaLUQ==",
++      "cpu": [
++        "ia32"
++      ],
++      "dev": true,
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "linux"
++      ],
++      "engines": {
++        "node": ">=18"
++      }
++    },
++    "node_modules/@esbuild/linux-loong64": {
++      "version": "0.28.2",
++      "resolved": "https://registry.npmjs.org/@esbuild/linux-loong64/-/linux-loong64-0.28.2.tgz",
++      "integrity": "sha512-buwkd8nsph4R+ajRvw0qM5Hja/TXQow3ptzWO2EbG/cqcIkHloRrdlBtQlshyYGTNFvfkfJ5tpPLVkY4DtsPfQ==",
++      "cpu": [
++        "loong64"
++      ],
++      "dev": true,
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "linux"
++      ],
++      "engines": {
++        "node": ">=18"
++      }
++    },
++    "node_modules/@esbuild/linux-mips64el": {
++      "version": "0.28.2",
++      "resolved": "https://registry.npmjs.org/@esbuild/linux-mips64el/-/linux-mips64el-0.28.2.tgz",
++      "integrity": "sha512-ZVykbDyk7519VwiNb9Lcj9m8XM6v5V9uKPvrEMkkEedVewf+0itkhahp4HDpgERXhwLRpWFypsGbG/J8s0QjJA==",
++      "cpu": [
++        "mips64el"
++      ],
++      "dev": true,
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "linux"
++      ],
++      "engines": {
++        "node": ">=18"
++      }
++    },
++    "node_modules/@esbuild/linux-ppc64": {
++      "version": "0.28.2",
++      "resolved": "https://registry.npmjs.org/@esbuild/linux-ppc64/-/linux-ppc64-0.28.2.tgz",
++      "integrity": "sha512-CAXl+Dtd9UUuJd8pKKdwh6MLm3MUMiqMPmhZ3tTSXPqfyQ3vDl6R5hZdZ/kYojK4ofXtdfSv1tFq8XzWx3heNQ==",
++      "cpu": [
++        "ppc64"
++      ],
++      "dev": true,
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "linux"
++      ],
++      "engines": {
++        "node": ">=18"
++      }
++    },
++    "node_modules/@esbuild/linux-riscv64": {
++      "version": "0.28.2",
++      "resolved": "https://registry.npmjs.org/@esbuild/linux-riscv64/-/linux-riscv64-0.28.2.tgz",
++      "integrity": "sha512-GeXCej4IQtU1B+QlDV8W/RRvbzI3O/Stss+/bCXv4lZls5WGRtu2a+3JkA3i4qIUlMXpcHebWpF8AkJhATowuA==",
++      "cpu": [
++        "riscv64"
++      ],
++      "dev": true,
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "linux"
++      ],
++      "engines": {
++        "node": ">=18"
++      }
++    },
++    "node_modules/@esbuild/linux-s390x": {
++      "version": "0.28.2",
++      "resolved": "https://registry.npmjs.org/@esbuild/linux-s390x/-/linux-s390x-0.28.2.tgz",
++      "integrity": "sha512-3H1weTYZPxt/WOhByszQZybS9w5lKzUn1FDMsgEChbHWQwHYQQRfBxgCcZvPhjHfKyJjIievvMmEUawJrdY9Dg==",
++      "cpu": [
++        "s390x"
++      ],
++      "dev": true,
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "linux"
++      ],
++      "engines": {
++        "node": ">=18"
++      }
++    },
++    "node_modules/@esbuild/linux-x64": {
++      "version": "0.28.2",
++      "resolved": "https://registry.npmjs.org/@esbuild/linux-x64/-/linux-x64-0.28.2.tgz",
++      "integrity": "sha512-4xTZr1FUmSoQW4XIWmit3tzQrUTZM+N3P0XV8xROKYF50XfI7xeO90+1bZvNwxIufQ9hDQVRJH5YhgPVF8A/HQ==",
++      "cpu": [
++        "x64"
++      ],
++      "dev": true,
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "linux"
++      ],
++      "engines": {
++        "node": ">=18"
++      }
++    },
++    "node_modules/@esbuild/netbsd-arm64": {
++      "version": "0.28.2",
++      "resolved": "https://registry.npmjs.org/@esbuild/netbsd-arm64/-/netbsd-arm64-0.28.2.tgz",
++      "integrity": "sha512-sSATRjPeDBg3pdgHoQfoYBob11Kk1FGa9lui5RIHZCoCkJa9QKlvl3/vKz2usCmYYjs7ymJR/2Nnsqe+Hjt5nw==",
++      "cpu": [
++        "arm64"
++      ],
++      "dev": true,
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "netbsd"
++      ],
++      "engines": {
++        "node": ">=18"
++      }
++    },
++    "node_modules/@esbuild/netbsd-x64": {
++      "version": "0.28.2",
++      "resolved": "https://registry.npmjs.org/@esbuild/netbsd-x64/-/netbsd-x64-0.28.2.tgz",
++      "integrity": "sha512-lqnzCV+mM0gIADaKihiCg6ifgfU2L3h5E33rNQBN1Y4MaVGnzryzmvvf7UHxprpQdE8hpqLolJ9Rl+SkIRDpyw==",
++      "cpu": [
++        "x64"
++      ],
++      "dev": true,
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "netbsd"
++      ],
++      "engines": {
++        "node": ">=18"
++      }
++    },
++    "node_modules/@esbuild/openbsd-arm64": {
++      "version": "0.28.2",
++      "resolved": "https://registry.npmjs.org/@esbuild/openbsd-arm64/-/openbsd-arm64-0.28.2.tgz",
++      "integrity": "sha512-AL2qJILH7lNjrDmCQDvdxMfAUIv8KMNZOvrwAQ8i8//ntL9FflhOyMJ8OZSMBb8/AWXe3/5v5S20y3zCoZWKoQ==",
++      "cpu": [
++        "arm64"
++      ],
++      "dev": true,
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "openbsd"
++      ],
++      "engines": {
++        "node": ">=18"
++      }
++    },
++    "node_modules/@esbuild/openbsd-x64": {
++      "version": "0.28.2",
++      "resolved": "https://registry.npmjs.org/@esbuild/openbsd-x64/-/openbsd-x64-0.28.2.tgz",
++      "integrity": "sha512-QtiuPytchRyC4rwUKhexJdQKvDuZ6hWloi3igqPQNUJCS1/v9EiO3UTOXR6A3FoMo4fnAKbWJdqaIwhOzh8qEw==",
++      "cpu": [
++        "x64"
++      ],
++      "dev": true,
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "openbsd"
++      ],
++      "engines": {
++        "node": ">=18"
++      }
++    },
++    "node_modules/@esbuild/openharmony-arm64": {
++      "version": "0.28.2",
++      "resolved": "https://registry.npmjs.org/@esbuild/openharmony-arm64/-/openharmony-arm64-0.28.2.tgz",
++      "integrity": "sha512-WkhYDmpTjLvGlScA1rwjRUmhl4k8oXR3cIbtqWmELgU/dFeHHlEllxDvdWcNJV9rbzCexB5vz8gtNewWLgCT7Q==",
++      "cpu": [
++        "arm64"
++      ],
++      "dev": true,
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "openharmony"
++      ],
++      "engines": {
++        "node": ">=18"
++      }
++    },
++    "node_modules/@esbuild/sunos-x64": {
++      "version": "0.28.2",
++      "resolved": "https://registry.npmjs.org/@esbuild/sunos-x64/-/sunos-x64-0.28.2.tgz",
++      "integrity": "sha512-GPMSkTOtMnv2U2F8gxe4Io6qmVs+YKyp832Etqqxr0hFngmXQ3rzwytelm3GIn7T4VviRUlf3sOgBOiTdvaf7g==",
++      "cpu": [
++        "x64"
++      ],
++      "dev": true,
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "sunos"
++      ],
++      "engines": {
++        "node": ">=18"
++      }
++    },
++    "node_modules/@esbuild/win32-arm64": {
++      "version": "0.28.2",
++      "resolved": "https://registry.npmjs.org/@esbuild/win32-arm64/-/win32-arm64-0.28.2.tgz",
++      "integrity": "sha512-PIhhEkE9uPBleRBrQEJpUn7MBnibZzbGzYWPmY3x+YoVg/95zbjB4CxPPOQ8l5tYYM4mMaCthF8/1DIfBQQyWQ==",
++      "cpu": [
++        "arm64"
++      ],
++      "dev": true,
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "win32"
++      ],
++      "engines": {
++        "node": ">=18"
++      }
++    },
++    "node_modules/@esbuild/win32-ia32": {
++      "version": "0.28.2",
++      "resolved": "https://registry.npmjs.org/@esbuild/win32-ia32/-/win32-ia32-0.28.2.tgz",
++      "integrity": "sha512-YmJbfTlvU7Sdn9BB+4PRES4oB6pxgS37MAONj+hBr/cpXS1aBPKXxNnDbu+QCWPj0o9dgyxeq79g6c5P8KeuYA==",
++      "cpu": [
++        "ia32"
++      ],
++      "dev": true,
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "win32"
++      ],
++      "engines": {
++        "node": ">=18"
++      }
++    },
++    "node_modules/@esbuild/win32-x64": {
++      "version": "0.28.2",
++      "resolved": "https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.28.2.tgz",
++      "integrity": "sha512-5ebpxr3nWMzrL/rnUI755Jkuee0bHL/Gq0WTF9lvcpv73wAp5eu8MfBUgWK9bhWvZjj7yX8etf/8tI8Ney695g==",
++      "cpu": [
++        "x64"
++      ],
++      "dev": true,
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "win32"
++      ],
++      "engines": {
++        "node": ">=18"
++      }
++    },
++    "node_modules/@noble/curves": {
++      "version": "2.4.0",
++      "resolved": "https://registry.npmjs.org/@noble/curves/-/curves-2.4.0.tgz",
++      "integrity": "sha512-P4/62zrgfH33CneE3Dn4WhJVA22YUU0eR51wKIan4NVRvwsA0YnPTwWGpNbpuacSujmSFLvyzpyuR30+fbq2Ew==",
++      "license": "MIT",
++      "dependencies": {
++        "@noble/hashes": "2.4.0"
++      },
++      "engines": {
++        "node": ">= 20.19.0"
++      },
++      "funding": {
++        "url": "https://paulmillr.com/funding/"
++      }
++    },
++    "node_modules/@noble/hashes": {
++      "version": "2.4.0",
++      "resolved": "https://registry.npmjs.org/@noble/hashes/-/hashes-2.4.0.tgz",
++      "integrity": "sha512-X5XaVWZIBCT7HHZGm5I7ZQXDwLG+bGXuSrMQAW+7Zvl87h1kmc1ZB1VSRJcpUfoUrGQp4Fkoxm5kZ+Ms+aW+eA==",
++      "license": "MIT",
++      "engines": {
++        "node": ">= 20.19.0"
++      },
++      "funding": {
++        "url": "https://paulmillr.com/funding/"
++      }
++    },
++    "node_modules/@scure/base": {
++      "version": "2.4.0",
++      "resolved": "https://registry.npmjs.org/@scure/base/-/base-2.4.0.tgz",
++      "integrity": "sha512-thZ1TuJwFwBblOhgsjDKvvGirBxNp+wSvY/DR6tJBJOTDhdAAcHJ8Vbr2eFnqaxeca4+t0i9KBf+uHYGWwZORg==",
++      "license": "MIT",
++      "funding": {
++        "url": "https://paulmillr.com/funding/"
++      }
++    },
++    "node_modules/@scure/bip32": {
++      "version": "2.4.0",
++      "resolved": "https://registry.npmjs.org/@scure/bip32/-/bip32-2.4.0.tgz",
++      "integrity": "sha512-i3DS0CptAocyvqE4n3SUkpzeQK4vJMFwWLofTwRiiKo2aWojBOfyMCgfKw9HVpO6fSY5AK86sHS/Uzn8kK9Few==",
++      "license": "MIT",
++      "dependencies": {
++        "@noble/curves": "2.4.0",
++        "@noble/hashes": "2.4.0",
++        "@scure/base": "2.4.0"
++      },
++      "funding": {
++        "url": "https://paulmillr.com/funding/"
++      }
++    },
++    "node_modules/@scure/bip39": {
++      "version": "2.4.0",
++      "resolved": "https://registry.npmjs.org/@scure/bip39/-/bip39-2.4.0.tgz",
++      "integrity": "sha512-82dxFbZUYboyOf0AXiydsQrFQ5Q4h9mX+O2UkE91ROYmsc0BKMGZLwDmy96Jpa2+vrtoxomjUhy1RPIgH/r2nA==",
++      "license": "MIT",
++      "dependencies": {
++        "@noble/hashes": "2.4.0"
++      },
++      "funding": {
++        "url": "https://paulmillr.com/funding/"
++      }
++    },
++    "node_modules/@types/node": {
++      "version": "26.6.3",
++      "resolved": "https://registry.npmjs.org/@types/node/-/node-26.6.3.tgz",
++      "integrity": "sha512-dsqMQQoeTLqu9wynDD00q573mNzso3IdQOAfHRJqLCcmCFPoGo9A1bDpUcv/9tnKpErQWv9uKeGfl37EIS02Yg==",
++      "dev": true,
++      "license": "MIT",
++      "dependencies": {
++        "undici-types": "~8.9.0"
++      }
++    },
++    "node_modules/@typescript/typescript-aix-ppc64": {
++      "version": "7.0.2",
++      "resolved": "https://registry.npmjs.org/@typescript/typescript-aix-ppc64/-/typescript-aix-ppc64-7.0.2.tgz",
++      "integrity": "sha512-MTKKkWB7p/0E9xi1d1tHtZ5PiLkGEMIq88pK2CubZjOsLtYTLqhgIgi6zepFa+9GHZ6h05NMCkQxGKiPXMxXtQ==",
++      "cpu": [
++        "ppc64"
++      ],
++      "dev": true,
++      "license": "Apache-2.0",
++      "optional": true,
++      "os": [
++        "aix"
++      ],
++      "engines": {
++        "node": ">=16.20.0"
++      }
++    },
++    "node_modules/@typescript/typescript-darwin-arm64": {
++      "version": "7.0.2",
++      "resolved": "https://registry.npmjs.org/@typescript/typescript-darwin-arm64/-/typescript-darwin-arm64-7.0.2.tgz",
++      "integrity": "sha512-gowzar9MwS/aRWp6f3a4KUqzRjAZjOsmGNCM6LcTgXum+dBfgsBVMN+AgvOCCbguXyick6LJhpBszxMebJ8syA==",
++      "cpu": [
++        "arm64"
++      ],
++      "dev": true,
++      "license": "Apache-2.0",
++      "optional": true,
++      "os": [
++        "darwin"
++      ],
++      "engines": {
++        "node": ">=16.20.0"
++      }
++    },
++    "node_modules/@typescript/typescript-darwin-x64": {
++      "version": "7.0.2",
++      "resolved": "https://registry.npmjs.org/@typescript/typescript-darwin-x64/-/typescript-darwin-x64-7.0.2.tgz",
++      "integrity": "sha512-SZ9xZInqApNlNGc9s0W1VSsktYSOe9cFqNOIqmN1Gs8SmkjKZYFt017G4VwPxASInODuAdbTW7sXiFUf893RgA==",
++      "cpu": [
++        "x64"
++      ],
++      "dev": true,
++      "license": "Apache-2.0",
++      "optional": true,
++      "os": [
++        "darwin"
++      ],
++      "engines": {
++        "node": ">=16.20.0"
++      }
++    },
++    "node_modules/@typescript/typescript-freebsd-arm64": {
++      "version": "7.0.2",
++      "resolved": "https://registry.npmjs.org/@typescript/typescript-freebsd-arm64/-/typescript-freebsd-arm64-7.0.2.tgz",
++      "integrity": "sha512-W5NH4y/J0plIIS5b2xvTEkU7JFxyqdMAOgf+Ilhl0vHQXKO5dZoxd+C/jEtq56c4F3wk71RB4BMRQ2XdI+bwYQ==",
++      "cpu": [
++        "arm64"
++      ],
++      "dev": true,
++      "license": "Apache-2.0",
++      "optional": true,
++      "os": [
++        "freebsd"
++      ],
++      "engines": {
++        "node": ">=16.20.0"
++      }
++    },
++    "node_modules/@typescript/typescript-freebsd-x64": {
++      "version": "7.0.2",
++      "resolved": "https://registry.npmjs.org/@typescript/typescript-freebsd-x64/-/typescript-freebsd-x64-7.0.2.tgz",
++      "integrity": "sha512-UMGDx5sTpzNw3WiPebH7l90IWfJggEd+egHt/q6p7/Cm3zqoV7VxkGXt+3DxPIw8CcmvAB0j3sVVfbhX+M4Tpw==",
++      "cpu": [
++        "x64"
++      ],
++      "dev": true,
++      "license": "Apache-2.0",
++      "optional": true,
++      "os": [
++        "freebsd"
++      ],
++      "engines": {
++        "node": ">=16.20.0"
++      }
++    },
++    "node_modules/@typescript/typescript-linux-arm": {
++      "version": "7.0.2",
++      "resolved": "https://registry.npmjs.org/@typescript/typescript-linux-arm/-/typescript-linux-arm-7.0.2.tgz",
++      "integrity": "sha512-gffT3xPz9sR7j/YJExkyPntrI0P2EP9XbOyWzth2/Gs0RstK+90RBcO0ncXoXy/beYll1SXw846Nf2zdnEz0QQ==",
++      "cpu": [
++        "arm"
++      ],
++      "dev": true,
++      "license": "Apache-2.0",
++      "optional": true,
++      "os": [
++        "linux"
++      ],
++      "engines": {
++        "node": ">=16.20.0"
++      }
++    },
++    "node_modules/@typescript/typescript-linux-arm64": {
++      "version": "7.0.2",
++      "resolved": "https://registry.npmjs.org/@typescript/typescript-linux-arm64/-/typescript-linux-arm64-7.0.2.tgz",
++      "integrity": "sha512-Qh4eU4/y3yDjnfjjyPYihMj5/ODIlmt+Bzu17OI+fiSRDW57QmU5SiN63exPRNJPKUzcc1INa1NXdrJ+MqHjUQ==",
++      "cpu": [
++        "arm64"
++      ],
++      "dev": true,
++      "license": "Apache-2.0",
++      "optional": true,
++      "os": [
++        "linux"
++      ],
++      "engines": {
++        "node": ">=16.20.0"
++      }
++    },
++    "node_modules/@typescript/typescript-linux-loong64": {
++      "version": "7.0.2",
++      "resolved": "https://registry.npmjs.org/@typescript/typescript-linux-loong64/-/typescript-linux-loong64-7.0.2.tgz",
++      "integrity": "sha512-uEHck9i8hoAzXPiYRib1O7miOnz23SxIeVl6F4LXox+qov1K35jHcEW6VHKvZI+pyvl7fZEP4MCU5LYvIq1GuQ==",
++      "cpu": [
++        "loong64"
++      ],
++      "dev": true,
++      "license": "Apache-2.0",
++      "optional": true,
++      "os": [
++        "linux"
++      ],
++      "engines": {
++        "node": ">=16.20.0"
++      }
++    },
++    "node_modules/@typescript/typescript-linux-mips64el": {
++      "version": "7.0.2",
++      "resolved": "https://registry.npmjs.org/@typescript/typescript-linux-mips64el/-/typescript-linux-mips64el-7.0.2.tgz",
++      "integrity": "sha512-R4KvAMnE43W5Qeqb0Ly56O3mWMWIAgsMyz36DCaycd5nbg/9kzm0liw3JocfRqyJY0KPmzFjbswozXyW0DnIYA==",
++      "cpu": [
++        "mips64el"
++      ],
++      "dev": true,
++      "license": "Apache-2.0",
++      "optional": true,
++      "os": [
++        "linux"
++      ],
++      "engines": {
++        "node": ">=16.20.0"
++      }
++    },
++    "node_modules/@typescript/typescript-linux-ppc64": {
++      "version": "7.0.2",
++      "resolved": "https://registry.npmjs.org/@typescript/typescript-linux-ppc64/-/typescript-linux-ppc64-7.0.2.tgz",
++      "integrity": "sha512-DORx5b3sd/4S7eayxm4FQv+A7CrkUIGRaHiwI8oiHTAI1fAPWhF4J0vAlkC8biAlHSVVwxMQ3tjZ2/DVbnQiiA==",
++      "cpu": [
++        "ppc64"
++      ],
++      "dev": true,
++      "license": "Apache-2.0",
++      "optional": true,
++      "os": [
++        "linux"
++      ],
++      "engines": {
++        "node": ">=16.20.0"
++      }
++    },
++    "node_modules/@typescript/typescript-linux-riscv64": {
++      "version": "7.0.2",
++      "resolved": "https://registry.npmjs.org/@typescript/typescript-linux-riscv64/-/typescript-linux-riscv64-7.0.2.tgz",
++      "integrity": "sha512-wf0jqEDOjrPRnKwYRyyJDRo11KMbvMFrU+q4zqKyChODBzvlkbhNQfKvLxQCcwTpdDaXSHZTVuh0JoCrKCUMHQ==",
++      "cpu": [
++        "riscv64"
++      ],
++      "dev": true,
++      "license": "Apache-2.0",
++      "optional": true,
++      "os": [
++        "linux"
++      ],
++      "engines": {
++        "node": ">=16.20.0"
++      }
++    },
++    "node_modules/@typescript/typescript-linux-s390x": {
++      "version": "7.0.2",
++      "resolved": "https://registry.npmjs.org/@typescript/typescript-linux-s390x/-/typescript-linux-s390x-7.0.2.tgz",
++      "integrity": "sha512-IkwJc3L7yhytWd/ewjyxNDfOmswCm9GWMJT/ue/dU4aZNbwZeYAetq42VyLmsmSjvoX7z74X6ZaYCtzAr0EuGw==",
++      "cpu": [
++        "s390x"
++      ],
++      "dev": true,
++      "license": "Apache-2.0",
++      "optional": true,
++      "os": [
++        "linux"
++      ],
++      "engines": {
++        "node": ">=16.20.0"
++      }
++    },
++    "node_modules/@typescript/typescript-linux-x64": {
++      "version": "7.0.2",
++      "resolved": "https://registry.npmjs.org/@typescript/typescript-linux-x64/-/typescript-linux-x64-7.0.2.tgz",
++      "integrity": "sha512-EYdf2cNg7rgCWJnxCdJ+F3V39O8ihb37eHAu1LK8oAFizgTQbPOK7zHHXbPt8rX24COqODXeI3sIf0fCXG7H/A==",
++      "cpu": [
++        "x64"
++      ],
++      "dev": true,
++      "license": "Apache-2.0",
++      "optional": true,
++      "os": [
++        "linux"
++      ],
++      "engines": {
++        "node": ">=16.20.0"
++      }
++    },
++    "node_modules/@typescript/typescript-netbsd-arm64": {
++      "version": "7.0.2",
++      "resolved": "https://registry.npmjs.org/@typescript/typescript-netbsd-arm64/-/typescript-netbsd-arm64-7.0.2.tgz",
++      "integrity": "sha512-+polYF4MF04aPpO5FTkHran9yUQDSXqy5GiSDKpsll5jy3l3+g9QLhpf39T+ePtefhXLOGrLl0QIjkQP6VnelA==",
++      "cpu": [
++        "arm64"
++      ],
++      "dev": true,
++      "license": "Apache-2.0",
++      "optional": true,
++      "os": [
++        "netbsd"
++      ],
++      "engines": {
++        "node": ">=16.20.0"
++      }
++    },
++    "node_modules/@typescript/typescript-netbsd-x64": {
++      "version": "7.0.2",
++      "resolved": "https://registry.npmjs.org/@typescript/typescript-netbsd-x64/-/typescript-netbsd-x64-7.0.2.tgz",
++      "integrity": "sha512-8YIT0EHM/3dq10ZOVF/A7pc/YSMtbcecct4rWtexrnSCHOPcpC2KTLXfTCR6vDpnSiY12heNb1GiN/wu+T/FyA==",
++      "cpu": [
++        "x64"
++      ],
++      "dev": true,
++      "license": "Apache-2.0",
++      "optional": true,
++      "os": [
++        "netbsd"
++      ],
++      "engines": {
++        "node": ">=16.20.0"
++      }
++    },
++    "node_modules/@typescript/typescript-openbsd-arm64": {
++      "version": "7.0.2",
++      "resolved": "https://registry.npmjs.org/@typescript/typescript-openbsd-arm64/-/typescript-openbsd-arm64-7.0.2.tgz",
++      "integrity": "sha512-APT8+ClYnuYm1u9+kgGXoMj2VzWzcymwh2gNSQVySHfkRDGOTVkoWLjCmOQSaO+PoqQ57B0flRp9SA+7GnnkzQ==",
++      "cpu": [
++        "arm64"
++      ],
++      "dev": true,
++      "license": "Apache-2.0",
++      "optional": true,
++      "os": [
++        "openbsd"
++      ],
++      "engines": {
++        "node": ">=16.20.0"
++      }
++    },
++    "node_modules/@typescript/typescript-openbsd-x64": {
++      "version": "7.0.2",
++      "resolved": "https://registry.npmjs.org/@typescript/typescript-openbsd-x64/-/typescript-openbsd-x64-7.0.2.tgz",
++      "integrity": "sha512-yX7s+Q0Dln0Dt9tEzZsAjXXR/+ytBM7AlglaqyeMPxQszJ1JhlJdZ6jLA+IzldHtflX81em7lDao1xXu+aRRkg==",
++      "cpu": [
++        "x64"
++      ],
++      "dev": true,
++      "license": "Apache-2.0",
++      "optional": true,
++      "os": [
++        "openbsd"
++      ],
++      "engines": {
++        "node": ">=16.20.0"
++      }
++    },
++    "node_modules/@typescript/typescript-sunos-x64": {
++      "version": "7.0.2",
++      "resolved": "https://registry.npmjs.org/@typescript/typescript-sunos-x64/-/typescript-sunos-x64-7.0.2.tgz",
++      "integrity": "sha512-dLJDGaLZ1D4HPQn62u1n8mBDkJREwMsAkCdkwd4Ieqw+x3TUyTsqY0YiBCtE6H6OzzgGk3iuZ3vFWRS+E8/d1g==",
++      "cpu": [
++        "x64"
++      ],
++      "dev": true,
++      "license": "Apache-2.0",
++      "optional": true,
++      "os": [
++        "sunos"
++      ],
++      "engines": {
++        "node": ">=16.20.0"
++      }
++    },
++    "node_modules/@typescript/typescript-win32-arm64": {
++      "version": "7.0.2",
++      "resolved": "https://registry.npmjs.org/@typescript/typescript-win32-arm64/-/typescript-win32-arm64-7.0.2.tgz",
++      "integrity": "sha512-Gyl1Vy6OsWesLzmq+EP0Fb7b4Nid5232AvcA2SFcdYreldpNtYFFofPjnt62y9hQy7VTaZp65ICJjuAQRaVcIQ==",
++      "cpu": [
++        "arm64"
++      ],
++      "dev": true,
++      "license": "Apache-2.0",
++      "optional": true,
++      "os": [
++        "win32"
++      ],
++      "engines": {
++        "node": ">=16.20.0"
++      }
++    },
++    "node_modules/@typescript/typescript-win32-x64": {
++      "version": "7.0.2",
++      "resolved": "https://registry.npmjs.org/@typescript/typescript-win32-x64/-/typescript-win32-x64-7.0.2.tgz",
++      "integrity": "sha512-0BQ3HkAHHlKLSp1qRvf3SUhGpGsDuhB/jgFw75guyqbxJqEaS0Cw/VFO8i2nHglJUzQCRtMMR/IBAKE3ETMC4g==",
++      "cpu": [
++        "x64"
++      ],
++      "dev": true,
++      "license": "Apache-2.0",
++      "optional": true,
++      "os": [
++        "win32"
++      ],
++      "engines": {
++        "node": ">=16.20.0"
++      }
++    },
++    "node_modules/@xrplf/isomorphic": {
++      "version": "1.0.2",
++      "resolved": "https://registry.npmjs.org/@xrplf/isomorphic/-/isomorphic-1.0.2.tgz",
++      "integrity": "sha512-ncZUdMXr6VlSXtdoiDi0jTH+gBrgGxwVeEidhoegII3PmyErbQsyj6e+j7acmR4LW/lvBkPkzb9QzRfJH0n3rA==",
++      "license": "ISC",
++      "dependencies": {
++        "@noble/hashes": "^2.0.1",
++        "eventemitter3": "5.0.1",
++        "ws": "^8.20.0"
++      },
++      "engines": {
++        "node": ">=18.0.0"
++      }
++    },
++    "node_modules/@xrplf/isomorphic/node_modules/eventemitter3": {
++      "version": "5.0.1",
++      "resolved": "https://registry.npmjs.org/eventemitter3/-/eventemitter3-5.0.1.tgz",
++      "integrity": "sha512-GWkBvjiSZK87ELrYOSESUYeVIc9mvLLf/nXalMOS5dYrgZq9o5OVkbZAVM06CVxYsCwH9BDZFPlQTlPA1j4ahA==",
++      "license": "MIT"
++    },
++    "node_modules/@xrplf/mpt-crypto": {
++      "version": "0.1.1",
++      "resolved": "https://registry.npmjs.org/@xrplf/mpt-crypto/-/mpt-crypto-0.1.1.tgz",
++      "integrity": "sha512-Wv9wbk60DRGWvI+B9DITwfWygCWDfEjv8yWxiLJyDf/G8UPkfhVlUKIflF9nMaBFMygPRkXrpO1jNqTj6/vJow==",
++      "license": "ISC",
++      "engines": {
++        "node": ">= 18"
++      }
++    },
++    "node_modules/@xrplf/secret-numbers": {
++      "version": "3.0.0",
++      "resolved": "https://registry.npmjs.org/@xrplf/secret-numbers/-/secret-numbers-3.0.0.tgz",
++      "integrity": "sha512-qpGhAZXv5noMDjCtfzq5NK0y5rrdwTVjKhhPcAYSE+a/gogBOgqdpCKyieprVVPCnmVmJnGeRoZKBAqpCGegsA==",
++      "license": "ISC",
++      "dependencies": {
++        "@xrplf/isomorphic": "^1.0.2",
++        "ripple-keypairs": "^3.0.0"
++      }
++    },
++    "node_modules/bignumber.js": {
++      "version": "10.0.2",
++      "resolved": "https://registry.npmjs.org/bignumber.js/-/bignumber.js-10.0.2.tgz",
++      "integrity": "sha512-E8Wp9O06QA6lneJ4aRUXKYf/1GIomqUEmUMwtIOMtDxf1U52ffJY+y7JBk/8wRafA8qOIqLnXQGqonYXZdBnFQ==",
++      "license": "MIT"
++    },
++    "node_modules/esbuild": {
++      "version": "0.28.2",
++      "resolved": "https://registry.npmjs.org/esbuild/-/esbuild-0.28.2.tgz",
++      "integrity": "sha512-HKVLS8dvII+xoKW9kmqxbRKrnWEXfJJr/FZhhJmiqIB0e053QNYFqOBouTMO/k5sID4MvCiUCvv8b9M4h32wIA==",
++      "dev": true,
++      "hasInstallScript": true,
++      "license": "MIT",
++      "bin": {
++        "esbuild": "bin/esbuild"
++      },
++      "engines": {
++        "node": ">=18"
++      },
++      "optionalDependencies": {
++        "@esbuild/aix-ppc64": "0.28.2",
++        "@esbuild/android-arm": "0.28.2",
++        "@esbuild/android-arm64": "0.28.2",
++        "@esbuild/android-x64": "0.28.2",
++        "@esbuild/darwin-arm64": "0.28.2",
++        "@esbuild/darwin-x64": "0.28.2",
++        "@esbuild/freebsd-arm64": "0.28.2",
++        "@esbuild/freebsd-x64": "0.28.2",
++        "@esbuild/linux-arm": "0.28.2",
++        "@esbuild/linux-arm64": "0.28.2",
++        "@esbuild/linux-ia32": "0.28.2",
++        "@esbuild/linux-loong64": "0.28.2",
++        "@esbuild/linux-mips64el": "0.28.2",
++        "@esbuild/linux-ppc64": "0.28.2",
++        "@esbuild/linux-riscv64": "0.28.2",
++        "@esbuild/linux-s390x": "0.28.2",
++        "@esbuild/linux-x64": "0.28.2",
++        "@esbuild/netbsd-arm64": "0.28.2",
++        "@esbuild/netbsd-x64": "0.28.2",
++        "@esbuild/openbsd-arm64": "0.28.2",
++        "@esbuild/openbsd-x64": "0.28.2",
++        "@esbuild/openharmony-arm64": "0.28.2",
++        "@esbuild/sunos-x64": "0.28.2",
++        "@esbuild/win32-arm64": "0.28.2",
++        "@esbuild/win32-ia32": "0.28.2",
++        "@esbuild/win32-x64": "0.28.2"
++      }
++    },
++    "node_modules/eventemitter3": {
++      "version": "5.0.4",
++      "resolved": "https://registry.npmjs.org/eventemitter3/-/eventemitter3-5.0.4.tgz",
++      "integrity": "sha512-mlsTRyGaPBjPedk6Bvw+aqbsXDtoAyAzm5MO7JgU+yVRyMQ5O8bD4Kcci7BS85f93veegeCPkL8R4GLClnjLFw==",
++      "license": "MIT"
++    },
++    "node_modules/fast-json-stable-stringify": {
++      "version": "2.1.0",
++      "resolved": "https://registry.npmjs.org/fast-json-stable-stringify/-/fast-json-stable-stringify-2.1.0.tgz",
++      "integrity": "sha512-lhd/wF+Lk98HZoTCtlVraHtfh5XYijIjalXck7saUtuanSDyLMxnHhSXEDJqHxD7msR8D0uCmqlkwjCV8xvwHw==",
++      "license": "MIT"
++    },
++    "node_modules/fsevents": {
++      "version": "2.3.3",
++      "resolved": "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz",
++      "integrity": "sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==",
++      "dev": true,
++      "hasInstallScript": true,
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "darwin"
++      ],
++      "engines": {
++        "node": "^8.16.0 || ^10.6.0 || >=11.0.0"
++      }
++    },
++    "node_modules/ripple-address-codec": {
++      "version": "5.0.1",
++      "resolved": "https://registry.npmjs.org/ripple-address-codec/-/ripple-address-codec-5.0.1.tgz",
++      "integrity": "sha512-JQHLKuVJV8lv9Qobmn4aUM2Dpv9WRRLKnNWfM8tN02fAbUtG8mUPsu9q9UYX8P76G4qzytEc5ZKMp/3JggNYmw==",
++      "license": "ISC",
++      "dependencies": {
++        "@scure/base": "^2.0.0",
++        "@xrplf/isomorphic": "^1.0.2"
++      },
++      "engines": {
++        "node": ">= 18"
++      }
++    },
++    "node_modules/ripple-binary-codec": {
++      "version": "2.11.0",
++      "resolved": "https://registry.npmjs.org/ripple-binary-codec/-/ripple-binary-codec-2.11.0.tgz",
++      "integrity": "sha512-qad61CYAqIi8H7DuPnuDpj40wrXY8wYrc1YbuDcA9G/NZG0Uu8unHNbTC6Itz8SlOSL0P/nF/8HTFW/1caVlTg==",
++      "license": "ISC",
++      "dependencies": {
++        "@xrplf/isomorphic": "^1.0.2",
++        "bignumber.js": "^10.0.2",
++        "ripple-address-codec": "^5.0.1"
++      },
++      "engines": {
++        "node": ">= 18"
++      }
++    },
++    "node_modules/ripple-keypairs": {
++      "version": "3.1.0",
++      "resolved": "https://registry.npmjs.org/ripple-keypairs/-/ripple-keypairs-3.1.0.tgz",
++      "integrity": "sha512-yeqN768gaHStQ76qwaJ2TGxIGMXA4c9tg32n1zMHUWbyfEKXA70XOUH8SQdnAnIQNCASd8hzBZ8Edoqcd+a+IA==",
++      "license": "ISC",
++      "dependencies": {
++        "@noble/curves": "^2.0.1",
++        "@xrplf/isomorphic": "^1.0.2",
++        "ripple-address-codec": "^5.0.1"
++      },
++      "engines": {
++        "node": ">= 18"
++      }
++    },
++    "node_modules/tsx": {
++      "version": "4.23.15",
++      "resolved": "https://registry.npmjs.org/tsx/-/tsx-4.23.15.tgz",
++      "integrity": "sha512-Yiex1Ovn8z2xPpOWckIiysV1SSyRMY9BkLF++q0yKiDxCqRhosKfMg3janKkiLBwZ5c/YryloKwGZcrEmtwxKw==",
++      "dev": true,
++      "license": "MIT",
++      "dependencies": {
++        "esbuild": "~0.28.0"
++      },
++      "bin": {
++        "tsx": "dist/cli.mjs"
++      },
++      "engines": {
++        "node": ">=18.0.0"
++      },
++      "optionalDependencies": {
++        "fsevents": "~2.3.3"
++      }
++    },
++    "node_modules/typescript": {
++      "version": "7.0.2",
++      "resolved": "https://registry.npmjs.org/typescript/-/typescript-7.0.2.tgz",
++      "integrity": "sha512-8FYau96o3NKOhbjKi/qNvG/W5jhzxkbdm5sj9AbZ/5T5sWqn3hJgLfGx27sRKZWTvyzCP8dLRBTf5tBTSRVUNA==",
++      "dev": true,
++      "license": "Apache-2.0",
++      "bin": {
++        "tsc": "bin/tsc"
++      },
++      "engines": {
++        "node": ">=16.20.0"
++      },
++      "optionalDependencies": {
++        "@typescript/typescript-aix-ppc64": "7.0.2",
++        "@typescript/typescript-darwin-arm64": "7.0.2",
++        "@typescript/typescript-darwin-x64": "7.0.2",
++        "@typescript/typescript-freebsd-arm64": "7.0.2",
++        "@typescript/typescript-freebsd-x64": "7.0.2",
++        "@typescript/typescript-linux-arm": "7.0.2",
++        "@typescript/typescript-linux-arm64": "7.0.2",
++        "@typescript/typescript-linux-loong64": "7.0.2",
++        "@typescript/typescript-linux-mips64el": "7.0.2",
++        "@typescript/typescript-linux-ppc64": "7.0.2",
++        "@typescript/typescript-linux-riscv64": "7.0.2",
++        "@typescript/typescript-linux-s390x": "7.0.2",
++        "@typescript/typescript-linux-x64": "7.0.2",
++        "@typescript/typescript-netbsd-arm64": "7.0.2",
++        "@typescript/typescript-netbsd-x64": "7.0.2",
++        "@typescript/typescript-openbsd-arm64": "7.0.2",
++        "@typescript/typescript-openbsd-x64": "7.0.2",
++        "@typescript/typescript-sunos-x64": "7.0.2",
++        "@typescript/typescript-win32-arm64": "7.0.2",
++        "@typescript/typescript-win32-x64": "7.0.2"
++      }
++    },
++    "node_modules/undici-types": {
++      "version": "8.9.0",
++      "resolved": "https://registry.npmjs.org/undici-types/-/undici-types-8.9.0.tgz",
++      "integrity": "sha512-KTDyRTYX8sWmKXAikPHHSyc63CRPETMctyjKFupcC6OBLXT3xsN0e9aF7m+mIXutFWpUXuedtowG7iLOzp0kQg==",
++      "dev": true,
++      "license": "MIT"
++    },
++    "node_modules/ws": {
++      "version": "8.22.0",
++      "resolved": "https://registry.npmjs.org/ws/-/ws-8.22.0.tgz",
++      "integrity": "sha512-Ydggc987+RO0AnWtZ/7Wq9FtNvcrL1b/RO0ud9mWjUPgDrsAAwQSF51sm2hm1XofbU/4jkpGEsLFsZZxU+1DOg==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=10.0.0"
++      },
++      "peerDependencies": {
++        "bufferutil": "^4.0.1",
++        "utf-8-validate": ">=5.0.2"
++      },
++      "peerDependenciesMeta": {
++        "bufferutil": {
++          "optional": true
++        },
++        "utf-8-validate": {
++          "optional": true
++        }
++      }
++    },
++    "node_modules/xrpl": {
++      "version": "5.3.0",
++      "resolved": "https://registry.npmjs.org/xrpl/-/xrpl-5.3.0.tgz",
++      "integrity": "sha512-sdyi7qqJ13U+nMllHgxJTWbQm/Tk8uzhBmeTKwhI9WxkHuekPfbvJ3BDopXO2vMfsty7lBja0ACSHEUKLz3F/w==",
++      "license": "ISC",
++      "dependencies": {
++        "@scure/bip32": "^2.0.1",
++        "@scure/bip39": "^2.0.1",
++        "@xrplf/isomorphic": "^1.0.2",
++        "@xrplf/mpt-crypto": "^0.1.1",
++        "@xrplf/secret-numbers": "^3.0.0",
++        "bignumber.js": "^10.0.2",
++        "eventemitter3": "^5.0.1",
++        "fast-json-stable-stringify": "^2.1.0",
++        "ripple-address-codec": "^5.0.1",
++        "ripple-binary-codec": "^2.11.0",
++        "ripple-keypairs": "^3.1.0"
++      },
++      "engines": {
++        "node": ">=20.19.0"
++      }
++    }
++  }
++}
+diff --git a/tsconfig.json b/tsconfig.json
+new file mode 100644
+index 0000000..d67d900
+--- /dev/null
++++ b/tsconfig.json
+@@ -0,0 +1,9 @@
++{
++  "compilerOptions": {
++    "target":"ES2023", "module":"NodeNext", "moduleResolution":"NodeNext",
++    "strict":true, "noUncheckedIndexedAccess":true, "exactOptionalPropertyTypes":true,
++    "noUnusedLocals":true, "noUnusedParameters":true, "declaration":true,
++    "outDir":"dist", "rootDir":".", "skipLibCheck":true, "types":["node"]
++  },
++  "include":["src/**/*.ts", "test/**/*.ts"]
++}
+diff --git a/README.md b/README.md
+new file mode 100644
+index 0000000..ffbe7d6
+--- /dev/null
++++ b/README.md
+@@ -0,0 +1,86 @@
++# Regulated MPT issuer — XRPL testnet
++
++Reusable strict TypeScript issuer module using xrpl 5.3.0, with an executable and resumable testnet demo. Research and exact source references are in [RESEARCH.md](RESEARCH.md).
++
++**Compliance boundary:** XRPL MPT locks block holder-to-holder transfers, but allow payments in both directions between an authorized holder and the issuer. Global locking has the same exception. The module blocks minting to a locked holder or under a global lock, but another application using the issuer key can bypass this application policy. This implementation cannot fulfill an absolute “no sends / all movement stopped” policy using native MPT locks. The demo explicitly tests the exception. Do not represent these methods to compliance as an absolute freeze. Administrative clawback remains available while locked.
++
++The requested balances and native lock flags are verified from a single validated ledger. `result.json` is written only after all assertions pass. Full transaction hashes, results and metadata are in `evidence/transactions.json`; final objects and ledger hash are in `evidence/final-state.json`.
++
++## Run
++
++```sh
++npm ci
++npm run build
++npm test
++# Supply the provided testnet issuer seed through your environment/secret manager:
++npm run demo
++# No seed needed for read-only verification:
++npm run verify
++```
++
++The demo requires `ISSUER_SEED` and checks that it derives the specified issuer address. It funds three new accounts with 5 test XRP each. It uses integer units with AssetScale=0, a supply cap of 1,000,000,000, and no transfer fee. A final balance of 500 means exactly 500 tokens. The token has no real backing or redemption promise.
++
++Re-running the demo with the same `.private` directory resumes completed steps; it does not intentionally create a second issuance or send duplicate funding. Holder seeds are encrypted with AES-256-GCM under a scrypt-derived key from the issuer seed. The issuer seed is never written to disk. Keep `.private/holders.enc.json` and the issuer seed if you need control of the holder accounts later.
++
++## Backend interface
++
++```ts
++import { Client, Wallet } from 'xrpl';
++import { MptIssuer, preflight } from './src/issuer.js';
++import { TransactionRunner } from './src/transactions.js';
++
++const client = new Client('wss://s.altnet.rippletest.net:51233', { maxFeeXRP: '0.01' });
++await client.connect();
++await preflight(client);
++const signer = Wallet.fromSeed(process.env.ISSUER_SEED!);
++const runner = new TransactionRunner(client, '/durable/issuer-journal.json');
++try {
++  // To create: await MptIssuer.create(runner, signer, 'unique-create-request');
++  const issuer = new MptIssuer(runner, signer, issuanceId);
++  await issuer.assertConfiguration();
++  await issuer.approve(holder, 'kyc-approval-request-id');
++  await issuer.issue(holder, '500', 'mint-request-id');
++  await issuer.freezeHolder(holder, true, 'holder-lock-request-id');
++  await issuer.freezeHolder(holder, false, 'holder-unlock-request-id');
++  await issuer.clawback(holder, '300', 'clawback-request-id');
++  await issuer.freezeGlobal(true, 'incident-lock-request-id');
++  await issuer.freezeGlobal(false, 'incident-unlock-request-id');
++  await issuer.ban(holder, 'internal-case-reference', 'ban-request-id');
++} finally {
++  runner.close(); // after all outstanding method promises have settled
++  await client.disconnect();
++}
++```
++
++The caller performs KYC and authenticates/authorizes compliance operators. `approve` records ledger authorization; it does not perform KYC itself. Holders first sign their own `MPTokenAuthorize` opt-in, without a Holder field. Approval does not require custody of holder keys. `Signer` supports an asynchronous signing adapter for an HSM/custody service; only the demo uses local Wallet objects.
++
++API amounts are canonical positive integer strings up to 2^63-1. Clawback follows protocol semantics: requesting more than a holder's balance takes all available tokens, not a negative balance. The module deliberately rejects issuances with incompatible flags, alternate authorization domains, fees or scales. Trading, escrow and confidential balances are disabled so no balance can escape into those mechanisms.
++
++## Bans and recovery
++
++`ban` is a sequence of transactions, not an atomic ledger operation:
++
++1. Persist a permanent local deny decision before sending any transaction.
++2. Revoke issuer authorization and await validation. A revocation by itself does not remove a nonzero balance.
++3. Claw back all remaining units and await validation.
++4. Read validated state and require zero balance and no authorization.
++
++Once step 2 validates, no new receipts are allowed. Holder redemption can race step 3; the final zero-balance assertion decides completion. A holder could move tokens before revocation validates, as with any on-chain compliance action. The ban applies to this address, not its beneficial owner's other addresses. If a holder deletes and recreates its empty holding, the recreated object is unauthorized. The demo tests this bypass attempt on-chain. An issuer key holder can always reauthorize through another application; restrict issuer key access to your policy-enforcing service.
++
++If interrupted, retry the same ban operation key. The deny policy persists and blocks approval, minting and unlocking through this module. Do not discard the journal or reconstruct bans from balances: an unauthorized account is not necessarily a banned account.
++
++The runner persists the signed transaction and hash before submission, caps fees at 0.01 XRP, requires LastLedgerSequence, and accepts only validated metadata. `tec` failures have durable receipts and are never silently retried as new payments. `submitAndWait` handles queued transactions. Repeated requests first look up the original hash, so an already-validated transaction is recovered even if resubmission would encounter `tefPAST_SEQ`.
++
++On a timeout or transport error, `UnresolvedTransaction` provides the hash; all new operations are blocked. Retry the same key and intent to reconcile/resubmit the same signed blob. **Never generate a new key merely because a request timed out.** If expiry or a permanent pre-ledger failure prevents automated reconciliation, an operator must establish the original transaction's outcome from a server with complete ledger history covering submission through LastLedgerSequence before retiring it. The implementation intentionally fails closed instead of guessing that a transaction was not applied.
++
++## Deployment constraints and risk notes
++
++- The file journal is a durable **single-writer, single-host** implementation. All writers for the account must share one runner/store. Its lock rejects another process opening the same journal. A crash leaves a lock; verify the recorded PID is no longer running before removing that lock and resuming. Do not use separate journals for the same issuer, share this over unreliable NFS, or expose the raw runner as a public API. For a multi-instance backend, replace this boundary with a transactional database/outbox and an account-wide distributed lock.
++- Back up the journal and ban decisions on durable storage. Signed blobs contain no seed but remain submit-capable until expiry. Store access is restricted with owner-only permissions. Disk corruption or unavailable storage stops work; storage integrity is part of the deployment trust boundary.
++- Runtime network checks require network_id=1. Keys are testnet-only. An endpoint check cannot cryptographically prevent replay of signatures on other networks with low network IDs; never reuse these keys on mainnet.
++- Mainnet deployment, operator access control, KYC systems, HSM provisioning, independent security review and regulatory sign-off are outside this demo. The literal absolute-freeze requirement remains unsupported by native MPT locking.
++- Testnet reserves/amendments are queried rather than assumed. Testnet resets can invalidate all saved IDs and receipts; archive the run and begin with a new store after a confirmed reset.
++
++## Files
++
++`src/issuer.ts` implements controls and ledger reads; `src/transactions.ts` implements signing/submission and idempotency; `src/storage.ts` implements durable file storage. `src/demo.ts` exercises controls and adversarial payments. `src/verify-state.ts` and `src/verify.ts` independently verify final state. `test/issuer.test.ts` tests offline safety properties. `evidence/` contains public audit records, with private state excluded from version control.
+diff --git a/RESEARCH.md b/RESEARCH.md
+new file mode 100644
+index 0000000..c49f97b
+--- /dev/null
++++ b/RESEARCH.md
+@@ -0,0 +1,54 @@
++# Research completed before implementation
++
++Checked 2026-09-28 America/New_York (2026-09-29 UTC).
++
++## Packages and SDK APIs
++
++`npm view <package> version` returned xrpl **5.3.0**, TypeScript **7.0.2**, tsx **4.23.15**, and @types/node **26.6.3**. All direct dependencies are pinned exactly; package-lock.json pins the dependency tree. Existing Node 25.9.0 and npm 11.12.1 were used, not installed by this task.
++
++Read the [xrpl changelog](https://github.com/XRPLF/xrpl.js/blob/main/packages/xrpl/HISTORY.md) and [5.3.0 release](https://github.com/XRPLF/xrpl.js/releases/tag/xrpl%405.3.0). A snapshot is in evidence/xrpl-HISTORY.md. 5.3.0 adds LendingProtocolV1_1 support; 5.1 adds Dynamic MPT and confidential-transfer types, which do **not** imply testnet availability. 5.0 infers signing algorithm from the seed and corrects the MPTAmount type to string. The implementation uses local signing, autofill, submitAndWait, and validated transaction metadata. Amounts are integer strings, never floating point.
++
++The installed package's root export/ledger union omits MPToken. The implementation imports its shipped type from the package subpath and specializes the ledger_entry response. No SDK fork or older SDK is used.
++
++## Transaction references read
++
++- [MPTokenIssuanceCreate](https://xrpl.org/docs/references/protocol/transactions/types/mptokenissuancecreate): flags CanLock (2), RequireAuth (4), CanTransfer (32), CanClawback (64); combined **102**. Scale zero makes 500 ledger units equal 500 demo tokens. No trade, escrow, confidential balance or domain authorization.
++- [MPTokenAuthorize](https://xrpl.org/docs/references/protocol/transactions/types/mptokenauthorize): holder opt-in and issuer approval are distinct. Issuer uses Holder; holder omits it. Issuer unauthorization is reversible on-ledger; the backend ban policy prevents reapproval.
++- [MPTokenIssuanceSet](https://xrpl.org/docs/references/protocol/transactions/types/mptokenissuanceset): lock=1, unlock=2; Holder selects one account, omission selects the issuance.
++- [Clawback](https://xrpl.org/docs/references/protocol/transactions/types/clawback): MPT amount includes mpt_issuance_id; Holder is required. Amounts exceeding the balance claw back the available balance. No trust-line AccountSet flags apply.
++- [Payment](https://xrpl.org/docs/references/protocol/transactions/types/payment): direct XRP funding and MPT payments; no partial-payment flag, paths or exchange. Payment amounts in the module use the SDK-supported Amount field.
++
++Read the [MPT concepts and compliance controls](https://xrpl.org/docs/concepts/tokens/fungible-tokens/multi-purpose-tokens). **Locks allow return payments to the issuer.** Neither per-holder nor global locking is an absolute stop on token movement. Clawback remains available during locking. Application prechecks cannot prevent holders submitting redemption transactions directly. The demo records successful redemptions while locked and restores A's balance.
++
++## Ledger object references read
++
++- [MPTokenIssuance](https://xrpl.org/docs/references/protocol/ledger-data/ledger-entry-types/mptokenissuance): issuer, capability flags, global lock, scale, outstanding amount, issuance ID.
++- [MPToken](https://xrpl.org/docs/references/protocol/ledger-data/ledger-entry-types/mptoken): MPTAmount string; locked=1, authorized=2. Authorization is lost when a zero-balance holding is deleted and recreated.
++- [Amendments](https://xrpl.org/docs/references/protocol/ledger-data/ledger-entry-types/amendments): enabled IDs in the singleton validated ledger object.
++- [AccountRoot](https://xrpl.org/docs/references/protocol/ledger-data/ledger-entry-types/accountroot): account balance, owner count, sequence; read through account_info.
++- [FeeSettings](https://xrpl.org/docs/references/protocol/ledger-data/ledger-entry-types/feesettings): current reserve fields; operational reserve values are read from server_info.
++
++Also checked the official [MPTokenAuthorize implementation](https://github.com/XRPLF/rippled/blob/release/3.4.x/src/libxrpl/tx/transactors/token/MPTokenAuthorize.cpp) for issuer revocation and holder deletion rules.
++
++## Actual testnet capability checks
++
++Queried `feature` and `server_info` directly on https://s.altnet.rippletest.net:51234 before writing code. Network ID **1**, rippled **3.4.1**, reserve base **1 XRP**, reserve increment **0.2 XRP**. The demo repeats the checks over wss://s.altnet.rippletest.net:51233 and confirms required amendment IDs in the validated Amendments object.
++
++| Amendment | Enabled in observed testnet |
++|---|---|
++| MPTokensV1 | Yes |
++| Clawback | Yes |
++| fixMPTDeliveredAmount | Yes |
++| TokenEscrow | Yes (not used) |
++| DynamicMPT | No |
++| ConfidentialTransfer | No |
++| SingleAssetVault | No |
++| fixCleanup3_4_0 | No |
++
++Full feature response: evidence/features.json. Runtime server and amendment evidence: evidence/preflight.json. No use of unsupported mutable flags, immutable flags, confidential features, vaults, or domain-based authorization. Recheck before every deployment because testnet can reset and amendment availability changes.
++
++## Live-test correction to the documentation
++
++The live per-holder freeze test showed that an issuer-to-holder Payment succeeds while the holder is locked. The official [Payment implementation](https://github.com/XRPLF/rippled/blob/release/3.4.x/src/libxrpl/tx/transactors/payment/Payment.cpp#L698-L710) explicitly excludes both issuance and redemption from the lock check: it checks locks only when neither endpoint is the issuer. This is broader than the MPT concepts page's redemption-only description. The demo records both exceptions and compensates each test issuance with a clawback. Backend `issue()` adds a stricter application-level guard, which cannot constrain other users of the issuer signing key.
++
++A second live discrepancy: the server omits `MPTAmount` on a zero-balance holding, while the SDK type and documentation mark it required. The [ledger schema](https://github.com/XRPLF/rippled/blob/release/3.4.x/include/xrpl/protocol/detail/ledger_entries.macro#L417-L420) declares this field `SoeDefault`; omission means zero. The reader normalizes it to `'0'`, and the independent verifier accepts that default only on an existing holding. A regression test covers it.
+diff --git a/src/demo.ts b/src/demo.ts
+new file mode 100644
+index 0000000..c352305
+--- /dev/null
++++ b/src/demo.ts
+@@ -0,0 +1,113 @@
++import { Client, Wallet, type SubmittableTransaction, xrpToDrops } from 'xrpl';
++import { createCipheriv, createDecipheriv, randomBytes, scryptSync } from 'node:crypto';
++import { existsSync, readFileSync } from 'node:fs';
++import assert from 'node:assert/strict';
++import { MptIssuer, preflight } from './issuer.js';
++import { TransactionRunner, TransactionFailure, type Signer } from './transactions.js';
++import { readJson, saveJson } from './storage.js';
++import { verify } from './verify-state.js';
++const ISSUER = 'rsrPoacdWBwtfcTAxQ6C66d82bmaaTZuR3';
++const seed = process.env.ISSUER_SEED;
++if (!seed) throw new Error('Set ISSUER_SEED using your secret manager or environment');
++const issuerWallet = Wallet.fromSeed(seed);
++assert.equal(issuerWallet.classicAddress, ISSUER);
++const client = new Client('wss://s.altnet.rippletest.net:51233', { maxFeeXRP: '0.01' });
++const runner = new TransactionRunner(client, '.private/journal.json');
++const progress = readJson<{ done: string[]; issuanceId?: string }>('.private/progress.json', { done: [] });
++// Holder seeds are encrypted at rest; issuer seed is never persisted.
++function wallets(): Record<'A' | 'B' | 'C', Wallet> {
++  const path = '.private/holders.enc.json';
++  if (!existsSync(path)) {
++    const salt = randomBytes(16), iv = randomBytes(12);
++    const cipher = createCipheriv('aes-256-gcm', scryptSync(seed!, salt, 32), iv);
++    const plain = JSON.stringify(Object.fromEntries(['A', 'B', 'C'].map(n => [n, Wallet.generate().seed])));
++    const data = Buffer.concat([cipher.update(plain, 'utf8'), cipher.final()]);
++    saveJson(path, { salt: salt.toString('hex'), iv: iv.toString('hex'), tag: cipher.getAuthTag().toString('hex'), data: data.toString('hex') });
++  }
++  const enc = JSON.parse(readFileSync(path, 'utf8')) as Record<string, string>;
++  const decipher = createDecipheriv('aes-256-gcm', scryptSync(seed!, Buffer.from(enc.salt!, 'hex'), 32), Buffer.from(enc.iv!, 'hex'));
++  decipher.setAuthTag(Buffer.from(enc.tag!, 'hex'));
++  const seeds = JSON.parse(Buffer.concat([decipher.update(Buffer.from(enc.data!, 'hex')), decipher.final()]).toString('utf8')) as Record<'A' | 'B' | 'C', string>;
++  return { A: Wallet.fromSeed(seeds.A), B: Wallet.fromSeed(seeds.B), C: Wallet.fromSeed(seeds.C) };
++}
++async function step(key: string, fn: () => Promise<unknown>): Promise<void> {
++  if (progress.done.includes(key)) return;
++  await fn(); progress.done.push(key); saveJson('.private/progress.json', progress);
++  console.log(`Verified: ${key}`);
++}
++async function send(key: string, tx: SubmittableTransaction, signer: Signer): Promise<unknown> {
++  return runner.exclusive(() => runner.send(key, tx, signer));
++}
++try {
++  await client.connect();
++  const environment = await preflight(client); saveJson('evidence/preflight.json', environment);
++  const reserve = environment.server.validated_ledger;
++  if (!reserve || reserve.reserve_base_xrp + reserve.reserve_inc_xrp >= 5) throw new Error('Insufficient holder funding for reserves');
++  const account = (await client.request({ command: 'account_info', account: ISSUER, ledger_index: 'validated' })).result.account_data;
++  const budget = xrpToDrops(String(reserve.reserve_base_xrp + (account.OwnerCount + 1) * reserve.reserve_inc_xrp + 16));
++  if (!progress.done.length && BigInt(account.Balance) < BigInt(budget)) throw new Error('Insufficient issuer funding');
++  const w = wallets();
++  for (const [n, wallet] of Object.entries(w)) await step(`fund-${n}`, () => send(`fund-${n}`, {
++    TransactionType: 'Payment', Account: ISSUER, Destination: wallet.classicAddress, Amount: xrpToDrops('5'),
++  }, issuerWallet));
++  const token = progress.issuanceId ? new MptIssuer(runner, issuerWallet, progress.issuanceId) : await MptIssuer.create(runner, issuerWallet, 'create');
++  progress.issuanceId = token.issuanceId; saveJson('.private/progress.json', progress);
++  await token.assertConfiguration();
++  const payment = (from: Wallet, to: string): SubmittableTransaction => ({
++    TransactionType: 'Payment', Account: from.classicAddress, Destination: to,
++    Amount: { mpt_issuance_id: token.issuanceId, value: '1' },
++  });
++  async function denied(key: string, from: Wallet, to: string, code: string): Promise<void> {
++    await step(key, async () => {
++      try { await send(key, payment(from, to), from); }
++      catch (error) {
++        if (!(error instanceof TransactionFailure) || error.receipt.code !== code) throw error;
++        return;
++      }
++      throw new Error(`Compliance violation: ${key} succeeded`);
++    });
++  }
++  for (const [n, wallet] of Object.entries(w)) await step(`opt-in-${n}`, () => send(`opt-in-${n}`, {
++    TransactionType: 'MPTokenAuthorize', Account: wallet.classicAddress, MPTokenIssuanceID: token.issuanceId,
++  }, wallet));
++  await denied('unapproved-receive', issuerWallet, w.C.classicAddress, 'tecNO_AUTH');
++  for (const [n, wallet] of Object.entries(w)) await step(`approve-${n}`, () => token.approve(wallet.classicAddress, `approve-${n}`));
++  for (const [n, value] of [['A', '500'], ['B', '1000'], ['C', '100']] as const) await step(`issue-${n}`, () => token.issue(w[n].classicAddress, value, `issue-${n}`));
++  await step('freeze-A', () => token.freezeHolder(w.A.classicAddress, true, 'freeze-A'));
++  await denied('frozen-A-send', w.A, w.C.classicAddress, 'tecLOCKED');
++  await denied('frozen-A-receive', w.C, w.A.classicAddress, 'tecLOCKED');
++  await step('frozen-A-mint-exception', () => send('frozen-A-mint', payment(issuerWallet, w.A.classicAddress), issuerWallet));
++  await step('clawback-A-mint-exception', () => token.clawback(w.A.classicAddress, '1', 'clawback-A-mint-exception'));
++  await step('frozen-A-redemption-exception', () => send('frozen-A-redemption-exception', payment(w.A, ISSUER), w.A));
++  await step('unfreeze-A', () => token.freezeHolder(w.A.classicAddress, false, 'unfreeze-A'));
++  await step('restore-A', () => token.issue(w.A.classicAddress, '1', 'restore-A'));
++  await step('A-transfer-after-unfreeze', () => send('A-transfer-after-unfreeze', payment(w.A, w.C.classicAddress), w.A));
++  await step('C-return-to-A', () => send('C-return-to-A', payment(w.C, w.A.classicAddress), w.C));
++  await step('clawback-B-300', () => token.clawback(w.B.classicAddress, '300', 'clawback-B-300'));
++  await step('freeze-B', () => token.freezeHolder(w.B.classicAddress, true, 'freeze-B'));
++  await denied('frozen-B-send', w.B, w.A.classicAddress, 'tecLOCKED');
++  await denied('frozen-B-receive', w.A, w.B.classicAddress, 'tecLOCKED');
++  await step('global-freeze', () => token.freezeGlobal(true, 'global-freeze'));
++  await denied('global-block-send', w.A, w.C.classicAddress, 'tecLOCKED');
++  await step('global-mint-exception', () => send('global-mint-exception', payment(issuerWallet, w.A.classicAddress), issuerWallet));
++  await step('clawback-global-mint-exception', () => token.clawback(w.A.classicAddress, '1', 'clawback-global-mint-exception'));
++  await step('global-redemption-exception', () => send('global-redemption-exception', payment(w.A, ISSUER), w.A));
++  await step('ban-C', () => token.ban(w.C.classicAddress, 'Demo compliance ban after approval', 'ban-C'));
++  await step('global-unfreeze', () => token.freezeGlobal(false, 'global-unfreeze'));
++  await step('restore-A-after-global', () => token.issue(w.A.classicAddress, '1', 'restore-A-after-global'));
++  await denied('banned-C-peer-receive', w.A, w.C.classicAddress, 'tecNO_AUTH');
++  await denied('banned-C-mint', issuerWallet, w.C.classicAddress, 'tecNO_AUTH');
++  await step('banned-C-delete', () => send('banned-C-delete', { TransactionType: 'MPTokenAuthorize', Account: w.C.classicAddress, MPTokenIssuanceID: token.issuanceId, Flags: 1 }, w.C));
++  await step('banned-C-recreate', () => send('banned-C-recreate', { TransactionType: 'MPTokenAuthorize', Account: w.C.classicAddress, MPTokenIssuanceID: token.issuanceId }, w.C));
++  await denied('banned-C-recreated-receive', w.A, w.C.classicAddress, 'tecNO_AUTH');
++  await step('banned-C-reapproval-refused', async () => {
++    await assert.rejects(token.approve(w.C.classicAddress, 'forbidden-approve-C'), /permanently banned/);
++    await assert.rejects(token.freezeHolder(w.C.classicAddress, false, 'forbidden-unfreeze-C'), /permanently banned/);
++  });
++  const result = { issuanceId: token.issuanceId, holders: { A: w.A.classicAddress, B: w.B.classicAddress, C: w.C.classicAddress } };
++  saveJson('evidence/final-state.json', await verify(client, result));
++  const journal = readJson<{ entries: Record<string, { receipt?: unknown }> }>('.private/journal.json', { entries: {} });
++  saveJson('evidence/transactions.json', Object.fromEntries(Object.entries(journal.entries).map(([key, entry]) => [key, entry.receipt])));
++  saveJson('result.json', result);
++  console.log('Final validated state verified; result.json written.');
++} finally { await client.disconnect(); runner.close(); }
+diff --git a/src/issuer.ts b/src/issuer.ts
+new file mode 100644
+index 0000000..8f0b08b
+--- /dev/null
++++ b/src/issuer.ts
+@@ -0,0 +1,156 @@
++import {
++  type Client, type MPTokenAuthorize, type LedgerEntryRequest, type LedgerEntryJsonResponse,
++  MPTokenIssuanceCreateFlags as CreateFlags, MPTokenIssuanceSetFlags as SetFlags,
++  MPTokenAuthorizeFlags, isValidClassicAddress, convertStringToHex,
++} from 'xrpl';
++import type { MPToken } from 'xrpl/dist/npm/models/ledger/MPToken.js';
++import type { MPTokenIssuance } from 'xrpl/dist/npm/models/ledger/MPTokenIssuance.js';
++import { TransactionRunner, TransactionFailure, type Signer, type Receipt, isRpcError } from './transactions.js';
++
++export const CAPABILITIES = CreateFlags.tfMPTCanLock | CreateFlags.tfMPTRequireAuth |
++  CreateFlags.tfMPTCanTransfer | CreateFlags.tfMPTCanClawback;
++export const MAX_AMOUNT = (2n ** 63n - 1n).toString();
++export function amount(value: string): string {
++  if (typeof value !== 'string' || !/^[1-9][0-9]*$/.test(value) || BigInt(value) > BigInt(MAX_AMOUNT)) {
++    throw new Error('Amount must be a positive canonical integer string at most 2^63-1');
++  }
++  return value;
++}
++export function holderAddress(holder: string, issuer: string): void {
++  if (!isValidClassicAddress(holder) || holder === issuer) throw new Error('A holder must be a valid classic address other than issuer');
++}
++export async function preflight(client: Client) {
++  const server = (await client.request({ command: 'server_info' })).result.info;
++  if (server.network_id !== 1) throw new Error('This module targets testnet only');
++  const features = (await client.request({ command: 'feature' })).result.features;
++  const amendments = (await client.request({ command: 'ledger_entry', ledger_index: 'validated',
++    index: '7DB0788C020F02780A673DC74757F23823FA3014C1866E72CC4CD8B226CD6EF4' })).result;
++  if (amendments.node.LedgerEntryType !== 'Amendments') throw new Error('Wrong amendments object');
++  for (const name of ['MPTokensV1', 'Clawback']) {
++    const match = Object.entries(features).find(([, f]) => f.name === name);
++    if (!match?.[1].enabled || !amendments.node.Amendments?.includes(match[0])) throw new Error(`Required amendment missing: ${name}`);
++  }
++  return { server, features, amendments: amendments.node };
++}
++
++/** Ledger-native MPT locks permit issuer/holder payments in both directions. NOT an absolute freeze. */
++export class MptIssuer {
++  constructor(readonly runner: TransactionRunner, readonly signer: Signer, readonly issuanceId: string) {
++    if (!/^[A-F0-9]{48}$/.test(issuanceId)) throw new Error('Invalid MPT issuance ID');
++  }
++  static async create(runner: TransactionRunner, signer: Signer, key: string): Promise<MptIssuer> {
++    return runner.exclusive(async () => {
++      await preflight(runner.client);
++      const receipt = await runner.send(key, {
++        TransactionType: 'MPTokenIssuanceCreate', Account: signer.classicAddress,
++        Flags: CAPABILITIES, AssetScale: 0, MaximumAmount: '1000000000', TransferFee: 0,
++        MPTokenMetadata: convertStringToHex(JSON.stringify({ t: 'KYCDEM', n: 'Compliance test token',
++          d: 'Testnet demonstration only; no backing or redemption promise', ac: 'other',
++          i: 'example.org/token.png', in: 'Testnet demo issuer' })),
++      }, signer);
++      const id = 'mpt_issuance_id' in receipt.meta ? receipt.meta.mpt_issuance_id : undefined;
++      if (typeof id !== 'string') throw new Error(`Missing issuance ID in ${receipt.hash}`);
++      const issuer = new MptIssuer(runner, signer, id);
++      await issuer.assertConfiguration(); return issuer;
++    });
++  }
++  async issuance(ledger: number | 'validated' = 'validated'): Promise<MPTokenIssuance> {
++    const r = await this.runner.client.request({ command: 'ledger_entry', ledger_index: ledger, mpt_issuance: this.issuanceId });
++    if (r.result.node.LedgerEntryType !== 'MPTokenIssuance') throw new Error('Unexpected issuance object');
++    return r.result.node;
++  }
++  async holding(holder: string, ledger: number | 'validated' = 'validated'): Promise<MPToken | undefined> {
++    holderAddress(holder, this.signer.classicAddress);
++    try {
++      const r = await this.runner.client.request<LedgerEntryRequest, 2, LedgerEntryJsonResponse<MPToken>>({ command: 'ledger_entry', ledger_index: ledger,
++        mptoken: { mpt_issuance_id: this.issuanceId, account: holder } });
++      if (r.result.node.LedgerEntryType !== 'MPToken') throw new Error('Unexpected holding object');
++      // rippled omits the default zero field despite the SDK marking it required.
++      return { ...r.result.node, MPTAmount: r.result.node.MPTAmount ?? '0' };
++    } catch (error) { if (isRpcError(error, 'entryNotFound')) return undefined; throw error; }
++  }
++  async assertConfiguration(): Promise<void> {
++    const issuance = await this.issuance();
++    if (issuance.Issuer !== this.signer.classicAddress || (issuance.Flags & ~1) !== CAPABILITIES ||
++      (issuance.AssetScale ?? 0) !== 0 || (issuance.TransferFee ?? 0) !== 0 || issuance.DomainID) {
++      throw new Error('Issuance must have exact compliance capabilities, scale 0, no fees or domain authorization');
++    }
++  }
++  private allowed(holder: string): void {
++    holderAddress(holder, this.signer.classicAddress);
++    if (this.runner.isBanned(this.issuanceId, holder)) throw new Error('Address is permanently banned by issuer policy');
++  }
++  private authorization(holder: string, revoke = false): MPTokenAuthorize {
++    return { TransactionType: 'MPTokenAuthorize', Account: this.signer.classicAddress,
++      MPTokenIssuanceID: this.issuanceId, Holder: holder, Flags: revoke ? MPTokenAuthorizeFlags.tfMPTUnauthorize : 0 };
++  }
++  /** Only call after your backend's KYC decision. No PII goes onto the ledger. */
++  approve(holder: string, key: string): Promise<Receipt> {
++    return this.runner.exclusive(async () => {
++      this.allowed(holder); await this.assertConfiguration();
++      return this.runner.send(key, this.authorization(holder), this.signer);
++    });
++  }
++  issue(holder: string, value: string, key: string): Promise<Receipt> {
++    amount(value);
++    return this.runner.exclusive(async () => {
++      this.allowed(holder); await this.assertConfiguration();
++      const issuance = await this.issuance(); const holding = await this.holding(holder);
++      if ((issuance.Flags & 1) || !holding || (holding.Flags & 1) || !(holding.Flags & 2)) throw new Error('Recipient unapproved or frozen');
++      return this.runner.send(key, { TransactionType: 'Payment', Account: this.signer.classicAddress,
++        Destination: holder, Amount: { mpt_issuance_id: this.issuanceId, value } }, this.signer);
++    });
++  }
++  clawback(holder: string, value: string, key: string): Promise<Receipt> {
++    holderAddress(holder, this.signer.classicAddress); amount(value);
++    return this.runner.exclusive(async () => { await this.assertConfiguration(); return this.clawbackInternal(holder, value, key); });
++  }
++  private clawbackInternal(holder: string, value: string, key: string): Promise<Receipt> {
++    return this.runner.send(key, { TransactionType: 'Clawback', Account: this.signer.classicAddress,
++      Holder: holder, Amount: { mpt_issuance_id: this.issuanceId, value } }, this.signer);
++  }
++  private lockInternal(locked: boolean, key: string, holder?: string): Promise<Receipt> {
++    return this.runner.send(key, { TransactionType: 'MPTokenIssuanceSet', Account: this.signer.classicAddress,
++      MPTokenIssuanceID: this.issuanceId, Flags: locked ? SetFlags.tfMPTLock : SetFlags.tfMPTUnlock,
++      ...(holder ? { Holder: holder } : {}) }, this.signer);
++  }
++  freezeHolder(holder: string, locked: boolean, key: string): Promise<Receipt> {
++    holderAddress(holder, this.signer.classicAddress);
++    return this.runner.exclusive(async () => {
++      if (!locked) this.allowed(holder);
++      await this.assertConfiguration(); return this.lockInternal(locked, key, holder);
++    });
++  }
++  freezeGlobal(locked: boolean, key: string): Promise<Receipt> {
++    return this.runner.exclusive(async () => { await this.assertConfiguration(); return this.lockInternal(locked, key); });
++  }
++  /** Resumable saga: durable deny -> revoke authorization -> claw back -> verify.
++   * Revocation prevents incoming transfers even if the holder deletes/recreates its object.
++   * Redemption remains possible during the saga.
++   */
++  ban(holder: string, reason: string, key: string): Promise<void> {
++    holderAddress(holder, this.signer.classicAddress);
++    return this.runner.exclusive(async () => {
++      await this.assertConfiguration(); this.runner.markBanned(this.issuanceId, holder, reason);
++      const holding = await this.holding(holder);
++      if (holding || this.runner.hasOperation(`${key}:revoke`)) {
++        try { await this.runner.send(`${key}:revoke`, this.authorization(holder, true), this.signer); }
++        catch (error) {
++          // An empty holding can be deleted between the read and revocation.
++          if (!(error instanceof TransactionFailure) || error.receipt.code !== 'tecOBJECT_NOT_FOUND') throw error;
++        }
++        const current = await this.holding(holder);
++        if ((current && BigInt(current.MPTAmount) > 0n) || this.runner.hasOperation(`${key}:drain`)) {
++          try { await this.clawbackInternal(holder, MAX_AMOUNT, `${key}:drain`); }
++          catch (error) {
++            // A redemption racing the clawback may already have drained the holder.
++            // Only accept these validated failures if the final state below proves the ban.
++            if (!(error instanceof TransactionFailure) || !['tecNO_LINE', 'tecOBJECT_NOT_FOUND'].includes(error.receipt.code)) throw error;
++          }
++        }
++      }
++      const end = await this.holding(holder);
++      if (end && (end.MPTAmount !== '0' || (end.Flags & 2))) throw new Error('Ban incomplete; resume the same operation');
++    });
++  }
++}
+diff --git a/src/storage.ts b/src/storage.ts
+new file mode 100644
+index 0000000..0f205a1
+--- /dev/null
++++ b/src/storage.ts
+@@ -0,0 +1,24 @@
++import { mkdirSync, openSync, writeFileSync, fsyncSync, closeSync, renameSync, readFileSync, existsSync, unlinkSync } from 'node:fs';
++import { dirname } from 'node:path';
++
++/** Atomic replacement plus fsync. Never store seeds in this store. */
++export function saveJson(path: string, value: unknown): void {
++  mkdirSync(dirname(path), { recursive: true, mode: 0o700 });
++  const tmp = `${path}.tmp`;
++  const fd = openSync(tmp, 'w', 0o600);
++  try { writeFileSync(fd, JSON.stringify(value, null, 2) + '\n'); fsyncSync(fd); }
++  finally { closeSync(fd); }
++  renameSync(tmp, path);
++  const dir = openSync(dirname(path), 'r');
++  try { fsyncSync(dir); } finally { closeSync(dir); }
++}
++export function readJson<T>(path: string, initial: T): T {
++  return existsSync(path) ? JSON.parse(readFileSync(path, 'utf8')) as T : initial;
++}
++/** Exclusive writer for the store's entire lifetime. Crashes leave a lock for operator review. */
++export function acquireLock(path: string): () => void {
++  mkdirSync(dirname(path), { recursive: true, mode: 0o700 });
++  const fd = openSync(path, 'wx', 0o600);
++  writeFileSync(fd, String(process.pid)); closeSync(fd);
++  return () => unlinkSync(path);
++}
+diff --git a/src/transactions.ts b/src/transactions.ts
+new file mode 100644
+index 0000000..858e995
+--- /dev/null
++++ b/src/transactions.ts
+@@ -0,0 +1,93 @@
++import { Client, type SubmittableTransaction as Transaction, type TransactionMetadata, type Wallet } from 'xrpl';
++import { isDeepStrictEqual } from 'node:util';
++import { readJson, saveJson, acquireLock } from './storage.js';
++
++export interface Signer {
++  readonly classicAddress: string;
++  sign(tx: Transaction): ReturnType<Wallet['sign']> | Promise<ReturnType<Wallet['sign']>>;
++}
++export interface Receipt { hash: string; ledger: number; code: string; meta: TransactionMetadata }
++interface Entry { intent: Transaction; blob: string; hash: string; receipt?: Receipt }
++interface Journal { version: 1; entries: Record<string, Entry>; bans: Record<string, string> }
++export class TransactionFailure extends Error {
++  constructor(readonly receipt: Receipt) { super(`Validated transaction ${receipt.hash}: ${receipt.code}`); }
++}
++export class UnresolvedTransaction extends Error {
++  constructor(readonly hash: string, options?: ErrorOptions) {
++    super(`Transaction ${hash} unresolved; reconcile this hash before issuing another operation.`, options);
++  }
++}
++/** Single writer, durable idempotency and signed-before-submit journal. Keep open per issuer. */
++export class TransactionRunner {
++  private readonly journal: Journal;
++  private readonly release: () => void;
++  private queue: Promise<unknown> = Promise.resolve();
++  private closed = false;
++  private queued = 0;
++  constructor(readonly client: Client, private readonly path: string) {
++    this.release = acquireLock(`${path}.lock`);
++    try {
++      this.journal = readJson<Journal>(path, { version: 1, entries: {}, bans: {} });
++      if (this.journal.version !== 1) throw new Error('Unsupported journal version');
++    } catch (error) { this.release(); throw error; }
++  }
++  close(): void {
++    if (this.queued) throw new Error('Await all issuer operations before closing the runner');
++    if (!this.closed) { this.closed = true; this.release(); }
++  }
++  exclusive<T>(work: () => Promise<T>): Promise<T> {
++    if (this.closed) return Promise.reject(new Error('Runner is closed'));
++    this.queued++;
++    const next = this.queue.then(work).finally(() => { this.queued--; });
++    this.queue = next.catch(() => undefined);
++    return next;
++  }
++  isBanned(id: string, holder: string): boolean { return this.journal.bans[`${id}:${holder}`] !== undefined; }
++  hasOperation(key: string): boolean { return Object.hasOwn(this.journal.entries, key); }
++  markBanned(id: string, holder: string, reason: string): void {
++    if (this.closed) throw new Error('Runner is closed');
++    if (!reason.trim()) throw new Error('A ban requires an audit reason');
++    this.journal.bans[`${id}:${holder}`] ??= reason; this.persist();
++  }
++  private persist(): void { saveJson(this.path, this.journal); }
++  /** Call under exclusive(). Repeat the SAME key and intent after any timeout. */
++  async send(key: string, intent: Transaction, signer: Signer): Promise<Receipt> {
++    if (this.closed) throw new Error('Runner is closed');
++    if (!/^[a-zA-Z0-9:._-]{1,200}$/.test(key) || key in Object.prototype) throw new Error('Invalid operation key');
++    if (intent.Account !== signer.classicAddress) throw new Error('Signer account mismatch');
++    let entry = this.journal.entries[key];
++    if (entry && !isDeepStrictEqual(entry.intent, intent)) throw new Error('Operation key reused for a different transaction');
++    if (!entry?.receipt) {
++      const info = await this.client.request({ command: 'server_info' });
++      if (info.result.info.network_id !== 1) throw new Error('Testnet network_id=1 required');
++    }
++    if (!entry) {
++      const pending = Object.values(this.journal.entries).find(e => !e.receipt);
++      if (pending) throw new UnresolvedTransaction(pending.hash);
++      const tx = await this.client.autofill(intent);
++      if (!tx.LastLedgerSequence || !tx.Fee || BigInt(tx.Fee) > 10_000n) throw new Error('Invalid expiry or fee above 0.01 XRP');
++      const signed = await signer.sign(tx);
++      entry = { intent, blob: signed.tx_blob, hash: signed.hash };
++      this.journal.entries[key] = entry;
++      this.persist();
++    }
++    if (!entry.receipt) {
++      try {
++        let result;
++        try { result = (await this.client.request({ command: 'tx', transaction: entry.hash })).result; }
++        catch (error) { if (!isRpcError(error, 'txnNotFound')) throw error; }
++        if (!result?.validated) result = (await this.client.submitAndWait(entry.blob)).result;
++        if (!result.validated || !result.ledger_index || !result.meta || typeof result.meta === 'string') throw new Error('Missing validated metadata');
++        entry.receipt = { hash: entry.hash, ledger: result.ledger_index, code: result.meta.TransactionResult, meta: result.meta };
++        this.persist();
++      } catch (cause) { throw new UnresolvedTransaction(entry.hash, { cause }); }
++    }
++    if (!entry.receipt) throw new UnresolvedTransaction(entry.hash);
++    if (entry.receipt.code !== 'tesSUCCESS') throw new TransactionFailure(entry.receipt);
++    return entry.receipt;
++  }
++}
++export function isRpcError(error: unknown, code: string): boolean {
++  return typeof error === 'object' && error !== null && 'data' in error &&
++    typeof error.data === 'object' && error.data !== null && 'error' in error.data && error.data.error === code;
++}
+diff --git a/src/verify-state.ts b/src/verify-state.ts
+new file mode 100644
+index 0000000..d56410b
+--- /dev/null
++++ b/src/verify-state.ts
+@@ -0,0 +1,24 @@
++import assert from 'node:assert/strict';
++import { type Client, type LedgerEntryRequest, type LedgerEntryJsonResponse } from 'xrpl';
++import type { MPToken } from 'xrpl/dist/npm/models/ledger/MPToken.js';
++import { CAPABILITIES } from './issuer.js';
++export interface DemoResult { issuanceId: string; holders: Record<'A' | 'B' | 'C', string> }
++export async function verify(client: Client, result: DemoResult) {
++  const ledger = (await client.request({ command: 'ledger', ledger_index: 'validated' })).result;
++  const issuance = (await client.request({ command: 'ledger_entry', ledger_hash: ledger.ledger_hash, mpt_issuance: result.issuanceId })).result.node;
++  if (issuance.LedgerEntryType !== 'MPTokenIssuance') throw new Error('Invalid issuance');
++  assert.equal(issuance.Issuer, 'rsrPoacdWBwtfcTAxQ6C66d82bmaaTZuR3');
++  assert.equal(issuance.Flags, CAPABILITIES); assert.equal(issuance.OutstandingAmount, '1200');
++  assert.equal(issuance.AssetScale ?? 0, 0);
++  const holders: Record<string, MPToken> = {};
++  for (const [name, address] of Object.entries(result.holders)) {
++    holders[name] = (await client.request<LedgerEntryRequest, 2, LedgerEntryJsonResponse<MPToken>>({
++      command: 'ledger_entry', ledger_hash: ledger.ledger_hash,
++      mptoken: { mpt_issuance_id: result.issuanceId, account: address },
++    })).result.node;
++  }
++  assert.equal(holders.A?.MPTAmount, '500'); assert.equal(holders.A!.Flags, 2);
++  assert.equal(holders.B?.MPTAmount, '700'); assert.equal(holders.B!.Flags, 3);
++  assert.ok(holders.C); assert.equal(holders.C.MPTAmount ?? '0', '0'); assert.equal(holders.C.Flags & 2, 0);
++  return { ledgerIndex: ledger.ledger_index, ledgerHash: ledger.ledger_hash, issuance, holders };
++}
+diff --git a/src/verify.ts b/src/verify.ts
+new file mode 100644
+index 0000000..cd88053
+--- /dev/null
++++ b/src/verify.ts
+@@ -0,0 +1,9 @@
++import { Client } from 'xrpl';
++import { readFileSync } from 'node:fs';
++import { verify, type DemoResult } from './verify-state.js';
++const client = new Client('wss://s.altnet.rippletest.net:51233');
++try {
++  await client.connect();
++  const state = await verify(client, JSON.parse(readFileSync('result.json', 'utf8')) as DemoResult);
++  console.log(`Verified final balances and controls at ledger ${state.ledgerIndex} (${state.ledgerHash})`);
++} finally { await client.disconnect(); }
+diff --git a/test/issuer.test.ts b/test/issuer.test.ts
+new file mode 100644
+index 0000000..a552dfa
+--- /dev/null
++++ b/test/issuer.test.ts
+@@ -0,0 +1,184 @@
++import { test } from 'node:test';
++import assert from 'node:assert/strict';
++import { mkdirSync, mkdtempSync, rmSync } from 'node:fs';
++import { join } from 'node:path';
++import { Client, Wallet, decode, encode, type SubmittableTransaction, type TransactionMetadata } from 'xrpl';
++import { MptIssuer, amount, MAX_AMOUNT, CAPABILITIES, holderAddress } from '../src/issuer.js';
++import { TransactionRunner, TransactionFailure, UnresolvedTransaction } from '../src/transactions.js';
++
++const wallet = Wallet.generate(), destination = Wallet.generate().classicAddress;
++const intent: SubmittableTransaction = { TransactionType: 'Payment', Account: wallet.classicAddress, Destination: destination, Amount: '1' };
++function fixture() {
++  mkdirSync(join(process.cwd(), '.private'), { recursive: true, mode: 0o700 });
++  const directory = mkdtempSync(join(process.cwd(), '.private', 'test-'));
++  let submits = 0, fills = 0;
++  let fail = false, code = 'tesSUCCESS';
++  const client = {
++    request: async (request: { command: string }) => {
++      if (request.command === 'server_info') return { result: { info: { network_id: 1 } } };
++      throw { data: { error: 'txnNotFound' } };
++    },
++    autofill: async (tx: SubmittableTransaction) => { fills++; return { ...tx, Fee: '12', Sequence: 1, LastLedgerSequence: 100 }; },
++    submitAndWait: async () => {
++      submits++;
++      if (fail) throw new Error('Disconnected');
++      return { result: { validated: true, ledger_index: 90, meta: { TransactionResult: code, AffectedNodes: [], TransactionIndex: 0 } as TransactionMetadata } };
++    },
++  } as unknown as Client;
++  const path = join(directory, 'journal.json');
++  let runner = new TransactionRunner(client, path);
++  return { client, path, get runner() { return runner; }, counts: () => ({ submits, fills }),
++    fail: (value: boolean) => { fail = value; }, code: (value: string) => { code = value; },
++    restart: () => { runner.close(); runner = new TransactionRunner(client, path); },
++    close: () => { runner.close(); rmSync(directory, { recursive: true, force: true }); },
++  };
++}
++test('integer precision and invalid amounts', () => {
++  for (const value of ['0', '-1', '1.1', '01', '1e3', '', ' 1', (2n ** 63n).toString()]) assert.throws(() => amount(value));
++  assert.equal(amount(MAX_AMOUNT), MAX_AMOUNT); assert.equal(amount('9007199254740993'), '9007199254740993');
++  assert.throws(() => holderAddress(wallet.classicAddress, wallet.classicAddress));
++  assert.throws(() => holderAddress('invalid', wallet.classicAddress));
++});
++test('MPT transactions serialize with precise amounts and required holder field', () => {
++  const id = '00000001' + 'AB'.repeat(20);
++  const transactions: SubmittableTransaction[] = [
++    { TransactionType: 'MPTokenIssuanceCreate', Account: wallet.classicAddress, Flags: CAPABILITIES, AssetScale: 0 },
++    { TransactionType: 'MPTokenAuthorize', Account: wallet.classicAddress, MPTokenIssuanceID: id, Holder: destination, Flags: 1 },
++    { TransactionType: 'MPTokenIssuanceSet', Account: wallet.classicAddress, MPTokenIssuanceID: id, Holder: destination, Flags: 1 },
++    { TransactionType: 'Clawback', Account: wallet.classicAddress, Holder: destination, Amount: { mpt_issuance_id: id, value: MAX_AMOUNT } },
++  ];
++  for (const tx of transactions) assert.deepEqual(decode(encode(tx)), tx);
++});
++test('idempotency survives restart; changed intent cannot reuse key', async () => {
++  const f = fixture();
++  try {
++    const first = await f.runner.send('operation', intent, wallet);
++    f.restart();
++    assert.deepEqual(await f.runner.send('operation', intent, wallet), first);
++    assert.deepEqual(f.counts(), { submits: 1, fills: 1 });
++    await assert.rejects(f.runner.send('operation', { ...intent, Amount: '2' }, wallet), /different transaction/);
++  } finally { f.close(); }
++});
++test('uncertain outcomes block new operations and retry only the original signed transaction', async () => {
++  const f = fixture();
++  try {
++    f.fail(true);
++    await assert.rejects(f.runner.send('pending', intent, wallet), UnresolvedTransaction);
++    f.restart();
++    await assert.rejects(f.runner.send('another', intent, wallet), UnresolvedTransaction);
++    f.fail(false);
++    await f.runner.send('pending', intent, wallet);
++    assert.deepEqual(f.counts(), { submits: 2, fills: 1 });
++  } finally { f.close(); }
++});
++test('validated failure is durable and never retried as a new transaction', async () => {
++  const f = fixture();
++  try {
++    f.code('tecNO_AUTH');
++    await assert.rejects(f.runner.send('denied', intent, wallet), TransactionFailure);
++    f.restart();
++    await assert.rejects(f.runner.send('denied', intent, wallet), TransactionFailure);
++    assert.deepEqual(f.counts(), { submits: 1, fills: 1 });
++  } finally { f.close(); }
++});
++test('ban policy survives restart and writer lock prevents concurrent writers', () => {
++  const f = fixture();
++  try {
++    assert.throws(() => new TransactionRunner(f.client, f.path), /EEXIST/);
++    f.runner.markBanned('id', destination, 'compliance case'); f.restart();
++    assert.equal(f.runner.isBanned('id', destination), true);
++  } finally { f.close(); }
++});
++test('exclusive operations are serialized even after rejection', async () => {
++  const f = fixture();
++  try {
++    const events: number[] = [];
++    const first = f.runner.exclusive(async () => { events.push(1); await Promise.resolve(); events.push(2); throw new Error('stop'); });
++    const second = f.runner.exclusive(async () => { events.push(3); });
++    await assert.rejects(first); await second; assert.deepEqual(events, [1, 2, 3]);
++  } finally { f.close(); }
++});
++
++test('fee ceiling and wrong network stop before signing/submission', async () => {
++  const f = fixture();
++  try {
++    f.client.autofill = (async (tx: SubmittableTransaction) => ({ ...tx, Fee: '10001', Sequence: 1, LastLedgerSequence: 100 })) as Client['autofill'];
++    await assert.rejects(f.runner.send('expensive', intent, wallet), /fee above/);
++    f.client.request = (async () => ({ result: { info: { network_id: 0 } } })) as Client['request'];
++    await assert.rejects(f.runner.send('wrong-network', intent, wallet), /Testnet/);
++    assert.equal(f.counts().submits, 0);
++  } finally { f.close(); }
++});
++test('unvalidated results never produce success receipts', async () => {
++  const f = fixture();
++  try {
++    f.client.submitAndWait = (async () => ({ result: { validated: false, ledger_index: 90, meta: { TransactionResult: 'tesSUCCESS' } } })) as unknown as Client['submitAndWait'];
++    await assert.rejects(f.runner.send('unvalidated', intent, wallet), UnresolvedTransaction);
++    await assert.rejects(f.runner.send('new', intent, wallet), UnresolvedTransaction);
++  } finally { f.close(); }
++});
++
++test('ban persists denial before ledger work and remains fail-closed after interruption', async () => {
++  const f = fixture();
++  const id = '00000001' + 'AB'.repeat(20);
++  try {
++    const token = new MptIssuer(f.runner, wallet, id);
++    token.assertConfiguration = async () => undefined;
++    token.holding = async () => ({ LedgerEntryType: 'MPToken', index: '', PreviousTxnID: '', PreviousTxnLgrSeq: 1, MPTokenIssuanceID: id, MPTAmount: '100', Flags: 2 });
++    f.runner.send = async () => {
++      assert.equal(f.runner.isBanned(id, destination), true);
++      throw new Error('interrupted');
++    };
++    await assert.rejects(token.ban(destination, 'case-reference', 'ban'), /interrupted/);
++    f.restart();
++    const restarted = new MptIssuer(f.runner, wallet, id);
++    await assert.rejects(restarted.approve(destination, 'approve'), /permanently banned/);
++    await assert.rejects(restarted.issue(destination, '1', 'issue'), /permanently banned/);
++    await assert.rejects(restarted.freezeHolder(destination, false, 'unlock'), /permanently banned/);
++  } finally { f.close(); }
++});
++test('mint policy blocks both individual and global locks even though native issuer payments bypass them', async () => {
++  const f = fixture();
++  const id = '00000001' + 'AB'.repeat(20);
++  try {
++    const token = new MptIssuer(f.runner, wallet, id);
++    token.assertConfiguration = async () => undefined;
++    let global = false, individual = true;
++    token.issuance = async () => ({ LedgerEntryType: 'MPTokenIssuance', index: '', PreviousTxnID: '', PreviousTxnLgrSeq: 1,
++      Issuer: wallet.classicAddress, Sequence: 1, Flags: CAPABILITIES | Number(global), OutstandingAmount: '100', OwnerNode: '0' });
++    token.holding = async () => ({ LedgerEntryType: 'MPToken', index: '', PreviousTxnID: '', PreviousTxnLgrSeq: 1,
++      MPTokenIssuanceID: id, MPTAmount: '100', Flags: 2 | Number(individual) });
++    await assert.rejects(token.issue(destination, '1', 'locked-individual'), /frozen/);
++    global = true; individual = false;
++    await assert.rejects(token.issue(destination, '1', 'locked-global'), /frozen/);
++    assert.equal(f.counts().submits, 0);
++  } finally { f.close(); }
++});
++
++test('ban resumes a pending drain even when the ledger already shows zero', async () => {
++  const f = fixture();
++  const id = '00000001' + 'AB'.repeat(20);
++  try {
++    const token = new MptIssuer(f.runner, wallet, id);
++    token.assertConfiguration = async () => undefined;
++    token.holding = async () => ({ LedgerEntryType: 'MPToken', index: '', PreviousTxnID: '', PreviousTxnLgrSeq: 1,
++      MPTokenIssuanceID: id, MPTAmount: '0', Flags: 0 });
++    f.runner.hasOperation = key => key === 'ban:drain';
++    const reconciled: string[] = [];
++    f.runner.send = async (key) => {
++      reconciled.push(key);
++      return { hash: 'ABC', ledger: 90, code: 'tesSUCCESS', meta: { TransactionResult: 'tesSUCCESS', AffectedNodes: [], TransactionIndex: 0 } };
++    };
++    await token.ban(destination, 'case-reference', 'ban');
++    assert.deepEqual(reconciled, ['ban:revoke', 'ban:drain']);
++  } finally { f.close(); }
++});
++
++test('ledger reader interprets omitted default MPTAmount as zero', async () => {
++  const f = fixture();
++  try {
++    f.client.request = (async () => ({ result: { node: { LedgerEntryType: 'MPToken', Flags: 0 } } })) as Client['request'];
++    const token = new MptIssuer(f.runner, wallet, '00000001' + 'AB'.repeat(20));
++    assert.equal((await token.holding(destination))?.MPTAmount, '0');
++  } finally { f.close(); }
++});
+diff --git a/result.json b/result.json
+new file mode 100644
+index 0000000..5d6d624
+--- /dev/null
++++ b/result.json
+@@ -0,0 +1,8 @@
++{
++  "issuanceId": "01427AEE16034799748E5A37B8E7212B75FDE77B9ADF80F5",
++  "holders": {
++    "A": "rwkYeB6nao1ER37W9ssV9ViCuEHfWqkPS3",
++    "B": "rBKa1KC8AN12vKVDu9e3xWNceVLm2sjZWa",
++    "C": "rpMLmkacy5kWX2D2Jt7U8Yyunf2JoMfSWW"
++  }
++}

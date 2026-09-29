@@ -1,0 +1,63 @@
+{
+  "verifiedAt": "2026-09-29T05:15:11.575Z",
+  "ledger": 21135587,
+  "ledgerHash": "A9ADE7951BC9656EBD4885665F275C46636B0D1DE9DCC3F557463D9C42562BDC",
+  "issuance": {
+    "Flags": 102,
+    "Issuer": "rJ1UNnBGHY83XddoTMZstNKMvH6Esvi9Mx",
+    "LedgerEntryType": "MPTokenIssuance",
+    "MaximumAmount": "1000000000",
+    "OutstandingAmount": "1200",
+    "OwnerNode": "0",
+    "PreviousTxnID": "D19D4D82FD77E1C4D5AC9F871FB2576C3007EF0B81A926EFBCE3F671F527D856",
+    "PreviousTxnLgrSeq": 21135578,
+    "Sequence": 21135368,
+    "index": "D00A4695815F8C25535151069482E38B94646EEBD623C2D198BBEC6F0F8A0AB6",
+    "mpt_issuance_id": "01428008C3F84E904196FEB67BA92A482A07415B22BAFEDE"
+  },
+  "holders": {
+    "A": {
+      "Account": "ravFCv1EebA9KyyMvQvNT7HfsRCXMZjTdN",
+      "Flags": 2,
+      "LedgerEntryType": "MPToken",
+      "MPTAmount": "500",
+      "MPTokenIssuanceID": "01428008C3F84E904196FEB67BA92A482A07415B22BAFEDE",
+      "OwnerNode": "0",
+      "PreviousTxnID": "4B2616F960BB440F6C288F0811FC2A58E692151977124AC10F753CE029AAD8D9",
+      "PreviousTxnLgrSeq": 21135570,
+      "index": "BE8144923D219C251A3D5E1A63A3EB4A6237D1107AF5D5166470F518EAECFFC5"
+    },
+    "B": {
+      "Account": "rGzRcKX9XCNmFSiDLhpp1dc8wANCUW3yGF",
+      "Flags": 3,
+      "LedgerEntryType": "MPToken",
+      "MPTAmount": "700",
+      "MPTokenIssuanceID": "01428008C3F84E904196FEB67BA92A482A07415B22BAFEDE",
+      "OwnerNode": "0",
+      "PreviousTxnID": "8BE8933D88305C27C2F4C8D7E30222E55077D31BA3FE37E29FAE57AB62919250",
+      "PreviousTxnLgrSeq": 21135572,
+      "index": "1094B23D6E3C6727274161644539FE7F87021B86DC17BDAE3FC7698B2F6A273C"
+    },
+    "C": {
+      "Account": "rzWunysLwmSaGmdamb8VrPCzJhzxkcYt9",
+      "Flags": 0,
+      "LedgerEntryType": "MPToken",
+      "MPTokenIssuanceID": "01428008C3F84E904196FEB67BA92A482A07415B22BAFEDE",
+      "OwnerNode": "0",
+      "PreviousTxnID": "D253FC78B01353184CD65551939F097A80EA48B9557B6DC4CE6E9EB47761F0B1",
+      "PreviousTxnLgrSeq": 21135585,
+      "index": "786D91830AECB03289DBD415FC163B97AD5C802414FF12FA51307E5F2465D1A0"
+    }
+  },
+  "issuerAccount": {
+    "Account": "rJ1UNnBGHY83XddoTMZstNKMvH6Esvi9Mx",
+    "Balance": "69999736",
+    "Flags": 16777216,
+    "LedgerEntryType": "AccountRoot",
+    "OwnerCount": 1,
+    "PreviousTxnID": "0F4ED8D3D4FFE3DBA0A31A2089D5B3299D4D01CED367DFEB436C162A76172837",
+    "PreviousTxnLgrSeq": 21135581,
+    "Sequence": 21135386,
+    "index": "4A2AFE7795A4C372A0003208370BC38F855F2F2FF1D73DB41B8901156F91CC6D"
+  }
+}

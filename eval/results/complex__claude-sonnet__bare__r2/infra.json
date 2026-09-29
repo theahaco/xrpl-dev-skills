@@ -1,0 +1,17 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [
+      "XrplError { node_modules/xrpl/dist/npm/errors.d.ts:11:declare class UnexpectedError extends XrplError { node_modules/xrpl/dist/npm/errors.d.ts:13:declare class ConnectionError extends XrplError { node_modules/xrpl/dist/npm/errors.d.ts:15:declare class NotConnectedError extends ConnectionError { node_modules/xrpl/dist/n",
+      "toString(): string; inspect(): string; } declare class RippledError extends XrplError { } declare class UnexpectedError extends XrplError { } declare class ConnectionError extends XrplError { } declare class NotConnectedError extends ConnectionError { } declare class DisconnectedError extends ConnectionError { } de",
+      "3:exports.XRPLFaucetError = exports.NotFoundError = exports.ValidationError = exports.ResponseFormatError = exports.TimeoutError = exports.RippledNotInitializedError = exports.DisconnectedError = exports.NotConnectedError = exports.RippledError = exports.ConnectionError = exp"
+    ],
+    "sandboxDenials": [],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 49
+  }
+}

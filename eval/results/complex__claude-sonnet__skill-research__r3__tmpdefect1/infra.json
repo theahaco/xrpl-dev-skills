@@ -1,0 +1,15 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [],
+    "sandboxDenials": [
+      "Exit code 1 (eval):1: can't create temp file for here document: operation not permitted npm error code EJSONPARSE npm error JSON.parse Invalid package.json: JSONParseError: Unexpected end of JSON input while parsing empty st"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 43
+  }
+}

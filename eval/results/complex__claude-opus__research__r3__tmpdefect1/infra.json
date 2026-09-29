@@ -1,0 +1,20 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [
+      "andard. ## 4.4.2 (2025-09-25) ### Fixed * improve Batch inner transaction typing ## 4.4.1 (2025-08-29) ### Fixed * Prevent Node.js process termination when WebSocket send() errors after the connection is closed. ## 4.4.0 (2025-07-29) ### Added * Support for `PermissionedDEX` (XLS-81d) * Support for `Token Escrow`",
+      "ctedError extends XrplError {} 70- 71-/** 72- * Error thrown when xrpl.js has an error with connection to rippled. 73- * 74- * @category Errors 75- */ 76-class ConnectionError extends XrplError {} 77- 96:export interface TxResponse< 97- T extends BaseTransaction = Transaction, 98-> extends BaseResponse { 99- result: "
+    ],
+    "sandboxDenials": [
+      "Exit code 1 mkdir: xrplpkg: Operation not permitted",
+      "pt\": \"7.0.2\" }, \"private\": true, \"types\": \"dist/index.d.ts\", \"engines\": { \"node\": \">=22\" } } (eval):10: can't create temp file for here document: operation not permitted (eval):35: can't create temp file for here document: operation not permitted (eval):41: can't create temp file for here document: operat",
+      "N98AZM\", \"B\": \"rnpHK8kfB2BokY8Sk7gcKcYBvgqhawZZQg\", \"C\": \"rshvm77ECFzK28f3QBvsjraJxfkqPTkpcP\" } } (eval):1: can't create temp file for here document: operation not permitted issuance: { Issuer: 'rHfLnjJJ2XBNMjyHpJgJedEtiiZtKojQjB', Flags: '0x66', Outstanding: '1200', AssetScale: undefined } A rByL3WmC"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 36
+  }
+}

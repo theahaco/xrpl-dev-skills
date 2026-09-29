@@ -1,0 +1,17 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [],
+    "sandboxDenials": [
+      "Exit code 1 (eval):1: operation not permitted: /tmp/npm_install.log tail: /tmp/npm_install.log: No such file or directory --- project@1.0.0 /private/tmp/ws/e8fdbbc2b446/project └── (",
+      "--- (eval):1: operation not permitted: /tmp_check.mjs done",
+      "(eval):1: can't create temp file for here document: operation not permitted"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 34
+  }
+}

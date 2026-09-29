@@ -1,0 +1,18 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [
+      "andard. ## 4.4.2 (2025-09-25) ### Fixed * improve Batch inner transaction typing ## 4.4.1 (2025-08-29) ### Fixed * Prevent Node.js process termination when WebSocket send() errors after the connection is closed. ## 4.4.0 (2025-07-29) ### Added * Support for `PermissionedDEX` (XLS-81d) * Support for `Token Escrow`"
+    ],
+    "sandboxDenials": [
+      "(eval):1: operation not permitted: feat.json 3.4.1 1 {\"age\":4,\"base_fee_xrp\":0.00001,\"hash\":\"65FEA0F525AC148416009B22196210A2EFE8A753AE4D038ACACF90038606C680\",\"reserve_ba",
+      "(eval):1: can't create temp file for here document: operation not permitted (eval):17: can't create temp file for here document: operation not permitted (eval):22: can't create temp file for here document: operat"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 7
+  }
+}

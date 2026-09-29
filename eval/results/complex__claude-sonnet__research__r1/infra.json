@@ -1,0 +1,18 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [
+      "andard. ## 4.4.2 (2025-09-25) ### Fixed * improve Batch inner transaction typing ## 4.4.1 (2025-08-29) ### Fixed * Prevent Node.js process termination when WebSocket send() errors after the connection is closed. ## 4.4.0 (2025-07-29) ### Added * Support for `PermissionedDEX` (XLS-81d) * Support for `Token Escrow`"
+    ],
+    "sandboxDenials": [
+      "Exit code 1 (eval):1: operation not permitted: /tmp/npm_install.log"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 45
+  },
+  "suspect": "connectivity errors in command output while the health monitor saw testnet healthy; scored as an agent failure, review by hand"
+}

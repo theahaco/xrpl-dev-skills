@@ -60,12 +60,16 @@ function addUsage(a: Usage, b: Usage): Usage {
 }
 
 // A clarifying question: the agent stopped with a question and has not
-// produced the deliverable yet. A trailing offer after finishing ("want me to
-// add tests?") does not count.
-export function endsWithQuestion(text: string): boolean {
-  const lines = text.trim().split("\n").map((l) => l.trim()).filter(Boolean);
-  const last = lines.at(-1) ?? "";
-  return /\?[*_)\s"'`]*$/.test(last);
+// produced the deliverable yet. The question can sit anywhere in the final
+// message; agents often ask and then add a closing sentence. A trailing offer
+// after finishing ("want me to add tests?") is ruled out by the caller, which
+// only replies while the deliverable is missing. Code and URLs are ignored.
+export function asksQuestion(text: string): boolean {
+  const prose = text
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/`[^`\n]*`/g, " ")
+    .replace(/\bhttps?:\/\/\S+/g, " ");
+  return /[A-Za-z0-9)\]"'*_]\?(?=[\s*_)"'`]|$)/m.test(prose);
 }
 
 export type LaunchOptions = {
@@ -117,7 +121,7 @@ async function driveTurns(
     turn.endedAt = nowIso();
     turn.exitCode = res.code;
     turn.timedOut = res.timedOut;
-    turn.askedQuestion = turn.askedQuestion || endsWithQuestion(turn.finalText);
+    turn.askedQuestion = turn.askedQuestion || asksQuestion(turn.finalText);
     run.turns.push(turn);
     run.usage = addUsage(run.usage, turn.usage);
     fs.appendFileSync(streamFile, `${JSON.stringify({ type: "harness", event: "turn_end", turn: i, at: turn.endedAt, exitCode: res.code, timedOut: res.timedOut })}\n`);

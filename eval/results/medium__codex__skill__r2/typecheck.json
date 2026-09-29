@@ -1,0 +1,54 @@
+{
+  "status": "checked",
+  "tscPath": "node_modules/typescript/bin/tsc",
+  "tscVersion": "Version 7.0.2",
+  "tscSource": "project",
+  "tsFiles": [
+    "src/index.ts",
+    "src/transactions.test.ts",
+    "src/transactions.ts"
+  ],
+  "projectStrictness": {
+    "source": "showConfig",
+    "strict": true,
+    "optOuts": []
+  },
+  "project": {
+    "config": "tsconfig.json",
+    "exitCode": 0,
+    "errorCount": 0,
+    "errorsInProject": 0,
+    "output": ""
+  },
+  "strictConfig": {
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+      "strict": true,
+      "noImplicitAny": true,
+      "noImplicitThis": true,
+      "strictNullChecks": true,
+      "strictFunctionTypes": true,
+      "strictBindCallApply": true,
+      "strictPropertyInitialization": true,
+      "alwaysStrict": true,
+      "useUnknownInCatchVariables": true,
+      "strictBuiltinIteratorReturn": true,
+      "noCheck": false,
+      "noEmit": true,
+      "rootDir": "."
+    },
+    "files": [
+      "src/index.ts",
+      "src/transactions.test.ts",
+      "src/transactions.ts"
+    ],
+    "include": []
+  },
+  "strict": {
+    "config": "tsconfig.xrpl-eval-strict.json",
+    "exitCode": 0,
+    "errorCount": 0,
+    "errorsInProject": 0,
+    "output": ""
+  }
+}

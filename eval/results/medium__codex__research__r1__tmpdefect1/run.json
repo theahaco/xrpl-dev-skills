@@ -1,0 +1,339 @@
+{
+  "agent": "codex",
+  "tier": "medium",
+  "arm": "research",
+  "rep": 1,
+  "runId": "medium__codex__research__r1",
+  "status": "complete",
+  "attempt": 1,
+  "startedAt": "2026-09-29T04:09:20.256Z",
+  "endedAt": "2026-09-29T04:14:06.919Z",
+  "timeCapMinutes": 40,
+  "host": {
+    "platform": "darwin",
+    "osVersion": "26.5.2",
+    "node": "v24.18.0",
+    "npm": "11.16.0"
+  },
+  "isolation": {
+    "mechanism": "macOS sandbox-exec (Seatbelt) profile + scrubbed env + throwaway HOME/config dir",
+    "passed": true,
+    "checks": [
+      {
+        "name": "read ~/.jev",
+        "expect": "denied",
+        "ok": true,
+        "detail": "head: /Users/willem/.jev: Operation not permitted"
+      },
+      {
+        "name": "read ~/.claude",
+        "expect": "denied",
+        "ok": true,
+        "detail": "head: /Users/willem/.claude/.credentials.json: Operation not permitted"
+      },
+      {
+        "name": "read ~/.claude.json",
+        "expect": "denied",
+        "ok": true,
+        "detail": "head: /Users/willem/.claude.json: Operation not permitted"
+      },
+      {
+        "name": "read ~/.codex",
+        "expect": "denied",
+        "ok": true,
+        "detail": "head: /Users/willem/.codex/auth.json: Operation not permitted"
+      },
+      {
+        "name": "read theahaco repos",
+        "expect": "denied",
+        "ok": true,
+        "detail": "head: /Users/willem/c/theahaco/.DS_Store: Operation not permitted"
+      },
+      {
+        "name": "read firstmate home",
+        "expect": "denied",
+        "ok": true,
+        "detail": "head: /Users/willem/c/willemneal/firstmate/.gitattributes: Operation not permitted"
+      },
+      {
+        "name": "read eval harness repo",
+        "expect": "denied",
+        "ok": true,
+        "detail": "head: /Users/willem/.treehouse/xrpl-dev-skills-b23c5f/2/xrpl-dev-skills/eval/package.json: Operation not permitted"
+      },
+      {
+        "name": "list operator home",
+        "expect": "denied",
+        "ok": true,
+        "detail": "ls: /Users/willem: Operation not permitted"
+      },
+      {
+        "name": "list /private/tmp",
+        "expect": "denied",
+        "ok": true,
+        "detail": "ls: /private/tmp: Operation not permitted"
+      },
+      {
+        "name": "keychain: Claude credentials",
+        "expect": "denied",
+        "ok": true,
+        "detail": ""
+      },
+      {
+        "name": "write outside workspace",
+        "expect": "denied",
+        "ok": true,
+        "detail": "/bin/sh: /private/tmp/.xrpl-eval-escape-probe: Operation not permitted"
+      },
+      {
+        "name": "write /opt/homebrew/Caskroom/claude-code@latest/2.1.281",
+        "expect": "denied",
+        "ok": true,
+        "detail": "touch: /opt/homebrew/Caskroom/claude-code@latest/2.1.281/.xrpl-eval-escape-probe: Operation not permitted"
+      },
+      {
+        "name": "write /Users/willem/.local/share/mise/installs/node/24.18.0/bin",
+        "expect": "denied",
+        "ok": true,
+        "detail": "touch: /Users/willem/.local/share/mise/installs/node/24.18.0/bin/.xrpl-eval-escape-probe: Operation not permitted"
+      },
+      {
+        "name": "write /opt/homebrew/bin",
+        "expect": "denied",
+        "ok": true,
+        "detail": "touch: /opt/homebrew/bin/.xrpl-eval-escape-probe: Operation not permitted"
+      },
+      {
+        "name": "write /usr/local/bin",
+        "expect": "denied",
+        "ok": true,
+        "detail": "touch: /usr/local/bin/.xrpl-eval-escape-probe: Operation not permitted"
+      },
+      {
+        "name": "hard-link a protected file",
+        "expect": "denied",
+        "ok": true,
+        "detail": "ln: /Users/willem/.jev: Operation not permitted"
+      },
+      {
+        "name": "node runs a project file",
+        "expect": "allowed",
+        "ok": true,
+        "detail": "v24.18.0"
+      },
+      {
+        "name": "npm available",
+        "expect": "allowed",
+        "ok": true,
+        "detail": "11.16.0"
+      },
+      {
+        "name": "npx runs a command",
+        "expect": "allowed",
+        "ok": true,
+        "detail": "v24.18.0"
+      },
+      {
+        "name": "git available",
+        "expect": "allowed",
+        "ok": true,
+        "detail": "git version 2.54.0"
+      },
+      {
+        "name": "registry reachable",
+        "expect": "allowed",
+        "ok": true,
+        "detail": ""
+      }
+    ]
+  },
+  "network": {
+    "at": "2026-09-29T04:09:21.257Z",
+    "rpcUrl": "https://s.altnet.rippletest.net:51234/",
+    "buildVersion": "3.4.1",
+    "networkId": 1,
+    "validatedLedger": 21134415,
+    "reserveBaseXrp": 1,
+    "reserveIncXrp": 0.2,
+    "enabledAmendments": [
+      "AMM",
+      "AMMClawback",
+      "CheckCashMakesTrustLine",
+      "Checks",
+      "Clawback",
+      "Credentials",
+      "DID",
+      "DeepFreeze",
+      "DeletableAccounts",
+      "DepositAuth",
+      "DepositPreauth",
+      "DisallowIncoming",
+      "DynamicNFT",
+      "ExpandedSignerList",
+      "Flow",
+      "FlowCross",
+      "FlowSortStrands",
+      "HardenedValidations",
+      "ImmediateOfferKilled",
+      "MPTokensV1",
+      "MultiSignReserve",
+      "NFTokenMintOffer",
+      "NegativeUNL",
+      "NonFungibleTokensV1_1",
+      "PermissionedDEX",
+      "PermissionedDomains",
+      "PriceOracle",
+      "RequireFullyCanonicalSig",
+      "TicketBatch",
+      "TokenEscrow",
+      "XRPFees",
+      "fix1513",
+      "fix1515",
+      "fix1543",
+      "fix1571",
+      "fix1578",
+      "fix1623",
+      "fix1781",
+      "fixAMMClawbackRounding",
+      "fixAMMOverflowOffer",
+      "fixAMMv1_1",
+      "fixAMMv1_2",
+      "fixAMMv1_3",
+      "fixAmendmentMajorityCalc",
+      "fixCheckThreading",
+      "fixCleanup3_1_3",
+      "fixCleanup3_2_0",
+      "fixCleanup3_3_0",
+      "fixDirectoryLimit",
+      "fixDisallowIncomingV1",
+      "fixEmptyDID",
+      "fixEnforceNFTokenTrustline",
+      "fixEnforceNFTokenTrustlineV2",
+      "fixFillOrKill",
+      "fixFrozenLPTokenTransfer",
+      "fixIncludeKeyletFields",
+      "fixInnerObjTemplate",
+      "fixInnerObjTemplate2",
+      "fixInvalidTxFlags",
+      "fixMPTDeliveredAmount",
+      "fixMasterKeyAsRegularKey",
+      "fixNFTokenPageLinks",
+      "fixNFTokenRemint",
+      "fixNFTokenReserve",
+      "fixNonFungibleTokensV1_2",
+      "fixPayChanCancelAfter",
+      "fixPayChanRecipientOwnerDir",
+      "fixPreviousTxnID",
+      "fixPriceOracleOrder",
+      "fixQualityUpperBound",
+      "fixReducedOffersV1",
+      "fixReducedOffersV2",
+      "fixRemoveNFTokenAutoTrustLine",
+      "fixRmSmallIncreasedQOffers",
+      "fixSTAmountCanonicalize",
+      "fixTakerDryOfferRemoval",
+      "fixTokenEscrowV1",
+      "fixTrustLinesToSelf",
+      "fixUniversalNumber"
+    ]
+  },
+  "account": {
+    "address": "rEyNWbgPq7jnWYa7dnWPVtsHZxroy3XGVd",
+    "fundedXrp": 100
+  },
+  "quota": {
+    "before": {
+      "provider": "codex",
+      "percentRemaining": 82,
+      "windowId": "weekly",
+      "resetsAt": "2026-10-05T14:34:08.000Z",
+      "readAt": "2026-09-29T04:09:28.839Z"
+    },
+    "after": {
+      "provider": "codex",
+      "percentRemaining": 79,
+      "windowId": "weekly",
+      "resetsAt": "2026-10-05T14:34:08.000Z",
+      "readAt": "2026-09-29T04:14:06.290Z"
+    }
+  },
+  "agentSeconds": 277,
+  "strayProcessesKilled": 0,
+  "agentInfo": {
+    "cli": "codex",
+    "cliVersion": "codex-cli 0.158.0",
+    "model": "gpt-6-astra",
+    "effort": "default (unset in config)",
+    "sessionId": "01a0eb5a-7475-7cc2-8b18-7d9e8f927063"
+  },
+  "usage": {
+    "inputTokens": 101411,
+    "cachedInputTokens": 782208,
+    "cacheCreationTokens": 0,
+    "outputTokens": 7595,
+    "reasoningTokens": 335
+  },
+  "turns": [
+    {
+      "index": 0,
+      "startedAt": "2026-09-29T04:09:28.875Z",
+      "endedAt": "2026-09-29T04:14:05.570Z",
+      "exitCode": 0,
+      "timedOut": false,
+      "isError": false,
+      "askedQuestion": false,
+      "usage": {
+        "inputTokens": 101411,
+        "cachedInputTokens": 782208,
+        "cacheCreationTokens": 0,
+        "outputTokens": 7595,
+        "reasoningTokens": 335
+      },
+      "finalTextChars": 627
+    }
+  ],
+  "clarifyReplies": 0,
+  "timedOut": false,
+  "check": {
+    "status": "pass",
+    "failed": []
+  },
+  "capture": {
+    "files": 139,
+    "skippedLarge": [
+      ".npm-cache/_cacache/content-v2/sha512/7f/a7/541ec42bab148d1d40c6967f6dfa09acc4ed0273a3ae2634b634737e19e9cff7341c1da6fddd1b23450bf742b8b2679c54938b357b6ba59633ab51d88075",
+      ".npm-cache/_cacache/content-v2/sha512/82/8c/336abf4cc12fda456a7a7f76b8294ab34630198ceb2618d08ce8b713817ba6f9d05f82c05530df8082f38209b82e5f289c93a2c986906ccf131e6c9f2cc8",
+      ".npm-cache/_cacache/content-v2/sha512/d8/69/3f7e4a6b7f85229cf5b19bf726cf11ea5838f33e0054ccbdeffd2559bba14c828c4464b9e6ce871b0e8047f44bc2760f0be55bf2ed5d9e7e43abf2ecea22"
+    ],
+    "skippedUnsafe": [],
+    "renamedGitignores": [
+      ".gitignore"
+    ],
+    "skippedSessions": []
+  },
+  "xrpl": {
+    "installedVersion": "5.3.0",
+    "dependencySpec": "5.3.0"
+  },
+  "infra": {
+    "verdict": "ok",
+    "rerun": false,
+    "reasons": [],
+    "signals": {
+      "faucetErrors": [],
+      "rippledErrors": [
+        "andard. ## 4.4.2 (2025-09-25) ### Fixed * improve Batch inner transaction typing ## 4.4.1 (2025-08-29) ### Fixed * Prevent Node.js process termination when WebSocket send() errors after the connection is closed. ## 4.4.0 (2025-07-29) ### Added curl: (56) Failure writing output to destination, passed 16357 returne"
+      ],
+      "sandboxDenials": [
+        "curl: (56) The requested URL returned error: 404 zsh:2: operation not permitted: /tmp/mpt-features.json cat: /tmp/mpt-features.json: No such file or directory ",
+        "zsh:5: can't create temp file for here document: operation not permitted ",
+        "python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-zJ48IstE' (errno=Operation not permitted) python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-RBpC9l0M' (errno=Operation not pe"
+      ],
+      "providerErrors": [],
+      "healthOutageProbes": 0,
+      "healthProbes": 10
+    }
+  },
+  "wallClockSeconds": 287,
+  "redactedFiles": 6
+}

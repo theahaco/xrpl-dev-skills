@@ -1,0 +1,7 @@
+node_modules/
+dist/
+# Secrets: issuer seed and generated holder seeds. Never commit these.
+.env
+.secrets/
+# Operational state (ban registry, audit log). Back up; do not commit.
+state/

@@ -1,0 +1,23 @@
+{
+  "name": "xrpl-mpt-demo",
+  "version": "1.0.0",
+  "description": "Issue an allow-listed Multi-Purpose Token on the XRPL testnet",
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && node --env-file=.env dist/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "xrpl": "^5.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "typescript": "^7.0.2"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=24"
+  }
+}

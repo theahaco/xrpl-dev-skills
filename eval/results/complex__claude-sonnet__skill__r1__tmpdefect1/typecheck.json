@@ -1,0 +1,60 @@
+{
+  "status": "checked",
+  "tscPath": "node_modules/typescript/bin/tsc",
+  "tscVersion": "Version 7.0.2",
+  "tscSource": "project",
+  "tsFiles": [
+    "demo.ts",
+    "src/holder.ts",
+    "src/index.ts",
+    "src/mptIssuer.ts",
+    "src/txSubmit.ts",
+    "src/types.ts"
+  ],
+  "projectStrictness": {
+    "source": "showConfig",
+    "strict": true,
+    "optOuts": []
+  },
+  "project": {
+    "config": "tsconfig.json",
+    "exitCode": 0,
+    "errorCount": 0,
+    "errorsInProject": 0,
+    "output": ""
+  },
+  "strictConfig": {
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+      "strict": true,
+      "noImplicitAny": true,
+      "noImplicitThis": true,
+      "strictNullChecks": true,
+      "strictFunctionTypes": true,
+      "strictBindCallApply": true,
+      "strictPropertyInitialization": true,
+      "alwaysStrict": true,
+      "useUnknownInCatchVariables": true,
+      "strictBuiltinIteratorReturn": true,
+      "noCheck": false,
+      "noEmit": true,
+      "rootDir": "."
+    },
+    "files": [
+      "demo.ts",
+      "src/holder.ts",
+      "src/index.ts",
+      "src/mptIssuer.ts",
+      "src/txSubmit.ts",
+      "src/types.ts"
+    ],
+    "include": []
+  },
+  "strict": {
+    "config": "tsconfig.xrpl-eval-strict.json",
+    "exitCode": 0,
+    "errorCount": 0,
+    "errorsInProject": 0,
+    "output": ""
+  }
+}

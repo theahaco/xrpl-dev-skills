@@ -1,0 +1,53 @@
+{
+  "network": "testnet",
+  "ledgerIndex": 21134066,
+  "ledgerHash": "466C780C9A31A3F295A51620631FF6F0C8CAECABBA0C6FA589CEFFE028F440E1",
+  "verifiedAt": "2026-09-29T03:49:15.008Z",
+  "issuance": {
+    "Flags": 102,
+    "Issuer": "rEhS5hFsARRniruZPfLauD2U1hrnt3RpnP",
+    "LedgerEntryType": "MPTokenIssuance",
+    "MaximumAmount": "1000000000",
+    "OutstandingAmount": "1200",
+    "OwnerNode": "0",
+    "PreviousTxnID": "F4AB5B1FCFB9987667C15903EA44991CC5B34BADC341D1B9B95088C0BD535461",
+    "PreviousTxnLgrSeq": 21134047,
+    "Sequence": 21133900,
+    "index": "DE76D229815CC9B62905486CF7D47D74F869778193EC0A38A45627F55E1F0BE2",
+    "mpt_issuance_id": "01427A4C9A387805EF542AB49F7E7CA5193F7E5B01C396B1"
+  },
+  "holders": {
+    "A": {
+      "Account": "rMUJUmR3eySVqo6NnLemhi7fhMWsGoGrD7",
+      "Flags": 2,
+      "LedgerEntryType": "MPToken",
+      "MPTAmount": "500",
+      "MPTokenIssuanceID": "01427A4C9A387805EF542AB49F7E7CA5193F7E5B01C396B1",
+      "OwnerNode": "0",
+      "PreviousTxnID": "6BB9B15243E5035791B1CAA0EBEAA16FE3DCB3BC50E17360FF13F92D8DA91A97",
+      "PreviousTxnLgrSeq": 21134039,
+      "index": "96456876BDA2666D95D45E836D7A22E6A700237BDBC896B69BB9B6FDA2CA09DD"
+    },
+    "B": {
+      "Account": "rpWtkFeKN2PYt5aAC2iCV67Xk3o8yh6W4z",
+      "Flags": 3,
+      "LedgerEntryType": "MPToken",
+      "MPTAmount": "700",
+      "MPTokenIssuanceID": "01427A4C9A387805EF542AB49F7E7CA5193F7E5B01C396B1",
+      "OwnerNode": "0",
+      "PreviousTxnID": "493A6126126EEB7BA231E16BFC8CC6C9C37027E3283ABA56CF0672A4315469CB",
+      "PreviousTxnLgrSeq": 21134041,
+      "index": "7E34B447E0EE9E8D30B8563EBB38936D9678012FC2A29F8241BEE7A72BCABA7B"
+    },
+    "C": {
+      "Account": "rEinvkzkAvJ5iTNbkBBsyTfdeG2CKRPQu8",
+      "Flags": 0,
+      "LedgerEntryType": "MPToken",
+      "MPTokenIssuanceID": "01427A4C9A387805EF542AB49F7E7CA5193F7E5B01C396B1",
+      "OwnerNode": "0",
+      "PreviousTxnID": "04B18DB0328312AA1E6FAEF270FDA54ABF9C5F662518A09870879FAB7018DD29",
+      "PreviousTxnLgrSeq": 21134053,
+      "index": "970DB1F0EF3329E39EE7A73BF27EC47C4F36A4C9C07C359866B86C03DAC96DD3"
+    }
+  }
+}

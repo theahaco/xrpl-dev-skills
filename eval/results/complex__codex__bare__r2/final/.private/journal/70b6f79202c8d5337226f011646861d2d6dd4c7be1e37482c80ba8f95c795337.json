@@ -1,0 +1,56 @@
+{
+  "intent": "{\"TransactionType\":\"MPTokenAuthorize\",\"Account\":\"rDnAyiumF5yq9sYXPDTHjxjpcgqr3iP2vb\",\"MPTokenIssuanceID\":\"0142A2BC3626FE9194BAD4CE7F19DC86646ED23FFCBB14D5\"}",
+  "blob": "1200392200000000240142A327201B0142A33B68400000000000000C7321EDEEC2DEC98C9142865BACCB96CEE3475B9D4B9AF3A60ED5F98CB1E717E4E430A47440A475DB3F95EC297A6B2FC95D4C9C0E1B299B5CD89A972911E31E7E000AEAEF9E755038A34162E977E62D5CA9AFECCB74119233E4F2CEFD3F32C6F0866FF72F0381148491118BDEAC427B4A83B0E8C706D2CDFD69D5C401150142A2BC3626FE9194BAD4CE7F19DC86646ED23FFCBB14D5",
+  "hash": "FABB550ADD6215309A1277DDA0AA7FAD729B50EB76ED9A3D5052B4E6EC1F22F2",
+  "receipt": {
+    "hash": "FABB550ADD6215309A1277DDA0AA7FAD729B50EB76ED9A3D5052B4E6EC1F22F2",
+    "ledgerIndex": 21144360,
+    "code": "tesSUCCESS",
+    "meta": {
+      "AffectedNodes": [
+        {
+          "CreatedNode": {
+            "LedgerEntryType": "DirectoryNode",
+            "LedgerIndex": "80C4C8B0A5FB9F93A45886C0A7047600A10388E7191655C9DF397C25629223A2",
+            "NewFields": {
+              "Owner": "rDnAyiumF5yq9sYXPDTHjxjpcgqr3iP2vb",
+              "RootIndex": "80C4C8B0A5FB9F93A45886C0A7047600A10388E7191655C9DF397C25629223A2"
+            }
+          }
+        },
+        {
+          "CreatedNode": {
+            "LedgerEntryType": "MPToken",
+            "LedgerIndex": "8E1C3143D7968F69D1D5079E71B0AA22759E4A28D4003C79C33507F0D6781107",
+            "NewFields": {
+              "Account": "rDnAyiumF5yq9sYXPDTHjxjpcgqr3iP2vb",
+              "MPTokenIssuanceID": "0142A2BC3626FE9194BAD4CE7F19DC86646ED23FFCBB14D5"
+            }
+          }
+        },
+        {
+          "ModifiedNode": {
+            "FinalFields": {
+              "Account": "rDnAyiumF5yq9sYXPDTHjxjpcgqr3iP2vb",
+              "Balance": "4999988",
+              "Flags": 0,
+              "OwnerCount": 1,
+              "Sequence": 21144360
+            },
+            "LedgerEntryType": "AccountRoot",
+            "LedgerIndex": "B8CD1FCE8796986D8ABC8914F69D3C12BC44BB81DBC42CEE9669AC3FD78F3867",
+            "PreviousFields": {
+              "Balance": "5000000",
+              "OwnerCount": 0,
+              "Sequence": 21144359
+            },
+            "PreviousTxnID": "AFE60F25B32C44053FCAD0649D494AF791296D50E959A38232F4068F4772CD2C",
+            "PreviousTxnLgrSeq": 21144359
+          }
+        }
+      ],
+      "TransactionIndex": 0,
+      "TransactionResult": "tesSUCCESS"
+    }
+  }
+}

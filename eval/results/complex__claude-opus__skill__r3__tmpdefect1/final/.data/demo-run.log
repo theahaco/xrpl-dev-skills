@@ -1,0 +1,98 @@
+
+> project@1.0.0 demo
+> tsx --env-file=.env scripts/demo.ts
+
+
+=== 1. Fund accounts from rUhQUNEr2hpEq16zJWNgtMpAdmPH2sV3qs
+  ✔ Holder A rP3DRGhEsakeVr5oDpigNM7PhHZagVCr3V funded with 3 XRP (C623EC8DE8593EC8494C504614EAEC9146B98FCDD4DCDB41C15BD209E6B802CD)
+  ✔ Holder B r4hTRs1AXFya9UdKjTLAK84rUC7pgCd3AH funded with 3 XRP (53F820C016791DE52A2FE8FB1EB4057B6247B9D49DF5D32351D95FAFD31FA665)
+  ✔ Holder C r3jXD3UXfRxGggYifTmStzcRznYDfXysJ9 funded with 3 XRP (D90BF8F2CBE1A787CBDD1B75C0969D2C2FCB28C6CED9D7C45F4CD17FE16EF557)
+
+=== 2. Create the MPT issuance with all compliance controls
+{"ts":"2026-09-29T03:45:51.355Z","level":"info","event":"issuance.created","issuanceId":"014279B9794DFE173BFA3730D024E6D073FB4177E1490A3C","issuer":"rUhQUNEr2hpEq16zJWNgtMpAdmPH2sV3qs","hash":"CDB1A01F476AE62A34219FCCC528C5D602EA405029EDD8DE190214F2C81CAC82","flags":102}
+  ✔ Issuance 014279B9794DFE173BFA3730D024E6D073FB4177E1490A3C created (CDB1A01F476AE62A34219FCCC528C5D602EA405029EDD8DE190214F2C81CAC82)
+  ✔ issuance has RequireAuth, CanLock and CanClawback
+  ✔ issuance does not allow escrow (keeps every balance within clawback reach)
+
+=== 3. Holders opt in to the token
+  ✔ A opted in
+  ✔ B opted in
+  ✔ C opted in
+
+=== 4. Allowlist: approve A and B after KYC, then issue
+{"ts":"2026-09-29T03:46:17.077Z","level":"info","event":"holder.authorized","issuanceId":"014279B9794DFE173BFA3730D024E6D073FB4177E1490A3C","holder":"rP3DRGhEsakeVr5oDpigNM7PhHZagVCr3V","hash":"ACA9E26ECD223EDCA37A14A2BC0CAFBFCA298BC9155133238D837A65E7DB2190"}
+{"ts":"2026-09-29T03:46:23.261Z","level":"info","event":"holder.authorized","issuanceId":"014279B9794DFE173BFA3730D024E6D073FB4177E1490A3C","holder":"r4hTRs1AXFya9UdKjTLAK84rUC7pgCd3AH","hash":"F2B6D5DAF0C2E05AC8782BFAEE5E96A0D30F8227774AC75F2F35E9FD46FC67ED"}
+{"ts":"2026-09-29T03:46:27.189Z","level":"info","event":"tokens.issued","issuanceId":"014279B9794DFE173BFA3730D024E6D073FB4177E1490A3C","holder":"rP3DRGhEsakeVr5oDpigNM7PhHZagVCr3V","amount":"500","hash":"8302C0BEEDBB1BA1807C7E8FC377A0BE04C453DB66D631EC501C60B7F4BFC269"}
+{"ts":"2026-09-29T03:46:34.582Z","level":"info","event":"tokens.issued","issuanceId":"014279B9794DFE173BFA3730D024E6D073FB4177E1490A3C","holder":"r4hTRs1AXFya9UdKjTLAK84rUC7pgCd3AH","amount":"1000","hash":"B59E88C08AAA43536D5805A6C966BE439E8DF7C610C1660BC12795AA108DA03B"}
+  ✔ A holds 500
+  ✔ B holds 1000
+
+=== 5. Allowlist: C is opted in but not yet approved
+  ✔ Issuing to unapproved C refused by module: r3jXD3UXfRxGggYifTmStzcRznYDfXysJ9 is not on the allowlist
+  ✔ Transfer A -> unapproved C rejected by ledger: tecNO_AUTH (677C645E82EA23C63F7E30BB5515E6EAC5C254AEC4A975F0DF758FC07E3ACF90)
+  ✔ Direct issuer payment to unapproved C (bypassing module) rejected by ledger: tecNO_AUTH (3EDFA0C099C16AD8E79F0A6C429354675F81A76713698C9A963B36C8A70F5404)
+{"ts":"2026-09-29T03:46:56.714Z","level":"info","event":"holder.authorized","issuanceId":"014279B9794DFE173BFA3730D024E6D073FB4177E1490A3C","holder":"r3jXD3UXfRxGggYifTmStzcRznYDfXysJ9","hash":"012D73F3B688BE3250E2C6269A6CE97B48A7616E932BD551065B97EA2D690115"}
+{"ts":"2026-09-29T03:47:04.096Z","level":"info","event":"tokens.issued","issuanceId":"014279B9794DFE173BFA3730D024E6D073FB4177E1490A3C","holder":"r3jXD3UXfRxGggYifTmStzcRznYDfXysJ9","amount":"250","hash":"25CDB286C1444AFE66A4E5D3D2AF2086635B8C9DA85B00A4595FCE9015571735"}
+  ✔ C approved and holds 250
+
+=== 6. Clawback: recover 300 from B
+  ✔ Clawing back more than B holds refused by module: Cannot claw back 1001 from r4hTRs1AXFya9UdKjTLAK84rUC7pgCd3AH: balance is 1000
+{"ts":"2026-09-29T03:47:09.258Z","level":"info","event":"tokens.clawed_back","issuanceId":"014279B9794DFE173BFA3730D024E6D073FB4177E1490A3C","holder":"r4hTRs1AXFya9UdKjTLAK84rUC7pgCd3AH","amount":"300","hash":"435262A777945D469CC35BCF4A1B94137973067A95AD7E8C9B5B97D157B0913F"}
+  ✔ B holds 700
+
+=== 7. Per-holder freeze: freeze A
+{"ts":"2026-09-29T03:47:13.192Z","level":"info","event":"holder.frozen","issuanceId":"014279B9794DFE173BFA3730D024E6D073FB4177E1490A3C","holder":"rP3DRGhEsakeVr5oDpigNM7PhHZagVCr3V","hash":"008AA77F01F0E0AC726B7397CE5D3DA725D336745419AD3CC80F1A94D257F731"}
+  ✔ A is frozen
+  ✔ Frozen A sending to B rejected by ledger: tecLOCKED (375E5287127962BA9312E1D8A3FD02F36AA3830B3217EB113DB3A16BC0180BB7)
+  ✔ B sending to frozen A rejected by ledger: tecLOCKED (4255F36BDCFCA7F4F357255677171D5AD7C201AC0431ECB14B02DAE579A9526F)
+  ✔ Issuing to frozen A refused by module: rP3DRGhEsakeVr5oDpigNM7PhHZagVCr3V is frozen
+  ℹ The ledger does not stop the ISSUER paying a frozen holder; the module check above is that control.
+{"ts":"2026-09-29T03:47:34.063Z","level":"info","event":"holder.unfrozen","issuanceId":"014279B9794DFE173BFA3730D024E6D073FB4177E1490A3C","holder":"rP3DRGhEsakeVr5oDpigNM7PhHZagVCr3V","hash":"98C19CFD3782453D152EE430A21080F7311B3A32CAA99ED14C641394D1043753"}
+  ✔ A is unfrozen
+  ✔ A and B can transact again (A -> B 10, B -> A 10)
+
+=== 8. Global freeze: freeze all movement of the token
+{"ts":"2026-09-29T03:47:51.265Z","level":"warn","event":"issuance.frozen","issuanceId":"014279B9794DFE173BFA3730D024E6D073FB4177E1490A3C","hash":"0EAA203B39580D4B087DD0FD50E48F96DEFDD7DFD5C08A145ACD05A244CB9FF9"}
+  ✔ token is globally frozen
+  ✔ A sending to B during global freeze rejected by ledger: tecLOCKED (49F1B0A297C5289D0826DB0897834202FAB6500E9B8E9F3AC9B8D0A907FEBD9F)
+  ✔ B sending to A during global freeze rejected by ledger: tecLOCKED (D19EF5D2EDC7832B3650DFDA85025CADCFB7B4613DFFE3E2E8C9EEC6BEA8361D)
+  ✔ Issuing during global freeze refused by module: 014279B9794DFE173BFA3730D024E6D073FB4177E1490A3C is globally frozen
+  ℹ The ledger does not stop ISSUER payments during a global freeze; the module check above is that control.
+{"ts":"2026-09-29T03:48:08.587Z","level":"warn","event":"issuance.unfrozen","issuanceId":"014279B9794DFE173BFA3730D024E6D073FB4177E1490A3C","hash":"C0F936804DDB2174D7E7EA8F36DE0AFD4DEC7658466D7AEB013D39A972012674"}
+  ✔ global freeze lifted
+  ✔ Transfers work again (A -> B 10, B -> A 10)
+
+=== 9. Ban C
+{"ts":"2026-09-29T03:48:23.088Z","level":"warn","event":"holder.ban_started","issuanceId":"014279B9794DFE173BFA3730D024E6D073FB4177E1490A3C","holder":"r3jXD3UXfRxGggYifTmStzcRznYDfXysJ9","reason":"Demo: sanctions screening match"}
+{"ts":"2026-09-29T03:48:43.804Z","level":"warn","event":"holder.banned","issuanceId":"014279B9794DFE173BFA3730D024E6D073FB4177E1490A3C","holder":"r3jXD3UXfRxGggYifTmStzcRznYDfXysJ9","reason":"Demo: sanctions screening match","clawedBack":"250","hashes":["6D602949ED20E248CDD5AB85BE2934D092606410D4AA6D11D271E37996F3ECA1","3FDFD7DD47618229B4990FB8EC761BA2312B9C915801E323CCF9EB7CC39CEB0A","E8EAA6510ADBCCC4C695844A61A08BA47457383AC0A0853A97268D6749C49720"]}
+  ✔ C banned; clawed back 250; txs 6D602949ED20E248CDD5AB85BE2934D092606410D4AA6D11D271E37996F3ECA1, 3FDFD7DD47618229B4990FB8EC761BA2312B9C915801E323CCF9EB7CC39CEB0A, E8EAA6510ADBCCC4C695844A61A08BA47457383AC0A0853A97268D6749C49720
+  ✔ C holds 0
+  ✔ C is removed from the on-ledger allowlist
+  ✔ C is frozen
+  ✔ Re-authorizing banned C refused by module: r3jXD3UXfRxGggYifTmStzcRznYDfXysJ9 is banned and cannot be re-authorized
+  ✔ Issuing to banned C refused by module: r3jXD3UXfRxGggYifTmStzcRznYDfXysJ9 is banned
+  ✔ Unfreezing banned C refused by module: r3jXD3UXfRxGggYifTmStzcRznYDfXysJ9 is banned and cannot be unfrozen
+  ✔ Transfer A -> banned C rejected by ledger: tecNO_AUTH (1ACDA10FD8AB4EC008A48F02B571133741B8A74AAF2B2C1755D06D6669BD3A46)
+  ✔ Direct issuer payment to banned C (bypassing module) rejected by ledger: tecNO_AUTH (D0C33A4858D627232F6C949574441EF2ED2C194A68CBC7E35B8B727E8C49AD26)
+
+=== 10. Freeze B
+{"ts":"2026-09-29T03:49:02.516Z","level":"info","event":"holder.frozen","issuanceId":"014279B9794DFE173BFA3730D024E6D073FB4177E1490A3C","holder":"r4hTRs1AXFya9UdKjTLAK84rUC7pgCd3AH","hash":"A8766B1972E0FC077994C6BAC9F6D3E32A282AFE9C086519CEC2C96C7CE2FCCF"}
+
+=== 11. Verify final ledger state
+  ✔ issued by rUhQUNEr2hpEq16zJWNgtMpAdmPH2sV3qs
+  ✔ all compliance controls available
+  ✔ token is not globally frozen
+  ✔ A: approved, holds 500, not frozen
+  ✔ B: approved, holds 700, frozen
+  ✔ C: banned, holds 0, de-authorized, frozen
+  ✔ outstanding supply is 1200
+
+Wrote result.json:
+{
+  "issuanceId": "014279B9794DFE173BFA3730D024E6D073FB4177E1490A3C",
+  "holders": {
+    "A": "rP3DRGhEsakeVr5oDpigNM7PhHZagVCr3V",
+    "B": "r4hTRs1AXFya9UdKjTLAK84rUC7pgCd3AH",
+    "C": "r3jXD3UXfRxGggYifTmStzcRznYDfXysJ9"
+  }
+}

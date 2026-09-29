@@ -1,0 +1,54 @@
+{
+  "fingerprint": "948f5b23bee30a834cc1fd9a9512dbe2a01ed91795c2820b4223ea1beefd269d",
+  "blob": "1200392200000001240142A2B9201B0142A33968400000000000000C7321ED067D4A00F34E6D12218550F98BADBCFACCC0B9872AC8A2D03FF111577A80CD5074408DBA54181ABCEBFB4AAE599FBCA03A89319D3D4FCC4F644B8A01003414C094E3422DFB615908DCF449ACD5D3B291ED98BB0241D13557BDEBDCCE3988C6D458068114896E12C2514E55AF8C6C1A580BC8797D3F5E84558B14FB1CC823B3135F3239E88F410FBB36352FBBFA9F01150142A2A9896E12C2514E55AF8C6C1A580BC8797D3F5E8455",
+  "hash": "60426A598E347DEC7D0AD65F78778B47697E916F3AD7E064656C552B13120E3E",
+  "lastLedger": 21144377,
+  "receipt": {
+    "hash": "60426A598E347DEC7D0AD65F78778B47697E916F3AD7E064656C552B13120E3E",
+    "ledger": 21144359,
+    "code": "tesSUCCESS",
+    "meta": {
+      "AffectedNodes": [
+        {
+          "ModifiedNode": {
+            "FinalFields": {
+              "Account": "rDXCSJkxZtZobieHcCzZeeRJw4TG4KxqfE",
+              "Balance": "84999760",
+              "Flags": 0,
+              "OwnerCount": 1,
+              "Sequence": 21144250
+            },
+            "LedgerEntryType": "AccountRoot",
+            "LedgerIndex": "34E85DED1D2CA9DF2B5D56339ABC88ACE643C57576442632BE0C98611BFF80B3",
+            "PreviousFields": {
+              "Balance": "84999772",
+              "Sequence": 21144249
+            },
+            "PreviousTxnID": "E6C97FCC24A68233A5031E104D97475C2756F90122F8DF9E56DBF2FFEE284F57",
+            "PreviousTxnLgrSeq": 21144357
+          }
+        },
+        {
+          "ModifiedNode": {
+            "FinalFields": {
+              "Account": "rPtmnAjE3UzhXDVjMEz4mMq7WaxdDJwpEh",
+              "Flags": 0,
+              "MPTAmount": "200",
+              "MPTokenIssuanceID": "0142A2A9896E12C2514E55AF8C6C1A580BC8797D3F5E8455",
+              "OwnerNode": "0"
+            },
+            "LedgerEntryType": "MPToken",
+            "LedgerIndex": "EA3842A9EA2C4A43AC5D4C99B0E28C20552465EE6513EC8AC1FC112474D541BA",
+            "PreviousFields": {
+              "Flags": 2
+            },
+            "PreviousTxnID": "F687AA8A0EC90C2E5AEE55793678729A4121E4D05BA153CBEC84B38F8BA5B32D",
+            "PreviousTxnLgrSeq": 21144333
+          }
+        }
+      ],
+      "TransactionIndex": 8,
+      "TransactionResult": "tesSUCCESS"
+    }
+  }
+}

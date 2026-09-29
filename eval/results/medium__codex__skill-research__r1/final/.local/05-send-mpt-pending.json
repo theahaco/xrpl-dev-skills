@@ -1,0 +1,16 @@
+{
+  "hash": "020648778536C0A53DEB2EEDD35B5A3C117F7F490E0399F3E44C6D8BC52536AD",
+  "prepared": {
+    "TransactionType": "Payment",
+    "Account": "rMCnv6DVfXrFfZsqPq9kqVAeGkVLAdn8wz",
+    "Destination": "rnNikafgstHn8j9mTv99qEovh9YsjcWnDA",
+    "Amount": {
+      "mpt_issuance_id": "01427C57E2966F1CA20471ADC70A2C41E7CEE17663865A38",
+      "value": "1000"
+    },
+    "Flags": 0,
+    "Sequence": 21134425,
+    "Fee": "12",
+    "LastLedgerSequence": 21134500
+  }
+}

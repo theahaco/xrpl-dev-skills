@@ -1,0 +1,15 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [],
+    "sandboxDenials": [
+      "(eval):1: operation not permitted: /tmp/amend.mjs ConfidentialTransfer enabled=false supported=true fixCleanup3_2_0 enabled=true supported=true fixCleanup3_1_3 enabled=tr"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 7
+  }
+}

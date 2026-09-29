@@ -1,0 +1,371 @@
+{
+  "transcript": [
+    {
+      "step": "MPTokenIssuanceCreate (RequireAuth + CanClawback + CanLock + CanTransfer)",
+      "outcome": "issuance 01429FFD5D1F003F7588A4249399F03FBE2AA3A750600B21",
+      "hash": "1D4A03360C3EE048853E4484BF9BDBA5DB792C7D565B4E2F6871DB3FDE87AD11"
+    },
+    {
+      "step": "Issuance capabilities",
+      "outcome": "{\"canLock\":true,\"requireAuth\":true,\"canClawback\":true,\"canTransfer\":true,\"canEscrow\":false,\"canTrade\":false,\"canHoldConfidentialBalance\":false}"
+    },
+    {
+      "step": "Fund A (r3bJaW9KTG22HcbU3YiwrLSL2pe6maf1LM) with 3 XRP",
+      "outcome": "ok",
+      "hash": "17C2AEE9D503E4B3951F70EB2528F9C798C4E360A9BDA8539FDDA74AA2BE9084"
+    },
+    {
+      "step": "Fund B (rwD8GJCaCyV9YG3pPorgri3WrmVGHZpB4j) with 3 XRP",
+      "outcome": "ok",
+      "hash": "F257A185B95DA13AA6D6ACCC02E5B619597154B8003AAE2F863DB0A47CBF15F5"
+    },
+    {
+      "step": "Fund C (rMzpLqbermvD4yEoCyEfpFACdN8PjHs4pf) with 3 XRP",
+      "outcome": "ok",
+      "hash": "48D69155DC7A17788D06935B672AA0AACB5FF73455266B9D8E5178E5275229D7"
+    },
+    {
+      "step": "A opts in (holder MPTokenAuthorize)",
+      "outcome": "ok",
+      "hash": "9BB5B75966E8A08C434A511878D4D3212AACFBA0BDA26CDB746A5753DFD1CB94"
+    },
+    {
+      "step": "B opts in (holder MPTokenAuthorize)",
+      "outcome": "ok",
+      "hash": "947A1E99775162590E943B68B8E760AE229C09606B2C33EEE4544DA0F16CC1BE"
+    },
+    {
+      "step": "C opts in (holder MPTokenAuthorize)",
+      "outcome": "ok",
+      "hash": "BC6DF820793454B6728A16164A64C824F571788C5E77D070A22A11B3D698429D"
+    },
+    {
+      "step": "issue to A before KYC approval",
+      "outcome": "refused by issuer module: r3bJaW9KTG22HcbU3YiwrLSL2pe6maf1LM is not an approved holder"
+    },
+    {
+      "step": "ledger: issuer pays unapproved A",
+      "outcome": "rejected by ledger with tecNO_AUTH",
+      "hash": "A48FEF1BA8C613CA5B7FA233C8389C73FAEC17668E36B7F679D0D2FB4C74861E"
+    },
+    {
+      "step": "Approve A",
+      "outcome": "ok",
+      "hash": "4E9DF0CA242E60A3C51E897D87FA4815A0CF4E9222AF9ED99B04BF0B751A0406"
+    },
+    {
+      "step": "Approve B",
+      "outcome": "ok",
+      "hash": "2CEC688826A6A7DC4AED834547ECEC19C46390BCFA54F88986146A9712671B70"
+    },
+    {
+      "step": "Approve C",
+      "outcome": "ok",
+      "hash": "C208C538BD9C97F15D9CE27FBE00DE9303D0757F139C870DF2580C06AF85E280"
+    },
+    {
+      "step": "Issue 500 to A",
+      "outcome": "ok",
+      "hash": "D4CA5B24F608BF68E80EAE95CA2EF3E2352FC5CE0C9F0EE238D1E43BDB4F1096"
+    },
+    {
+      "step": "Issue 1000 to B",
+      "outcome": "ok",
+      "hash": "6FDD45A12C5208F3855773DF1FA51C1DA4939B68D797733B3C9D26FEE24AAEAE"
+    },
+    {
+      "step": "Issue 100 to C",
+      "outcome": "ok",
+      "hash": "F71DD39621C2F07322ACED44A256ECB1165C94DADD23B73924A167EBFFC70E2E"
+    },
+    {
+      "step": "Freeze A",
+      "outcome": "ok",
+      "hash": "AD1BF7389FC361359706BF1637CD1B59BDFED99A7130F30A15D250B2D1962B4C"
+    },
+    {
+      "step": "issue to frozen A",
+      "outcome": "refused by issuer module: r3bJaW9KTG22HcbU3YiwrLSL2pe6maf1LM is frozen"
+    },
+    {
+      "step": "ledger: B pays frozen A",
+      "outcome": "rejected by ledger with tecLOCKED",
+      "hash": "0927C97BA7B5B44F18F8B3BF215F2BD453FBB0A0496FF5B41F86B17475015E1E"
+    },
+    {
+      "step": "ledger: frozen A pays B",
+      "outcome": "rejected by ledger with tecLOCKED",
+      "hash": "CF67151EC0691DD2CAC0E645A010931E057BE4FA9C12CF24AC6D116E707940E7"
+    },
+    {
+      "step": "Unfreeze A",
+      "outcome": "ok",
+      "hash": "DEF595A72333330B38E80D1C34CEA39E0867BE644B528B537006601804929CDF"
+    },
+    {
+      "step": "A pays C 1 after unfreeze",
+      "outcome": "ok",
+      "hash": "7C980D7D4BB3BB30DC808D7BFD501AA7BAFE1BD117F60A4672146022F8BF8761"
+    },
+    {
+      "step": "C pays A 1 back",
+      "outcome": "ok",
+      "hash": "FCE171F9070B71B010D508DC4E6FDD670052C9AC4279FC8EC5DAB534C4692288"
+    },
+    {
+      "step": "claw back more than B holds",
+      "outcome": "refused by issuer module: Cannot claw back 1001 from rwD8GJCaCyV9YG3pPorgri3WrmVGHZpB4j: balance is 1000"
+    },
+    {
+      "step": "Claw back 300 from B",
+      "outcome": "ok",
+      "hash": "7B23DB810AD5C5AEF78B0AAFC300EB6049DAD1F7E93A63009595FCBEAE6F1FC9"
+    },
+    {
+      "step": "C redeems 1 (not frozen)",
+      "outcome": "payout allowed for 1",
+      "hash": "1CDBC6DB3689FD509BD2408E8D06D90F4957619EED8CB827E301F921C3635AEA"
+    },
+    {
+      "step": "Freeze all",
+      "outcome": "ok",
+      "hash": "CA5FD7060EF2608DA818EA499FEFE635D32207E800C42EC45D89E4F4DF7F9746"
+    },
+    {
+      "step": "issue during global freeze",
+      "outcome": "refused by issuer module: 01429FFD5D1F003F7588A4249399F03FBE2AA3A750600B21 is globally frozen"
+    },
+    {
+      "step": "ledger: A pays B during global freeze",
+      "outcome": "rejected by ledger with tecLOCKED",
+      "hash": "6A8B932FB00FEFE8E4323D47C59B0F94B4882E7E88E29B81A5CFAEF93B16518C"
+    },
+    {
+      "step": "ledger: C pays A during global freeze",
+      "outcome": "rejected by ledger with tecLOCKED",
+      "hash": "3C6A9AC5493D5A0926D4550DAB661A064DDD1327433719AC15BB283C00A475FC"
+    },
+    {
+      "step": "C redeems 1 during global freeze",
+      "outcome": "ledger accepted; payout refused: token was globally frozen around ledger 21143797",
+      "hash": "CE06A55B970C15D856D6F6BBFA1562484DBE261DC4C6291CDC7CD5937C6DEBA3"
+    },
+    {
+      "step": "Unfreeze all",
+      "outcome": "ok",
+      "hash": "0FB60A1CB0ED5D0664DF14BB034C35C46706FED5BBA0F7C56D7DA23D8FBD664F"
+    },
+    {
+      "step": "C pays A 1 after global unfreeze",
+      "outcome": "ok",
+      "hash": "3446C42BCA2C48B3EFB3ECCE230D0E8C6EBF51AA4830C884400E67762FC62E80"
+    },
+    {
+      "step": "A pays C 1 back",
+      "outcome": "ok",
+      "hash": "4BFEFCBB7696FAD714DBA989D9F6D2D0FE0C892F450688562C63752E9F48578C"
+    },
+    {
+      "step": "Freeze B",
+      "outcome": "ok",
+      "hash": "6557778971A5BDA0642B8E337FAD85745B50B8B13EF6D31AB2FF46D7E55FF030"
+    },
+    {
+      "step": "Ban C (held 98)",
+      "outcome": "approval revoked [4DE1D659BAA43D5A61C66BC7D191DE4CC343BAC3D61EBF5C395F0D44E260EA02], clawed back 98 in 1 tx",
+      "hash": "00BED405266804F6856B8658020477462E0643C5716501ECB1678898CA3EA026"
+    },
+    {
+      "step": "re-approve banned C",
+      "outcome": "refused by issuer module: rMzpLqbermvD4yEoCyEfpFACdN8PjHs4pf is banned (Demo: sanctions screening hit) and cannot be approved"
+    },
+    {
+      "step": "issue to banned C",
+      "outcome": "refused by issuer module: rMzpLqbermvD4yEoCyEfpFACdN8PjHs4pf is banned and cannot receive the token"
+    },
+    {
+      "step": "ledger: issuer pays banned C",
+      "outcome": "rejected by ledger with tecNO_AUTH",
+      "hash": "E677B16A6B7BFADAED49430D03683994C426F7EB3E2200C7C8A0C7CF732E2379"
+    },
+    {
+      "step": "ledger: A pays banned C",
+      "outcome": "rejected by ledger with tecNO_AUTH",
+      "hash": "F0AAAE992BFD0767262C28DD5E539CFD2879B3918D6DD1B154CF387787A3AFD8"
+    },
+    {
+      "step": "issuance issued by r9V4yF1UttPGFX5TbTGrhxfxsmpG8NqsQD (actual r9V4yF1UttPGFX5TbTGrhxfxsmpG8NqsQD)",
+      "outcome": "ok"
+    },
+    {
+      "step": "allowlist (RequireAuth) enabled",
+      "outcome": "ok"
+    },
+    {
+      "step": "clawback (CanClawback) enabled",
+      "outcome": "ok"
+    },
+    {
+      "step": "freeze (CanLock) enabled",
+      "outcome": "ok"
+    },
+    {
+      "step": "escrow, DEX trading and confidential balances disabled",
+      "outcome": "ok"
+    },
+    {
+      "step": "token is NOT globally frozen",
+      "outcome": "ok"
+    },
+    {
+      "step": "A is approved",
+      "outcome": "ok"
+    },
+    {
+      "step": "A holds 500 (actual 500)",
+      "outcome": "ok"
+    },
+    {
+      "step": "A is NOT frozen",
+      "outcome": "ok"
+    },
+    {
+      "step": "B is approved",
+      "outcome": "ok"
+    },
+    {
+      "step": "B holds 700 (actual 700)",
+      "outcome": "ok"
+    },
+    {
+      "step": "B is frozen",
+      "outcome": "ok"
+    },
+    {
+      "step": "C (banned) is NOT approved, so cannot receive the token",
+      "outcome": "ok"
+    },
+    {
+      "step": "C (banned) holds 0 (actual 0)",
+      "outcome": "ok"
+    },
+    {
+      "step": "outstanding supply is 1200 = 500 + 700 + 0 (actual 1200)",
+      "outcome": "ok"
+    }
+  ],
+  "audit": [
+    {
+      "operation": "approveHolder",
+      "issuanceId": "01429FFD5D1F003F7588A4249399F03FBE2AA3A750600B21",
+      "hash": "4E9DF0CA242E60A3C51E897D87FA4815A0CF4E9222AF9ED99B04BF0B751A0406",
+      "ledgerIndex": 21143765,
+      "holder": "r3bJaW9KTG22HcbU3YiwrLSL2pe6maf1LM",
+      "reference": "KYC-DEMO-A"
+    },
+    {
+      "operation": "approveHolder",
+      "issuanceId": "01429FFD5D1F003F7588A4249399F03FBE2AA3A750600B21",
+      "hash": "2CEC688826A6A7DC4AED834547ECEC19C46390BCFA54F88986146A9712671B70",
+      "ledgerIndex": 21143767,
+      "holder": "rwD8GJCaCyV9YG3pPorgri3WrmVGHZpB4j",
+      "reference": "KYC-DEMO-B"
+    },
+    {
+      "operation": "approveHolder",
+      "issuanceId": "01429FFD5D1F003F7588A4249399F03FBE2AA3A750600B21",
+      "hash": "C208C538BD9C97F15D9CE27FBE00DE9303D0757F139C870DF2580C06AF85E280",
+      "ledgerIndex": 21143769,
+      "holder": "rMzpLqbermvD4yEoCyEfpFACdN8PjHs4pf",
+      "reference": "KYC-DEMO-C"
+    },
+    {
+      "operation": "issue",
+      "issuanceId": "01429FFD5D1F003F7588A4249399F03FBE2AA3A750600B21",
+      "hash": "D4CA5B24F608BF68E80EAE95CA2EF3E2352FC5CE0C9F0EE238D1E43BDB4F1096",
+      "ledgerIndex": 21143770,
+      "holder": "r3bJaW9KTG22HcbU3YiwrLSL2pe6maf1LM",
+      "amount": "500"
+    },
+    {
+      "operation": "issue",
+      "issuanceId": "01429FFD5D1F003F7588A4249399F03FBE2AA3A750600B21",
+      "hash": "6FDD45A12C5208F3855773DF1FA51C1DA4939B68D797733B3C9D26FEE24AAEAE",
+      "ledgerIndex": 21143772,
+      "holder": "rwD8GJCaCyV9YG3pPorgri3WrmVGHZpB4j",
+      "amount": "1000"
+    },
+    {
+      "operation": "issue",
+      "issuanceId": "01429FFD5D1F003F7588A4249399F03FBE2AA3A750600B21",
+      "hash": "F71DD39621C2F07322ACED44A256ECB1165C94DADD23B73924A167EBFFC70E2E",
+      "ledgerIndex": 21143774,
+      "holder": "rMzpLqbermvD4yEoCyEfpFACdN8PjHs4pf",
+      "amount": "100"
+    },
+    {
+      "operation": "freezeHolder",
+      "issuanceId": "01429FFD5D1F003F7588A4249399F03FBE2AA3A750600B21",
+      "hash": "AD1BF7389FC361359706BF1637CD1B59BDFED99A7130F30A15D250B2D1962B4C",
+      "ledgerIndex": 21143776,
+      "holder": "r3bJaW9KTG22HcbU3YiwrLSL2pe6maf1LM",
+      "reference": "DEMO-FREEZE-A"
+    },
+    {
+      "operation": "unfreezeHolder",
+      "issuanceId": "01429FFD5D1F003F7588A4249399F03FBE2AA3A750600B21",
+      "hash": "DEF595A72333330B38E80D1C34CEA39E0867BE644B528B537006601804929CDF",
+      "ledgerIndex": 21143782,
+      "holder": "r3bJaW9KTG22HcbU3YiwrLSL2pe6maf1LM",
+      "reference": "DEMO-FREEZE-A"
+    },
+    {
+      "operation": "clawback",
+      "issuanceId": "01429FFD5D1F003F7588A4249399F03FBE2AA3A750600B21",
+      "hash": "7B23DB810AD5C5AEF78B0AAFC300EB6049DAD1F7E93A63009595FCBEAE6F1FC9",
+      "ledgerIndex": 21143787,
+      "holder": "rwD8GJCaCyV9YG3pPorgri3WrmVGHZpB4j",
+      "amount": "300",
+      "reference": "DEMO-CLAWBACK-B"
+    },
+    {
+      "operation": "freezeAll",
+      "issuanceId": "01429FFD5D1F003F7588A4249399F03FBE2AA3A750600B21",
+      "hash": "CA5FD7060EF2608DA818EA499FEFE635D32207E800C42EC45D89E4F4DF7F9746",
+      "ledgerIndex": 21143791,
+      "reference": "DEMO-INCIDENT"
+    },
+    {
+      "operation": "unfreezeAll",
+      "issuanceId": "01429FFD5D1F003F7588A4249399F03FBE2AA3A750600B21",
+      "hash": "0FB60A1CB0ED5D0664DF14BB034C35C46706FED5BBA0F7C56D7DA23D8FBD664F",
+      "ledgerIndex": 21143799,
+      "reference": "DEMO-INCIDENT"
+    },
+    {
+      "operation": "freezeHolder",
+      "issuanceId": "01429FFD5D1F003F7588A4249399F03FBE2AA3A750600B21",
+      "hash": "6557778971A5BDA0642B8E337FAD85745B50B8B13EF6D31AB2FF46D7E55FF030",
+      "ledgerIndex": 21143805,
+      "holder": "rwD8GJCaCyV9YG3pPorgri3WrmVGHZpB4j",
+      "reference": "DEMO-FREEZE-B"
+    },
+    {
+      "operation": "revokeApproval",
+      "issuanceId": "01429FFD5D1F003F7588A4249399F03FBE2AA3A750600B21",
+      "hash": "4DE1D659BAA43D5A61C66BC7D191DE4CC343BAC3D61EBF5C395F0D44E260EA02",
+      "ledgerIndex": 21143807,
+      "holder": "rMzpLqbermvD4yEoCyEfpFACdN8PjHs4pf",
+      "reference": "DEMO-BAN-C"
+    },
+    {
+      "operation": "clawback",
+      "issuanceId": "01429FFD5D1F003F7588A4249399F03FBE2AA3A750600B21",
+      "hash": "00BED405266804F6856B8658020477462E0643C5716501ECB1678898CA3EA026",
+      "ledgerIndex": 21143809,
+      "holder": "rMzpLqbermvD4yEoCyEfpFACdN8PjHs4pf",
+      "amount": "98",
+      "reference": "DEMO-BAN-C"
+    }
+  ]
+}

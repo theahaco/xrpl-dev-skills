@@ -1,0 +1,218 @@
+{
+  "fund:A": {
+    "hash": "115E418C71E9101BBDF90251E49DE1C7F2AB5E5209F58670000C307AC4BD02FA",
+    "ledgerIndex": 21144469,
+    "code": "tesSUCCESS"
+  },
+  "fund:B": {
+    "hash": "6657C11D23061AAE1B69E54A6A09D3CEE1F3653515C51AFB399360D713CCD93B",
+    "ledgerIndex": 21144471,
+    "code": "tesSUCCESS"
+  },
+  "fund:C": {
+    "hash": "CE4C1E20FF0415344AFEB175AC7A786BDB3F83B21579DF692044893A17668845",
+    "ledgerIndex": 21144473,
+    "code": "tesSUCCESS"
+  },
+  "create": {
+    "hash": "56E0EB632E56D5CE377ABBA7B5CE5A3E852C0E879CF0225255978A6FE1B11ADB",
+    "ledgerIndex": 21144475,
+    "code": "tesSUCCESS",
+    "issuanceId": "0142A325918DB7A78874D2F1D6B040A08732EAD0D1240D0D"
+  },
+  "optin:A": {
+    "hash": "1DAF8B7BDD98BE5F21C8B5A9450E5E8FD41EA2CBF621865B64E027F49922D03A",
+    "ledgerIndex": 21144477,
+    "code": "tesSUCCESS"
+  },
+  "optin:B": {
+    "hash": "E8982EF03E5255BA82F1AD8696C4010031E9A33E7F3A66E33C0ADA321C0E5F7A",
+    "ledgerIndex": 21144479,
+    "code": "tesSUCCESS"
+  },
+  "optin:C": {
+    "hash": "4F41178466334FFB17534FEA78F0F9557EF552B4454920B972025C0BCDE5FF70",
+    "ledgerIndex": 21144481,
+    "code": "tesSUCCESS"
+  },
+  "deny:unapproved": {
+    "hash": "D6A3BBE3C924959C4AA56ED51DDDCB704D2143C4C8F3D77ABD8FC3CAB5487641",
+    "ledgerIndex": 21144482,
+    "code": "tecNO_AUTH"
+  },
+  "approve:A": {
+    "hash": "909101938006F4301B15984610E9B72755FA5D1B976D905D33B6430FB7A3DD0F",
+    "ledgerIndex": 21144484,
+    "code": "tesSUCCESS"
+  },
+  "approve:B": {
+    "hash": "9CA8FD6C845CCE6139E713FC8EFB6FEF09F247EB0F376650435A616760D890F4",
+    "ledgerIndex": 21144486,
+    "code": "tesSUCCESS"
+  },
+  "approve:C": {
+    "hash": "86B02D0E2DC66230946B365FCA16F478B466608F2B55719C648268EC95CC9285",
+    "ledgerIndex": 21144488,
+    "code": "tesSUCCESS"
+  },
+  "issue:A": {
+    "hash": "3A385DC116CC608E1F418828550811072B652EF70CC0C830B921887C073F7518",
+    "ledgerIndex": 21144490,
+    "code": "tesSUCCESS"
+  },
+  "issue:B": {
+    "hash": "E87EE72F096B7FF4B9C7795A1D74F5497B8AADD5274FCCB2810F39BC1883E4DC",
+    "ledgerIndex": 21144492,
+    "code": "tesSUCCESS"
+  },
+  "issue:C": {
+    "hash": "756DDEF0E36DEA3AA17EC05A2D8D8AF5364AC68BB10D44AEA342AAB029E6CCB4",
+    "ledgerIndex": 21144494,
+    "code": "tesSUCCESS"
+  },
+  "freeze:A": {
+    "hash": "C5AC8D8D51B042BCD2318D3177CD0C296D9836248A3EB365BDB47261053586A8",
+    "ledgerIndex": 21144496,
+    "code": "tesSUCCESS"
+  },
+  "deny:A:send": {
+    "hash": "F86CD23477C3BE522FE4AF06987919EDE5480CBDCDBE5EBDCFBE76D9603697CC",
+    "ledgerIndex": 21144498,
+    "code": "tecLOCKED"
+  },
+  "deny:A:receive": {
+    "hash": "D6A8D3320CB0E3803BB6FA3F2834CA2462E9A8487EFCC1F175E1ED344D66B203",
+    "ledgerIndex": 21144500,
+    "code": "tecLOCKED"
+  },
+  "deny:A:issue": {
+    "hash": "820A0C7B1BD8FDE6B0D587F078AF4C07E53D62B8AB87462E76812A5094FB9571",
+    "ledgerIndex": 21144502,
+    "code": "tesSUCCESS"
+  },
+  "probe:A:compensate": {
+    "hash": "7B734D2CB93733B58683D6F184DE6F3C1F6D2E1822ED799458A4E1F06EC64165",
+    "ledgerIndex": 21144528,
+    "code": "tesSUCCESS"
+  },
+  "probe:A:redeem": {
+    "hash": "5B3B55184D5F411FC582E963CAD1EF1F7972C6744284DDC4894136669C1400EB",
+    "ledgerIndex": 21144530,
+    "code": "tesSUCCESS"
+  },
+  "probe:A:restore": {
+    "hash": "41324940F0E392F46055D16DD8026760E4B245E5F378B9F167F665E5D1A73369",
+    "ledgerIndex": 21144532,
+    "code": "tesSUCCESS"
+  },
+  "unfreeze:A": {
+    "hash": "986C0BB05A178A14936B1F21ECAE1A7047EB8CDB1DAD7F178FD952F32BC22BB1",
+    "ledgerIndex": 21144534,
+    "code": "tesSUCCESS"
+  },
+  "unfrozen:A:send": {
+    "hash": "E02060F118B4E5441A412F707E8959EDA55989F8D351FBA0215C326E991602F5",
+    "ledgerIndex": 21144536,
+    "code": "tesSUCCESS"
+  },
+  "unfrozen:A:receive": {
+    "hash": "A5FD8DBF8FB2F05DE82683FBA4175FA0E3DF4045013FBA2E385F84CEB80C107F",
+    "ledgerIndex": 21144538,
+    "code": "tesSUCCESS"
+  },
+  "global:freeze": {
+    "hash": "3D9FEC7DA4696EAF6AF9EC37B5C2482FEF27EB850444513651A50B55C59DBBF5",
+    "ledgerIndex": 21144540,
+    "code": "tesSUCCESS"
+  },
+  "deny:global:send": {
+    "hash": "902441AACBEC5C45EBADB1FE9CB4D84A35A09C67F7F8133C1E39894C5FEC50BF",
+    "ledgerIndex": 21144542,
+    "code": "tecLOCKED"
+  },
+  "deny:global:receive": {
+    "hash": "27A2C926A79CAE5D59CE1F504E80CC094226E0AF96F20DD9A4679453D511087F",
+    "ledgerIndex": 21144544,
+    "code": "tecLOCKED"
+  },
+  "global:unfreeze": {
+    "hash": "262DF19AB485AF536CFD0EA9911355DC07DCD9A5BF0CF2506E28A761E9CC4978",
+    "ledgerIndex": 21144546,
+    "code": "tesSUCCESS"
+  },
+  "clawback:B": {
+    "hash": "C773E912B6515FEA9CBE0298CE9F98022FCDB53E327DF7B65F3022C5C16D275F",
+    "ledgerIndex": 21144548,
+    "code": "tesSUCCESS"
+  },
+  "freeze:B": {
+    "hash": "61464D31A1A96A4DE9DB8DC36D816C2D87E1759A9583EE30CB95F7A19D8D9743",
+    "ledgerIndex": 21144550,
+    "code": "tesSUCCESS"
+  },
+  "deny:B:send": {
+    "hash": "2F0AB3992846DB3AD0B0C8D731F5247357B12EC6CA2A2E184268D7FA96834706",
+    "ledgerIndex": 21144551,
+    "code": "tecLOCKED"
+  },
+  "deny:B:receive": {
+    "hash": "1731B034E52D38012B195549E9463B6C94468F01F859B8CA8149CC95F330D6C8",
+    "ledgerIndex": 21144553,
+    "code": "tecLOCKED"
+  },
+  "ban:C:lock": {
+    "hash": "C51627610FE82705C33034226E45058CEEEF94C6B3638B99258BC56E6795332B",
+    "ledgerIndex": 21144555,
+    "code": "tesSUCCESS"
+  },
+  "ban:C:revoke": {
+    "hash": "8DF6767AB793B0173770A805485E11DB1709B01DFC5643A7A3C5B9B52A3B018F",
+    "ledgerIndex": 21144556,
+    "code": "tesSUCCESS"
+  },
+  "ban:C:clawback": {
+    "hash": "6C8663EA5571EDE39BC7CBEDEF58BFE3418B5198428A5481727ED4C066E7C0BB",
+    "ledgerIndex": 21144557,
+    "code": "tesSUCCESS"
+  },
+  "C:reset:delete": {
+    "hash": "2DCA7B75A07178CA6D02A7107345785A1086B67B21DBF12EE808C3E02BB0216D",
+    "ledgerIndex": 21144569,
+    "code": "tesSUCCESS"
+  },
+  "C:reset:optin": {
+    "hash": "0333B187C46D1F3DAEE5AF923E4A9E85ED59271F01CD10E4789CEC4B8A86B694",
+    "ledgerIndex": 21144571,
+    "code": "tesSUCCESS"
+  },
+  "deny:C:recreated": {
+    "hash": "0D92F301F6B45D82D2147158CF05469EEAE90A5368335A79FE280D0358EA78B9",
+    "ledgerIndex": 21144573,
+    "code": "tecNO_AUTH"
+  },
+  "deny:C:recreated:issuer": {
+    "hash": "0FE15F1566E4D0529B2A31AD3171F6635E48329735B6581F24F9AE698CC85F73",
+    "ledgerIndex": 21144575,
+    "code": "tecNO_AUTH"
+  },
+  "deny:C:receive": {
+    "hash": "9B984D3CCC480AA801945B20A5BE22D5CE9BABC323CBDE97CF4283F8441FE3EF",
+    "ledgerIndex": 21144577,
+    "code": "tecNO_AUTH"
+  },
+  "deny:C:issue": {
+    "hash": "A5632A752110A812B07DAE7EFD862EEC8FEBC390D26C1A82037A97CB1D8810D3",
+    "ledgerIndex": 21144579,
+    "code": "tecNO_AUTH"
+  },
+  "global:unfrozen:redeem": {
+    "hash": "58F1729BA2DC08868350CB573AF624CDD208C08DA4559D6DD116ED88AB99C0C0",
+    "ledgerIndex": 21144581,
+    "code": "tesSUCCESS"
+  },
+  "global:unfrozen:issue": {
+    "hash": "A802E15421F2C8AD7C26809F7F535A56308818A74B74D89F2553C4519A09C13E",
+    "ledgerIndex": 21144583,
+    "code": "tesSUCCESS"
+  }
+}

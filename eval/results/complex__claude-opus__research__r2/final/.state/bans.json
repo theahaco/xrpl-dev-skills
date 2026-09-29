@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "bans": [
+    {
+      "address": "rBB3HYL7CmraiPpsXqkxJXcK3TkrwwZVhE",
+      "bannedAt": "2026-09-29T13:10:36.018Z",
+      "reason": "Demo: sanctions screening hit"
+    }
+  ]
+}

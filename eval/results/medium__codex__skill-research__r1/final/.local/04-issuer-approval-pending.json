@@ -1,0 +1,13 @@
+{
+  "hash": "843F6FFC70AC5D51A20A46813A3AE867C00DB7E3A5CA32959C534C35B647D568",
+  "prepared": {
+    "TransactionType": "MPTokenAuthorize",
+    "Account": "rMCnv6DVfXrFfZsqPq9kqVAeGkVLAdn8wz",
+    "MPTokenIssuanceID": "01427C57E2966F1CA20471ADC70A2C41E7CEE17663865A38",
+    "Holder": "rnNikafgstHn8j9mTv99qEovh9YsjcWnDA",
+    "Flags": 0,
+    "Sequence": 21134424,
+    "Fee": "12",
+    "LastLedgerSequence": 21134498
+  }
+}

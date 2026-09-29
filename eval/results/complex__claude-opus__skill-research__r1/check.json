@@ -1,0 +1,129 @@
+{
+  "tier": "complex",
+  "issuer": "rpUZphmQdQyh9UiBEtppsyD8Sr32UQAdcW",
+  "checkedAt": "2026-09-29T12:52:26.765Z",
+  "status": "pass",
+  "criteria": [
+    {
+      "id": "result_json",
+      "pass": true,
+      "detail": "has issuanceId and holders A, B, C"
+    },
+    {
+      "id": "issuance_exists",
+      "pass": true,
+      "detail": "issuance 01429FEA0D276DCF57A08AC4B2BF3304DAC3B93A29EF9B66 (result.json)"
+    },
+    {
+      "id": "issuance_capabilities",
+      "pass": true,
+      "detail": "flags 0x66: {\"canLock\":true,\"requireAuth\":true,\"canClawback\":true}"
+    },
+    {
+      "id": "holder_a_state",
+      "pass": true,
+      "detail": "rKrayLUJjNBZzMLb5DfsmVVKm4GArZCyPE: balance 500, flags 0x2; expected authorized, 500, not locked"
+    },
+    {
+      "id": "holder_a_freeze_cycle",
+      "pass": true,
+      "detail": "per-holder lock/unlock on A: lock, unlock"
+    },
+    {
+      "id": "holder_b_state",
+      "pass": true,
+      "detail": "rHjNJA3uCudqdH9JLi8CGfZjyabuqxrZx: balance 700, flags 0x3; expected authorized, 700, locked"
+    },
+    {
+      "id": "holder_b_sent_1000",
+      "pass": true,
+      "detail": "issuer delivered 1000 to B"
+    },
+    {
+      "id": "holder_b_clawback_300",
+      "pass": true,
+      "detail": "validated Clawback from B totals 300"
+    },
+    {
+      "id": "holder_c_banned",
+      "pass": true,
+      "detail": "rB268ty3x8fNeMZKSqbKPoKjvMrZb7zM8: balance 0, flags 0x1; expected zero balance and no issuer authorization on a require-auth issuance"
+    },
+    {
+      "id": "holder_c_received_before_ban",
+      "pass": true,
+      "detail": "issuer delivered 250 to C"
+    },
+    {
+      "id": "global_freeze_cycle",
+      "pass": true,
+      "detail": "issuance-wide lock/unlock: lock, unlock"
+    },
+    {
+      "id": "not_globally_frozen",
+      "pass": true,
+      "detail": "issuance lsfMPTLocked clear"
+    },
+    {
+      "id": "outstanding_consistent",
+      "pass": true,
+      "detail": "OutstandingAmount 1200; A+B+C 1200"
+    }
+  ],
+  "observed": {
+    "issuance": {
+      "Flags": 102,
+      "Issuer": "rpUZphmQdQyh9UiBEtppsyD8Sr32UQAdcW",
+      "LedgerEntryType": "MPTokenIssuance",
+      "MPTokenMetadata": "7B226163223A22727761222C226173223A22737461626C65636F696E222C2264223A2244656D6F206F66206120726567756C617465642C20616C6C6F772D6C697374656420737461626C65636F696E2D7374796C65204D5054206F6E205852504C20746573746E65742E222C2269223A226578616D706C652E636F6D2F727573642E706E67222C22696E223A224578616D706C65204973737565722028746573746E657429222C226E223A22526567756C61746564205553442028746573746E65742064656D6F29222C2274223A2252555344227D",
+      "OutstandingAmount": "1200",
+      "OwnerNode": "0",
+      "PreviousTxnID": "266E5DC61B0EC5BEDBF58EBB1AF582726B9398AA06DE555429BF28F1CD2AE70C",
+      "PreviousTxnLgrSeq": 21143779,
+      "Sequence": 21143530,
+      "index": "14373BF540FE700F47A35ABF1CDD188FAE816FB11F44A6A17C8E600A59553ABB",
+      "mpt_issuance_id": "01429FEA0D276DCF57A08AC4B2BF3304DAC3B93A29EF9B66"
+    },
+    "holders": {
+      "A": "rKrayLUJjNBZzMLb5DfsmVVKm4GArZCyPE",
+      "B": "rHjNJA3uCudqdH9JLi8CGfZjyabuqxrZx",
+      "C": "rB268ty3x8fNeMZKSqbKPoKjvMrZb7zM8"
+    },
+    "holderTokens": {
+      "A": {
+        "Account": "rKrayLUJjNBZzMLb5DfsmVVKm4GArZCyPE",
+        "Flags": 2,
+        "LedgerEntryType": "MPToken",
+        "MPTAmount": "500",
+        "MPTokenIssuanceID": "01429FEA0D276DCF57A08AC4B2BF3304DAC3B93A29EF9B66",
+        "OwnerNode": "0",
+        "PreviousTxnID": "04444878DE81303A03054E8B24F3839E95ADFD3F4A70AAD36D1A5ED7F855B447",
+        "PreviousTxnLgrSeq": 21143766,
+        "index": "3F60FDC67E106DD86635BA78D5CF368B5819BA42278330A22488BC4C15CF2B7E"
+      },
+      "B": {
+        "Account": "rHjNJA3uCudqdH9JLi8CGfZjyabuqxrZx",
+        "Flags": 3,
+        "LedgerEntryType": "MPToken",
+        "MPTAmount": "700",
+        "MPTokenIssuanceID": "01429FEA0D276DCF57A08AC4B2BF3304DAC3B93A29EF9B66",
+        "OwnerNode": "0",
+        "PreviousTxnID": "E7C322AA9988E0725929E01610CF2A5D0DA081BA3EAA45B7082567D86CAA1CE6",
+        "PreviousTxnLgrSeq": 21143773,
+        "index": "82A4BF80D55316D77A246D4C685D9479015ECCF399FF25A2E41A237935E9CC42"
+      },
+      "C": {
+        "Account": "rB268ty3x8fNeMZKSqbKPoKjvMrZb7zM8",
+        "Flags": 1,
+        "LedgerEntryType": "MPToken",
+        "MPTokenIssuanceID": "01429FEA0D276DCF57A08AC4B2BF3304DAC3B93A29EF9B66",
+        "OwnerNode": "0",
+        "PreviousTxnID": "266E5DC61B0EC5BEDBF58EBB1AF582726B9398AA06DE555429BF28F1CD2AE70C",
+        "PreviousTxnLgrSeq": 21143779,
+        "index": "970FBD01D1A19D95144AB1A199B9290D2AE9D19708D8EB935E0D9CBC43A2CF29"
+      }
+    },
+    "cUnauthorizedByIssuer": true,
+    "txCount": 23
+  }
+}

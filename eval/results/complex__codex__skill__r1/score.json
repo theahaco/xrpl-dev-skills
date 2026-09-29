@@ -1,0 +1,301 @@
+{
+  "packetId": "75e61556b08d09f4",
+  "rubricVersion": 1,
+  "scoredAt": "2026-09-29T13:41:30.953Z",
+  "calibrate": true,
+  "confidenceFloor": 0.6,
+  "jev": {
+    "requests": 5,
+    "inputTokens": 36911,
+    "outputTokens": 502,
+    "errors": [],
+    "model": "jev-1.13.0"
+  },
+  "modelScorer": {
+    "requests": 5,
+    "costUsd": 0.5205934,
+    "errors": [],
+    "model": "claude-opus-5-5"
+  },
+  "evidence": {
+    "codeTruncated": false,
+    "chars": {
+      "task": 1949,
+      "code": 29931,
+      "typecheck": 430,
+      "errors": 3253,
+      "xrplVersion": 5,
+      "xrplChangelog": 12473
+    }
+  },
+  "items": {
+    "hallucinated_api": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.31,
+        "probabilities": {
+          "present": 0.34,
+          "none": 0.66
+        }
+      },
+      "model": {
+        "choice": "none",
+        "confidence": 0.85,
+        "rationale": "All APIs and fields used exist in xrpl 4.6.0 and the protocol: Client maxFeeXRP, MPTokenIssuanceCreateFlags, ledger_entry mpt_issuance/mptoken, Holder on MPTokenIssuanceSet and Clawback, and mpt_issuance_id in metadata. The strict type check passes with 0 errors."
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "model"
+      }
+    },
+    "hallucination_during_run": {
+      "jev": {
+        "choice": "some",
+        "confidence": 0.97,
+        "probabilities": {
+          "some": 0.99,
+          "none": 0.01
+        }
+      },
+      "final": {
+        "choice": "some",
+        "pass": false,
+        "source": "jev"
+      },
+      "model": {
+        "choice": "some",
+        "confidence": 0.8,
+        "rationale": "Error 3 shows the agent trying to import `MPToken` and `MPTokenIssuance` from xrpl 4.6.0. The compiler says the package exports neither name, so the agent reached for xrpl.js type exports that don't exist and then had to fix them."
+      }
+    },
+    "deprecated_patterns": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.61,
+        "probabilities": {
+          "present": 0.2,
+          "none": 0.8
+        }
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "jev"
+      },
+      "model": {
+        "choice": "present",
+        "confidence": 0.55,
+        "rationale": "Most APIs used are current: numeric flags rather than setTransactionFlagsToNumber, maxFeeXRP on the Client, and the ledger_entry mpt_issuance/mptoken lookups. However, MPTokenIssuanceCreate hand-encodes ad-hoc JSON metadata ({name, symbol, purpose}) as hex, which does not follow the XLS-89 metadata format; per the changelog, xrpl 4.4.x changed the MPTokenMetadata type to follow XLS-89 and added encodeMPTokenMetadata, and 4.4.0 added XLS-89 warnings to MPTokenIssuanceCreate, which likely makes this a superseded pattern."
+      }
+    },
+    "strict_type_errors": {
+      "jev": {
+        "choice": "clean",
+        "confidence": 0.98,
+        "probabilities": {
+          "not_typescript": 0.01,
+          "errors": 0,
+          "clean": 0.99
+        }
+      },
+      "final": {
+        "choice": "clean",
+        "pass": true,
+        "source": "jev"
+      },
+      "model": {
+        "choice": "clean",
+        "confidence": 0.95,
+        "rationale": "The forced-strict tsc run exited 0 and reported 0 errors, including 0 outside node_modules. The project's own config also has strict=true and reports 0 errors."
+      }
+    },
+    "type_escape_hatches": {
+      "jev": {
+        "choice": "pervasive",
+        "confidence": 0.51,
+        "probabilities": {
+          "pervasive": 0.68,
+          "few": 0.3,
+          "none": 0.02
+        }
+      },
+      "model": {
+        "choice": "pervasive",
+        "confidence": 0.85,
+        "rationale": "demo.ts uses `Wallet.generate().seed!` three times and transactions.ts uses `found.result.ledger_index!`. The tests also use `as unknown as Transactions` and `as unknown as Client` several times, plus `f.calls[2]!`."
+      },
+      "final": {
+        "choice": "pervasive",
+        "pass": false,
+        "source": "model"
+      }
+    },
+    "outcome_checks": {
+      "jev": {
+        "choice": "all",
+        "confidence": 0.94,
+        "probabilities": {
+          "all": 0.96,
+          "none": 0,
+          "partial": 0.04
+        }
+      },
+      "final": {
+        "choice": "all",
+        "pass": true,
+        "source": "jev"
+      },
+      "model": {
+        "choice": "all",
+        "confidence": 0.9,
+        "rationale": "Every transaction goes through Transactions.execute. It records the validated meta.TransactionResult and throws LedgerFailure when the result is not tesSUCCESS. Where the demo expects a rejection, it asserts the specific tec code."
+      }
+    },
+    "waits_for_validation": {
+      "jev": {
+        "choice": "validated",
+        "confidence": 0.91,
+        "probabilities": {
+          "validated": 0.94,
+          "preliminary": 0,
+          "mixed": 0.06
+        }
+      },
+      "final": {
+        "choice": "validated",
+        "pass": true,
+        "source": "jev"
+      },
+      "model": {
+        "choice": "validated",
+        "confidence": 0.9,
+        "rationale": "It uses submitAndWait and requires result.validated. When it looks up an earlier transaction with the tx command, it only accepts the result if it is validated."
+      }
+    },
+    "mpt_amount_format": {
+      "jev": {
+        "choice": "correct",
+        "confidence": 0.99,
+        "probabilities": {
+          "correct": 1,
+          "incorrect": 0
+        }
+      },
+      "final": {
+        "choice": "correct",
+        "pass": true,
+        "source": "jev"
+      },
+      "model": {
+        "choice": "correct",
+        "confidence": 0.9,
+        "rationale": "Every MPT amount uses the { mpt_issuance_id, value } shape. Values are integer strings checked by a regex, and AssetScale is 0, so no scaling is needed."
+      }
+    },
+    "secret_handling": {
+      "jev": {
+        "choice": "external",
+        "confidence": 0.96,
+        "probabilities": {
+          "hardcoded": 0.02,
+          "external": 0.98
+        }
+      },
+      "final": {
+        "choice": "external",
+        "pass": true,
+        "source": "jev"
+      },
+      "model": {
+        "choice": "external",
+        "confidence": 0.95,
+        "rationale": "The issuer seed is read from process.env.ISSUER_SEED."
+      }
+    },
+    "connection_hygiene": {
+      "jev": {
+        "choice": "always",
+        "confidence": 1,
+        "probabilities": {
+          "happy_path_only": 0,
+          "never": 0,
+          "always": 1
+        }
+      },
+      "final": {
+        "choice": "always",
+        "pass": true,
+        "source": "jev"
+      },
+      "model": {
+        "choice": "always",
+        "confidence": 0.9,
+        "rationale": "client.disconnect() is called in a finally block in main."
+      }
+    },
+    "ban_semantics": {
+      "jev": {
+        "choice": "complete",
+        "confidence": 0.99,
+        "probabilities": {
+          "absent": 0,
+          "complete": 0.99,
+          "partial": 0.01
+        }
+      },
+      "final": {
+        "choice": "complete",
+        "pass": true,
+        "source": "jev"
+      },
+      "model": {
+        "choice": "complete",
+        "confidence": 0.85,
+        "rationale": "The ban is recorded off-ledger. Then the ban workflow revokes the holder's authorization with MPTokenAuthorize (Holder set, flag 1), claws back the entire balance, and checks that the result is a zero balance with no authorization. Re-approving a banned holder is blocked."
+      }
+    },
+    "freeze_semantics": {
+      "jev": {
+        "choice": "mpt_lock",
+        "confidence": 0.99,
+        "probabilities": {
+          "mpt_lock": 1,
+          "absent": 0,
+          "other": 0
+        }
+      },
+      "final": {
+        "choice": "mpt_lock",
+        "pass": true,
+        "source": "jev"
+      },
+      "model": {
+        "choice": "mpt_lock",
+        "confidence": 0.92,
+        "rationale": "Both freezes use MPTokenIssuanceSet with flags 1 (lock) and 2 (unlock). The per-holder freeze includes a Holder field and the global freeze does not. The issuance is created with tfMPTCanLock."
+      }
+    },
+    "clawback_semantics": {
+      "jev": {
+        "choice": "mpt_clawback",
+        "confidence": 1,
+        "probabilities": {
+          "mpt_clawback": 1,
+          "absent": 0,
+          "other": 0
+        }
+      },
+      "final": {
+        "choice": "mpt_clawback",
+        "pass": true,
+        "source": "jev"
+      },
+      "model": {
+        "choice": "mpt_clawback",
+        "confidence": 0.92,
+        "rationale": "Clawback is a Clawback transaction with the Holder field and an MPT amount, on an issuance created with tfMPTCanClawback."
+      }
+    }
+  }
+}

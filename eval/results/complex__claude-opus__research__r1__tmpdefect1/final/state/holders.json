@@ -1,0 +1,18 @@
+{
+  "network": "testnet",
+  "issuanceId": "014278B1D1B069201ECF3D2FDEF0A4B9BF5F083F577AF3F6",
+  "holders": {
+    "A": {
+      "address": "r47YR5jRbkn3y4xiSbd4UuR5yvm4XZd7FG",
+      "seed": "<TESTNET_SEED_REDACTED>"
+    },
+    "B": {
+      "address": "rGPrqR3uSFT8mUchm5ckyHp4trsYPAVgSf",
+      "seed": "<TESTNET_SEED_REDACTED>"
+    },
+    "C": {
+      "address": "rMNVSRY7ZghPLLAcn1EUXEbun1W9f8tNje",
+      "seed": "<TESTNET_SEED_REDACTED>"
+    }
+  }
+}

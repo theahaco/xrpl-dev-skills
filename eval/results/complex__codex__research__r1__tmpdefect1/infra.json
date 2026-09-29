@@ -1,0 +1,19 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [
+      "andard. ## 4.4.2 (2025-09-25) ### Fixed * improve Batch inner transaction typing ## 4.4.1 (2025-08-29) ### Fixed * Prevent Node.js process termination when WebSocket send() errors after the connection is closed. ## 4.4.0 (2025-07-29) ### Added curl: (56) Failure writing output to destination, passed 16366 returne"
+    ],
+    "sandboxDenials": [
+      "zsh:1: can't create temp file for here document: operation not permitted npm error code EJSONPARSE npm error JSON.parse Invalid package.json: JSONParseError: Unexpected end of JSON input while parsing empty st",
+      "git: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-LLV0dndH' (errno=Operation not permitted) git: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-lgcdEpwj' (errno=Operation not permit",
+      "} }, \"transactions\": 38, \"steps\": 36 } git: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-qOGSb9nO' (errno=Operation not permitted) git: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-o4mur1G5' (errno=Operation not permit"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 34
+  }
+}

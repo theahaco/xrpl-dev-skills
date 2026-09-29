@@ -1,0 +1,40 @@
+{
+  "endpoint": "wss://s.altnet.rippletest.net:51233",
+  "ledgerHash": "B82CDCDBBB59651CB8E7BE0C9F09F67C01D3621440D4C62A08A500CF35D44D58",
+  "ledgerIndex": 21134496,
+  "issuance": {
+    "index": "4402AC7282D5F2135F259F4C9B375B57C89F0B0298827896E4A134F80A6E6EF8",
+    "ledger_hash": "B82CDCDBBB59651CB8E7BE0C9F09F67C01D3621440D4C62A08A500CF35D44D58",
+    "ledger_index": 21134496,
+    "node": {
+      "Flags": 36,
+      "Issuer": "rEyNWbgPq7jnWYa7dnWPVtsHZxroy3XGVd",
+      "LedgerEntryType": "MPTokenIssuance",
+      "OutstandingAmount": "1000",
+      "OwnerNode": "0",
+      "PreviousTxnID": "B932EEC27BD192E6AA843C22CE9C4E580A2ECB42BFA21A1E4D889029E80D75AE",
+      "PreviousTxnLgrSeq": 21134486,
+      "Sequence": 21134418,
+      "index": "4402AC7282D5F2135F259F4C9B375B57C89F0B0298827896E4A134F80A6E6EF8",
+      "mpt_issuance_id": "01427C52A4345529ED9C46EF4CC8A3D6BC7F9B6EE0ECB5E1"
+    },
+    "validated": true
+  },
+  "holder": {
+    "index": "DDE2504FC5111965D7141065CF13EB441BFEE378913749638865BFCA47C352AE",
+    "ledger_hash": "B82CDCDBBB59651CB8E7BE0C9F09F67C01D3621440D4C62A08A500CF35D44D58",
+    "ledger_index": 21134496,
+    "node": {
+      "Account": "rpbbAdCLnqKrZDBBcShry44pyP3r8FjxzZ",
+      "Flags": 2,
+      "LedgerEntryType": "MPToken",
+      "MPTAmount": "1000",
+      "MPTokenIssuanceID": "01427C52A4345529ED9C46EF4CC8A3D6BC7F9B6EE0ECB5E1",
+      "OwnerNode": "0",
+      "PreviousTxnID": "B932EEC27BD192E6AA843C22CE9C4E580A2ECB42BFA21A1E4D889029E80D75AE",
+      "PreviousTxnLgrSeq": 21134486,
+      "index": "DDE2504FC5111965D7141065CF13EB441BFEE378913749638865BFCA47C352AE"
+    },
+    "validated": true
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [
+      "node_modules/xrpl/src/client/connection.ts:95: reject(new DisconnectedError(error.message, error)) node_modules/xrpl/src/client/connection.ts:187: return Promise.reject( node_modules/xrpl/src/client/connection.ts:"
+    ],
+    "sandboxDenials": [
+      "Exit code 1 (eval):1: operation not permitted: /tmp/npminstall.log tail: /tmp/npminstall.log: No such file or directory --- project@1.0.0 /private/tmp/ws/b34dc1a9b26c/project └── (em",
+      "(eval):1: operation not permitted: /tmp/check.mjs (eval):3: can't create temp file for here document: operation not permitted"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 31
+  }
+}

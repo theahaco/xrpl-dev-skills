@@ -1,0 +1,23 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [
+      "erty(exports, \"__esModule\", { value: true }); exports.XRPLFaucetError = exports.NotFoundError = exports.ValidationError = exports.ResponseFormatError = exports.TimeoutError = exports.RippledNotInitializedError = exports.DisconnectedError = exports.NotConnectedError = exports.RippledError = exports.ConnectionError = exp",
+      " error, 50: promise.reject(error); 53: rejectAll(error) { 55: this.reject(id, error); 70: this.reject(newId, new errors_1.TimeoutError(`Timeout for request: ${JSON.stringify(request)} with id ${newId}`, request)); 99: const error = new errors_1.ResponseFormatError('Respo"
+    ],
+    "sandboxDenials": [
+      "Exit code 1 tee: /tmp/demo_run.log: Operation not permitted > project@1.0.0 demo > ts-node src/demo.ts Connected to wss://s.altnet.rippletest.net:51233 Issuer account: rpvyaKSbts3cqpxrXF4H9JJf8d",
+      "Exit code 1 (eval):1: operation not permitted: /tmp/check_state.ts node:internal/modules/cjs/loader:1520 throw err; ^ Error: Cannot find module './check_state.ts' Require stack:",
+      "(eval):1: can't create temp file for here document: operation not permitted need wallet seeds - will redesign test instead",
+      "(eval):1: can't create temp file for here document: operation not permitted",
+      "(eval):1: can't create temp file for here document: operation not permitted done"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 28
+  },
+  "suspect": "connectivity errors in command output while the health monitor saw testnet healthy; scored as an agent failure, review by hand"
+}

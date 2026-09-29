@@ -1,0 +1,16 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [],
+    "sandboxDenials": [
+      "(eval):1: can't create temp file for here document: operation not permitted (eval):16: can't create temp file for here document: operation not permitted { \"name\": \"xrpl-mpt-demo\", \"version\": \"1.0.0\", \"descr",
+      "(eval):1: can't create temp file for here document: operation not permitted"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 4
+  }
+}

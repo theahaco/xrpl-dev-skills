@@ -1,0 +1,1 @@
+I ran the fixed demo script against testnet in the background (task `bc8fo4otg`), along with a small watcher (`boi4brud4`) that will finish once the demo completes. I'll report back with results as soon as one of those completes — no action needed from you right now.

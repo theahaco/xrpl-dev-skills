@@ -1,0 +1,17 @@
+{
+  "step": "Send 1000 MPT",
+  "hash": "D7B12566B92C5218AFED3BC4F666E7F9AD754C65A4A21CE2FC43DAB71102CFDE",
+  "prepared": {
+    "TransactionType": "Payment",
+    "Account": "rnW24ustzaxhYDKYj36XWZ79MGpFRgR3SP",
+    "Destination": "r4XuuwovAKBT9KwJNkhx8F43sh6eSNPr6M",
+    "Amount": {
+      "mpt_issuance_id": "01427C2131786D9E3A02D0E3EC918363DFFB46DDF1C344F6",
+      "value": "1000"
+    },
+    "Flags": 0,
+    "Sequence": 21134371,
+    "Fee": "12",
+    "LastLedgerSequence": 21134434
+  }
+}

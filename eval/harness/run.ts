@@ -295,7 +295,9 @@ export async function runOne(spec: RunSpec, opts: RunOptions = {}): Promise<RunR
     });
     writeJson(path.join(outDir, "typecheck.json"), tcResult);
 
-    const skip = ["node_modules", ".git", SKILL_INSTALL_DIR[provider]];
+    // node-compile-cache: V8 code cache that NODE_COMPILE_CACHE can put in
+    // the project; hundreds of binary files with nothing to score.
+    const skip = ["node_modules", ".git", "node-compile-cache", SKILL_INSTALL_DIR[provider]];
     const all = walkFiles(ws.project, skip);
     const files = all.filter((f) => f.size <= 2_000_000);
     const finalDir = path.join(outDir, "final");

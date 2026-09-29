@@ -1,0 +1,18 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [
+      "toString(): string; inspect(): string; } declare class RippledError extends XrplError { } declare class UnexpectedError extends XrplError { } declare class ConnectionError extends XrplError { } declare class NotConnectedError extends ConnectionError { } declare class DisconnectedError extends ConnectionError { } de"
+    ],
+    "sandboxDenials": [
+      "Exit code 1 (eval):1: operation not permitted: /tmp/npm_install.log tail: /tmp/npm_install.log: No such file or directory project@1.0.0 /private/tmp/ws/5dee0a6a3716/project └── (empt"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 38
+  },
+  "suspect": "connectivity errors in command output while the health monitor saw testnet healthy; scored as an agent failure, review by hand"
+}

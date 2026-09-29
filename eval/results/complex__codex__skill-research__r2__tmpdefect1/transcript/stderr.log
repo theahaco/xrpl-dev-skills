@@ -1,0 +1,2 @@
+2026-09-29T04:05:56.929049Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /private/tmp/ws/5c5ddab4908f/project/docs/research.md:
+Installed SDK source/types were checked too.

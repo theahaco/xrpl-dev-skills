@@ -1,0 +1,22 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [
+      "Module\",{value:!0}),t.getFaucetPath=t.getFaucetHost=t.faucetNetworkIDs=t.faucetNetworkPaths=t.FaucetNetwork=void 0;const i=n(255);var r;!function(e){e.Testnet=\"faucet.altnet.rippletest.net\",e.Devnet=\"faucet.devnet.rippletest.net\"}(r||(t.FaucetNetwork=r={})),t.faucetNetworkPaths={[r.Testnet]:\"/accounts\",[r.Devnet]:\"/acc"
+    ],
+    "rippledErrors": [
+      ",964(e,t,n){\"use strict\";Object.defineProperty(t,\"__esModule\",{value:!0});const i=n(2427);class r extends i.EventEmitter{constructor(e,t,n){super(),this.ws=new WebSocket(e),this.ws.onclose=e=>{let t;e.reason&&(t=(new TextEncoder).encode(e.reason)),this.emit(\"close\",e.code,t)},this.ws.onopen=()=>{this.emit(\"open\")},this"
+    ],
+    "sandboxDenials": [
+      "zsh:1: can't create temp file for here document: operation not permitted npm error code EJSONPARSE npm error JSON.parse Invalid package.json: JSONParseError: Unexpected end of JSON input while parsing empty st",
+      "python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-0W7Wg5Ag' (errno=Operation not permitted) python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-eAmC5dhw' (errno=Operation not pe",
+      "t.js: No such file or directory (os error 2) git: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-isZtOwLq' (errno=Operation not permitted) git: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-dqVv72Ue' (errno=Operation not permit",
+      ": \"rMAnX9RouBYH4MqiHaHyNwVKJ4UacKu8p9\" } } git: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-bWiDyjmO' (errno=Operation not permitted) git: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-AgPbgifk' (errno=Operation not permit"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 26
+  }
+}

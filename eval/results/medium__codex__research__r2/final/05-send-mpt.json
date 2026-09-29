@@ -1,0 +1,89 @@
+{
+  "close_time_iso": "2026-09-29T04:17:30Z",
+  "ctid": "C1427CE300060001",
+  "hash": "CE986FAB60D121CA82266A9537A4C1A8BE230FE3516013BD58B489051F2D2716",
+  "ledger_hash": "BCE716E46B1F42FAEEC7D06FE825797E74966CE94946CA4ADF846D0C47FB0809",
+  "ledger_index": 21134563,
+  "meta": {
+    "AffectedNodes": [
+      {
+        "ModifiedNode": {
+          "FinalFields": {
+            "Flags": 4,
+            "Issuer": "rE93cZ289p6yHdZ68UQZR26jbCPG6rbzQx",
+            "OutstandingAmount": "1000",
+            "OwnerNode": "0",
+            "Sequence": 21134502
+          },
+          "LedgerEntryType": "MPTokenIssuance",
+          "LedgerIndex": "57B6428CBB444992A24AF00387E601D91834748908E9092BB8CB2E9C61ECB0AC",
+          "PreviousFields": {
+            "OutstandingAmount": "0"
+          },
+          "PreviousTxnID": "1015553BCE45CE138073DDEC4E24F227DED04E429E257227B8E889DF18DD75B1",
+          "PreviousTxnLgrSeq": 21134557
+        }
+      },
+      {
+        "ModifiedNode": {
+          "FinalFields": {
+            "Account": "rMu311S7WKSSsQVNwCfky3HM6JhKPEKHv1",
+            "Flags": 2,
+            "MPTAmount": "1000",
+            "MPTokenIssuanceID": "01427CA69B1B719C4EEA6D0D604F2D3913060A330C7AD87A",
+            "OwnerNode": "0"
+          },
+          "LedgerEntryType": "MPToken",
+          "LedgerIndex": "A87BA79D96A8632B98AAB5A99B9618E0A2239D12AA36BF41F0D70AB7BD83AB23",
+          "PreviousFields": {},
+          "PreviousTxnID": "6E493FF10A34473CC6652A1AEAF40BEAC396D8237E432C7008D57105C95E096B",
+          "PreviousTxnLgrSeq": 21134561
+        }
+      },
+      {
+        "ModifiedNode": {
+          "FinalFields": {
+            "Account": "rE93cZ289p6yHdZ68UQZR26jbCPG6rbzQx",
+            "Balance": "94999952",
+            "Flags": 0,
+            "OwnerCount": 1,
+            "Sequence": 21134505
+          },
+          "LedgerEntryType": "AccountRoot",
+          "LedgerIndex": "ADD4E0165912C603FB935658945A4DD65BF1C2206E0D7F86AE85B5160D912AB5",
+          "PreviousFields": {
+            "Balance": "94999964",
+            "Sequence": 21134504
+          },
+          "PreviousTxnID": "6E493FF10A34473CC6652A1AEAF40BEAC396D8237E432C7008D57105C95E096B",
+          "PreviousTxnLgrSeq": 21134561
+        }
+      }
+    ],
+    "TransactionIndex": 6,
+    "TransactionResult": "tesSUCCESS",
+    "delivered_amount": {
+      "mpt_issuance_id": "01427CA69B1B719C4EEA6D0D604F2D3913060A330C7AD87A",
+      "value": "1000"
+    }
+  },
+  "tx_json": {
+    "Account": "rE93cZ289p6yHdZ68UQZR26jbCPG6rbzQx",
+    "DeliverMax": {
+      "mpt_issuance_id": "01427CA69B1B719C4EEA6D0D604F2D3913060A330C7AD87A",
+      "value": "1000"
+    },
+    "Destination": "rMu311S7WKSSsQVNwCfky3HM6JhKPEKHv1",
+    "Fee": "12",
+    "Flags": 0,
+    "LastLedgerSequence": 21134581,
+    "Sequence": 21134504,
+    "SigningPubKey": "<TESTNET_PRIVATE_KEY_REDACTED>",
+    "TransactionType": "Payment",
+    "TxnSignature": "0223535A07361F39A3BEC4C7A34604396D8BD655A538036C2B876B2E26C4DAA310BD55EC318832E747B0DE716E9223F2B559CD7087DA95AC64DCF7ADB19BCB09",
+    "ctid": "C1427CE300060001",
+    "date": 843970650,
+    "ledger_index": 21134563
+  },
+  "validated": true
+}

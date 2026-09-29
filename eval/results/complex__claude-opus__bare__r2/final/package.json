@@ -1,0 +1,26 @@
+{
+  "name": "mpt-issuer",
+  "version": "0.1.0",
+  "description": "Compliance-controlled MPT issuer module for the XRP Ledger",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "demo": "tsx scripts/demo.ts"
+  },
+  "license": "UNLICENSED",
+  "type": "module",
+  "dependencies": {
+    "xrpl": "^5.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  },
+  "private": true,
+  "types": "dist/index.d.ts",
+  "engines": {
+    "node": ">=20.12"
+  }
+}

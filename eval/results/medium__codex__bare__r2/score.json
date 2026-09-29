@@ -1,0 +1,214 @@
+{
+  "packetId": "26b6ff25817d0ec4",
+  "rubricVersion": 1,
+  "scoredAt": "2026-09-29T13:57:26.533Z",
+  "calibrate": false,
+  "confidenceFloor": 0.6,
+  "jev": {
+    "requests": 5,
+    "inputTokens": 16103,
+    "outputTokens": 410,
+    "errors": [],
+    "model": "jev-1.13.0"
+  },
+  "modelScorer": {
+    "requests": 2,
+    "costUsd": 0.084632,
+    "errors": [],
+    "model": "claude-opus-5-5"
+  },
+  "evidence": {
+    "codeTruncated": false,
+    "chars": {
+      "task": 952,
+      "code": 6236,
+      "typecheck": 430,
+      "errors": 1452,
+      "xrplVersion": 5,
+      "xrplChangelog": 17696
+    }
+  },
+  "items": {
+    "hallucinated_api": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.52,
+        "probabilities": {
+          "none": 0.76,
+          "present": 0.24
+        }
+      },
+      "model": {
+        "choice": "none",
+        "confidence": 0.88,
+        "rationale": "All the xrpl.js exports and options used exist in xrpl 5.3.0: Client, Wallet, MPTokenIssuanceCreateFlags, xrpToDrops, SubmittableTransaction, and submitAndWait with wallet/autofill. So do the XRPL items used: ledger_entry lookups for mptoken and mpt_issuance, meta.mpt_issuance_id, the Holder field on MPTokenAuthorize, OutstandingAmount, MPTAmount, and flag bits 4 (require authorization) and 2 (holder authorized); both strict type checks pass."
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "model"
+      }
+    },
+    "hallucination_during_run": {
+      "jev": {
+        "choice": "some",
+        "confidence": 0.84,
+        "probabilities": {
+          "none": 0.08,
+          "some": 0.92
+        }
+      },
+      "final": {
+        "choice": "some",
+        "pass": false,
+        "source": "jev"
+      }
+    },
+    "deprecated_patterns": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.69,
+        "probabilities": {
+          "present": 0.15,
+          "none": 0.85
+        }
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "strict_type_errors": {
+      "jev": {
+        "choice": "clean",
+        "confidence": 0.97,
+        "probabilities": {
+          "errors": 0,
+          "clean": 0.98,
+          "not_typescript": 0.02
+        }
+      },
+      "final": {
+        "choice": "clean",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "type_escape_hatches": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.42,
+        "probabilities": {
+          "pervasive": 0.02,
+          "none": 0.61,
+          "few": 0.37
+        }
+      },
+      "model": {
+        "choice": "none",
+        "confidence": 0.9,
+        "rationale": "The code has no `as any`, `as unknown as`, @ts-* directives or non-null assertions; every `!` is a logical negation. The untyped MPToken entry is assigned to `unknown` and checked at runtime with `in` and `typeof` guards, not cast."
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "model"
+      }
+    },
+    "outcome_checks": {
+      "jev": {
+        "choice": "all",
+        "confidence": 0.96,
+        "probabilities": {
+          "all": 0.98,
+          "none": 0,
+          "partial": 0.02
+        }
+      },
+      "final": {
+        "choice": "all",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "waits_for_validation": {
+      "jev": {
+        "choice": "validated",
+        "confidence": 0.98,
+        "probabilities": {
+          "preliminary": 0,
+          "validated": 0.99,
+          "mixed": 0.01
+        }
+      },
+      "final": {
+        "choice": "validated",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "ledger_readback": {
+      "jev": {
+        "choice": "ledger",
+        "confidence": 1,
+        "probabilities": {
+          "local": 0,
+          "not_reported": 0,
+          "ledger": 1
+        }
+      },
+      "final": {
+        "choice": "ledger",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "mpt_amount_format": {
+      "jev": {
+        "choice": "correct",
+        "confidence": 0.99,
+        "probabilities": {
+          "incorrect": 0,
+          "correct": 1
+        }
+      },
+      "final": {
+        "choice": "correct",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "secret_handling": {
+      "jev": {
+        "choice": "external",
+        "confidence": 0.99,
+        "probabilities": {
+          "external": 0.99,
+          "hardcoded": 0.01
+        }
+      },
+      "final": {
+        "choice": "external",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "connection_hygiene": {
+      "jev": {
+        "choice": "always",
+        "confidence": 1,
+        "probabilities": {
+          "happy_path_only": 0,
+          "always": 1,
+          "never": 0
+        }
+      },
+      "final": {
+        "choice": "always",
+        "pass": true,
+        "source": "jev"
+      }
+    }
+  }
+}

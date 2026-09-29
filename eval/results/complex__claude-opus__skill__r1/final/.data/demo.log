@@ -1,0 +1,100 @@
+
+> xrpl-mpt-issuer@1.0.0 demo
+> tsx scripts/demo.ts
+
+Network: wss://s.altnet.rippletest.net:51233
+Issuer:  r4VSDmgapWKBxBQJAdtdo5hwB73bg1JBoc
+
+[1] Create issuance with allowlist, clawback, lock and transfer enabled
+    issuance ID: 01429FE7EBBB5754775E4CABDE50826E3EAFD2EDDB0395DA
+
+[2] Create and fund holder accounts A, B, C
+    A: rKLNoo8RjpEeWAToYKyBQCZnV5JJgKjy6c funded with 5 XRP
+    B: raDmSzETNamgHhBgh63ULDVFxyiZF27dzA funded with 5 XRP
+    C: rHhBqdQTRHpwT5XzqjhGYDAdh5d6DzWC6c funded with 5 XRP
+
+[3] Holders opt in to the token
+    ok: A opted in but is not yet authorized
+    ok: B opted in but is not yet authorized
+    ok: C opted in but is not yet authorized
+
+[4] Allowlist: approve B and C (KYC passed), issue to them
+    ok: B holds 1000
+    ok: C holds 250
+
+[5] Allowlist: A is not yet approved, so it cannot receive
+    ok: ledger rejected C -> A (A not authorized): tecNO_AUTH (FDB1F1D415B1D3D890E57F2610EC730E317572531722AACD46EE6BBDF3AF2E8C)
+    ok: module refused issuer -> A (A not authorized): Holder rKLNoo8RjpEeWAToYKyBQCZnV5JJgKjy6c is not authorized
+
+[6] Allowlist: approve A and issue 500
+    ok: A holds 500
+
+[7] Clawback: claw back 300 from B
+    ok: B holds 700
+
+[8] Per-holder freeze: freeze A
+    ok: A is frozen on ledger
+    ok: ledger rejected A -> C (A frozen, cannot send): tecLOCKED (C014AC6ACE4FF429A82AC6566A4C34386BD3119D6068617C759B548D8CC5CE20)
+    ok: ledger rejected C -> A (A frozen, cannot receive): tecLOCKED (F3E51482EC5432E3CC8A8336043C94E59399B3059A91383E56F7A63DCC6CBE7C)
+    ok: module refused issuer -> A (A frozen): Holder rKLNoo8RjpEeWAToYKyBQCZnV5JJgKjy6c is frozen
+
+[9] Per-holder freeze: unfreeze A
+    ok: A is no longer frozen
+    ok: A <-> C round trip of 10 succeeds
+
+[10] Global freeze: freeze the whole token
+    ok: issuance is globally frozen on ledger
+    ok: ledger rejected A -> C (global freeze): tecLOCKED (C0CE2BDE1C8E7A04BEA79726428AC5377D3C00EFD400F96E48A3E614A7FF9885)
+    ok: ledger rejected B -> A (global freeze): tecLOCKED (4227A894B4492CDD3D33D41F71C0CBFB9289E5460ADBE4895780F0D6A8854594)
+    ok: ledger still allows C -> issuer redemption during global freeze (92B720EF5F8FB756614ED98DB40742D64F457BCA35EA4C974683A1CAEDE3FE07)
+    ok: module refused issuer -> A (global freeze): Token is globally frozen
+
+[11] Global freeze: lift it
+    ok: issuance is no longer globally frozen
+    ok: A <-> C round trip of 10 succeeds
+
+[12] Per-holder freeze: freeze B (stays frozen)
+    ok: B is frozen on ledger
+    ok: ledger rejected B -> A (B frozen): tecLOCKED (C443455A2684738F5940B1BDD1B8BEC0F7E2CFB18BD42B8A2115FD9C23C6778F)
+
+[13] Ban: ban C
+    ban transactions: ED9A0A1488FBC927759CC00FBEDC84CB42170F632722F7506CE99D7381390D45, E05853B952AAF9C41E8A0F1F46677E53C8944E22816DD717C4D356B40B9F124C, 99F53F824F6A7E03C40EE2A3AB4CCEE742FCBBBB3715F1B93229D625D6E5151A
+    ok: ban clawed back all of C's remaining 249 tokens
+    ok: C holds 0
+    ok: C is removed from the allowlist on ledger
+    ok: C is recorded in the ban registry
+    ok: ledger rejected A -> C (C banned): tecNO_AUTH (247F65D8565180F05EE9A6EB14CE7491D432568ADE691DF6181D3DBA1C73FAFE)
+    ok: module refused issuer re-authorizes C: rHhBqdQTRHpwT5XzqjhGYDAdh5d6DzWC6c is banned from 01429FE7EBBB5754775E4CABDE50826E3EAFD2EDDB0395DA
+    ok: module refused issuer -> C: rHhBqdQTRHpwT5XzqjhGYDAdh5d6DzWC6c is banned from 01429FE7EBBB5754775E4CABDE50826E3EAFD2EDDB0395DA
+    ok: module refused issuer unfreezes C: rHhBqdQTRHpwT5XzqjhGYDAdh5d6DzWC6c is banned from 01429FE7EBBB5754775E4CABDE50826E3EAFD2EDDB0395DA
+
+[14] Ban: C deletes and re-creates its holding to try to shed the ban
+    ok: C's MPToken entry was deleted
+    ok: ledger rejected A -> C (fresh holding is still unauthorized): tecNO_AUTH (6B703C320B4BB386EE32B492AD90DBDDCFAAA7AAE57456DD4F30646B2244668E)
+    ok: re-applying the ban re-freezes the new holding
+
+[15] Verify final ledger state
+  PASS  issued by r4VSDmgapWKBxBQJAdtdo5hwB73bg1JBoc
+  PASS  has CanLock, RequireAuth, CanClawback, CanTransfer
+  PASS  has none of CanEscrow, CanTrade, CanHoldConfidentialBalance
+  PASS  not globally frozen
+  PASS  outstanding supply is 1200 (A 500 + B 700)
+  PASS  A is authorized
+  PASS  A holds 500
+  PASS  A is not frozen
+  PASS  B is authorized
+  PASS  B holds 700
+  PASS  B is frozen
+  PASS  C holds 0
+  PASS  C is not authorized (ledger rejects transfers to C)
+  PASS  C is in the ban registry
+
+Wrote /private/tmp/ws/49208f806145/project/result.json
+{
+  "issuanceId": "01429FE7EBBB5754775E4CABDE50826E3EAFD2EDDB0395DA",
+  "holders": {
+    "A": "rKLNoo8RjpEeWAToYKyBQCZnV5JJgKjy6c",
+    "B": "raDmSzETNamgHhBgh63ULDVFxyiZF27dzA",
+    "C": "rHhBqdQTRHpwT5XzqjhGYDAdh5d6DzWC6c"
+  }
+}

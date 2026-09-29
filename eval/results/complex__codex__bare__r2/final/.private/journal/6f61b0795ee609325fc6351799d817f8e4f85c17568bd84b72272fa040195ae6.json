@@ -1,0 +1,53 @@
+{
+  "intent": "{\"TransactionType\":\"MPTokenIssuanceSet\",\"Account\":\"rnALUjoU7amSCUJkk18CxbfFhsQ9JtcJ3u\",\"MPTokenIssuanceID\":\"0142A2BC3626FE9194BAD4CE7F19DC86646ED23FFCBB14D5\",\"Flags\":2,\"Holder\":\"rPAeKFKujhRwZW3wZZw9u6WCfH8mXwd68Y\"}",
+  "blob": "1200382200000002240142A2CA201B0142A34C68400000000000000C7321ED0B663F199CDDC1BF4007260677EF33594B2954570FCEF3387714A7DF233F18457440CD921149FA65C79199C4180FBD8E36D5BDEC72B9B7F39791DD38140067CADC78F546AF646F25A88D34E7F81A8738682EC5AA5700BE486402EC7E1C6D83967D0E81143626FE9194BAD4CE7F19DC86646ED23FFCBB14D58B14FBA862D2EA7F47D274FE6531640C54842750AAF701150142A2BC3626FE9194BAD4CE7F19DC86646ED23FFCBB14D5",
+  "hash": "FD19035948132786D10A4C5B1766008918EAF2ACDBE6539CB8C5514808259272",
+  "receipt": {
+    "hash": "FD19035948132786D10A4C5B1766008918EAF2ACDBE6539CB8C5514808259272",
+    "ledgerIndex": 21144377,
+    "code": "tesSUCCESS",
+    "meta": {
+      "AffectedNodes": [
+        {
+          "ModifiedNode": {
+            "FinalFields": {
+              "Account": "rnALUjoU7amSCUJkk18CxbfFhsQ9JtcJ3u",
+              "Balance": "84999820",
+              "Flags": 0,
+              "OwnerCount": 1,
+              "Sequence": 21144267
+            },
+            "LedgerEntryType": "AccountRoot",
+            "LedgerIndex": "69A662A07CBA7B1FF80317128F38B06578F459AC7ACC939305D8E165D45FB4C5",
+            "PreviousFields": {
+              "Balance": "84999832",
+              "Sequence": 21144266
+            },
+            "PreviousTxnID": "9038A07199323BE1764079960B3740EF691511F46CFEE82AE2E9F3E3F24AEF9E",
+            "PreviousTxnLgrSeq": 21144371
+          }
+        },
+        {
+          "ModifiedNode": {
+            "FinalFields": {
+              "Account": "rPAeKFKujhRwZW3wZZw9u6WCfH8mXwd68Y",
+              "Flags": 2,
+              "MPTAmount": "499",
+              "MPTokenIssuanceID": "0142A2BC3626FE9194BAD4CE7F19DC86646ED23FFCBB14D5",
+              "OwnerNode": "0"
+            },
+            "LedgerEntryType": "MPToken",
+            "LedgerIndex": "8E0ADC010A07A48DC4FAD5949D625AC22C1274D61BBD0E90AD106E06C5438262",
+            "PreviousFields": {
+              "Flags": 3
+            },
+            "PreviousTxnID": "392AEFB5FBB4F85BA0800E77BE85115FF29C63434BF3DA7F6EEAB2B4C55D1D3B",
+            "PreviousTxnLgrSeq": 21144376
+          }
+        }
+      ],
+      "TransactionIndex": 18,
+      "TransactionResult": "tesSUCCESS"
+    }
+  }
+}

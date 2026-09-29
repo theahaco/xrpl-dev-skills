@@ -1,0 +1,2044 @@
+{
+  "network": "testnet",
+  "ledgerHash": "5FE7F40473D2F0690DE796BC00BE5F904E41EA355287603226F54B80AF1BAC73",
+  "ledgerIndex": 21144637,
+  "issuer": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+  "issuance": {
+    "Flags": 102,
+    "Issuer": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+    "LedgerEntryType": "MPTokenIssuance",
+    "MaximumAmount": "1000000000",
+    "OutstandingAmount": "1200",
+    "OwnerNode": "0",
+    "PreviousTxnID": "8ED6C955D042DE1352906054A10AFF431A67DB2407B0A739FE1E3EB6449C7F97",
+    "PreviousTxnLgrSeq": 21144621,
+    "Sequence": 21144474,
+    "index": "C4D14A356FD3E2762A59AA74411630F463A212E0D24739C96DD9EEFC481B3D18",
+    "mpt_issuance_id": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718"
+  },
+  "holders": {
+    "A": {
+      "Account": "rBAfNpgLbJrregiqSQQ9Ec7aVfU8VymAkN",
+      "Flags": 2,
+      "LedgerEntryType": "MPToken",
+      "MPTAmount": "500",
+      "MPTokenIssuanceID": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+      "OwnerNode": "0",
+      "PreviousTxnID": "98C9061FE26E261214637ED9B30C522438FCF1048F42ADB376F24ACCA4238CAE",
+      "PreviousTxnLgrSeq": 21144613,
+      "index": "30422250FB2CC0D946BB21B864E4361F9E7DD2FBC16925F63FB1DF586140B5BE"
+    },
+    "B": {
+      "Account": "rfynEEXwEcafTDQ1d8gqUVY2uWqbmg4qUP",
+      "Flags": 3,
+      "LedgerEntryType": "MPToken",
+      "MPTAmount": "700",
+      "MPTokenIssuanceID": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+      "OwnerNode": "0",
+      "PreviousTxnID": "1D7F011687B746CA50FD1B4BF5CEE1ADCB63531C64F01BA9CA9F63044C9DCD91",
+      "PreviousTxnLgrSeq": 21144614,
+      "index": "562727330578A66CF57DF54DC92F91F0B37A13F6E1401C452F93AD9E65EA2EC2"
+    },
+    "C": {
+      "Account": "rMFw2M1TyWD9iPiyKM9hyiwDEP97zHf6y7",
+      "Flags": 0,
+      "LedgerEntryType": "MPToken",
+      "MPTokenIssuanceID": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+      "OwnerNode": "0",
+      "PreviousTxnID": "C74F3EA7ED433C09A35C83DAA3E4A2BA62A220854A4E9A5DD238AA0B973A5EBD",
+      "PreviousTxnLgrSeq": 21144629,
+      "index": "36A49119B258426B91C37A2BCFF3A706864E38688A6B2511785659156B0E9932"
+    }
+  },
+  "rejected": [
+    {
+      "operation": "deny/unapproved",
+      "code": "tecNO_AUTH",
+      "hash": "D050B465979691CA52BD953347B5D75AFB7FB02B087CB408674F8519B620AA6C"
+    },
+    {
+      "operation": "deny/A-send",
+      "code": "tecLOCKED",
+      "hash": "060FFFD3654DD055CD62EF17A9CDECA9611AE28BC6DD078EB4456ABB2D564E29"
+    },
+    {
+      "operation": "deny/A-receive",
+      "code": "tecLOCKED",
+      "hash": "B003955BE05D5DED17136602E5EBA1CD082C853A46BEAAED68336B4BBFE2BC8D"
+    },
+    {
+      "operation": "deny/global-A-B",
+      "code": "tecLOCKED",
+      "hash": "04ADED9B22DA626A0478021002547F641DE092DAF752395A67EBA9EACDC44C7E"
+    },
+    {
+      "operation": "deny/global-B-A",
+      "code": "tecLOCKED",
+      "hash": "ED46B430AA171488B187A97C2A7CEBFB241805EC80AA6DAD7CA4CFE25DEFA16C"
+    },
+    {
+      "operation": "deny/B-send",
+      "code": "tecLOCKED",
+      "hash": "674A80A2A84CD44B4EB6EDA750F281C6D4127ADD3E16D6B961AB3A51E30B58D7"
+    },
+    {
+      "operation": "deny/B-receive",
+      "code": "tecLOCKED",
+      "hash": "1DADD482816A4E5EDD3A9B0D782F9260F038D72EEDF6C643068FBE645152A125"
+    },
+    {
+      "operation": "deny/banned-peer",
+      "code": "tecNO_AUTH",
+      "hash": "E0C473ED721B701020F733853D027E002234BF8D6D5EAA2492282B3CD2951B28"
+    },
+    {
+      "operation": "deny/banned-issuer",
+      "code": "tecNO_AUTH",
+      "hash": "6A705C6CA1C3A83C94D832BB029A6DBFB71500A35BF7B9D96617927DB198CB69"
+    },
+    {
+      "operation": "deny/banned-recreated",
+      "code": "tecNO_AUTH",
+      "hash": "4C05F853F47E4EC75A847491283370134C5883259076F63DB1085DFA798C94C0"
+    }
+  ],
+  "transactions": {
+    "fund/A": {
+      "hash": "87988D2487D0E30A83BAF3D7787AE8AAE8AAACB2096B6C34606EB71FE087492D",
+      "ledgerIndex": 21144563,
+      "code": "tesSUCCESS",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "Balance": "96999988",
+                "Flags": 0,
+                "OwnerCount": 0,
+                "Sequence": 21144472
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "9D94BD192C06D50BC32EE7BC6986B600ECD224C71DF6BA1B41009EB1820CF935",
+              "PreviousFields": {
+                "Balance": "100000000",
+                "Sequence": 21144471
+              },
+              "PreviousTxnID": "A3BCF834C7CB3C9862D98DD67C69007062C37182222CEDA5B045A4ED6FDA0123",
+              "PreviousTxnLgrSeq": 21144471
+            }
+          },
+          {
+            "CreatedNode": {
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "D67E0AD0A439A1094932A816E786D514BCECE46C461D6123E6561B1A7CE27AE0",
+              "NewFields": {
+                "Account": "rBAfNpgLbJrregiqSQQ9Ec7aVfU8VymAkN",
+                "Balance": "3000000",
+                "Sequence": 21144563
+              }
+            }
+          }
+        ],
+        "TransactionIndex": 0,
+        "TransactionResult": "tesSUCCESS",
+        "delivered_amount": "3000000"
+      }
+    },
+    "fund/B": {
+      "hash": "AF26CFD28B195AF505472A07AF0054B87B60837D28C1796644D80F2953E3108F",
+      "ledgerIndex": 21144565,
+      "code": "tesSUCCESS",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "CreatedNode": {
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "6AF222A6BAE3FDB3968DF3F39768014B7858B8B6D60949E1238B74D704DB928A",
+              "NewFields": {
+                "Account": "rfynEEXwEcafTDQ1d8gqUVY2uWqbmg4qUP",
+                "Balance": "3000000",
+                "Sequence": 21144565
+              }
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "Balance": "93999976",
+                "Flags": 0,
+                "OwnerCount": 0,
+                "Sequence": 21144473
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "9D94BD192C06D50BC32EE7BC6986B600ECD224C71DF6BA1B41009EB1820CF935",
+              "PreviousFields": {
+                "Balance": "96999988",
+                "Sequence": 21144472
+              },
+              "PreviousTxnID": "87988D2487D0E30A83BAF3D7787AE8AAE8AAACB2096B6C34606EB71FE087492D",
+              "PreviousTxnLgrSeq": 21144563
+            }
+          }
+        ],
+        "TransactionIndex": 1,
+        "TransactionResult": "tesSUCCESS",
+        "delivered_amount": "3000000"
+      }
+    },
+    "fund/C": {
+      "hash": "0909A1CC93040D36416B0292D1EFFCA83A2D8F1E87546B158C7B95D064C0CD7B",
+      "ledgerIndex": 21144567,
+      "code": "tesSUCCESS",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "CreatedNode": {
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "6D3E36E6DC49C132C8F8CA3177037C7594ED80E545EF6408B633921787169D3C",
+              "NewFields": {
+                "Account": "rMFw2M1TyWD9iPiyKM9hyiwDEP97zHf6y7",
+                "Balance": "3000000",
+                "Sequence": 21144567
+              }
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "Balance": "90999964",
+                "Flags": 0,
+                "OwnerCount": 0,
+                "Sequence": 21144474
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "9D94BD192C06D50BC32EE7BC6986B600ECD224C71DF6BA1B41009EB1820CF935",
+              "PreviousFields": {
+                "Balance": "93999976",
+                "Sequence": 21144473
+              },
+              "PreviousTxnID": "AF26CFD28B195AF505472A07AF0054B87B60837D28C1796644D80F2953E3108F",
+              "PreviousTxnLgrSeq": 21144565
+            }
+          }
+        ],
+        "TransactionIndex": 4,
+        "TransactionResult": "tesSUCCESS",
+        "delivered_amount": "3000000"
+      }
+    },
+    "create": {
+      "hash": "B34F73B4E32EB8B4D7D9E00671511C1CF343C5E8EDD5662C1C996820D316700A",
+      "ledgerIndex": 21144569,
+      "code": "tesSUCCESS",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "CreatedNode": {
+              "LedgerEntryType": "DirectoryNode",
+              "LedgerIndex": "0FDFB54FD7C049680059AC1100CE37CAA821997AD1846A663203F5334B7E1336",
+              "NewFields": {
+                "Owner": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "RootIndex": "0FDFB54FD7C049680059AC1100CE37CAA821997AD1846A663203F5334B7E1336"
+              }
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "Balance": "90999952",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144475
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "9D94BD192C06D50BC32EE7BC6986B600ECD224C71DF6BA1B41009EB1820CF935",
+              "PreviousFields": {
+                "Balance": "90999964",
+                "OwnerCount": 0,
+                "Sequence": 21144474
+              },
+              "PreviousTxnID": "0909A1CC93040D36416B0292D1EFFCA83A2D8F1E87546B158C7B95D064C0CD7B",
+              "PreviousTxnLgrSeq": 21144567
+            }
+          },
+          {
+            "CreatedNode": {
+              "LedgerEntryType": "MPTokenIssuance",
+              "LedgerIndex": "C4D14A356FD3E2762A59AA74411630F463A212E0D24739C96DD9EEFC481B3D18",
+              "NewFields": {
+                "Flags": 102,
+                "Issuer": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "MaximumAmount": "1000000000",
+                "Sequence": 21144474
+              }
+            }
+          }
+        ],
+        "TransactionIndex": 6,
+        "TransactionResult": "tesSUCCESS",
+        "mpt_issuance_id": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718"
+      }
+    },
+    "opt-in/A": {
+      "hash": "09E9D62FA1B6C9A29F958CC7B063A23C895DC1490925A37B1A27C0078C9E6C8A",
+      "ledgerIndex": 21144571,
+      "code": "tesSUCCESS",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "CreatedNode": {
+              "LedgerEntryType": "MPToken",
+              "LedgerIndex": "30422250FB2CC0D946BB21B864E4361F9E7DD2FBC16925F63FB1DF586140B5BE",
+              "NewFields": {
+                "Account": "rBAfNpgLbJrregiqSQQ9Ec7aVfU8VymAkN",
+                "MPTokenIssuanceID": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718"
+              }
+            }
+          },
+          {
+            "CreatedNode": {
+              "LedgerEntryType": "DirectoryNode",
+              "LedgerIndex": "6E807C56D8B5E8F9BFD767EA1198629F8DE3998EE121FE5FC2943B375F837D54",
+              "NewFields": {
+                "Owner": "rBAfNpgLbJrregiqSQQ9Ec7aVfU8VymAkN",
+                "RootIndex": "6E807C56D8B5E8F9BFD767EA1198629F8DE3998EE121FE5FC2943B375F837D54"
+              }
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rBAfNpgLbJrregiqSQQ9Ec7aVfU8VymAkN",
+                "Balance": "2999988",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144564
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "D67E0AD0A439A1094932A816E786D514BCECE46C461D6123E6561B1A7CE27AE0",
+              "PreviousFields": {
+                "Balance": "3000000",
+                "OwnerCount": 0,
+                "Sequence": 21144563
+              },
+              "PreviousTxnID": "87988D2487D0E30A83BAF3D7787AE8AAE8AAACB2096B6C34606EB71FE087492D",
+              "PreviousTxnLgrSeq": 21144563
+            }
+          }
+        ],
+        "TransactionIndex": 4,
+        "TransactionResult": "tesSUCCESS"
+      }
+    },
+    "opt-in/B": {
+      "hash": "942F45148AEEF153756015F3D2FAFC7616E5F9FB5113CBA69A681DD2F503F998",
+      "ledgerIndex": 21144573,
+      "code": "tesSUCCESS",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "CreatedNode": {
+              "LedgerEntryType": "DirectoryNode",
+              "LedgerIndex": "3957805418FA032C35D7B1024680FC669FB496E9041C82F02D8E4D4DF78B9495",
+              "NewFields": {
+                "Owner": "rfynEEXwEcafTDQ1d8gqUVY2uWqbmg4qUP",
+                "RootIndex": "3957805418FA032C35D7B1024680FC669FB496E9041C82F02D8E4D4DF78B9495"
+              }
+            }
+          },
+          {
+            "CreatedNode": {
+              "LedgerEntryType": "MPToken",
+              "LedgerIndex": "562727330578A66CF57DF54DC92F91F0B37A13F6E1401C452F93AD9E65EA2EC2",
+              "NewFields": {
+                "Account": "rfynEEXwEcafTDQ1d8gqUVY2uWqbmg4qUP",
+                "MPTokenIssuanceID": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718"
+              }
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rfynEEXwEcafTDQ1d8gqUVY2uWqbmg4qUP",
+                "Balance": "2999988",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144566
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "6AF222A6BAE3FDB3968DF3F39768014B7858B8B6D60949E1238B74D704DB928A",
+              "PreviousFields": {
+                "Balance": "3000000",
+                "OwnerCount": 0,
+                "Sequence": 21144565
+              },
+              "PreviousTxnID": "AF26CFD28B195AF505472A07AF0054B87B60837D28C1796644D80F2953E3108F",
+              "PreviousTxnLgrSeq": 21144565
+            }
+          }
+        ],
+        "TransactionIndex": 6,
+        "TransactionResult": "tesSUCCESS"
+      }
+    },
+    "opt-in/C": {
+      "hash": "37C3F50E3EEDCE8AC3D6E16D7433F90BE4C06D18AEFD254F34D4A84A7444087C",
+      "ledgerIndex": 21144575,
+      "code": "tesSUCCESS",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "CreatedNode": {
+              "LedgerEntryType": "MPToken",
+              "LedgerIndex": "36A49119B258426B91C37A2BCFF3A706864E38688A6B2511785659156B0E9932",
+              "NewFields": {
+                "Account": "rMFw2M1TyWD9iPiyKM9hyiwDEP97zHf6y7",
+                "MPTokenIssuanceID": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718"
+              }
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rMFw2M1TyWD9iPiyKM9hyiwDEP97zHf6y7",
+                "Balance": "2999988",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144568
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "6D3E36E6DC49C132C8F8CA3177037C7594ED80E545EF6408B633921787169D3C",
+              "PreviousFields": {
+                "Balance": "3000000",
+                "OwnerCount": 0,
+                "Sequence": 21144567
+              },
+              "PreviousTxnID": "0909A1CC93040D36416B0292D1EFFCA83A2D8F1E87546B158C7B95D064C0CD7B",
+              "PreviousTxnLgrSeq": 21144567
+            }
+          },
+          {
+            "CreatedNode": {
+              "LedgerEntryType": "DirectoryNode",
+              "LedgerIndex": "F9B81D771CDD9D3E79DC1D29793F8BA44E3FE5A9C3FB9931342432EC510B30F8",
+              "NewFields": {
+                "Owner": "rMFw2M1TyWD9iPiyKM9hyiwDEP97zHf6y7",
+                "RootIndex": "F9B81D771CDD9D3E79DC1D29793F8BA44E3FE5A9C3FB9931342432EC510B30F8"
+              }
+            }
+          }
+        ],
+        "TransactionIndex": 9,
+        "TransactionResult": "tesSUCCESS"
+      }
+    },
+    "deny/unapproved": {
+      "hash": "D050B465979691CA52BD953347B5D75AFB7FB02B087CB408674F8519B620AA6C",
+      "ledgerIndex": 21144577,
+      "code": "tecNO_AUTH",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "Balance": "90999940",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144476
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "9D94BD192C06D50BC32EE7BC6986B600ECD224C71DF6BA1B41009EB1820CF935",
+              "PreviousFields": {
+                "Balance": "90999952",
+                "Sequence": 21144475
+              },
+              "PreviousTxnID": "B34F73B4E32EB8B4D7D9E00671511C1CF343C5E8EDD5662C1C996820D316700A",
+              "PreviousTxnLgrSeq": 21144569
+            }
+          }
+        ],
+        "TransactionIndex": 31,
+        "TransactionResult": "tecNO_AUTH"
+      }
+    },
+    "approve/A": {
+      "hash": "FCC94E195E8FBF304AF772C7D7C7BB28E42350EE7CA5ED3BF0A029B39F30EB88",
+      "ledgerIndex": 21144578,
+      "code": "tesSUCCESS",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rBAfNpgLbJrregiqSQQ9Ec7aVfU8VymAkN",
+                "Flags": 2,
+                "MPTokenIssuanceID": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+                "OwnerNode": "0"
+              },
+              "LedgerEntryType": "MPToken",
+              "LedgerIndex": "30422250FB2CC0D946BB21B864E4361F9E7DD2FBC16925F63FB1DF586140B5BE",
+              "PreviousFields": {
+                "Flags": 0
+              },
+              "PreviousTxnID": "09E9D62FA1B6C9A29F958CC7B063A23C895DC1490925A37B1A27C0078C9E6C8A",
+              "PreviousTxnLgrSeq": 21144571
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "Balance": "90999928",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144477
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "9D94BD192C06D50BC32EE7BC6986B600ECD224C71DF6BA1B41009EB1820CF935",
+              "PreviousFields": {
+                "Balance": "90999940",
+                "Sequence": 21144476
+              },
+              "PreviousTxnID": "D050B465979691CA52BD953347B5D75AFB7FB02B087CB408674F8519B620AA6C",
+              "PreviousTxnLgrSeq": 21144577
+            }
+          }
+        ],
+        "TransactionIndex": 43,
+        "TransactionResult": "tesSUCCESS"
+      }
+    },
+    "approve/B": {
+      "hash": "57D73819A57039662DAAA2A15CB2AD2059EA3F8F57B57216D6FC805E32408436",
+      "ledgerIndex": 21144580,
+      "code": "tesSUCCESS",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rfynEEXwEcafTDQ1d8gqUVY2uWqbmg4qUP",
+                "Flags": 2,
+                "MPTokenIssuanceID": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+                "OwnerNode": "0"
+              },
+              "LedgerEntryType": "MPToken",
+              "LedgerIndex": "562727330578A66CF57DF54DC92F91F0B37A13F6E1401C452F93AD9E65EA2EC2",
+              "PreviousFields": {
+                "Flags": 0
+              },
+              "PreviousTxnID": "942F45148AEEF153756015F3D2FAFC7616E5F9FB5113CBA69A681DD2F503F998",
+              "PreviousTxnLgrSeq": 21144573
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "Balance": "90999916",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144478
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "9D94BD192C06D50BC32EE7BC6986B600ECD224C71DF6BA1B41009EB1820CF935",
+              "PreviousFields": {
+                "Balance": "90999928",
+                "Sequence": 21144477
+              },
+              "PreviousTxnID": "FCC94E195E8FBF304AF772C7D7C7BB28E42350EE7CA5ED3BF0A029B39F30EB88",
+              "PreviousTxnLgrSeq": 21144578
+            }
+          }
+        ],
+        "TransactionIndex": 11,
+        "TransactionResult": "tesSUCCESS"
+      }
+    },
+    "approve/C": {
+      "hash": "1F85A43D416D488D10C753414A130B010BA48A40E52D9D2C4861F6EC104FDEC9",
+      "ledgerIndex": 21144581,
+      "code": "tesSUCCESS",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rMFw2M1TyWD9iPiyKM9hyiwDEP97zHf6y7",
+                "Flags": 2,
+                "MPTokenIssuanceID": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+                "OwnerNode": "0"
+              },
+              "LedgerEntryType": "MPToken",
+              "LedgerIndex": "36A49119B258426B91C37A2BCFF3A706864E38688A6B2511785659156B0E9932",
+              "PreviousFields": {
+                "Flags": 0
+              },
+              "PreviousTxnID": "37C3F50E3EEDCE8AC3D6E16D7433F90BE4C06D18AEFD254F34D4A84A7444087C",
+              "PreviousTxnLgrSeq": 21144575
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "Balance": "90999904",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144479
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "9D94BD192C06D50BC32EE7BC6986B600ECD224C71DF6BA1B41009EB1820CF935",
+              "PreviousFields": {
+                "Balance": "90999916",
+                "Sequence": 21144478
+              },
+              "PreviousTxnID": "57D73819A57039662DAAA2A15CB2AD2059EA3F8F57B57216D6FC805E32408436",
+              "PreviousTxnLgrSeq": 21144580
+            }
+          }
+        ],
+        "TransactionIndex": 0,
+        "TransactionResult": "tesSUCCESS"
+      }
+    },
+    "mint/A": {
+      "hash": "EB69E0B7B964002CD1E528CAA83A7F0C3A9AFCCB84AEBD1B94E654415D70B5D0",
+      "ledgerIndex": 21144583,
+      "code": "tesSUCCESS",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rBAfNpgLbJrregiqSQQ9Ec7aVfU8VymAkN",
+                "Flags": 2,
+                "MPTAmount": "500",
+                "MPTokenIssuanceID": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+                "OwnerNode": "0"
+              },
+              "LedgerEntryType": "MPToken",
+              "LedgerIndex": "30422250FB2CC0D946BB21B864E4361F9E7DD2FBC16925F63FB1DF586140B5BE",
+              "PreviousFields": {},
+              "PreviousTxnID": "FCC94E195E8FBF304AF772C7D7C7BB28E42350EE7CA5ED3BF0A029B39F30EB88",
+              "PreviousTxnLgrSeq": 21144578
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "Balance": "90999892",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144480
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "9D94BD192C06D50BC32EE7BC6986B600ECD224C71DF6BA1B41009EB1820CF935",
+              "PreviousFields": {
+                "Balance": "90999904",
+                "Sequence": 21144479
+              },
+              "PreviousTxnID": "1F85A43D416D488D10C753414A130B010BA48A40E52D9D2C4861F6EC104FDEC9",
+              "PreviousTxnLgrSeq": 21144581
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Flags": 102,
+                "Issuer": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "MaximumAmount": "1000000000",
+                "OutstandingAmount": "500",
+                "OwnerNode": "0",
+                "Sequence": 21144474
+              },
+              "LedgerEntryType": "MPTokenIssuance",
+              "LedgerIndex": "C4D14A356FD3E2762A59AA74411630F463A212E0D24739C96DD9EEFC481B3D18",
+              "PreviousFields": {
+                "OutstandingAmount": "0"
+              },
+              "PreviousTxnID": "B34F73B4E32EB8B4D7D9E00671511C1CF343C5E8EDD5662C1C996820D316700A",
+              "PreviousTxnLgrSeq": 21144569
+            }
+          }
+        ],
+        "TransactionIndex": 18,
+        "TransactionResult": "tesSUCCESS",
+        "delivered_amount": {
+          "mpt_issuance_id": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+          "value": "500"
+        }
+      }
+    },
+    "mint/B": {
+      "hash": "08B4A6B1C4A2EE440D7885DC6024EC788501EB4444A9FCAE5AC22938D928F8B8",
+      "ledgerIndex": 21144585,
+      "code": "tesSUCCESS",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rfynEEXwEcafTDQ1d8gqUVY2uWqbmg4qUP",
+                "Flags": 2,
+                "MPTAmount": "1000",
+                "MPTokenIssuanceID": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+                "OwnerNode": "0"
+              },
+              "LedgerEntryType": "MPToken",
+              "LedgerIndex": "562727330578A66CF57DF54DC92F91F0B37A13F6E1401C452F93AD9E65EA2EC2",
+              "PreviousFields": {},
+              "PreviousTxnID": "57D73819A57039662DAAA2A15CB2AD2059EA3F8F57B57216D6FC805E32408436",
+              "PreviousTxnLgrSeq": 21144580
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "Balance": "90999880",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144481
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "9D94BD192C06D50BC32EE7BC6986B600ECD224C71DF6BA1B41009EB1820CF935",
+              "PreviousFields": {
+                "Balance": "90999892",
+                "Sequence": 21144480
+              },
+              "PreviousTxnID": "EB69E0B7B964002CD1E528CAA83A7F0C3A9AFCCB84AEBD1B94E654415D70B5D0",
+              "PreviousTxnLgrSeq": 21144583
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Flags": 102,
+                "Issuer": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "MaximumAmount": "1000000000",
+                "OutstandingAmount": "1500",
+                "OwnerNode": "0",
+                "Sequence": 21144474
+              },
+              "LedgerEntryType": "MPTokenIssuance",
+              "LedgerIndex": "C4D14A356FD3E2762A59AA74411630F463A212E0D24739C96DD9EEFC481B3D18",
+              "PreviousFields": {
+                "OutstandingAmount": "500"
+              },
+              "PreviousTxnID": "EB69E0B7B964002CD1E528CAA83A7F0C3A9AFCCB84AEBD1B94E654415D70B5D0",
+              "PreviousTxnLgrSeq": 21144583
+            }
+          }
+        ],
+        "TransactionIndex": 6,
+        "TransactionResult": "tesSUCCESS",
+        "delivered_amount": {
+          "mpt_issuance_id": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+          "value": "1000"
+        }
+      }
+    },
+    "mint/C": {
+      "hash": "9D666CFC8968BA99D8AF44854A0EB5AAB00E97941BF2764A53543A34065ADB28",
+      "ledgerIndex": 21144587,
+      "code": "tesSUCCESS",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rMFw2M1TyWD9iPiyKM9hyiwDEP97zHf6y7",
+                "Flags": 2,
+                "MPTAmount": "200",
+                "MPTokenIssuanceID": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+                "OwnerNode": "0"
+              },
+              "LedgerEntryType": "MPToken",
+              "LedgerIndex": "36A49119B258426B91C37A2BCFF3A706864E38688A6B2511785659156B0E9932",
+              "PreviousFields": {},
+              "PreviousTxnID": "1F85A43D416D488D10C753414A130B010BA48A40E52D9D2C4861F6EC104FDEC9",
+              "PreviousTxnLgrSeq": 21144581
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "Balance": "90999868",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144482
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "9D94BD192C06D50BC32EE7BC6986B600ECD224C71DF6BA1B41009EB1820CF935",
+              "PreviousFields": {
+                "Balance": "90999880",
+                "Sequence": 21144481
+              },
+              "PreviousTxnID": "08B4A6B1C4A2EE440D7885DC6024EC788501EB4444A9FCAE5AC22938D928F8B8",
+              "PreviousTxnLgrSeq": 21144585
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Flags": 102,
+                "Issuer": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "MaximumAmount": "1000000000",
+                "OutstandingAmount": "1700",
+                "OwnerNode": "0",
+                "Sequence": 21144474
+              },
+              "LedgerEntryType": "MPTokenIssuance",
+              "LedgerIndex": "C4D14A356FD3E2762A59AA74411630F463A212E0D24739C96DD9EEFC481B3D18",
+              "PreviousFields": {
+                "OutstandingAmount": "1500"
+              },
+              "PreviousTxnID": "08B4A6B1C4A2EE440D7885DC6024EC788501EB4444A9FCAE5AC22938D928F8B8",
+              "PreviousTxnLgrSeq": 21144585
+            }
+          }
+        ],
+        "TransactionIndex": 1,
+        "TransactionResult": "tesSUCCESS",
+        "delivered_amount": {
+          "mpt_issuance_id": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+          "value": "200"
+        }
+      }
+    },
+    "freeze/A": {
+      "hash": "78CFD54B632588AFABCF163D784B799BD1FA2CB9A52464D38547CDF856D109F3",
+      "ledgerIndex": 21144589,
+      "code": "tesSUCCESS",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rBAfNpgLbJrregiqSQQ9Ec7aVfU8VymAkN",
+                "Flags": 3,
+                "MPTAmount": "500",
+                "MPTokenIssuanceID": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+                "OwnerNode": "0"
+              },
+              "LedgerEntryType": "MPToken",
+              "LedgerIndex": "30422250FB2CC0D946BB21B864E4361F9E7DD2FBC16925F63FB1DF586140B5BE",
+              "PreviousFields": {
+                "Flags": 2
+              },
+              "PreviousTxnID": "EB69E0B7B964002CD1E528CAA83A7F0C3A9AFCCB84AEBD1B94E654415D70B5D0",
+              "PreviousTxnLgrSeq": 21144583
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "Balance": "90999856",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144483
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "9D94BD192C06D50BC32EE7BC6986B600ECD224C71DF6BA1B41009EB1820CF935",
+              "PreviousFields": {
+                "Balance": "90999868",
+                "Sequence": 21144482
+              },
+              "PreviousTxnID": "9D666CFC8968BA99D8AF44854A0EB5AAB00E97941BF2764A53543A34065ADB28",
+              "PreviousTxnLgrSeq": 21144587
+            }
+          }
+        ],
+        "TransactionIndex": 2,
+        "TransactionResult": "tesSUCCESS"
+      }
+    },
+    "deny/A-send": {
+      "hash": "060FFFD3654DD055CD62EF17A9CDECA9611AE28BC6DD078EB4456ABB2D564E29",
+      "ledgerIndex": 21144590,
+      "code": "tecLOCKED",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rBAfNpgLbJrregiqSQQ9Ec7aVfU8VymAkN",
+                "Balance": "2999976",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144565
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "D67E0AD0A439A1094932A816E786D514BCECE46C461D6123E6561B1A7CE27AE0",
+              "PreviousFields": {
+                "Balance": "2999988",
+                "Sequence": 21144564
+              },
+              "PreviousTxnID": "09E9D62FA1B6C9A29F958CC7B063A23C895DC1490925A37B1A27C0078C9E6C8A",
+              "PreviousTxnLgrSeq": 21144571
+            }
+          }
+        ],
+        "TransactionIndex": 4,
+        "TransactionResult": "tecLOCKED"
+      }
+    },
+    "deny/A-receive": {
+      "hash": "B003955BE05D5DED17136602E5EBA1CD082C853A46BEAAED68336B4BBFE2BC8D",
+      "ledgerIndex": 21144592,
+      "code": "tecLOCKED",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rfynEEXwEcafTDQ1d8gqUVY2uWqbmg4qUP",
+                "Balance": "2999976",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144567
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "6AF222A6BAE3FDB3968DF3F39768014B7858B8B6D60949E1238B74D704DB928A",
+              "PreviousFields": {
+                "Balance": "2999988",
+                "Sequence": 21144566
+              },
+              "PreviousTxnID": "942F45148AEEF153756015F3D2FAFC7616E5F9FB5113CBA69A681DD2F503F998",
+              "PreviousTxnLgrSeq": 21144573
+            }
+          }
+        ],
+        "TransactionIndex": 27,
+        "TransactionResult": "tecLOCKED"
+      }
+    },
+    "exception/A-redemption": {
+      "hash": "1B48A8EF1A15D0A1A53A2065953D6679B29841C6248938408B11B266645BF082",
+      "ledgerIndex": 21144594,
+      "code": "tesSUCCESS",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rBAfNpgLbJrregiqSQQ9Ec7aVfU8VymAkN",
+                "Flags": 3,
+                "MPTAmount": "499",
+                "MPTokenIssuanceID": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+                "OwnerNode": "0"
+              },
+              "LedgerEntryType": "MPToken",
+              "LedgerIndex": "30422250FB2CC0D946BB21B864E4361F9E7DD2FBC16925F63FB1DF586140B5BE",
+              "PreviousFields": {
+                "MPTAmount": "500"
+              },
+              "PreviousTxnID": "78CFD54B632588AFABCF163D784B799BD1FA2CB9A52464D38547CDF856D109F3",
+              "PreviousTxnLgrSeq": 21144589
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Flags": 102,
+                "Issuer": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "MaximumAmount": "1000000000",
+                "OutstandingAmount": "1699",
+                "OwnerNode": "0",
+                "Sequence": 21144474
+              },
+              "LedgerEntryType": "MPTokenIssuance",
+              "LedgerIndex": "C4D14A356FD3E2762A59AA74411630F463A212E0D24739C96DD9EEFC481B3D18",
+              "PreviousFields": {
+                "OutstandingAmount": "1700"
+              },
+              "PreviousTxnID": "9D666CFC8968BA99D8AF44854A0EB5AAB00E97941BF2764A53543A34065ADB28",
+              "PreviousTxnLgrSeq": 21144587
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rBAfNpgLbJrregiqSQQ9Ec7aVfU8VymAkN",
+                "Balance": "2999964",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144566
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "D67E0AD0A439A1094932A816E786D514BCECE46C461D6123E6561B1A7CE27AE0",
+              "PreviousFields": {
+                "Balance": "2999976",
+                "Sequence": 21144565
+              },
+              "PreviousTxnID": "060FFFD3654DD055CD62EF17A9CDECA9611AE28BC6DD078EB4456ABB2D564E29",
+              "PreviousTxnLgrSeq": 21144590
+            }
+          }
+        ],
+        "TransactionIndex": 18,
+        "TransactionResult": "tesSUCCESS",
+        "delivered_amount": {
+          "mpt_issuance_id": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+          "value": "1"
+        }
+      }
+    },
+    "unfreeze/A": {
+      "hash": "FB073BCDBA472789F6FE5B9745D21CC67F5D73607B78F848191A9DC849F622B7",
+      "ledgerIndex": 21144596,
+      "code": "tesSUCCESS",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rBAfNpgLbJrregiqSQQ9Ec7aVfU8VymAkN",
+                "Flags": 2,
+                "MPTAmount": "499",
+                "MPTokenIssuanceID": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+                "OwnerNode": "0"
+              },
+              "LedgerEntryType": "MPToken",
+              "LedgerIndex": "30422250FB2CC0D946BB21B864E4361F9E7DD2FBC16925F63FB1DF586140B5BE",
+              "PreviousFields": {
+                "Flags": 3
+              },
+              "PreviousTxnID": "1B48A8EF1A15D0A1A53A2065953D6679B29841C6248938408B11B266645BF082",
+              "PreviousTxnLgrSeq": 21144594
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "Balance": "90999844",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144484
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "9D94BD192C06D50BC32EE7BC6986B600ECD224C71DF6BA1B41009EB1820CF935",
+              "PreviousFields": {
+                "Balance": "90999856",
+                "Sequence": 21144483
+              },
+              "PreviousTxnID": "78CFD54B632588AFABCF163D784B799BD1FA2CB9A52464D38547CDF856D109F3",
+              "PreviousTxnLgrSeq": 21144589
+            }
+          }
+        ],
+        "TransactionIndex": 1,
+        "TransactionResult": "tesSUCCESS"
+      }
+    },
+    "restore/A": {
+      "hash": "6007C23543015E655818D06027D8C73259C93F38F41245D538905EC4ED40507C",
+      "ledgerIndex": 21144598,
+      "code": "tesSUCCESS",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rBAfNpgLbJrregiqSQQ9Ec7aVfU8VymAkN",
+                "Flags": 2,
+                "MPTAmount": "500",
+                "MPTokenIssuanceID": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+                "OwnerNode": "0"
+              },
+              "LedgerEntryType": "MPToken",
+              "LedgerIndex": "30422250FB2CC0D946BB21B864E4361F9E7DD2FBC16925F63FB1DF586140B5BE",
+              "PreviousFields": {
+                "MPTAmount": "499"
+              },
+              "PreviousTxnID": "FB073BCDBA472789F6FE5B9745D21CC67F5D73607B78F848191A9DC849F622B7",
+              "PreviousTxnLgrSeq": 21144596
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "Balance": "90999832",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144485
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "9D94BD192C06D50BC32EE7BC6986B600ECD224C71DF6BA1B41009EB1820CF935",
+              "PreviousFields": {
+                "Balance": "90999844",
+                "Sequence": 21144484
+              },
+              "PreviousTxnID": "FB073BCDBA472789F6FE5B9745D21CC67F5D73607B78F848191A9DC849F622B7",
+              "PreviousTxnLgrSeq": 21144596
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Flags": 102,
+                "Issuer": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "MaximumAmount": "1000000000",
+                "OutstandingAmount": "1700",
+                "OwnerNode": "0",
+                "Sequence": 21144474
+              },
+              "LedgerEntryType": "MPTokenIssuance",
+              "LedgerIndex": "C4D14A356FD3E2762A59AA74411630F463A212E0D24739C96DD9EEFC481B3D18",
+              "PreviousFields": {
+                "OutstandingAmount": "1699"
+              },
+              "PreviousTxnID": "1B48A8EF1A15D0A1A53A2065953D6679B29841C6248938408B11B266645BF082",
+              "PreviousTxnLgrSeq": 21144594
+            }
+          }
+        ],
+        "TransactionIndex": 11,
+        "TransactionResult": "tesSUCCESS",
+        "delivered_amount": {
+          "mpt_issuance_id": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+          "value": "1"
+        }
+      }
+    },
+    "transfer/A-B": {
+      "hash": "B67842F4DF1AF5C9464E60BD12169ED350F3986FC3EA4495B3FE8E1B3C5AE42E",
+      "ledgerIndex": 21144600,
+      "code": "tesSUCCESS",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rBAfNpgLbJrregiqSQQ9Ec7aVfU8VymAkN",
+                "Flags": 2,
+                "MPTAmount": "499",
+                "MPTokenIssuanceID": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+                "OwnerNode": "0"
+              },
+              "LedgerEntryType": "MPToken",
+              "LedgerIndex": "30422250FB2CC0D946BB21B864E4361F9E7DD2FBC16925F63FB1DF586140B5BE",
+              "PreviousFields": {
+                "MPTAmount": "500"
+              },
+              "PreviousTxnID": "6007C23543015E655818D06027D8C73259C93F38F41245D538905EC4ED40507C",
+              "PreviousTxnLgrSeq": 21144598
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rfynEEXwEcafTDQ1d8gqUVY2uWqbmg4qUP",
+                "Flags": 2,
+                "MPTAmount": "1001",
+                "MPTokenIssuanceID": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+                "OwnerNode": "0"
+              },
+              "LedgerEntryType": "MPToken",
+              "LedgerIndex": "562727330578A66CF57DF54DC92F91F0B37A13F6E1401C452F93AD9E65EA2EC2",
+              "PreviousFields": {
+                "MPTAmount": "1000"
+              },
+              "PreviousTxnID": "08B4A6B1C4A2EE440D7885DC6024EC788501EB4444A9FCAE5AC22938D928F8B8",
+              "PreviousTxnLgrSeq": 21144585
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rBAfNpgLbJrregiqSQQ9Ec7aVfU8VymAkN",
+                "Balance": "2999952",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144567
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "D67E0AD0A439A1094932A816E786D514BCECE46C461D6123E6561B1A7CE27AE0",
+              "PreviousFields": {
+                "Balance": "2999964",
+                "Sequence": 21144566
+              },
+              "PreviousTxnID": "1B48A8EF1A15D0A1A53A2065953D6679B29841C6248938408B11B266645BF082",
+              "PreviousTxnLgrSeq": 21144594
+            }
+          }
+        ],
+        "TransactionIndex": 3,
+        "TransactionResult": "tesSUCCESS",
+        "delivered_amount": {
+          "mpt_issuance_id": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+          "value": "1"
+        }
+      }
+    },
+    "transfer/B-A": {
+      "hash": "7C94319467FE397D8EB3EDAA643B6B446C8681112001132F48C9EF129A468F7E",
+      "ledgerIndex": 21144602,
+      "code": "tesSUCCESS",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rBAfNpgLbJrregiqSQQ9Ec7aVfU8VymAkN",
+                "Flags": 2,
+                "MPTAmount": "500",
+                "MPTokenIssuanceID": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+                "OwnerNode": "0"
+              },
+              "LedgerEntryType": "MPToken",
+              "LedgerIndex": "30422250FB2CC0D946BB21B864E4361F9E7DD2FBC16925F63FB1DF586140B5BE",
+              "PreviousFields": {
+                "MPTAmount": "499"
+              },
+              "PreviousTxnID": "B67842F4DF1AF5C9464E60BD12169ED350F3986FC3EA4495B3FE8E1B3C5AE42E",
+              "PreviousTxnLgrSeq": 21144600
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rfynEEXwEcafTDQ1d8gqUVY2uWqbmg4qUP",
+                "Flags": 2,
+                "MPTAmount": "1000",
+                "MPTokenIssuanceID": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+                "OwnerNode": "0"
+              },
+              "LedgerEntryType": "MPToken",
+              "LedgerIndex": "562727330578A66CF57DF54DC92F91F0B37A13F6E1401C452F93AD9E65EA2EC2",
+              "PreviousFields": {
+                "MPTAmount": "1001"
+              },
+              "PreviousTxnID": "B67842F4DF1AF5C9464E60BD12169ED350F3986FC3EA4495B3FE8E1B3C5AE42E",
+              "PreviousTxnLgrSeq": 21144600
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rfynEEXwEcafTDQ1d8gqUVY2uWqbmg4qUP",
+                "Balance": "2999964",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144568
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "6AF222A6BAE3FDB3968DF3F39768014B7858B8B6D60949E1238B74D704DB928A",
+              "PreviousFields": {
+                "Balance": "2999976",
+                "Sequence": 21144567
+              },
+              "PreviousTxnID": "B003955BE05D5DED17136602E5EBA1CD082C853A46BEAAED68336B4BBFE2BC8D",
+              "PreviousTxnLgrSeq": 21144592
+            }
+          }
+        ],
+        "TransactionIndex": 6,
+        "TransactionResult": "tesSUCCESS",
+        "delivered_amount": {
+          "mpt_issuance_id": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+          "value": "1"
+        }
+      }
+    },
+    "clawback/B": {
+      "hash": "402C7984B7A97A5DD82D7573D6E13C513D0ECC0638780DD1125E6015BF5E34BA",
+      "ledgerIndex": 21144604,
+      "code": "tesSUCCESS",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rfynEEXwEcafTDQ1d8gqUVY2uWqbmg4qUP",
+                "Flags": 2,
+                "MPTAmount": "700",
+                "MPTokenIssuanceID": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+                "OwnerNode": "0"
+              },
+              "LedgerEntryType": "MPToken",
+              "LedgerIndex": "562727330578A66CF57DF54DC92F91F0B37A13F6E1401C452F93AD9E65EA2EC2",
+              "PreviousFields": {
+                "MPTAmount": "1000"
+              },
+              "PreviousTxnID": "7C94319467FE397D8EB3EDAA643B6B446C8681112001132F48C9EF129A468F7E",
+              "PreviousTxnLgrSeq": 21144602
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "Balance": "90999820",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144486
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "9D94BD192C06D50BC32EE7BC6986B600ECD224C71DF6BA1B41009EB1820CF935",
+              "PreviousFields": {
+                "Balance": "90999832",
+                "Sequence": 21144485
+              },
+              "PreviousTxnID": "6007C23543015E655818D06027D8C73259C93F38F41245D538905EC4ED40507C",
+              "PreviousTxnLgrSeq": 21144598
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Flags": 102,
+                "Issuer": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "MaximumAmount": "1000000000",
+                "OutstandingAmount": "1400",
+                "OwnerNode": "0",
+                "Sequence": 21144474
+              },
+              "LedgerEntryType": "MPTokenIssuance",
+              "LedgerIndex": "C4D14A356FD3E2762A59AA74411630F463A212E0D24739C96DD9EEFC481B3D18",
+              "PreviousFields": {
+                "OutstandingAmount": "1700"
+              },
+              "PreviousTxnID": "6007C23543015E655818D06027D8C73259C93F38F41245D538905EC4ED40507C",
+              "PreviousTxnLgrSeq": 21144598
+            }
+          }
+        ],
+        "TransactionIndex": 2,
+        "TransactionResult": "tesSUCCESS"
+      }
+    },
+    "freeze/global": {
+      "hash": "DDF7345753C344AE425F0844A7C8F79E7CD1207C522E8F85D1B144F73C299DC2",
+      "ledgerIndex": 21144605,
+      "code": "tesSUCCESS",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "Balance": "90999808",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144487
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "9D94BD192C06D50BC32EE7BC6986B600ECD224C71DF6BA1B41009EB1820CF935",
+              "PreviousFields": {
+                "Balance": "90999820",
+                "Sequence": 21144486
+              },
+              "PreviousTxnID": "402C7984B7A97A5DD82D7573D6E13C513D0ECC0638780DD1125E6015BF5E34BA",
+              "PreviousTxnLgrSeq": 21144604
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Flags": 103,
+                "Issuer": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "MaximumAmount": "1000000000",
+                "OutstandingAmount": "1400",
+                "OwnerNode": "0",
+                "Sequence": 21144474
+              },
+              "LedgerEntryType": "MPTokenIssuance",
+              "LedgerIndex": "C4D14A356FD3E2762A59AA74411630F463A212E0D24739C96DD9EEFC481B3D18",
+              "PreviousFields": {
+                "Flags": 102
+              },
+              "PreviousTxnID": "402C7984B7A97A5DD82D7573D6E13C513D0ECC0638780DD1125E6015BF5E34BA",
+              "PreviousTxnLgrSeq": 21144604
+            }
+          }
+        ],
+        "TransactionIndex": 0,
+        "TransactionResult": "tesSUCCESS"
+      }
+    },
+    "deny/global-A-B": {
+      "hash": "04ADED9B22DA626A0478021002547F641DE092DAF752395A67EBA9EACDC44C7E",
+      "ledgerIndex": 21144607,
+      "code": "tecLOCKED",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rBAfNpgLbJrregiqSQQ9Ec7aVfU8VymAkN",
+                "Balance": "2999940",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144568
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "D67E0AD0A439A1094932A816E786D514BCECE46C461D6123E6561B1A7CE27AE0",
+              "PreviousFields": {
+                "Balance": "2999952",
+                "Sequence": 21144567
+              },
+              "PreviousTxnID": "B67842F4DF1AF5C9464E60BD12169ED350F3986FC3EA4495B3FE8E1B3C5AE42E",
+              "PreviousTxnLgrSeq": 21144600
+            }
+          }
+        ],
+        "TransactionIndex": 14,
+        "TransactionResult": "tecLOCKED"
+      }
+    },
+    "deny/global-B-A": {
+      "hash": "ED46B430AA171488B187A97C2A7CEBFB241805EC80AA6DAD7CA4CFE25DEFA16C",
+      "ledgerIndex": 21144608,
+      "code": "tecLOCKED",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rfynEEXwEcafTDQ1d8gqUVY2uWqbmg4qUP",
+                "Balance": "2999952",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144569
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "6AF222A6BAE3FDB3968DF3F39768014B7858B8B6D60949E1238B74D704DB928A",
+              "PreviousFields": {
+                "Balance": "2999964",
+                "Sequence": 21144568
+              },
+              "PreviousTxnID": "7C94319467FE397D8EB3EDAA643B6B446C8681112001132F48C9EF129A468F7E",
+              "PreviousTxnLgrSeq": 21144602
+            }
+          }
+        ],
+        "TransactionIndex": 25,
+        "TransactionResult": "tecLOCKED"
+      }
+    },
+    "exception/global-redemption": {
+      "hash": "3C812F1A72F5C9EA4462BAAD0340FC795FB07A9DEF41EDD5B65E2632B3A17E8A",
+      "ledgerIndex": 21144610,
+      "code": "tesSUCCESS",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rBAfNpgLbJrregiqSQQ9Ec7aVfU8VymAkN",
+                "Flags": 2,
+                "MPTAmount": "499",
+                "MPTokenIssuanceID": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+                "OwnerNode": "0"
+              },
+              "LedgerEntryType": "MPToken",
+              "LedgerIndex": "30422250FB2CC0D946BB21B864E4361F9E7DD2FBC16925F63FB1DF586140B5BE",
+              "PreviousFields": {
+                "MPTAmount": "500"
+              },
+              "PreviousTxnID": "7C94319467FE397D8EB3EDAA643B6B446C8681112001132F48C9EF129A468F7E",
+              "PreviousTxnLgrSeq": 21144602
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Flags": 103,
+                "Issuer": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "MaximumAmount": "1000000000",
+                "OutstandingAmount": "1399",
+                "OwnerNode": "0",
+                "Sequence": 21144474
+              },
+              "LedgerEntryType": "MPTokenIssuance",
+              "LedgerIndex": "C4D14A356FD3E2762A59AA74411630F463A212E0D24739C96DD9EEFC481B3D18",
+              "PreviousFields": {
+                "OutstandingAmount": "1400"
+              },
+              "PreviousTxnID": "DDF7345753C344AE425F0844A7C8F79E7CD1207C522E8F85D1B144F73C299DC2",
+              "PreviousTxnLgrSeq": 21144605
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rBAfNpgLbJrregiqSQQ9Ec7aVfU8VymAkN",
+                "Balance": "2999928",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144569
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "D67E0AD0A439A1094932A816E786D514BCECE46C461D6123E6561B1A7CE27AE0",
+              "PreviousFields": {
+                "Balance": "2999940",
+                "Sequence": 21144568
+              },
+              "PreviousTxnID": "04ADED9B22DA626A0478021002547F641DE092DAF752395A67EBA9EACDC44C7E",
+              "PreviousTxnLgrSeq": 21144607
+            }
+          }
+        ],
+        "TransactionIndex": 14,
+        "TransactionResult": "tesSUCCESS",
+        "delivered_amount": {
+          "mpt_issuance_id": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+          "value": "1"
+        }
+      }
+    },
+    "unfreeze/global": {
+      "hash": "588CE8E0D05C2A8DF530451C656A933C2E18068E30AECF3A7C8C926DC639E9DD",
+      "ledgerIndex": 21144611,
+      "code": "tesSUCCESS",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "Balance": "90999796",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144488
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "9D94BD192C06D50BC32EE7BC6986B600ECD224C71DF6BA1B41009EB1820CF935",
+              "PreviousFields": {
+                "Balance": "90999808",
+                "Sequence": 21144487
+              },
+              "PreviousTxnID": "DDF7345753C344AE425F0844A7C8F79E7CD1207C522E8F85D1B144F73C299DC2",
+              "PreviousTxnLgrSeq": 21144605
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Flags": 102,
+                "Issuer": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "MaximumAmount": "1000000000",
+                "OutstandingAmount": "1399",
+                "OwnerNode": "0",
+                "Sequence": 21144474
+              },
+              "LedgerEntryType": "MPTokenIssuance",
+              "LedgerIndex": "C4D14A356FD3E2762A59AA74411630F463A212E0D24739C96DD9EEFC481B3D18",
+              "PreviousFields": {
+                "Flags": 103
+              },
+              "PreviousTxnID": "3C812F1A72F5C9EA4462BAAD0340FC795FB07A9DEF41EDD5B65E2632B3A17E8A",
+              "PreviousTxnLgrSeq": 21144610
+            }
+          }
+        ],
+        "TransactionIndex": 11,
+        "TransactionResult": "tesSUCCESS"
+      }
+    },
+    "restore/global-A": {
+      "hash": "98C9061FE26E261214637ED9B30C522438FCF1048F42ADB376F24ACCA4238CAE",
+      "ledgerIndex": 21144613,
+      "code": "tesSUCCESS",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rBAfNpgLbJrregiqSQQ9Ec7aVfU8VymAkN",
+                "Flags": 2,
+                "MPTAmount": "500",
+                "MPTokenIssuanceID": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+                "OwnerNode": "0"
+              },
+              "LedgerEntryType": "MPToken",
+              "LedgerIndex": "30422250FB2CC0D946BB21B864E4361F9E7DD2FBC16925F63FB1DF586140B5BE",
+              "PreviousFields": {
+                "MPTAmount": "499"
+              },
+              "PreviousTxnID": "3C812F1A72F5C9EA4462BAAD0340FC795FB07A9DEF41EDD5B65E2632B3A17E8A",
+              "PreviousTxnLgrSeq": 21144610
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "Balance": "90999784",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144489
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "9D94BD192C06D50BC32EE7BC6986B600ECD224C71DF6BA1B41009EB1820CF935",
+              "PreviousFields": {
+                "Balance": "90999796",
+                "Sequence": 21144488
+              },
+              "PreviousTxnID": "588CE8E0D05C2A8DF530451C656A933C2E18068E30AECF3A7C8C926DC639E9DD",
+              "PreviousTxnLgrSeq": 21144611
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Flags": 102,
+                "Issuer": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "MaximumAmount": "1000000000",
+                "OutstandingAmount": "1400",
+                "OwnerNode": "0",
+                "Sequence": 21144474
+              },
+              "LedgerEntryType": "MPTokenIssuance",
+              "LedgerIndex": "C4D14A356FD3E2762A59AA74411630F463A212E0D24739C96DD9EEFC481B3D18",
+              "PreviousFields": {
+                "OutstandingAmount": "1399"
+              },
+              "PreviousTxnID": "588CE8E0D05C2A8DF530451C656A933C2E18068E30AECF3A7C8C926DC639E9DD",
+              "PreviousTxnLgrSeq": 21144611
+            }
+          }
+        ],
+        "TransactionIndex": 9,
+        "TransactionResult": "tesSUCCESS",
+        "delivered_amount": {
+          "mpt_issuance_id": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+          "value": "1"
+        }
+      }
+    },
+    "freeze/B": {
+      "hash": "1D7F011687B746CA50FD1B4BF5CEE1ADCB63531C64F01BA9CA9F63044C9DCD91",
+      "ledgerIndex": 21144614,
+      "code": "tesSUCCESS",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rfynEEXwEcafTDQ1d8gqUVY2uWqbmg4qUP",
+                "Flags": 3,
+                "MPTAmount": "700",
+                "MPTokenIssuanceID": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+                "OwnerNode": "0"
+              },
+              "LedgerEntryType": "MPToken",
+              "LedgerIndex": "562727330578A66CF57DF54DC92F91F0B37A13F6E1401C452F93AD9E65EA2EC2",
+              "PreviousFields": {
+                "Flags": 2
+              },
+              "PreviousTxnID": "402C7984B7A97A5DD82D7573D6E13C513D0ECC0638780DD1125E6015BF5E34BA",
+              "PreviousTxnLgrSeq": 21144604
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "Balance": "90999772",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144490
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "9D94BD192C06D50BC32EE7BC6986B600ECD224C71DF6BA1B41009EB1820CF935",
+              "PreviousFields": {
+                "Balance": "90999784",
+                "Sequence": 21144489
+              },
+              "PreviousTxnID": "98C9061FE26E261214637ED9B30C522438FCF1048F42ADB376F24ACCA4238CAE",
+              "PreviousTxnLgrSeq": 21144613
+            }
+          }
+        ],
+        "TransactionIndex": 13,
+        "TransactionResult": "tesSUCCESS"
+      }
+    },
+    "deny/B-send": {
+      "hash": "674A80A2A84CD44B4EB6EDA750F281C6D4127ADD3E16D6B961AB3A51E30B58D7",
+      "ledgerIndex": 21144616,
+      "code": "tecLOCKED",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rfynEEXwEcafTDQ1d8gqUVY2uWqbmg4qUP",
+                "Balance": "2999940",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144570
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "6AF222A6BAE3FDB3968DF3F39768014B7858B8B6D60949E1238B74D704DB928A",
+              "PreviousFields": {
+                "Balance": "2999952",
+                "Sequence": 21144569
+              },
+              "PreviousTxnID": "ED46B430AA171488B187A97C2A7CEBFB241805EC80AA6DAD7CA4CFE25DEFA16C",
+              "PreviousTxnLgrSeq": 21144608
+            }
+          }
+        ],
+        "TransactionIndex": 6,
+        "TransactionResult": "tecLOCKED"
+      }
+    },
+    "deny/B-receive": {
+      "hash": "1DADD482816A4E5EDD3A9B0D782F9260F038D72EEDF6C643068FBE645152A125",
+      "ledgerIndex": 21144617,
+      "code": "tecLOCKED",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rBAfNpgLbJrregiqSQQ9Ec7aVfU8VymAkN",
+                "Balance": "2999916",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144570
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "D67E0AD0A439A1094932A816E786D514BCECE46C461D6123E6561B1A7CE27AE0",
+              "PreviousFields": {
+                "Balance": "2999928",
+                "Sequence": 21144569
+              },
+              "PreviousTxnID": "3C812F1A72F5C9EA4462BAAD0340FC795FB07A9DEF41EDD5B65E2632B3A17E8A",
+              "PreviousTxnLgrSeq": 21144610
+            }
+          }
+        ],
+        "TransactionIndex": 19,
+        "TransactionResult": "tecLOCKED"
+      }
+    },
+    "ban/C/revoke": {
+      "hash": "BD0AE0EF31E576A49088B9E69EC087AF0762F5EF4811EA956987DEA8D4EB8FAF",
+      "ledgerIndex": 21144619,
+      "code": "tesSUCCESS",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rMFw2M1TyWD9iPiyKM9hyiwDEP97zHf6y7",
+                "Flags": 0,
+                "MPTAmount": "200",
+                "MPTokenIssuanceID": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+                "OwnerNode": "0"
+              },
+              "LedgerEntryType": "MPToken",
+              "LedgerIndex": "36A49119B258426B91C37A2BCFF3A706864E38688A6B2511785659156B0E9932",
+              "PreviousFields": {
+                "Flags": 2
+              },
+              "PreviousTxnID": "9D666CFC8968BA99D8AF44854A0EB5AAB00E97941BF2764A53543A34065ADB28",
+              "PreviousTxnLgrSeq": 21144587
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "Balance": "90999760",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144491
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "9D94BD192C06D50BC32EE7BC6986B600ECD224C71DF6BA1B41009EB1820CF935",
+              "PreviousFields": {
+                "Balance": "90999772",
+                "Sequence": 21144490
+              },
+              "PreviousTxnID": "1D7F011687B746CA50FD1B4BF5CEE1ADCB63531C64F01BA9CA9F63044C9DCD91",
+              "PreviousTxnLgrSeq": 21144614
+            }
+          }
+        ],
+        "TransactionIndex": 11,
+        "TransactionResult": "tesSUCCESS"
+      }
+    },
+    "ban/C/clawback": {
+      "hash": "8ED6C955D042DE1352906054A10AFF431A67DB2407B0A739FE1E3EB6449C7F97",
+      "ledgerIndex": 21144621,
+      "code": "tesSUCCESS",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rMFw2M1TyWD9iPiyKM9hyiwDEP97zHf6y7",
+                "Flags": 0,
+                "MPTokenIssuanceID": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+                "OwnerNode": "0"
+              },
+              "LedgerEntryType": "MPToken",
+              "LedgerIndex": "36A49119B258426B91C37A2BCFF3A706864E38688A6B2511785659156B0E9932",
+              "PreviousFields": {
+                "MPTAmount": "200"
+              },
+              "PreviousTxnID": "BD0AE0EF31E576A49088B9E69EC087AF0762F5EF4811EA956987DEA8D4EB8FAF",
+              "PreviousTxnLgrSeq": 21144619
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "Balance": "90999748",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144492
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "9D94BD192C06D50BC32EE7BC6986B600ECD224C71DF6BA1B41009EB1820CF935",
+              "PreviousFields": {
+                "Balance": "90999760",
+                "Sequence": 21144491
+              },
+              "PreviousTxnID": "BD0AE0EF31E576A49088B9E69EC087AF0762F5EF4811EA956987DEA8D4EB8FAF",
+              "PreviousTxnLgrSeq": 21144619
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Flags": 102,
+                "Issuer": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "MaximumAmount": "1000000000",
+                "OutstandingAmount": "1200",
+                "OwnerNode": "0",
+                "Sequence": 21144474
+              },
+              "LedgerEntryType": "MPTokenIssuance",
+              "LedgerIndex": "C4D14A356FD3E2762A59AA74411630F463A212E0D24739C96DD9EEFC481B3D18",
+              "PreviousFields": {
+                "OutstandingAmount": "1400"
+              },
+              "PreviousTxnID": "98C9061FE26E261214637ED9B30C522438FCF1048F42ADB376F24ACCA4238CAE",
+              "PreviousTxnLgrSeq": 21144613
+            }
+          }
+        ],
+        "TransactionIndex": 38,
+        "TransactionResult": "tesSUCCESS"
+      }
+    },
+    "deny/banned-peer": {
+      "hash": "E0C473ED721B701020F733853D027E002234BF8D6D5EAA2492282B3CD2951B28",
+      "ledgerIndex": 21144623,
+      "code": "tecNO_AUTH",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rBAfNpgLbJrregiqSQQ9Ec7aVfU8VymAkN",
+                "Balance": "2999904",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144571
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "D67E0AD0A439A1094932A816E786D514BCECE46C461D6123E6561B1A7CE27AE0",
+              "PreviousFields": {
+                "Balance": "2999916",
+                "Sequence": 21144570
+              },
+              "PreviousTxnID": "1DADD482816A4E5EDD3A9B0D782F9260F038D72EEDF6C643068FBE645152A125",
+              "PreviousTxnLgrSeq": 21144617
+            }
+          }
+        ],
+        "TransactionIndex": 9,
+        "TransactionResult": "tecNO_AUTH"
+      }
+    },
+    "deny/banned-issuer": {
+      "hash": "6A705C6CA1C3A83C94D832BB029A6DBFB71500A35BF7B9D96617927DB198CB69",
+      "ledgerIndex": 21144625,
+      "code": "tecNO_AUTH",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rB3criap1CczhesHSP5oAT9XtrVZPUb9kV",
+                "Balance": "90999736",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144493
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "9D94BD192C06D50BC32EE7BC6986B600ECD224C71DF6BA1B41009EB1820CF935",
+              "PreviousFields": {
+                "Balance": "90999748",
+                "Sequence": 21144492
+              },
+              "PreviousTxnID": "8ED6C955D042DE1352906054A10AFF431A67DB2407B0A739FE1E3EB6449C7F97",
+              "PreviousTxnLgrSeq": 21144621
+            }
+          }
+        ],
+        "TransactionIndex": 23,
+        "TransactionResult": "tecNO_AUTH"
+      }
+    },
+    "C/delete": {
+      "hash": "5F8B9A412D043E4DD1F7674CADD07210F22C6139B1D08248B0A69DDB3E7D1D8D",
+      "ledgerIndex": 21144627,
+      "code": "tesSUCCESS",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "DeletedNode": {
+              "FinalFields": {
+                "Account": "rMFw2M1TyWD9iPiyKM9hyiwDEP97zHf6y7",
+                "Flags": 0,
+                "MPTokenIssuanceID": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718",
+                "OwnerNode": "0",
+                "PreviousTxnID": "8ED6C955D042DE1352906054A10AFF431A67DB2407B0A739FE1E3EB6449C7F97",
+                "PreviousTxnLgrSeq": 21144621
+              },
+              "LedgerEntryType": "MPToken",
+              "LedgerIndex": "36A49119B258426B91C37A2BCFF3A706864E38688A6B2511785659156B0E9932"
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rMFw2M1TyWD9iPiyKM9hyiwDEP97zHf6y7",
+                "Balance": "2999976",
+                "Flags": 0,
+                "OwnerCount": 0,
+                "Sequence": 21144569
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "6D3E36E6DC49C132C8F8CA3177037C7594ED80E545EF6408B633921787169D3C",
+              "PreviousFields": {
+                "Balance": "2999988",
+                "OwnerCount": 1,
+                "Sequence": 21144568
+              },
+              "PreviousTxnID": "37C3F50E3EEDCE8AC3D6E16D7433F90BE4C06D18AEFD254F34D4A84A7444087C",
+              "PreviousTxnLgrSeq": 21144575
+            }
+          },
+          {
+            "DeletedNode": {
+              "FinalFields": {
+                "Flags": 0,
+                "Owner": "rMFw2M1TyWD9iPiyKM9hyiwDEP97zHf6y7",
+                "PreviousTxnID": "37C3F50E3EEDCE8AC3D6E16D7433F90BE4C06D18AEFD254F34D4A84A7444087C",
+                "PreviousTxnLgrSeq": 21144575,
+                "RootIndex": "F9B81D771CDD9D3E79DC1D29793F8BA44E3FE5A9C3FB9931342432EC510B30F8"
+              },
+              "LedgerEntryType": "DirectoryNode",
+              "LedgerIndex": "F9B81D771CDD9D3E79DC1D29793F8BA44E3FE5A9C3FB9931342432EC510B30F8"
+            }
+          }
+        ],
+        "TransactionIndex": 5,
+        "TransactionResult": "tesSUCCESS"
+      }
+    },
+    "C/recreate": {
+      "hash": "C74F3EA7ED433C09A35C83DAA3E4A2BA62A220854A4E9A5DD238AA0B973A5EBD",
+      "ledgerIndex": 21144629,
+      "code": "tesSUCCESS",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "CreatedNode": {
+              "LedgerEntryType": "MPToken",
+              "LedgerIndex": "36A49119B258426B91C37A2BCFF3A706864E38688A6B2511785659156B0E9932",
+              "NewFields": {
+                "Account": "rMFw2M1TyWD9iPiyKM9hyiwDEP97zHf6y7",
+                "MPTokenIssuanceID": "0142A39A6F2165F5A6776B35E32C6663C7E4EDAF6311E718"
+              }
+            }
+          },
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rMFw2M1TyWD9iPiyKM9hyiwDEP97zHf6y7",
+                "Balance": "2999964",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144570
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "6D3E36E6DC49C132C8F8CA3177037C7594ED80E545EF6408B633921787169D3C",
+              "PreviousFields": {
+                "Balance": "2999976",
+                "OwnerCount": 0,
+                "Sequence": 21144569
+              },
+              "PreviousTxnID": "5F8B9A412D043E4DD1F7674CADD07210F22C6139B1D08248B0A69DDB3E7D1D8D",
+              "PreviousTxnLgrSeq": 21144627
+            }
+          },
+          {
+            "CreatedNode": {
+              "LedgerEntryType": "DirectoryNode",
+              "LedgerIndex": "F9B81D771CDD9D3E79DC1D29793F8BA44E3FE5A9C3FB9931342432EC510B30F8",
+              "NewFields": {
+                "Owner": "rMFw2M1TyWD9iPiyKM9hyiwDEP97zHf6y7",
+                "RootIndex": "F9B81D771CDD9D3E79DC1D29793F8BA44E3FE5A9C3FB9931342432EC510B30F8"
+              }
+            }
+          }
+        ],
+        "TransactionIndex": 1,
+        "TransactionResult": "tesSUCCESS"
+      }
+    },
+    "deny/banned-recreated": {
+      "hash": "4C05F853F47E4EC75A847491283370134C5883259076F63DB1085DFA798C94C0",
+      "ledgerIndex": 21144631,
+      "code": "tecNO_AUTH",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rBAfNpgLbJrregiqSQQ9Ec7aVfU8VymAkN",
+                "Balance": "2999892",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144572
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "D67E0AD0A439A1094932A816E786D514BCECE46C461D6123E6561B1A7CE27AE0",
+              "PreviousFields": {
+                "Balance": "2999904",
+                "Sequence": 21144571
+              },
+              "PreviousTxnID": "E0C473ED721B701020F733853D027E002234BF8D6D5EAA2492282B3CD2951B28",
+              "PreviousTxnLgrSeq": 21144623
+            }
+          }
+        ],
+        "TransactionIndex": 22,
+        "TransactionResult": "tecNO_AUTH"
+      }
+    }
+  }
+}

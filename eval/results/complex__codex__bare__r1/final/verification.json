@@ -1,0 +1,51 @@
+{
+  "ledger": 21144347,
+  "issuance": {
+    "Flags": 102,
+    "Issuer": "rUTfAPXoR2Pi5iUEtKYDeozNnQ4UmZQuzC",
+    "LedgerEntryType": "MPTokenIssuance",
+    "MaximumAmount": "9223372036854775807",
+    "OutstandingAmount": "1200",
+    "OwnerNode": "0",
+    "PreviousTxnID": "C546EAA080B317A3FD20677BAAF8C427D386AD5316F82104D9BE85DFC27FA7A0",
+    "PreviousTxnLgrSeq": 21144328,
+    "Sequence": 21144225,
+    "index": "1DE859805836469A38E0355656FF32FE9E40A6969BDFCD02A3E4162C4CA3F6E2",
+    "mpt_issuance_id": "0142A2A17D99FD6DB50042A88F4C967647E29F4FCADF920A"
+  },
+  "holders": [
+    {
+      "Account": "rhSjTt6PtSeWsQZzQcXejxkhLoBTN9uXYP",
+      "Flags": 2,
+      "LedgerEntryType": "MPToken",
+      "MPTAmount": "500",
+      "MPTokenIssuanceID": "0142A2A17D99FD6DB50042A88F4C967647E29F4FCADF920A",
+      "OwnerNode": "0",
+      "PreviousTxnID": "68FDBA71266D396C820A4FBD6C799ED3E87B18184FB77D465ECC7FDEA3FA2F2F",
+      "PreviousTxnLgrSeq": 21144325,
+      "index": "42BAB339EA46DFC8B018854CDDC6A28A166E9139820732E154FCB436F721739B"
+    },
+    {
+      "Account": "rfz9Yb33FC5SHAdmhXGKKkmxKqNyjFUyzg",
+      "Flags": 3,
+      "LedgerEntryType": "MPToken",
+      "MPTAmount": "700",
+      "MPTokenIssuanceID": "0142A2A17D99FD6DB50042A88F4C967647E29F4FCADF920A",
+      "OwnerNode": "0",
+      "PreviousTxnID": "33B12FC23F64CC4A4AAFE68DEAFCB6A2B767C66BE16FB6B15D76789C718EA933",
+      "PreviousTxnLgrSeq": 21144317,
+      "index": "DBC7EB3934F5F5FB1B609CFFC95866C375D8AC178A5EEE3666637981336FCCB2"
+    },
+    {
+      "Account": "rQERThKP4NFXhCFybVeWWJB7j2nqm3DQhz",
+      "Flags": 0,
+      "LedgerEntryType": "MPToken",
+      "MPTokenIssuanceID": "0142A2A17D99FD6DB50042A88F4C967647E29F4FCADF920A",
+      "OwnerNode": "0",
+      "PreviousTxnID": "0E47A2AB303F4FD2762F1C9EAEA7764A1800B0AE7CAA2C09B87D72463D2387BB",
+      "PreviousTxnLgrSeq": 21144345,
+      "index": "A3321E4064A932BDD2A8712C09B6E6D6F3D830F66A2DAB8F6F16BF85B6F5479F",
+      "MPTAmount": "0"
+    }
+  ]
+}

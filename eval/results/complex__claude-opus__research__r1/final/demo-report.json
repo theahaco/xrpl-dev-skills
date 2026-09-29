@@ -1,0 +1,217 @@
+{
+  "network": "wss://s.altnet.rippletest.net:51233",
+  "issuer": "rpU7Z5LY6FPCp4AQxyFwUCTsGaKYdf6ZqK",
+  "issuanceId": "01429FEA0D23B5ECA3F7F73046F58071BD0DD73768AE8621",
+  "holders": {
+    "A": "rB2FncG54tn3Fu2jeVgR2L1k7gnJgWCmmf",
+    "B": "rNcLNSsdDi4n53PD2urPgedxBGB7A6CZK5",
+    "C": "rPqZQCp2YnVuK2uKMbfjzts9k4AW8T5Heg"
+  },
+  "steps": [
+    {
+      "step": "fund A rB2FncG54tn3Fu2jeVgR2L1k7gnJgWCmmf",
+      "result": "5 XRP",
+      "hash": "3F0CE350D72DA38B2EFAE8114D8F102DF98A17CDB7930869BFD438E14FA4F898"
+    },
+    {
+      "step": "fund B rNcLNSsdDi4n53PD2urPgedxBGB7A6CZK5",
+      "result": "5 XRP",
+      "hash": "5D93B8FC60EBF36F110FC1E07BA2BBC6CB04D2858337BEB114F77031014CDFE0"
+    },
+    {
+      "step": "fund C rPqZQCp2YnVuK2uKMbfjzts9k4AW8T5Heg",
+      "result": "5 XRP",
+      "hash": "66EA5723A2E92A416403FF02BC47EB7B7F5670F2032C5DB7E176A7F32A7E3E2F"
+    },
+    {
+      "step": "MPTokenIssuanceCreate",
+      "result": "issuance 01429FEA0D23B5ECA3F7F73046F58071BD0DD73768AE8621",
+      "hash": "8274D3DC42186B9CE61BFADDEFC7E3269FA765C5C099EA4A1F4A4C84B5033F8C"
+    },
+    {
+      "step": "A opts in",
+      "result": "MPToken created",
+      "hash": "E03C07B98232696B355A50FC50C801785927B8D7FAC9A6401EBBA8A8DA43E0E4"
+    },
+    {
+      "step": "B opts in",
+      "result": "MPToken created",
+      "hash": "98EC778656325CED486879B5ECF721338DB88D74C3D6B4924C6ED14330AA9E43"
+    },
+    {
+      "step": "C opts in",
+      "result": "MPToken created",
+      "hash": "F299CF701C202E7DE81E6ADB312D9E96CC6D54B3D0F91FBB767AFA4E01CEE967"
+    },
+    {
+      "step": "module: issue 500 to unapproved A",
+      "result": "refused by the module: rB2FncG54tn3Fu2jeVgR2L1k7gnJgWCmmf is not an approved holder of 01429FEA0D23B5ECA3F7F73046F58071BD0DD73768AE8621"
+    },
+    {
+      "step": "ledger: raw issuer payment to unapproved A",
+      "result": "rejected by the ledger with tecNO_AUTH",
+      "hash": "43911BEA08CD45501A9C68504F433C9C46CF52D601EE72D5D6311A09BC0F206E"
+    },
+    {
+      "step": "approve A (post-KYC)",
+      "result": "MPTokenAuthorize tesSUCCESS in ledger 21143737",
+      "hash": "A041DF876720FCDF86C1C7C25489DC585B6353E5EC31617E06567AE862099A07"
+    },
+    {
+      "step": "approve B (post-KYC)",
+      "result": "MPTokenAuthorize tesSUCCESS in ledger 21143739",
+      "hash": "C2FBCE8586003D1F13BB57B449514D5EA87BD5D7E18E48D8889E7583758A4483"
+    },
+    {
+      "step": "approve C (post-KYC)",
+      "result": "MPTokenAuthorize tesSUCCESS in ledger 21143741",
+      "hash": "8F67A711967184BA5C2764CAE534BF2761841C97F182F98BC694048BF596CE69"
+    },
+    {
+      "step": "issue 500 to A",
+      "result": "Payment tesSUCCESS in ledger 21143743",
+      "hash": "63F8BC969B05325989C430B5CD67B03CACF8C94166EC462D8E304A0DF21DD4AC"
+    },
+    {
+      "step": "issue 1000 to B",
+      "result": "Payment tesSUCCESS in ledger 21143745",
+      "hash": "77B6D96B3FF368950049598941171AD3C7DA4A4C76C5AA6212161C3A3FD6EB4A"
+    },
+    {
+      "step": "issue 100 to C",
+      "result": "Payment tesSUCCESS in ledger 21143747",
+      "hash": "5E728D268D4C5C910DCCB6C22B63DA97A7B11BFF9A922C2B349F4447DDA09789"
+    },
+    {
+      "step": "claw back 300 from B",
+      "result": "Clawback tesSUCCESS in ledger 21143748",
+      "hash": "BB5BE353D2218F125EB081909D39C7FA09936F929D07CB45948952322C0C61B6"
+    },
+    {
+      "step": "B balance",
+      "result": "700"
+    },
+    {
+      "step": "freeze A",
+      "result": "MPTokenIssuanceSet tesSUCCESS in ledger 21143749",
+      "hash": "81D03C5DC2FC06BE0E840BF22161533009A0F5ABE45FDDF2A400616392904952"
+    },
+    {
+      "step": "frozen A sends 1 to B",
+      "result": "rejected by the ledger with tecLOCKED",
+      "hash": "461559297590A45532763CD9C42C0A8E0A4F3B199380E16887C0380ED2CC9D44"
+    },
+    {
+      "step": "B sends 1 to frozen A",
+      "result": "rejected by the ledger with tecLOCKED",
+      "hash": "BCE7A7145C0BC49E8ADBD49776B4C5CFB14394595E28F497FFCE1A71CE9EFCB3"
+    },
+    {
+      "step": "module: issue 1 to frozen A",
+      "result": "refused by the module: rB2FncG54tn3Fu2jeVgR2L1k7gnJgWCmmf is frozen"
+    },
+    {
+      "step": "protocol probe (simulate): raw issuer payment to frozen A",
+      "result": "tesSUCCESS; the ledger allows it, so the module blocks it"
+    },
+    {
+      "step": "protocol probe (simulate): frozen A redeems 1 to issuer",
+      "result": "tesSUCCESS; redemption to the issuer is allowed during a lock"
+    },
+    {
+      "step": "unfreeze A",
+      "result": "MPTokenIssuanceSet tesSUCCESS in ledger 21143755",
+      "hash": "4F12EB2A522BE52A8F6B444F88EB3CE412D8AE46D69FE70ABC867D2080FFF921"
+    },
+    {
+      "step": "A sends 10 to B after unfreeze",
+      "result": "tesSUCCESS",
+      "hash": "FDFF407ED61483AB357647D852DC6875ED3CFC947BB08F5682B872A19CEDE647"
+    },
+    {
+      "step": "B returns 10 to A",
+      "result": "tesSUCCESS",
+      "hash": "451EAC62BA65F47FAF9AED9ED5C5D01777B47F843BAB7C9E05DB19668A72B8C2"
+    },
+    {
+      "step": "freeze all",
+      "result": "MPTokenIssuanceSet tesSUCCESS in ledger 21143761",
+      "hash": "2931AA6A98286B9DF4AD155F2C8D32F5F4C3131A89EB38C0652166287A1C0CEC"
+    },
+    {
+      "step": "A sends 1 to B during global freeze",
+      "result": "rejected by the ledger with tecLOCKED",
+      "hash": "1204EF18356FE8FE14F7B38C6CE0D6C23BF7D670C46F97295D9571FF29E6BA85"
+    },
+    {
+      "step": "C sends 1 to B during global freeze",
+      "result": "rejected by the ledger with tecLOCKED",
+      "hash": "3E8714D65AA8B828DEB89EED275D7C0C9EB2F55BD492ECF35CA2359398A8B55F"
+    },
+    {
+      "step": "module: issue 1 to B during global freeze",
+      "result": "refused by the module: 01429FEA0D23B5ECA3F7F73046F58071BD0DD73768AE8621 is globally frozen; issuance is suspended"
+    },
+    {
+      "step": "unfreeze all",
+      "result": "MPTokenIssuanceSet tesSUCCESS in ledger 21143766",
+      "hash": "1BA17D4AB1B29AFFA91D2A6377B2C19926D379037B64C2FC1E441DA4E7CD7D4C"
+    },
+    {
+      "step": "B sends 5 to A after global unfreeze",
+      "result": "tesSUCCESS",
+      "hash": "AFDF77B6DE926F89CDCF9B8CD9C7F367DC075D8A2C3ABE3B8E5387A9D7792ECA"
+    },
+    {
+      "step": "A returns 5 to B",
+      "result": "tesSUCCESS",
+      "hash": "5F127D219BF5A792B8510758311E9201D47B19ADBF2CC3B14636F5597BA1F4E4"
+    },
+    {
+      "step": "ban C (unauthorize, lock, claw back 100)",
+      "result": "MPTokenAuthorize tesSUCCESS in ledger 21143772",
+      "hash": "D6E720CA40136E2C3AC4930FE2451D74F44562491F7BC04CE786CB4CA3722B80"
+    },
+    {
+      "step": "ban C (unauthorize, lock, claw back 100)",
+      "result": "MPTokenIssuanceSet tesSUCCESS in ledger 21143773",
+      "hash": "26B006079095D2F98EC2ABDD6B9B79F49DCDDFF5DA98E4300A21DA228A6027D0"
+    },
+    {
+      "step": "ban C (unauthorize, lock, claw back 100)",
+      "result": "Clawback tesSUCCESS in ledger 21143774",
+      "hash": "BC0C6A0FEA891DFC35932EB256F5DAD1392474E8DDFBF5C56D29E38ED240BB64"
+    },
+    {
+      "step": "ledger: raw issuer payment to banned C",
+      "result": "rejected by the ledger with tecNO_AUTH",
+      "hash": "527D08D6E24065935C47E3DE261C441B16B32DCD63B65ABA841FF1250EB0ACA2"
+    },
+    {
+      "step": "A sends 1 to banned C",
+      "result": "rejected by the ledger with tecNO_AUTH",
+      "hash": "DAC96FF39B9BB25CA534846048710CA052A149B08AE3EFF3D8353D98E8876D48"
+    },
+    {
+      "step": "module: re-approve banned C",
+      "result": "refused by the module: rPqZQCp2YnVuK2uKMbfjzts9k4AW8T5Heg is banned and cannot be approved"
+    },
+    {
+      "step": "module: issue to banned C",
+      "result": "refused by the module: rPqZQCp2YnVuK2uKMbfjzts9k4AW8T5Heg is banned"
+    },
+    {
+      "step": "module: unfreeze banned C",
+      "result": "refused by the module: rPqZQCp2YnVuK2uKMbfjzts9k4AW8T5Heg is banned and cannot be unfrozen"
+    },
+    {
+      "step": "freeze B",
+      "result": "MPTokenIssuanceSet tesSUCCESS in ledger 21143780",
+      "hash": "8C8698AA3283B0B4BA7EDBA2899238469260B60C8D5672A27D6709B9BEFC6B5B"
+    },
+    {
+      "step": "final state",
+      "result": "issuance not globally frozen; A=500 approved unfrozen; B=700 approved frozen; C=0 banned"
+    }
+  ]
+}

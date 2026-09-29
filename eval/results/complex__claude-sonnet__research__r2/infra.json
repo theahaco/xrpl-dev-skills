@@ -1,0 +1,19 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [
+      "ack (most recent call last): File \"<string>\", line 3, in <module> d = json.load(open('/tmp/feature.json')) ~~~~^^^^^^^^^^^^^^^^^^^^^ FileNotFoundError: [Errno 2] No such file or directory: '/tmp/feature.json'",
+      "dules/xrpl/dist/npm/errors.d.ts:9:declare class RippledError extends XrplError { node_modules/xrpl/dist/npm/errors.d.ts:32:export { XrplError, UnexpectedError, ConnectionError, RippledError, NotConnectedError, DisconnectedError, RippledNotInitializedError, TimeoutError, ResponseFormatError, ValidationError, NotFoundErr"
+    ],
+    "sandboxDenials": [
+      "Exit code 1 (eval):1: operation not permitted: /tmp/test_entry.ts node:internal/modules/esm/resolve:271 throw new ERR_MODULE_NOT_FOUND( ^ Error [ERR_MODULE_NOT_FOUND]:"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 39
+  },
+  "suspect": "connectivity errors in command output while the health monitor saw testnet healthy; scored as an agent failure, review by hand"
+}

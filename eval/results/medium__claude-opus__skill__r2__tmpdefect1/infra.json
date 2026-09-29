@@ -1,0 +1,15 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [],
+    "sandboxDenials": [
+      "Exit code 2 (eval):1: can't create temp file for here document: operation not permitted npm error JSON.parse Note: package.json must be actual JSON, not just JavaScript. npm error A complete log of this run can be found in: "
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 4
+  }
+}

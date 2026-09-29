@@ -1,0 +1,26 @@
+{
+  "name": "mpt-issuer",
+  "version": "1.0.0",
+  "description": "Issuer-side compliance controls for an XRPL Multi-Purpose Token (allowlist, clawback, bans, freezes)",
+  "main": "dist/src/index.js",
+  "scripts": {
+    "build": "tsc -p .",
+    "typecheck": "tsc -p . --noEmit",
+    "test": "npm run build && node --test \"dist/test/**/*.test.js\"",
+    "demo": "npm run build && node dist/scripts/demo.js"
+  },
+  "license": "UNLICENSED",
+  "type": "commonjs",
+  "dependencies": {
+    "xrpl": "^5.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.0",
+    "typescript": "^7.0.2"
+  },
+  "private": true,
+  "types": "dist/src/index.d.ts",
+  "engines": {
+    "node": ">=24"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [
+      "andard. ## 4.4.2 (2025-09-25) ### Fixed * improve Batch inner transaction typing ## 4.4.1 (2025-08-29) ### Fixed * Prevent Node.js process termination when WebSocket send() errors after the connection is closed. ## 4.4.0 (2025-07-29) ### Added * Support for `PermissionedDEX` (XLS-81d) * Support for `Token Escrow`",
+      " tfMPTSetCanClawback = 128, 9:declare class RippledError extends XrplError { 10-} 11-declare class UnexpectedError extends XrplError { 12-} 13-declare class ConnectionError extends XrplError { 14-} 15-declare class NotConnectedError extends ConnectionError { 16-} 17-declare class DisconnectedError extends Connection"
+    ],
+    "sandboxDenials": [
+      "Exit code 1 mkdir: xrplcl: Operation not permitted sed: package/HISTORY.md: No such file or directory"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 30
+  }
+}
