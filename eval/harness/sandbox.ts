@@ -137,6 +137,9 @@ export function agentEnv(ws: Workspace, pathVar: string, extra: Record<string, s
     LANG: "en_US.UTF-8",
     PATH: pathVar,
     TMPDIR: `${ws.tmp}/`,
+    // zsh writes here-document temp files under TMPPREFIX (default /tmp/zsh),
+    // not TMPDIR, so without this every `cat <<EOF` in an agent's zsh fails.
+    TMPPREFIX: path.join(ws.tmp, "zsh"),
     CLAUDE_CODE_TMPDIR: ws.tmp,
     NPM_CONFIG_PREFIX: path.join(ws.home, ".npm-global"),
     NPM_CONFIG_UPDATE_NOTIFIER: "false",
@@ -233,6 +236,9 @@ export async function isolationSelfTest(ws: Workspace, tc: Toolchain, env: NodeJ
   // npx spawns through a PATH that walks up out of the workspace.
   await run("npx runs a command", "allowed", "npm exec --call \"node --version\"");
   await run("git available", "allowed", "git --version");
+  // Agents write files with heredocs; both shells keep their temp file somewhere.
+  await run("zsh heredoc", "allowed", "/bin/zsh -c 'cat <<EOF >/dev/null\nok\nEOF'");
+  await run("bash heredoc", "allowed", "/bin/bash -c 'cat <<EOF >/dev/null\nok\nEOF'");
   await run("registry reachable", "allowed", "npm view xrpl version --prefer-online >/dev/null");
   fs.rmSync(probe, { force: true });
   return checks;
