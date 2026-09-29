@@ -1,0 +1,85 @@
+
+> mpt-compliance-issuer@1.0.0 demo
+> tsx scripts/demo.ts
+
+Issuer: rUN48YfByW39T519TxeYm882857W1oRtap
+Issuer XRP balance: 100
+
+=== 1. Create the MPT issuance with all compliance controls
+  Issuance ID: 014278B17B30F9F687E10B7806694EC08BB6A72DDB768494
+  Flags: canLock=true requireAuth=true canClawback=true canTransfer=true
+
+=== 2. Create and fund holder accounts A, B, C; each opts in
+  fund A rJLAizDYVpYEFHPsQCbxqLq3HrRhYXbBZe with 5 XRP: tesSUCCESS in ledger 21133657  https://testnet.xrpl.org/transactions/99F23B9479B113A230A857ECB93C20EB52783CBBEC1D623D7D4E98E756607264
+  A opts in: tesSUCCESS in ledger 21133659  https://testnet.xrpl.org/transactions/3442B894ABF81A4F16DE76FD035EE4D4A93B7B2475F24392CE26126B3D6BA534
+  fund B rpgGzzBMyaUQo9XJtirsSS31J7CTsdCwyY with 5 XRP: tesSUCCESS in ledger 21133661  https://testnet.xrpl.org/transactions/AF963701479119E46242677E833F1FEAD60699D256A57454D750005EE1604523
+  B opts in: tesSUCCESS in ledger 21133663  https://testnet.xrpl.org/transactions/6F8E8C218A3A46BBDCBA6C1700C74440D284F09DDFF356D4F02B2B31B37B923E
+  fund C rLLuNNBZVMH7HjewiX1brZ5JhWhhb44jR2 with 5 XRP: tesSUCCESS in ledger 21133665  https://testnet.xrpl.org/transactions/C6004DE5CF8AAC25A30D8543A1F58D698FC274B0540E75BBE5E12E7D05C23AEA
+  C opts in: tesSUCCESS in ledger 21133667  https://testnet.xrpl.org/transactions/466EE37BC6B28CC3F3CF752271FFBF79D8A1B64E736B7B833D2355F9E73482C1
+
+=== 3. Allowlist: nobody can receive the token before approval
+  issue 500 to A before approval: refused by module (HOLDER_NOT_AUTHORIZED)
+  raw issuer payment to unapproved A -> rejected by ledger: tecNO_AUTH in ledger 21133669  https://testnet.xrpl.org/transactions/398FE86DE6CE89178B81782D05F735E0E08DC0A1D39F88BFC0A4B3E89C7B88C0
+  approve A (post-KYC): tesSUCCESS in ledger 21133671  https://testnet.xrpl.org/transactions/5AE391B7A21AB41A5D7F3CEEDA11678F26A885C693F0EC955D8FDD8CC2C67606
+  approve B (post-KYC): tesSUCCESS in ledger 21133673  https://testnet.xrpl.org/transactions/9586563A225CF43D678842C7FEE7B7838401E0E296EFD5D4A47FBD27E69EFD37
+  approve C (post-KYC): tesSUCCESS in ledger 21133675  https://testnet.xrpl.org/transactions/059F183433D0FCA4ED320FC89A614678FA982774E5852F22799C90DD310A23B2
+
+=== 4. Issue tokens: A 500, B 1000, C 100
+  issue 500 to A: tesSUCCESS in ledger 21133677  https://testnet.xrpl.org/transactions/3935BFB7808D0FFC992A1FA1D587EA89F97E02477DE570834160E42D4192ED84
+  issue 1000 to B: tesSUCCESS in ledger 21133679  https://testnet.xrpl.org/transactions/5D93C017ECD07AB9B552CF9F2C69B8F75CD3F852A3B1A7DE57613941B5256779
+  issue 100 to C: tesSUCCESS in ledger 21133681  https://testnet.xrpl.org/transactions/6E7DB09232B429353E3A61CD92C64BC7BA7734A44EA81771926130E0A41B454D
+
+=== 5. Per-holder freeze: freeze A, prove A cannot send or receive, unfreeze
+  freeze A: tesSUCCESS in ledger 21133682  https://testnet.xrpl.org/transactions/66A52BD06F20F28907BFABEA5CB3DB063BCDF54CCFF2D5589596D2FEF2C7AD36
+  A sends 10 to B while A frozen -> rejected by ledger: tecLOCKED in ledger 21133684  https://testnet.xrpl.org/transactions/61FB402BBB536169099D4F5F44DA496AB8ACE1DA51835F052FC592ABF81A75FF
+  B sends 10 to A while A frozen -> rejected by ledger: tecLOCKED in ledger 21133686  https://testnet.xrpl.org/transactions/87646633C44C27AD2176D37C555B9E125BC846CE37A370DAB26E2A5764F46AF7
+  issue 10 to frozen A: refused by module (HOLDER_FROZEN)
+  unfreeze A: tesSUCCESS in ledger 21133687  https://testnet.xrpl.org/transactions/29253072743639C3CF8EE7F5AD467D033839BFB7B73C85262B6EBD4F747E15BE
+  A sends 50 to B after unfreeze: tesSUCCESS in ledger 21133688  https://testnet.xrpl.org/transactions/9A5E24DF3497E46E895407966EA069594D41708A51969CF7781EB7C0EB2F97D3
+  B returns 50 to A: tesSUCCESS in ledger 21133690  https://testnet.xrpl.org/transactions/8836075B31F5EB46D89DF669D48CEE9E11619D59622EE4CA701A39580A939932
+
+=== 6. Clawback: claw back 300 from B
+  claw back 300 from B: tesSUCCESS in ledger 21133692  https://testnet.xrpl.org/transactions/5AFAF90C7D872216FB96AB8174F3838794B3E3071288D32C535A57B25E98CB99
+
+=== 7. Global freeze: freeze all movement, prove it, lift it
+  global freeze: tesSUCCESS in ledger 21133693  https://testnet.xrpl.org/transactions/9E1E875D0E76891BE23461BB08FCA947F8FAF2C00C8FA18DEE55B8E08D310310
+  A sends 10 to B during global freeze -> rejected by ledger: tecLOCKED in ledger 21133695  https://testnet.xrpl.org/transactions/3FB5414A7139080B07D5228EB3D0293F05375A8CC430F1950D76527D4FBEF058
+  C sends 10 to A during global freeze -> rejected by ledger: tecLOCKED in ledger 21133697  https://testnet.xrpl.org/transactions/C10CC81BF6D9AABC090747250ED25E53B741D081AF3BC77E226052E1B941002A
+  issue 10 to A during global freeze: refused by module (GLOBALLY_FROZEN)
+  lift global freeze: tesSUCCESS in ledger 21133699  https://testnet.xrpl.org/transactions/753866E4B6793A98B4CC6F2B8657C93A25FD32BA5156762B2A690E99A7578E7C
+  C sends 10 to A after global unfreeze: tesSUCCESS in ledger 21133701  https://testnet.xrpl.org/transactions/4B7F3CCBDAC887999C1354A09222C739B8CA57D29931C38182DA7C229A70DCDA
+  A returns 10 to C: tesSUCCESS in ledger 21133703  https://testnet.xrpl.org/transactions/5B15B4522487A093B1990B2D0FE67272B3E6B2AAA1EAD21677999796A4EEBDEB
+
+=== 8. Ban C
+  ban C (tesSUCCESS): tesSUCCESS in ledger 21133705  https://testnet.xrpl.org/transactions/809289F89E5FE0F562765C319595A86A0BD2A23D2340E9820488B4CC77FA90BD
+  ban C (tesSUCCESS): tesSUCCESS in ledger 21133707  https://testnet.xrpl.org/transactions/26C5A454F9AF558D3AF1D082A905EAD02C65069961A922758AE03AF85A3CDD65
+  ban C (tesSUCCESS): tesSUCCESS in ledger 21133709  https://testnet.xrpl.org/transactions/699733D590DAE4690DBA47C34DE228BEC1ABE926474B9CB5982F82526C7C7D4D
+  clawed back 100 from C as part of the ban
+  re-approve banned C: refused by module (HOLDER_BANNED)
+  issue to banned C: refused by module (HOLDER_BANNED)
+  raw issuer payment to banned C -> rejected by ledger: tecNO_AUTH in ledger 21133711  https://testnet.xrpl.org/transactions/7D1A7F73A47452E8189EF00FA6E74ED20FACF16B1C9B11D77B2D9698157E4CEC
+  A sends 10 to banned C -> rejected by ledger: tecNO_AUTH in ledger 21133713  https://testnet.xrpl.org/transactions/4BCD03369E7B94620DFAEEE8A4805B7DDD4638B45AC8AA1744421244A010A2AD
+
+=== 9. Freeze B (left frozen)
+  freeze B: tesSUCCESS in ledger 21133715  https://testnet.xrpl.org/transactions/627CEF36950325FC8828B7DBF028251F2B0BBDA804C2B5320AFAE26D8663F854
+
+=== 10. Verify final ledger state
+  ok: issuance 014278B17B30F9F687E10B7806694EC08BB6A72DDB768494 is issued by rUN48YfByW39T519TxeYm882857W1oRtap
+  ok: Can Lock, Require Auth and Can Clawback are enabled
+  ok: token is not globally frozen
+  ok: A approved, not frozen, holds 500
+  ok: B approved, frozen, holds 700
+  ok: C banned, unauthorized, frozen, holds 0
+  ok: ban on C is fully enforced
+  ok: outstanding supply is 1200
+
+Wrote result.json:
+{
+  "issuanceId": "014278B17B30F9F687E10B7806694EC08BB6A72DDB768494",
+  "holders": {
+    "A": "rJLAizDYVpYEFHPsQCbxqLq3HrRhYXbBZe",
+    "B": "rpgGzzBMyaUQo9XJtirsSS31J7CTsdCwyY",
+    "C": "rLLuNNBZVMH7HjewiX1brZ5JhWhhb44jR2"
+  }
+}
+Audit trail: /private/tmp/ws/3a477890d13d/project/.demo-state/audit.jsonl

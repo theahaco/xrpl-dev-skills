@@ -1,0 +1,246 @@
+{
+  "packetId": "f2c5ab816cdbf4e2",
+  "rubricVersion": 1,
+  "scoredAt": "2026-09-29T03:48:18.318Z",
+  "calibrate": false,
+  "confidenceFloor": 0.6,
+  "jev": {
+    "requests": 5,
+    "inputTokens": 46314,
+    "outputTokens": 500,
+    "errors": [],
+    "model": "jev-1.13.0"
+  },
+  "modelScorer": {
+    "requests": 2,
+    "costUsd": 0.343448,
+    "errors": [],
+    "model": "claude-opus-5-5"
+  },
+  "evidence": {
+    "codeTruncated": true,
+    "chars": {
+      "task": 1949,
+      "code": 39586,
+      "typecheck": 430,
+      "errors": 2810,
+      "xrplVersion": 5,
+      "xrplChangelog": 17696
+    }
+  },
+  "items": {
+    "hallucinated_api": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.4,
+        "probabilities": {
+          "present": 0.3,
+          "none": 0.7
+        }
+      },
+      "model": {
+        "choice": "none",
+        "confidence": 0.88,
+        "rationale": "All the xrpl.js exports used (the MPT flag enums, convertStringToHex, isValidClassicAddress, getLedgerIndex), the ledger_entry mpt_issuance/mptoken options, and the transaction fields MPTokenMetadata, Holder on Clawback and meta mpt_issuance_id exist in xrpl 5.3.0 and the protocol. Ledger flag values are correct, and the project typechecks with 0 errors under full strict mode."
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "model"
+      }
+    },
+    "hallucination_during_run": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.97,
+        "probabilities": {
+          "some": 0.02,
+          "none": 0.98
+        }
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "deprecated_patterns": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.77,
+        "probabilities": {
+          "present": 0.12,
+          "none": 0.88
+        }
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "strict_type_errors": {
+      "jev": {
+        "choice": "clean",
+        "confidence": 0.98,
+        "probabilities": {
+          "clean": 0.99,
+          "errors": 0,
+          "not_typescript": 0.01
+        }
+      },
+      "final": {
+        "choice": "clean",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "type_escape_hatches": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.46,
+        "probabilities": {
+          "none": 0.64,
+          "pervasive": 0.05,
+          "few": 0.31
+        }
+      },
+      "model": {
+        "choice": "none",
+        "confidence": 0.8,
+        "rationale": "No `as any`, `as unknown as`, @ts-ignore/@ts-expect-error/@ts-nocheck, or non-null assertions appear in the visible code. There are only plain `as T` casts on RPC responses, errors and parsed JSON, which are not the listed forms. Part of issuer.ts was truncated and could not be checked."
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "model"
+      }
+    },
+    "outcome_checks": {
+      "jev": {
+        "choice": "all",
+        "confidence": 0.96,
+        "probabilities": {
+          "all": 0.97,
+          "none": 0,
+          "partial": 0.03
+        }
+      },
+      "final": {
+        "choice": "all",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "waits_for_validation": {
+      "jev": {
+        "choice": "validated",
+        "confidence": 0.99,
+        "probabilities": {
+          "validated": 0.99,
+          "mixed": 0.01,
+          "preliminary": 0
+        }
+      },
+      "final": {
+        "choice": "validated",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "mpt_amount_format": {
+      "jev": {
+        "choice": "correct",
+        "confidence": 0.96,
+        "probabilities": {
+          "incorrect": 0.02,
+          "correct": 0.98
+        }
+      },
+      "final": {
+        "choice": "correct",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "secret_handling": {
+      "jev": {
+        "choice": "external",
+        "confidence": 1,
+        "probabilities": {
+          "hardcoded": 0,
+          "external": 1
+        }
+      },
+      "final": {
+        "choice": "external",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "connection_hygiene": {
+      "jev": {
+        "choice": "always",
+        "confidence": 0.99,
+        "probabilities": {
+          "happy_path_only": 0,
+          "never": 0,
+          "always": 1
+        }
+      },
+      "final": {
+        "choice": "always",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "ban_semantics": {
+      "jev": {
+        "choice": "complete",
+        "confidence": 0.98,
+        "probabilities": {
+          "absent": 0.01,
+          "partial": 0,
+          "complete": 0.99
+        }
+      },
+      "final": {
+        "choice": "complete",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "freeze_semantics": {
+      "jev": {
+        "choice": "mpt_lock",
+        "confidence": 0.96,
+        "probabilities": {
+          "other": 0.01,
+          "mpt_lock": 0.97,
+          "absent": 0.02
+        }
+      },
+      "final": {
+        "choice": "mpt_lock",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "clawback_semantics": {
+      "jev": {
+        "choice": "mpt_clawback",
+        "confidence": 0.99,
+        "probabilities": {
+          "other": 0,
+          "mpt_clawback": 1,
+          "absent": 0
+        }
+      },
+      "final": {
+        "choice": "mpt_clawback",
+        "pass": true,
+        "source": "jev"
+      }
+    }
+  }
+}

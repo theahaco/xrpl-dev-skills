@@ -1,0 +1,24 @@
+{
+  "name": "mpt-compliance-issuer",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Issuer-side compliance controls for an XRPL Multi-Purpose Token (MPT)",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "demo": "npm run build && node --env-file=.env dist/demo.js"
+  },
+  "dependencies": {
+    "xrpl": "5.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.0",
+    "typescript": "7.0.2"
+  }
+}

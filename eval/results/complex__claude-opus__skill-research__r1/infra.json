@@ -1,0 +1,19 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [
+      "deleted_ledger_index?: number; 9:declare class RippledError extends XrplError { 10-} 11-declare class UnexpectedError extends XrplError { 12-} 13-declare class ConnectionError extends XrplError { 14-} 15-declare class NotConnectedError extends ConnectionError { { \"name\": \"mpt-compliance-issuer\", \"version\": \"1.0.0\","
+    ],
+    "sandboxDenials": [
+      "Exit code 1 fatal: could not create work tree dir 'rippled-src': Operation not permitted (eval):cd:1: no such file or directory: rippled-src",
+      "Exit code 1 (eval):1: can't create temp file for here document: operation not permitted (eval):8: can't create temp file for here document: operation not permitted (eval):14: can't create temp file for here document: operati",
+      "(eval):1: can't create temp file for here document: operation not permitted heredoc-blocked 7: hash: string; 63: return { hash: error.hash, resultCode: error.resultCode, ...error.validated }; 116: "
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 29
+  }
+}

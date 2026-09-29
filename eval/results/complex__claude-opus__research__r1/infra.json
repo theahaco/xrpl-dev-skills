@@ -1,0 +1,21 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [
+      "andard. ## 4.4.2 (2025-09-25) ### Fixed * improve Batch inner transaction typing ## 4.4.1 (2025-08-29) ### Fixed * Prevent Node.js process termination when WebSocket send() errors after the connection is closed. ## 4.4.0 (2025-07-29) ### Added * Support for `PermissionedDEX` (XLS-81d) * Support for `Token Escrow`"
+    ],
+    "sandboxDenials": [
+      "mkdir: xrplpeek: Operation not permitted grep: package/HISTORY.md: No such file or directory Shell cwd was reset to /private/tmp/ws/a146e40647ad/project",
+      "Exit code 1 mktemp: mkdtemp failed on /var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/tmp.FpZRLdK3iX: Operation not permitted sed: package/HISTORY.md: No such file or directory",
+      "(eval):1: operation not permitted: /tmp/amend.mjs (eval):1: can't create temp file for here document: operation not permitted",
+      "dataUri} object as per the XLS-89 standard. * Used within the `uris` array of {@link MPTokenMetadata}. */ (eval):1: can't create temp file for here document: operation not permitted",
+      "(eval):1: can't create temp file for here document: operation not permitted 541: const clawed = outstandingDecrease(meta, this.issuanceId) 748:function outstandingDecrease(meta: TransactionMetadata, issuanceId"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 38
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [
+      "andard. ## 4.4.2 (2025-09-25) ### Fixed * improve Batch inner transaction typing ## 4.4.1 (2025-08-29) ### Fixed * Prevent Node.js process termination when WebSocket send() errors after the connection is closed. ## 4.4.0 (2025-07-29) ### Added * Support for `PermissionedDEX` (XLS-81d) * Support for `Token Escrow`",
+      "toString(): string; inspect(): string; } declare class RippledError extends XrplError { } declare class UnexpectedError extends XrplError { } declare class ConnectionError extends XrplError { } declare class NotConnectedError extends ConnectionError { } declare class DisconnectedError extends ConnectionError { } de"
+    ],
+    "sandboxDenials": [
+      "mkdir: /tmp/xdocs: Operation not permitted FAIL mptokenissuancecreate FAIL mptokenissuanceset FAIL mptokenauthorize FAIL mptokenissuancedestroy FAIL clawback FAIL payment FAIL mpt",
+      "(eval):1: can't create temp file for here document: operation not permitted (eval):29: can't create temp file for here document: operation not permitted (eval):35: can't create temp file for here document: operat",
+      "(eval):1: can't create temp file for here document: operation not permitted 11:import { Client, ECDSA, Wallet, encodeMPTokenMetadata, validateMPTokenMetadata, xrpToDrops, type MPTokenMetadata } from 'xrpl' 96: c"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 26
+  }
+}

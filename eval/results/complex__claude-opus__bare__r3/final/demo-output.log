@@ -1,0 +1,89 @@
+
+> mpt-issuer@1.0.0 demo
+> tsx --env-file-if-exists=.env scripts/demo.ts
+
+Issuer: rMMAkWj857cRRHqpi2j9QphE6tochsTYhJ on wss://s.altnet.rippletest.net:51233
+Issuer XRP balance: 100
+
+== Create issuance (RequireAuth + CanLock + CanClawback + CanTransfer)
+  issuanceId: 01427991DF5889C0735DDC2C2B1F2FAC1BF11E70473453E9
+  ✓ on-ledger flags: {"requireAuth":true,"canLock":true,"canClawback":true,"canTransfer":true,"canEscrow":false,"canTrade":false,"canHoldConfidentialBalance":false}
+
+== Create and fund holders A, B, C (5 XRP each, from the issuer)
+  A: racJfeig8sdtB2KQkyBagEZv16KUEqQvCh
+  B: rErNBfmsRY74vbJJ3eKm573udEgGcb3aGy
+  C: rK5yCmTTbVNa92xTdCfmYDY2gNoJZCAgie
+
+== Allowlist: holders opt in; unapproved holders cannot receive
+  ✓ issuer pays unapproved C directly on ledger -> rejected by ledger with tecNO_AUTH (240C1C0888C90EAC767A434AD1E94FB716E419FBC3E5C0B7075E4AD90F2BF3EB)
+  ✓ module issue() to unapproved C -> refused by module: rK5yCmTTbVNa92xTdCfmYDY2gNoJZCAgie is not an approved holder
+
+== Allowlist: approve A, B, C after KYC and issue tokens
+  [audit] authorize {"holder":"racJfeig8sdtB2KQkyBagEZv16KUEqQvCh","hash":"F9F058D006C9ACD48CB727B356AEC44DFDA572DEE96E8E2AD17836E162E3E52B","ledgerIndex":21133998}
+  [audit] authorize {"holder":"rErNBfmsRY74vbJJ3eKm573udEgGcb3aGy","hash":"358C40A6D367EFA8287AD27FE8DE5FA88F8E45C9539157C7DFB4456935CDDE42","ledgerIndex":21134000}
+  [audit] authorize {"holder":"rK5yCmTTbVNa92xTdCfmYDY2gNoJZCAgie","hash":"D651DF631FDC43D95546795584F05898186483125FB95D949E2A320B97AF42E3","ledgerIndex":21134001}
+  [audit] issue {"holder":"racJfeig8sdtB2KQkyBagEZv16KUEqQvCh","amount":"400","hash":"DBCB0663CB2746BF2549EF01D41B9C3CBDDD45CFA94FBF10AE048961183806EB","ledgerIndex":21134003}
+  [audit] issue {"holder":"rErNBfmsRY74vbJJ3eKm573udEgGcb3aGy","amount":"1000","hash":"6E10BF5DAC67E600F16590662B096251E4CA526C4898C88FD69EF13B5BEBA92D","ledgerIndex":21134005}
+  [audit] issue {"holder":"rK5yCmTTbVNa92xTdCfmYDY2gNoJZCAgie","amount":"250","hash":"7C05B91A066EDD09E812B4CC5150FFD2CECECF19EC59CB819C763A7CA703B12C","ledgerIndex":21134007}
+  ✓ A=400, B=1000, C=250
+
+== Per-holder freeze: freeze A
+  [audit] freezeHolder {"holder":"racJfeig8sdtB2KQkyBagEZv16KUEqQvCh","hash":"38430AE8739A9B625D342E1F19123D36BC55331D13B140703A2DB9CF3E4D298C","ledgerIndex":21134009}
+  ✓ module issue() to frozen A -> refused by module: Refusing to issue to racJfeig8sdtB2KQkyBagEZv16KUEqQvCh: holder is frozen
+  ✓ B sends to frozen A -> rejected by ledger with tecLOCKED (BD066AC5C97C02C1EB4E3F85FE3A14EAD32B93E2828C3F58613CDFE15035DB31)
+  ✓ frozen A sends to B -> rejected by ledger with tecLOCKED (18A561B844A3BC2B9BD7F96CFDD1543889E24F063CA64486F7D5E1B112EDE272)
+
+== Per-holder freeze: unfreeze A, then A can receive again
+  [audit] unfreezeHolder {"holder":"racJfeig8sdtB2KQkyBagEZv16KUEqQvCh","hash":"BAA1B84EBB4DB05712C7216098F9C6B863BB2476CEE0A4742B58731FFEDC24F9","ledgerIndex":21134014}
+  [audit] issue {"holder":"racJfeig8sdtB2KQkyBagEZv16KUEqQvCh","amount":"100","hash":"DFDBBCB903D21CE4E30CFDAE7BD822E49262C39955A4B9F276CBFFAE350396BE","ledgerIndex":21134016}
+  ✓ A unfrozen and holds 500
+
+== Clawback: claw back 300 from B
+  ✓ claw back more than B holds -> refused by module: rErNBfmsRY74vbJJ3eKm573udEgGcb3aGy holds 1000, cannot claw back 1001
+  [audit] clawback {"holder":"rErNBfmsRY74vbJJ3eKm573udEgGcb3aGy","amount":"300","hash":"8A291E3EF5B0F6859AC78656A88BA6CBDFDBEE2B58E3C4D6B4AEF31E15AFF796","ledgerIndex":21134017}
+  ✓ B holds 700
+
+== Global freeze: freeze all movement of the token
+  [audit] freezeAll {"hash":"4FB4D1C2ADFBBB79C9E0ABFA2E998B8EF89A7FC333D94C98A693E69C42DF6D1C","ledgerIndex":21134019}
+  ✓ B sends to A during global freeze -> rejected by ledger with tecLOCKED (F48DE544E0A176417CE6C146F1C29CCA9E0A09A493CA1736696A22A27025A6FF)
+  ✓ A sends to B during global freeze -> rejected by ledger with tecLOCKED (98CD1A9D2DC4E9A35FDC4803A1D0FA58D8FF0ECC45568CFA25F2EB0CEE684394)
+  ✓ module issue() to A during global freeze -> refused by module: Refusing to issue: the token is globally frozen
+
+== Global freeze: lift it, then holders can transfer again
+  [audit] unfreezeAll {"hash":"609963B513070B9158378C1C512EE0177A584FDC335B9503631950AFED0AAA9C","ledgerIndex":21134025}
+  ✓ B->A 50 and A->B 50 succeeded; balances back to A=500, B=700
+
+== Ban C
+  [audit!] ban.recorded {"holder":"rK5yCmTTbVNa92xTdCfmYDY2gNoJZCAgie","reason":"Demo: sanctions screening match"}
+  [audit] ban.freeze {"holder":"rK5yCmTTbVNa92xTdCfmYDY2gNoJZCAgie","hash":"A335CE116293F32532A6CA87439ECE93FFBF5F518FF3BB6B90C3AAF0D811EF7D","ledgerIndex":21134030}
+  [audit] revoke {"holder":"rK5yCmTTbVNa92xTdCfmYDY2gNoJZCAgie","hash":"931D0A0CE0D84CA20A7BB1D2B99AD30A68BC44A13F1F53C9288F0440E8A8573F","ledgerIndex":21134032}
+  [audit] clawback {"holder":"rK5yCmTTbVNa92xTdCfmYDY2gNoJZCAgie","amount":"250","hash":"853559B3AFBE81810E3562D86A345B8BA2ECE06382A04B4AEF7B06F133166295","ledgerIndex":21134034}
+  [audit!] ban.enforced {"holder":"rK5yCmTTbVNa92xTdCfmYDY2gNoJZCAgie","clawedBack":"250"}
+  ✓ C banned: clawed back 250, balance 0, authorization revoked, frozen=true
+  ✓ issuer pays banned C directly on ledger -> rejected by ledger with tecNO_AUTH (2C6FE61C2DE0F6BB3D6F05A18FF5F22C894351964C173E0483BDCE34B4B387B4)
+  ✓ A sends to banned C -> rejected by ledger with tecNO_AUTH (449AA386C8C08CE47D8440CCBB7D7B71262B6233B1272D87EDA05EB7B12DF788)
+  ✓ module re-authorizes banned C -> refused by module: Refusing to authorize rK5yCmTTbVNa92xTdCfmYDY2gNoJZCAgie: banned at 2026-09-29T03:47:07.192Z (Demo: sanctions screening match)
+  ✓ module issues to banned C -> refused by module: Refusing to issue to rK5yCmTTbVNa92xTdCfmYDY2gNoJZCAgie: banned at 2026-09-29T03:47:07.192Z (Demo: sanctions screening match)
+  ✓ module unfreezes banned C -> refused by module: Refusing to unfreeze rK5yCmTTbVNa92xTdCfmYDY2gNoJZCAgie: banned at 2026-09-29T03:47:07.192Z (Demo: sanctions screening match)
+  [audit] ban.alreadyRecorded {"holder":"rK5yCmTTbVNa92xTdCfmYDY2gNoJZCAgie"}
+  [audit!] ban.enforced {"holder":"rK5yCmTTbVNa92xTdCfmYDY2gNoJZCAgie","clawedBack":"0"}
+  ✓ re-banning C is a no-op
+
+== Freeze B (stays frozen)
+  [audit] freezeHolder {"holder":"rErNBfmsRY74vbJJ3eKm573udEgGcb3aGy","hash":"62696FCB94397A57EB5F7EC559532DEEC01766ECB402B8A5771D9763349F5E10","ledgerIndex":21134039}
+  ✓ frozen B sends to A -> rejected by ledger with tecLOCKED (043A2785926330262108A532DC755A9F9E81CCDFB9B3DA6E0553C7AF54D3995E)
+
+== Verify final ledger state
+  racJfeig8sdtB2KQkyBagEZv16KUEqQvCh: balance=500 authorized=true frozen=false banned=false
+  rErNBfmsRY74vbJJ3eKm573udEgGcb3aGy: balance=700 authorized=true frozen=true banned=false
+  rK5yCmTTbVNa92xTdCfmYDY2gNoJZCAgie: balance=0 authorized=false frozen=true banned=true
+  issuance: outstanding=1200 globallyFrozen=false
+
+Wrote result.json: {
+  "issuanceId": "01427991DF5889C0735DDC2C2B1F2FAC1BF11E70473453E9",
+  "holders": {
+    "A": "racJfeig8sdtB2KQkyBagEZv16KUEqQvCh",
+    "B": "rErNBfmsRY74vbJJ3eKm573udEgGcb3aGy",
+    "C": "rK5yCmTTbVNa92xTdCfmYDY2gNoJZCAgie"
+  }
+}

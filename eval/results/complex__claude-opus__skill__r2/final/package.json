@@ -1,0 +1,23 @@
+{
+  "name": "mpt-issuer",
+  "version": "1.0.0",
+  "description": "Issuer-side compliance controls for a regulated Multi-Purpose Token on the XRP Ledger",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "demo": "tsx --env-file=.env scripts/demo.ts"
+  },
+  "engines": {
+    "node": ">=20.6"
+  },
+  "dependencies": {
+    "xrpl": "^5.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

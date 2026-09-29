@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "bans": [
+    {
+      "issuanceId": "014278B1D1B069201ECF3D2FDEF0A4B9BF5F083F577AF3F6",
+      "address": "rMNVSRY7ZghPLLAcn1EUXEbun1W9f8tNje",
+      "reason": "Demo: sanctions-screening match",
+      "bannedAt": "2026-09-29T03:33:56.080Z"
+    }
+  ]
+}

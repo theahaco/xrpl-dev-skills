@@ -1,0 +1,17 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [],
+    "sandboxDenials": [
+      "Exit code 1 (eval):1: operation not permitted: /tmp/feat.mjs cp: /tmp/feat.mjs: No such file or directory rm: feat.mjs: No such file or directory",
+      "(eval):1: can't create temp file for here document: operation not permitted",
+      "(eval):1: can't create temp file for here document: operation not permitted src/issuer.ts(497,19): error TS2339: Property 'result' does not exist on type 'never'."
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 40
+  }
+}

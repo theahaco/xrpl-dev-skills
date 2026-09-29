@@ -1,0 +1,25 @@
+{
+  "name": "mpt-issuer",
+  "version": "1.0.0",
+  "description": "Issuer-side compliance controls for a regulated MPT stablecoin on the XRP Ledger",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "tsc -p tsconfig.build.json",
+    "demo": "tsx --env-file-if-exists=.env scripts/demo.ts"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "type": "module",
+  "dependencies": {
+    "xrpl": "^5.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.0",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,5 @@
+node_modules/
+dist/
+.env
+# Demo holder keys and ban registry (testnet only, never commit seeds)
+.demo-state/

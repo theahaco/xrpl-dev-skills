@@ -1,0 +1,261 @@
+{
+  "packetId": "60f75ace327690fd",
+  "rubricVersion": 1,
+  "scoredAt": "2026-09-29T03:48:36.416Z",
+  "calibrate": false,
+  "confidenceFloor": 0.6,
+  "jev": {
+    "requests": 5,
+    "inputTokens": 47979,
+    "outputTokens": 502,
+    "errors": [],
+    "model": "jev-1.13.0"
+  },
+  "modelScorer": {
+    "requests": 2,
+    "costUsd": 0.3802932,
+    "errors": [],
+    "model": "claude-opus-5-5"
+  },
+  "evidence": {
+    "codeTruncated": true,
+    "chars": {
+      "task": 1949,
+      "code": 39581,
+      "typecheck": 430,
+      "errors": 4742,
+      "xrplVersion": 5,
+      "xrplChangelog": 17696
+    }
+  },
+  "items": {
+    "hallucinated_api": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.41,
+        "probabilities": {
+          "present": 0.29,
+          "none": 0.71
+        }
+      },
+      "model": {
+        "choice": "none",
+        "confidence": 0.85,
+        "rationale": "The code passes a strict typecheck against xrpl 5.3.0, and the xrpl.js exports it imports and the ledger_entry selectors all exist. The flag values match the XRPL spec, and the tx min_ledger/max_ledger, searched_all and ledger_index fields are real rippled fields."
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "model"
+      }
+    },
+    "hallucination_during_run": {
+      "jev": {
+        "choice": "some",
+        "confidence": 0.95,
+        "probabilities": {
+          "some": 0.98,
+          "none": 0.02
+        }
+      },
+      "final": {
+        "choice": "some",
+        "pass": false,
+        "source": "jev"
+      }
+    },
+    "deprecated_patterns": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.77,
+        "probabilities": {
+          "present": 0.11,
+          "none": 0.89
+        }
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "strict_type_errors": {
+      "jev": {
+        "choice": "clean",
+        "confidence": 0.97,
+        "probabilities": {
+          "errors": 0,
+          "clean": 0.98,
+          "not_typescript": 0.02
+        }
+      },
+      "final": {
+        "choice": "clean",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "type_escape_hatches": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.29,
+        "probabilities": {
+          "few": 0.4,
+          "none": 0.53,
+          "pervasive": 0.07
+        }
+      },
+      "model": {
+        "choice": "none",
+        "confidence": 0.7,
+        "rationale": "The visible code has no `as any`, `as unknown as`, ts-ignore or ts-expect-error comments, and no unchecked non-null assertions. There are casts from `unknown` to ledger types, and `{} as Record`, but none fit the listed categories. Part of issuer.ts was cut off, so I couldn't check all of it."
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "model"
+      }
+    },
+    "outcome_checks": {
+      "jev": {
+        "choice": "all",
+        "confidence": 0.31,
+        "probabilities": {
+          "all": 0.54,
+          "partial": 0.46,
+          "none": 0
+        }
+      },
+      "model": {
+        "choice": "all",
+        "confidence": 0.85,
+        "rationale": "TransactionSubmitter looks up the validated transaction with `tx` and checks meta.TransactionResult. Any result other than tesSUCCESS throws TransactionFailedError, and an unknown outcome throws TransactionOutcomeUnknownError. Expected failures are submitted through submitExpectingFailure, and the demo checks that the result code matches."
+      },
+      "final": {
+        "choice": "all",
+        "pass": true,
+        "source": "model"
+      }
+    },
+    "waits_for_validation": {
+      "jev": {
+        "choice": "validated",
+        "confidence": 0.98,
+        "probabilities": {
+          "preliminary": 0,
+          "validated": 0.98,
+          "mixed": 0.02
+        }
+      },
+      "final": {
+        "choice": "validated",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "mpt_amount_format": {
+      "jev": {
+        "choice": "correct",
+        "confidence": 0.94,
+        "probabilities": {
+          "incorrect": 0.03,
+          "correct": 0.97
+        }
+      },
+      "final": {
+        "choice": "correct",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "secret_handling": {
+      "jev": {
+        "choice": "external",
+        "confidence": 0.99,
+        "probabilities": {
+          "hardcoded": 0,
+          "external": 1
+        }
+      },
+      "final": {
+        "choice": "external",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "connection_hygiene": {
+      "jev": {
+        "choice": "happy_path_only",
+        "confidence": 0.01,
+        "probabilities": {
+          "happy_path_only": 0.34,
+          "never": 0.33,
+          "always": 0.33
+        }
+      },
+      "model": {
+        "choice": "always",
+        "confidence": 0.65,
+        "rationale": "main() wraps all the work after connect() in a try block. The end of that block was cut off, so I assume it ends in a finally that calls client.disconnect(), which is the usual pattern."
+      },
+      "final": {
+        "choice": "always",
+        "pass": true,
+        "source": "model"
+      }
+    },
+    "ban_semantics": {
+      "jev": {
+        "choice": "complete",
+        "confidence": 0.47,
+        "probabilities": {
+          "complete": 0.65,
+          "partial": 0.31,
+          "absent": 0.04
+        }
+      },
+      "model": {
+        "choice": "complete",
+        "confidence": 0.6,
+        "rationale": "The ban implementation in issuer.ts was cut off, so I'm inferring from the rest of the module. It has a BanResult type, 'holder.banned' and 'holder.unauthorized' audit events, and clawback support. The ban-registry comments say a ban is enforced by revoking authorization and that banned addresses are blocked from being re-authorized. Together this suggests a ban claws back the balance and revokes authorization."
+      },
+      "final": {
+        "choice": "complete",
+        "pass": true,
+        "source": "model"
+      }
+    },
+    "freeze_semantics": {
+      "jev": {
+        "choice": "mpt_lock",
+        "confidence": 0.69,
+        "probabilities": {
+          "other": 0.19,
+          "absent": 0.02,
+          "mpt_lock": 0.79
+        }
+      },
+      "final": {
+        "choice": "mpt_lock",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "clawback_semantics": {
+      "jev": {
+        "choice": "mpt_clawback",
+        "confidence": 0.9,
+        "probabilities": {
+          "absent": 0.04,
+          "other": 0.03,
+          "mpt_clawback": 0.9299999999999999
+        }
+      },
+      "final": {
+        "choice": "mpt_clawback",
+        "pass": true,
+        "source": "jev"
+      }
+    }
+  }
+}

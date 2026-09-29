@@ -1,0 +1,20 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [
+      "andard. ## 4.4.2 (2025-09-25) ### Fixed * improve Batch inner transaction typing ## 4.4.1 (2025-08-29) ### Fixed * Prevent Node.js process termination when WebSocket send() errors after the connection is closed. ## 4.4.0 (2025-07-29) ### Added * Support for `PermissionedDEX` (XLS-81d) * Support for `Token Escrow`",
+      "9:declare class RippledError extends XrplError { 10-} 11-declare class UnexpectedError extends XrplError { 12-} 13-declare class ConnectionError extends XrplError { 14-} 15-declare class NotConnectedError extends ConnectionError { 16-} 17-declare class DisconnectedError extends Connection"
+    ],
+    "sandboxDenials": [
+      "Exit code 1 mkdir: xrplpkg: Operation not permitted (eval):1: no matches found: package/*.md",
+      "Exit code 1 @types/node@24.19.0 '24.19.0' (eval):1: can't create temp file for here document: operation not permitted npm error JSON.parse Note: package.json must be actual JSON, not just JavaScript. npm error A complete log of this run can be found in: ",
+      "(eval):1: can't create temp file for here document: operation not permitted heredoc-blocked src/issuer.ts:4 src/errors.ts:1"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 27
+  }
+}

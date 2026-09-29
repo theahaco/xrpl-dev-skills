@@ -1,0 +1,268 @@
+[
+  {
+    "step": "Funded holder A rGtrjptgoCL77JgoWhdWAUmFSLb5LNzSCX with 5 XRP",
+    "tx": "03604983003608CE339E331AF118EF54C5CDCDE9C9BEC606B75DA7A8D6359C6D",
+    "result": "tesSUCCESS"
+  },
+  {
+    "step": "Funded holder B rXbrVPsB362BreDHJEJF8eQCsRu1r3qKM with 5 XRP",
+    "tx": "33D1090BB7D474E7F218ECB0F7F12C851D1593CD82B2E692C20761D4D6A28469",
+    "result": "tesSUCCESS"
+  },
+  {
+    "step": "Funded holder C rEFYd5jRtFeg9LDP5iB2EaEbfpVmov2t6t with 5 XRP",
+    "tx": "7F45F39DFCCEEEDB197C99011926055D432FDEF4C15D66CFB4990EB3A3EEA671",
+    "result": "tesSUCCESS"
+  },
+  {
+    "step": "Created issuance 014279910EAE7BF62D79DDB80C8F44CC63682242595B5C5E (flags 0x66)",
+    "detail": {
+      "issuanceId": "014279910EAE7BF62D79DDB80C8F44CC63682242595B5C5E",
+      "issuer": "rpLdVhbzNHhFFK6jCudB77XNiJp6pieTrY",
+      "assetScale": 0,
+      "outstanding": "0",
+      "maximum": "1000000000",
+      "globallyFrozen": false,
+      "canLock": true,
+      "requireAuth": true,
+      "canClawback": true,
+      "canTransfer": true,
+      "canEscrow": false,
+      "canTrade": false,
+      "flags": 102
+    }
+  },
+  {
+    "step": "Holder A opted in (MPTokenAuthorize)",
+    "tx": "053652C9F1CC8A0EABCE307A45FA2F2DBAEA98DB7F3CE978BD1AB40C8D5588DB",
+    "result": "tesSUCCESS"
+  },
+  {
+    "step": "Holder B opted in (MPTokenAuthorize)",
+    "tx": "A2F65E9131E42A40EABF8E87180047A2870A8B44D016C9F85BB173DAA45E0A50",
+    "result": "tesSUCCESS"
+  },
+  {
+    "step": "Holder C opted in (MPTokenAuthorize)",
+    "tx": "258A8AD569819DF08BB6CD00B81A3B6C0ABEA03949100087696B6B0F96F4704F",
+    "result": "tesSUCCESS"
+  },
+  {
+    "step": "Issue 100 to A before approval -> refused by module",
+    "result": "HOLDER_NOT_AUTHORIZED"
+  },
+  {
+    "step": "Raw issuer payment to unapproved A -> rejected by ledger",
+    "tx": "FFEA2D45BA9C020BC95BF59C6086B578633124634E6BDDEA1B94DAAC952A025F",
+    "result": "tecNO_AUTH"
+  },
+  {
+    "step": "Approved holder A after KYC",
+    "tx": "4ABFAAF3F59EF5C37AA5300F62F292B11C5EEFE864B5D1903B31D5A16C7007D9",
+    "result": "tesSUCCESS"
+  },
+  {
+    "step": "Approved holder B after KYC",
+    "tx": "F31FAC2D50F838C5092A37474C52BB5B5048332A780431A82BBDCE6C03FAE59D",
+    "result": "tesSUCCESS"
+  },
+  {
+    "step": "Approved holder C after KYC",
+    "tx": "4A505FCE2896BA5A4102EA5EF7F417428987A2FB7576ACFF71835A30754E8FFE",
+    "result": "tesSUCCESS"
+  },
+  {
+    "step": "Issued 400 to A",
+    "tx": "AD43A8638A0E38D9D7D9C2D166F44E9918F85F80B748A930D16836F16AC7B26C",
+    "result": "tesSUCCESS"
+  },
+  {
+    "step": "Issued 1000 to B",
+    "tx": "E1A6CB22B7B9B183FA92684D1A246A79232A7F1BFB4B57EF6BF8D7BBFEBBA28F",
+    "result": "tesSUCCESS"
+  },
+  {
+    "step": "Issued 250 to C",
+    "tx": "AEA95976C1893B5CE0F063CE4FFE2CB8C221D8FE9718F4C7E971B6673F89DDF0",
+    "result": "tesSUCCESS"
+  },
+  {
+    "step": "Froze A",
+    "tx": "638513870092EB8534EB2403EBB5667953FF72BC6282776D179216FD8F431D3D",
+    "result": "tesSUCCESS"
+  },
+  {
+    "step": "Frozen A sends 1 to C -> rejected by ledger",
+    "tx": "7CB3DB941A381F04B1B8C1478F9211C0E9D57E42928D3E901723A81455870DCD",
+    "result": "tecLOCKED"
+  },
+  {
+    "step": "C sends 1 to frozen A -> rejected by ledger",
+    "tx": "6A4984A44BBB53A633B23B6310DFC4FA76105956E7BFD9F55D53FDE9510F5638",
+    "result": "tecLOCKED"
+  },
+  {
+    "step": "Issue 75 to frozen A -> refused by module",
+    "result": "HOLDER_FROZEN"
+  },
+  {
+    "step": "Unfroze A",
+    "tx": "248ED22963E6ACF2245F37137E26838D778F04770DA3FCB84C26A450D68DA137",
+    "result": "tesSUCCESS"
+  },
+  {
+    "step": "Issued 75 to unfrozen A (receiving works again)",
+    "tx": "FD59ACAA8F388EC4A79DB948FAFD09CCDC030D75F59C24FE864D7FD29C8DCDC8",
+    "result": "tesSUCCESS"
+  },
+  {
+    "step": "Claw back 5000 from B (more than B holds) -> refused by module",
+    "result": "INSUFFICIENT_BALANCE"
+  },
+  {
+    "step": "Clawed back 300 from B",
+    "tx": "00C4B817AAF2B92DC164F647587215EE66A733ED2F2FAE7ECDF57DDEE6B66509",
+    "result": "tesSUCCESS"
+  },
+  {
+    "step": "Globally froze the token",
+    "tx": "7D6C6201D092C7CF68C61B6CC906321DF8F60AF97E42E14B0B662704C42FFF50",
+    "result": "tesSUCCESS"
+  },
+  {
+    "step": "B sends 1 to C during global freeze -> rejected by ledger",
+    "tx": "249D41E51B5A644D795AF262DCB2BEB6E36FE0DACAAE329744DA018FABF42C99",
+    "result": "tecLOCKED"
+  },
+  {
+    "step": "C sends 25 to A during global freeze -> rejected by ledger",
+    "tx": "B53649D8D74DC8856C65F91428B81D1B808B9613936DD2D5AC1B3E37828CA2EA",
+    "result": "tecLOCKED"
+  },
+  {
+    "step": "Issue 10 to C during global freeze -> refused by module",
+    "result": "GLOBALLY_FROZEN"
+  },
+  {
+    "step": "Lifted global freeze",
+    "tx": "014AC3AD7F46B884E1D3EB2BAA234C922BF09E5C96CCED3EC5357C86251B3E33",
+    "result": "tesSUCCESS"
+  },
+  {
+    "step": "C sent 25 to A after global unfreeze (transfers work again)",
+    "tx": "7D3990D5CBB9A2E227A10EB43600CE7FEE3392ECA70AEE2EC0DB005975980246",
+    "result": "tesSUCCESS"
+  },
+  {
+    "step": "Banned C, clawed back 225",
+    "tx": "2A8538F148B6AC88ABB4C9B3B789076AC254D9BD565607C5869BF2C7B33078F0,900C5EEB9ACCB9A7D95CB9DE9B8469262139717FB43C8AB18FA262BC958AF8AD,7C82AADB5D6C4A84283BBA7C161CB13CC192E5ED982F3EE72FF4BDA7BCA18092",
+    "result": "tesSUCCESS",
+    "detail": {
+      "record": {
+        "address": "rEFYd5jRtFeg9LDP5iB2EaEbfpVmov2t6t",
+        "reason": "Demo: sanctions screening hit",
+        "bannedAt": "2026-09-29T03:40:23.613Z"
+      },
+      "clawedBack": "225",
+      "transactions": [
+        "2A8538F148B6AC88ABB4C9B3B789076AC254D9BD565607C5869BF2C7B33078F0",
+        "900C5EEB9ACCB9A7D95CB9DE9B8469262139717FB43C8AB18FA262BC958AF8AD",
+        "7C82AADB5D6C4A84283BBA7C161CB13CC192E5ED982F3EE72FF4BDA7BCA18092"
+      ]
+    }
+  },
+  {
+    "step": "Issue 10 to banned C -> refused by module",
+    "result": "HOLDER_BANNED"
+  },
+  {
+    "step": "Re-approve banned C -> refused by module",
+    "result": "HOLDER_BANNED"
+  },
+  {
+    "step": "Unfreeze banned C -> refused by module",
+    "result": "HOLDER_BANNED"
+  },
+  {
+    "step": "Raw issuer payment to banned C -> rejected by ledger",
+    "tx": "80515DA6C1F31C1100560A552482438105208C9F0BD1032E9C6B59AA390C4273",
+    "result": "tecNO_AUTH"
+  },
+  {
+    "step": "A sends 1 to banned C -> rejected by ledger",
+    "tx": "CB6E10E8D47D71D880AF3CE8D9B89AEE759F93C5AF4B32A9367147DB6E2A632F",
+    "result": "tecNO_AUTH"
+  },
+  {
+    "step": "C tries to delete its (locked, empty) MPToken",
+    "tx": "74445F5E1E4B8DBF333641FAA256CC823DC7E96A4E785BF5915FFBB6C9E225D3",
+    "result": "tesSUCCESS"
+  },
+  {
+    "step": "C re-created its MPToken",
+    "tx": "ED8FA0C9670FDB311D5F2B4AFCFE05D5A6E22BD19C0F5A386E87389F3372628D",
+    "result": "tesSUCCESS"
+  },
+  {
+    "step": "Raw issuer payment to C after it re-opted in -> rejected by ledger",
+    "tx": "6F8E366ACF05DA4AE3036090FFF64207CF1D161E865E2962DD9E28128BD1CD3E",
+    "result": "tecNO_AUTH"
+  },
+  {
+    "step": "Re-froze C",
+    "tx": "C3F3146BB69589A71499ADA3ADE88EFE2EA5084A770C976B91242EA2DA50CD46",
+    "result": "tesSUCCESS"
+  },
+  {
+    "step": "Froze B",
+    "tx": "B891CB77FA5B18A865958753FFB04A50294B4C8D86EFD6E95CD80D1FA6FF993A",
+    "result": "tesSUCCESS"
+  },
+  {
+    "step": "Final state verified",
+    "detail": {
+      "issuance": {
+        "issuanceId": "014279910EAE7BF62D79DDB80C8F44CC63682242595B5C5E",
+        "issuer": "rpLdVhbzNHhFFK6jCudB77XNiJp6pieTrY",
+        "assetScale": 0,
+        "outstanding": "1200",
+        "maximum": "1000000000",
+        "globallyFrozen": false,
+        "canLock": true,
+        "requireAuth": true,
+        "canClawback": true,
+        "canTransfer": true,
+        "canEscrow": false,
+        "canTrade": false,
+        "flags": 102
+      },
+      "A": {
+        "address": "rGtrjptgoCL77JgoWhdWAUmFSLb5LNzSCX",
+        "optedIn": true,
+        "authorized": true,
+        "frozen": false,
+        "balance": "500",
+        "lockedAmount": "0",
+        "hasConfidentialBalance": false
+      },
+      "B": {
+        "address": "rXbrVPsB362BreDHJEJF8eQCsRu1r3qKM",
+        "optedIn": true,
+        "authorized": true,
+        "frozen": true,
+        "balance": "700",
+        "lockedAmount": "0",
+        "hasConfidentialBalance": false
+      },
+      "C": {
+        "address": "rEFYd5jRtFeg9LDP5iB2EaEbfpVmov2t6t",
+        "optedIn": true,
+        "authorized": false,
+        "frozen": true,
+        "balance": "0",
+        "lockedAmount": "0",
+        "hasConfidentialBalance": false
+      }
+    }
+  }
+]

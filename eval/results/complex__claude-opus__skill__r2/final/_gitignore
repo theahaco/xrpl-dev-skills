@@ -1,0 +1,6 @@
+node_modules/
+dist/
+# Secrets (issuer seed) — never commit
+.env
+# Local state written by the demo: ban list and demo holder wallets (contain seeds)
+data/

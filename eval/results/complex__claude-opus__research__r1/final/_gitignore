@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.scratch/
+
+# Secrets: the issuer seed lives here and must never be committed.
+.env
+.env.*
+!.env.example
+
+# Demo run artefacts
+state/

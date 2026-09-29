@@ -1,0 +1,14 @@
+{
+  "A": {
+    "address": "r4NTZeEmhTGWPbpgQcufP6SLKLV1LdfRFW",
+    "seed": "<TESTNET_SEED_REDACTED>"
+  },
+  "B": {
+    "address": "rQahexUC143WSJ8RpnNuffS9pMPqmHRF3J",
+    "seed": "<TESTNET_SEED_REDACTED>"
+  },
+  "C": {
+    "address": "rEk7SWwFAz9nP2f2Duz2CXhsomNjHRqiJ6",
+    "seed": "<TESTNET_SEED_REDACTED>"
+  }
+}
