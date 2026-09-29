@@ -1,0 +1,19 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [
+      "---fundWallet--- import { isValidClassicAddress } from 'ripple-address-codec' import type { Client } from '../client' import { XRPLFaucetError } from '../errors' "
+    ],
+    "rippledErrors": [
+      "/src/errors.ts:62:class RippledError extends XrplError {} /private/tmp/ws/6897e708750f/project/node_modules/xrpl/src/client/connection.ts:95: reject(new DisconnectedError(error.message, error)) /private/tmp/ws/6897e708750f/project/node_modules/xrpl/src/client/connection.ts:187: return Promise.reject( /priva"
+    ],
+    "sandboxDenials": [
+      "mkdir: /tmp/xrpl-check: Operation not permitted tail: /tmp/xrpl-check/install.log: No such file or directory --- find: node_modules/xrpl/dist: No such file or directory"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 22
+  }
+}

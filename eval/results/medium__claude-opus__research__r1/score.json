@@ -1,0 +1,209 @@
+{
+  "packetId": "d1e2184aa2e5c98f",
+  "rubricVersion": 1,
+  "scoredAt": "2026-09-29T04:55:09.571Z",
+  "calibrate": false,
+  "confidenceFloor": 0.6,
+  "jev": {
+    "requests": 5,
+    "inputTokens": 16226,
+    "outputTokens": 410,
+    "errors": [],
+    "model": "jev-1.13.0"
+  },
+  "modelScorer": {
+    "requests": 1,
+    "costUsd": 0.0601012,
+    "errors": [],
+    "model": "claude-opus-5-5"
+  },
+  "evidence": {
+    "codeTruncated": false,
+    "chars": {
+      "task": 952,
+      "code": 6517,
+      "typecheck": 430,
+      "errors": 465,
+      "xrplVersion": 5,
+      "xrplChangelog": 17696
+    }
+  },
+  "items": {
+    "hallucinated_api": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.45,
+        "probabilities": {
+          "none": 0.72,
+          "present": 0.28
+        }
+      },
+      "model": {
+        "choice": "none",
+        "confidence": 0.85,
+        "rationale": "Every xrpl import resolves and the project typechecks cleanly against xrpl 5.3.0 under strict settings. The XRPL fields it uses (mptoken/mpt_issuance lookups, MPTAmount, OutstandingAmount, mpt_issuance_id in metadata, Holder on MPTokenAuthorize) all match the MPT specification."
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "model"
+      }
+    },
+    "hallucination_during_run": {
+      "jev": {
+        "choice": "some",
+        "confidence": 0.85,
+        "probabilities": {
+          "some": 0.93,
+          "none": 0.07
+        }
+      },
+      "final": {
+        "choice": "some",
+        "pass": false,
+        "source": "jev"
+      }
+    },
+    "deprecated_patterns": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.85,
+        "probabilities": {
+          "present": 0.08,
+          "none": 0.92
+        }
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "strict_type_errors": {
+      "jev": {
+        "choice": "clean",
+        "confidence": 0.98,
+        "probabilities": {
+          "not_typescript": 0.01,
+          "errors": 0,
+          "clean": 0.99
+        }
+      },
+      "final": {
+        "choice": "clean",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "type_escape_hatches": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.9,
+        "probabilities": {
+          "none": 0.94,
+          "few": 0.06,
+          "pervasive": 0
+        }
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "outcome_checks": {
+      "jev": {
+        "choice": "all",
+        "confidence": 0.97,
+        "probabilities": {
+          "none": 0,
+          "partial": 0.02,
+          "all": 0.98
+        }
+      },
+      "final": {
+        "choice": "all",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "waits_for_validation": {
+      "jev": {
+        "choice": "validated",
+        "confidence": 0.98,
+        "probabilities": {
+          "mixed": 0.01,
+          "validated": 0.99,
+          "preliminary": 0
+        }
+      },
+      "final": {
+        "choice": "validated",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "ledger_readback": {
+      "jev": {
+        "choice": "ledger",
+        "confidence": 1,
+        "probabilities": {
+          "not_reported": 0,
+          "ledger": 1,
+          "local": 0
+        }
+      },
+      "final": {
+        "choice": "ledger",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "mpt_amount_format": {
+      "jev": {
+        "choice": "correct",
+        "confidence": 0.99,
+        "probabilities": {
+          "correct": 1,
+          "incorrect": 0
+        }
+      },
+      "final": {
+        "choice": "correct",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "secret_handling": {
+      "jev": {
+        "choice": "external",
+        "confidence": 1,
+        "probabilities": {
+          "hardcoded": 0,
+          "external": 1
+        }
+      },
+      "final": {
+        "choice": "external",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "connection_hygiene": {
+      "jev": {
+        "choice": "always",
+        "confidence": 0.83,
+        "probabilities": {
+          "never": 0.01,
+          "always": 0.89,
+          "happy_path_only": 0.1
+        }
+      },
+      "final": {
+        "choice": "always",
+        "pass": true,
+        "source": "jev"
+      }
+    }
+  }
+}
