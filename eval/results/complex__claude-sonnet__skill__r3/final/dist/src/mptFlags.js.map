@@ -1,0 +1,1 @@
+{"version":3,"file":"mptFlags.js","sourceRoot":"","sources":["../../src/mptFlags.ts"],"names":[],"mappings":";;;;AAAA;;;;;;;;;;;GAWG;AACU,QAAA,YAAY,GAAG;IAC1B,YAAY,EAAE,UAAU;IACxB,gBAAgB,EAAE,UAAU;CACpB,CAAC;AAEX,iBAAwB,KAAa,EAAE,GAAW;IAChD,OAAO,CAAC,KAAK,GAAG,GAAG,CAAC,KAAK,GAAG,CAAC;AAC/B,CAAC"}

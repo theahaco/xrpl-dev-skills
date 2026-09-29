@@ -1,0 +1,19 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [
+      "3:95: reject(new DisconnectedError(error.message, error)) 31:187- return Promise.reject( 32:188- new ConnectionError('Cannot connect because no server was specified'",
+      "1-import { 2- ResponseFormatError, 3: RippledError, 4- TimeoutError, 5- XrplError, 6-} from '../errors' 7-import type { APIVersion } from '../models' 8-import { Response, RequestResponseMap } from '../models/method"
+    ],
+    "sandboxDenials": [
+      "Exit code 1 mkdir: /tmp/xrpl-check: Operation not permitted"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 29
+  },
+  "suspect": "connectivity errors in command output while the health monitor saw testnet healthy; scored as an agent failure, review by hand"
+}

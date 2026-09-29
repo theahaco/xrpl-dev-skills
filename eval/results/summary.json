@@ -1,0 +1,273 @@
+{
+  "cells": {
+    "claude-opus|medium|bare": {
+      "pass": 2,
+      "n": 2,
+      "failed": []
+    },
+    "claude-opus|medium|skill": {
+      "pass": 2,
+      "n": 2,
+      "failed": []
+    },
+    "claude-opus|medium|research": {
+      "pass": 2,
+      "n": 2,
+      "failed": []
+    },
+    "claude-opus|medium|skill-research": {
+      "pass": 2,
+      "n": 2,
+      "failed": []
+    },
+    "claude-opus|complex|bare": {
+      "pass": 3,
+      "n": 3,
+      "failed": []
+    },
+    "claude-opus|complex|skill": {
+      "pass": 3,
+      "n": 3,
+      "failed": []
+    },
+    "claude-opus|complex|research": {
+      "pass": 3,
+      "n": 3,
+      "failed": []
+    },
+    "claude-opus|complex|skill-research": {
+      "pass": 3,
+      "n": 3,
+      "failed": []
+    },
+    "claude-sonnet|medium|bare": {
+      "pass": 2,
+      "n": 2,
+      "failed": []
+    },
+    "claude-sonnet|medium|skill": {
+      "pass": 2,
+      "n": 2,
+      "failed": []
+    },
+    "claude-sonnet|medium|research": {
+      "pass": 2,
+      "n": 2,
+      "failed": []
+    },
+    "claude-sonnet|medium|skill-research": {
+      "pass": 2,
+      "n": 2,
+      "failed": []
+    },
+    "claude-sonnet|complex|bare": {
+      "pass": 3,
+      "n": 3,
+      "failed": []
+    },
+    "claude-sonnet|complex|skill": {
+      "pass": 2,
+      "n": 3,
+      "failed": [
+        "complex__claude-sonnet__skill__r2"
+      ]
+    },
+    "claude-sonnet|complex|research": {
+      "pass": 1,
+      "n": 3,
+      "failed": [
+        "complex__claude-sonnet__research__r1",
+        "complex__claude-sonnet__research__r2"
+      ]
+    },
+    "claude-sonnet|complex|skill-research": {
+      "pass": 1,
+      "n": 3,
+      "failed": [
+        "complex__claude-sonnet__skill-research__r1",
+        "complex__claude-sonnet__skill-research__r3"
+      ]
+    },
+    "codex|medium|bare": {
+      "pass": 2,
+      "n": 2,
+      "failed": []
+    },
+    "codex|medium|skill": {
+      "pass": 2,
+      "n": 2,
+      "failed": []
+    },
+    "codex|medium|research": {
+      "pass": 2,
+      "n": 2,
+      "failed": []
+    },
+    "codex|medium|skill-research": {
+      "pass": 2,
+      "n": 2,
+      "failed": []
+    },
+    "codex|complex|bare": {
+      "pass": 3,
+      "n": 3,
+      "failed": []
+    },
+    "codex|complex|skill": {
+      "pass": 3,
+      "n": 3,
+      "failed": []
+    },
+    "codex|complex|research": {
+      "pass": 3,
+      "n": 3,
+      "failed": []
+    },
+    "codex|complex|skill-research": {
+      "pass": 3,
+      "n": 3,
+      "failed": []
+    }
+  },
+  "agreement": {
+    "calibration": {
+      "items": 96,
+      "agree": 92,
+      "rate": 0.9583333333333334,
+      "byItem": {
+        "hallucinated_api": {
+          "items": 8,
+          "agree": 8
+        },
+        "hallucination_during_run": {
+          "items": 8,
+          "agree": 8
+        },
+        "deprecated_patterns": {
+          "items": 8,
+          "agree": 7
+        },
+        "strict_type_errors": {
+          "items": 8,
+          "agree": 8
+        },
+        "type_escape_hatches": {
+          "items": 8,
+          "agree": 6
+        },
+        "outcome_checks": {
+          "items": 8,
+          "agree": 7
+        },
+        "waits_for_validation": {
+          "items": 8,
+          "agree": 8
+        },
+        "mpt_amount_format": {
+          "items": 8,
+          "agree": 8
+        },
+        "secret_handling": {
+          "items": 8,
+          "agree": 8
+        },
+        "connection_hygiene": {
+          "items": 8,
+          "agree": 8
+        },
+        "ban_semantics": {
+          "items": 4,
+          "agree": 4
+        },
+        "freeze_semantics": {
+          "items": 4,
+          "agree": 4
+        },
+        "clawback_semantics": {
+          "items": 4,
+          "agree": 4
+        },
+        "ledger_readback": {
+          "items": 4,
+          "agree": 4
+        }
+      },
+      "aboveFloor": {
+        "items": 81,
+        "agree": 80
+      }
+    },
+    "all": {
+      "items": 202,
+      "agree": 181,
+      "rate": 0.8960396039603961,
+      "byItem": {
+        "hallucinated_api": {
+          "items": 59,
+          "agree": 59
+        },
+        "hallucination_during_run": {
+          "items": 14,
+          "agree": 11
+        },
+        "outcome_checks": {
+          "items": 18,
+          "agree": 15
+        },
+        "waits_for_validation": {
+          "items": 12,
+          "agree": 12
+        },
+        "connection_hygiene": {
+          "items": 10,
+          "agree": 9
+        },
+        "ban_semantics": {
+          "items": 7,
+          "agree": 6
+        },
+        "type_escape_hatches": {
+          "items": 30,
+          "agree": 18
+        },
+        "deprecated_patterns": {
+          "items": 12,
+          "agree": 11
+        },
+        "mpt_amount_format": {
+          "items": 10,
+          "agree": 10
+        },
+        "clawback_semantics": {
+          "items": 6,
+          "agree": 6
+        },
+        "strict_type_errors": {
+          "items": 8,
+          "agree": 8
+        },
+        "secret_handling": {
+          "items": 8,
+          "agree": 8
+        },
+        "freeze_semantics": {
+          "items": 4,
+          "agree": 4
+        },
+        "ledger_readback": {
+          "items": 4,
+          "agree": 4
+        }
+      },
+      "aboveFloor": {
+        "items": 81,
+        "agree": 80
+      }
+    }
+  },
+  "cost": {
+    "claudeRunUsd": 82.57491859999998,
+    "scoringUsd": 14.404760199999997,
+    "jevRequests": 300
+  }
+}

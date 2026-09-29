@@ -1,0 +1,18 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [
+      "toString(): string; inspect(): string; } declare class RippledError extends XrplError { } declare class UnexpectedError extends XrplError { } declare class ConnectionError extends XrplError { } declare class NotConnectedError extends ConnectionError { } declare class DisconnectedError extends ConnectionError { } de"
+    ],
+    "sandboxDenials": [
+      "Exit code 1 git+ssh://git@github.com/XRPLF/xrpl.js.git --- / (eval):1: operation not permitted: /tmp/npmpack.log cat: /tmp/npmpack.log: No such file or directory (eval):1: no matches found: /tmp/*.tgz",
+      "Exit code 1 (eval):1: operation not permitted: /tmp/install.log tail: /tmp/install.log: No such file or directory"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 48
+  }
+}

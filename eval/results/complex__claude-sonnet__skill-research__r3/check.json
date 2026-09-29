@@ -1,0 +1,94 @@
+{
+  "tier": "complex",
+  "issuer": "rJxF5JAmChmEwMZwddpgeqJ6iuxeN7hRZP",
+  "checkedAt": "2026-09-29T15:51:21.644Z",
+  "status": "fail",
+  "criteria": [
+    {
+      "id": "result_json",
+      "pass": false,
+      "detail": "result.json not found (or not a regular file inside the project)"
+    },
+    {
+      "id": "issuance_exists",
+      "pass": true,
+      "detail": "issuance 0142AC55C508D829C17ED4135684EE59F08819C004ECCB31 (discovered)"
+    },
+    {
+      "id": "issuance_capabilities",
+      "pass": true,
+      "detail": "flags 0x66: {\"canLock\":true,\"requireAuth\":true,\"canClawback\":true}"
+    },
+    {
+      "id": "holder_a_state",
+      "pass": false,
+      "detail": "holder not identified; expected authorized, 50000 raw (scale 2), not locked"
+    },
+    {
+      "id": "holder_a_freeze_cycle",
+      "pass": false,
+      "detail": "per-holder lock/unlock on A: none"
+    },
+    {
+      "id": "holder_b_state",
+      "pass": false,
+      "detail": "holder not identified; expected authorized, 70000 raw (scale 2), locked"
+    },
+    {
+      "id": "holder_b_sent_1000",
+      "pass": false,
+      "detail": "issuer delivered 0 raw (scale 2) to B"
+    },
+    {
+      "id": "holder_b_clawback_300",
+      "pass": false,
+      "detail": "validated Clawback from B totals 0 raw (scale 2)"
+    },
+    {
+      "id": "holder_c_banned",
+      "pass": false,
+      "detail": "holder not identified; expected zero balance and no issuer authorization on a require-auth issuance"
+    },
+    {
+      "id": "holder_c_received_before_ban",
+      "pass": false,
+      "detail": "issuer delivered 0 raw (scale 2) to C"
+    },
+    {
+      "id": "global_freeze_cycle",
+      "pass": false,
+      "detail": "issuance-wide lock/unlock: none"
+    },
+    {
+      "id": "not_globally_frozen",
+      "pass": true,
+      "detail": "issuance lsfMPTLocked clear"
+    },
+    {
+      "id": "outstanding_consistent",
+      "pass": false,
+      "detail": "OutstandingAmount 1751 raw (scale 2); A+B+C 0 raw (scale 2)"
+    }
+  ],
+  "observed": {
+    "issuance": {
+      "AssetScale": 2,
+      "Flags": 102,
+      "Issuer": "rJxF5JAmChmEwMZwddpgeqJ6iuxeN7hRZP",
+      "LedgerEntryType": "MPTokenIssuance",
+      "MPTokenMetadata": "7B226163223A22727761222C226173223A22737461626C65636F696E222C2264223A2244656D6F20726567756C6174656420737461626C65636F696E2D7374796C65204D5054207769746820616C6C6F776C6973742C20636C61776261636B2C2062616E732C20616E6420667265657A6520636F6E74726F6C732E222C2269223A226578616D706C652E6F72672F727573642D69636F6E2E706E67222C22696E223A2244656D6F2049737375657220436F2E222C226E223A22526567756C6174656420555344222C2274223A2252555344227D",
+      "MaximumAmount": "1000000000",
+      "OutstandingAmount": "1751",
+      "OwnerNode": "0",
+      "PreviousTxnID": "D5448B3BC59D87BF8B7E2F0CBFC1F3BFE419E867310046A62ABACBF81782FCC5",
+      "PreviousTxnLgrSeq": 21146889,
+      "Sequence": 21146709,
+      "index": "92B1B4D029B7436CB871C0ADD593584B8CE9E15396160C024C291C312F5E5E98",
+      "mpt_issuance_id": "0142AC55C508D829C17ED4135684EE59F08819C004ECCB31"
+    },
+    "holders": {},
+    "holderTokens": {},
+    "cUnauthorizedByIssuer": false,
+    "txCount": 16
+  }
+}
