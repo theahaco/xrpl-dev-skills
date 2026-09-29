@@ -12,7 +12,7 @@ Wherever an agent got stuck, left the ledger wrong or wrote something a reviewer
 | --- | --- |
 | **Harness** | [PR #1](https://github.com/theahaco/xrpl-dev-skills/pull/1) (merged): the runner, sandbox, ledger checkers and rubric scorer under `eval/` |
 | **Raw results** | branch [`fm/xrpl-ai-eval-runs-e2`](https://github.com/theahaco/xrpl-dev-skills/tree/fm/xrpl-ai-eval-runs-e2/eval/results): one directory per run with the transcript, final code, ledger check and scores, plus [harness-build findings](https://github.com/theahaco/xrpl-dev-skills/blob/fm/xrpl-ai-eval-runs-e2/eval/findings/harness-build.md) |
-| **Proposed skill changes** | this PR: new [`skill/mpt.md`](https://github.com/theahaco/xrpl-dev-skills/blob/fm/xrpl-ai-eval-report-e3/skill/mpt.md), and edits to `client-sdk.md`, `tokens.md`, `SKILL.md`, `security.md`, `resources.md`, `install.sh` and `README.md` |
+| **Proposed skill changes** | [PR #2](https://github.com/theahaco/xrpl-dev-skills/pull/2): new [`skill/mpt.md`](https://github.com/theahaco/xrpl-dev-skills/blob/fm/xrpl-ai-eval-report-e3/skill/mpt.md), and edits to `client-sdk.md`, `tokens.md`, `SKILL.md`, `security.md`, `resources.md`, `install.sh` and `README.md` |
 | **Earlier audits** | xrpl.js [#64](https://github.com/theahaco/xrpl.js/issues/64), xrpl-rust [#53](https://github.com/theahaco/xrpl-rust/issues/53) and [#45](https://github.com/theahaco/xrpl-rust/issues/45), xrpl-dev-portal [#2](https://github.com/theahaco/xrpl-dev-portal/issues/2) |
 
 ---
@@ -25,7 +25,7 @@ Wherever an agent got stuck, left the ledger wrong or wrote something a reviewer
 - **The skill's own MPT example teaches the mistakes we saw.** Submitted as written, it throws a validation error. It sets `AssetScale: 2` and then pays `value: "50"` without saying the value is in raw units. Of the 8 attempts that set an `AssetScale`, 6 were in skill arms, and 4 of the 8 sent amounts 100 times too small.
 - **The skill reaches some agents and not others.** The official installer only writes to `.claude/skills`, which Codex never reads. Opus ignored the installed skill in 3 of 10 runs. Sonnet loaded it every time, and still wrote the issuer's seed into source in 13 of 15 runs ⚠️, with or without the skill; Opus and Codex never did.
 - **Our proposal:**
-  - replace the skill's MPT sketch with a tested playbook (issue, approve, pay in raw units, read back without casts, lock, claw back, ban), fix the examples that don't compile or don't validate, and add an installer target for Codex (this PR);
+  - replace the skill's MPT sketch with a tested playbook (issue, approve, pay in raw units, read back without casts, lock, claw back, ban), fix the examples that don't compile or don't validate, and add an installer target for Codex ([PR #2](https://github.com/theahaco/xrpl-dev-skills/pull/2));
   - ship the MPT type fixes the xrpl.js audit already proposes, plus three small new ones;
   - close three tooling gaps: no changelog in the npm package, no guidance for TypeScript 7, and headless Claude Code killing work still running at the end of a turn.
 
@@ -143,7 +143,7 @@ Under `claude -p` nothing wakes the session again, so the CLI killed both demos 
 
 ## Part 2: What we propose
 
-### For the official skill (this PR)
+### For the official skill ([PR #2](https://github.com/theahaco/xrpl-dev-skills/pull/2))
 
 Every change traces to a finding above. Every TypeScript block in the new and edited files compiles against `xrpl@5.3.0` with TypeScript 7 in strict mode (also with `exactOptionalPropertyTypes` and `noUncheckedIndexedAccess`), and the `mpt.md` flow ran end to end on testnet, ending in the state the complex task asks for.
 
@@ -179,7 +179,7 @@ Most of what the agents hit is already proposed in the [xrpl.js audit](https://g
 
 ### For agent tooling and the ecosystem
 
-- **Skill locations.** `.agents/skills` is the one directory both Codex and a growing set of other agents read. Skill installers should offer it (this PR does for `install.sh`), and README install steps should say which agents each target reaches.
+- **Skill locations.** `.agents/skills` is the one directory both Codex and a growing set of other agents read. Skill installers should offer it ([PR #2](https://github.com/theahaco/xrpl-dev-skills/pull/2) does for `install.sh`), and README install steps should say which agents each target reaches.
 - **Headless Claude Code.** When `claude -p` ends a turn with background tasks still running, it kills them and exits. It should either wait for them or stop promising a notification ("You will be notified when it completes") that can't arrive. Two of the four Sonnet complex failures ⚠️ come from this.
 - **TypeScript 7.** Removing `moduleResolution: "node"`, requiring `rootDir`, and dropping `ts-node` compatibility broke 18 of 55 projects ⚠️ on first compile. SDK READMEs and skills that show a `tsconfig.json` should show one that works on TypeScript 7.
 - **Changelogs in packages.** Agents look in `node_modules` first. A changelog in the published package costs nothing and would have saved every research-arm run a web lookup.
@@ -422,6 +422,6 @@ No final run was classified as an infrastructure failure: no faucet limits, no t
 
 1. **Read this draft**, then publish it as an issue on this fork.
 2. **Settle the provisional numbers** when the 5 Sonnet complex re-runs finish: update every ⚠️ number and remove the markers.
-3. **Merge the results** ([`fm/xrpl-ai-eval-runs-e2`](https://github.com/theahaco/xrpl-dev-skills/tree/fm/xrpl-ai-eval-runs-e2)) and this PR's skill changes, then re-point this document's links from the branches to `main`.
+3. **Merge the results** ([`fm/xrpl-ai-eval-runs-e2`](https://github.com/theahaco/xrpl-dev-skills/tree/fm/xrpl-ai-eval-runs-e2)) and the skill changes in [PR #2](https://github.com/theahaco/xrpl-dev-skills/pull/2), then re-point this document's links from the branches to `main`.
 4. **Re-run with the improved skill** for a before/after comparison, within the budget in Part 3 (Codex after its 5 October reset).
 5. **Take the skill changes upstream** to XRPL-Commons, and the new xrpl.js items to the xrpl.js audit, only with explicit approval.
