@@ -1,0 +1,65 @@
+{
+  "api_version": 2,
+  "id": 15,
+  "result": {
+    "close_time_iso": "2026-09-29T13:54:53Z",
+    "ctid": "C142A53400030001",
+    "hash": "B01B55517211E3FAAB4613093039A987B2C9D7FCE36533F05F0DEAB2CCA38578",
+    "ledger_hash": "ECA66794E5F019E17C0D7A76F94377A5B84282BD5B106FEF5F2D158183312573",
+    "ledger_index": 21144884,
+    "meta": {
+      "AffectedNodes": [
+        {
+          "ModifiedNode": {
+            "FinalFields": {
+              "Account": "rhFHiXkJAN7p6Un4dZ47NLU5zFhbVV4akK",
+              "Balance": "97999988",
+              "Flags": 0,
+              "OwnerCount": 0,
+              "Sequence": 21144812
+            },
+            "LedgerEntryType": "AccountRoot",
+            "LedgerIndex": "177568436386674EC0FB27B51F19F0D5E10077EA067C737AC3CB26F55FEDB10E",
+            "PreviousFields": {
+              "Balance": "100000000",
+              "Sequence": 21144811
+            },
+            "PreviousTxnID": "112145D0DCE5EB8D2CB1E9A95942857C1DA7C57440F705B0197FE67497B617E4",
+            "PreviousTxnLgrSeq": 21144811
+          }
+        },
+        {
+          "CreatedNode": {
+            "LedgerEntryType": "AccountRoot",
+            "LedgerIndex": "3392872AB2949BD80534F3E953B905E51D7D8CD7EF1012040DAB2000E280C9F9",
+            "NewFields": {
+              "Account": "r3modrZSQRCc8ki2Pbb9xYPFGYuH2Ybhpa",
+              "Balance": "2000000",
+              "Sequence": 21144884
+            }
+          }
+        }
+      ],
+      "TransactionIndex": 3,
+      "TransactionResult": "tesSUCCESS",
+      "delivered_amount": "2000000"
+    },
+    "tx_json": {
+      "Account": "rhFHiXkJAN7p6Un4dZ47NLU5zFhbVV4akK",
+      "DeliverMax": "2000000",
+      "Destination": "r3modrZSQRCc8ki2Pbb9xYPFGYuH2Ybhpa",
+      "Fee": "12",
+      "Flags": 0,
+      "LastLedgerSequence": 21144902,
+      "Sequence": 21144811,
+      "SigningPubKey": "<TESTNET_PRIVATE_KEY_REDACTED>",
+      "TransactionType": "Payment",
+      "TxnSignature": "7474AD3876FC479743190EB744F6A1B90D621A680C5034C03B98C2A24493B37440D327835AD20817C0E2F88FD101730E081BC7726EF46FFB10AA7AD24D263404",
+      "ctid": "C142A53400030001",
+      "date": 844005293,
+      "ledger_index": 21144884
+    },
+    "validated": true
+  },
+  "type": "response"
+}

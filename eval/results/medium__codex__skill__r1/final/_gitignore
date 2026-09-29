@@ -1,0 +1,5 @@
+node_modules/
+dist/
+.env
+.mpt-state.json
+.mpt-state.json.tmp

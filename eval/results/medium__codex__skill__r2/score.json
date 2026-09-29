@@ -1,0 +1,209 @@
+{
+  "packetId": "93b91f99e1e7ad69",
+  "rubricVersion": 1,
+  "scoredAt": "2026-09-29T13:57:58.294Z",
+  "calibrate": false,
+  "confidenceFloor": 0.6,
+  "jev": {
+    "requests": 5,
+    "inputTokens": 19498,
+    "outputTokens": 410,
+    "errors": [],
+    "model": "jev-1.13.0"
+  },
+  "modelScorer": {
+    "requests": 1,
+    "costUsd": 0.0624372,
+    "errors": [],
+    "model": "claude-opus-5-5"
+  },
+  "evidence": {
+    "codeTruncated": false,
+    "chars": {
+      "task": 952,
+      "code": 10309,
+      "typecheck": 430,
+      "errors": 1749,
+      "xrplVersion": 5,
+      "xrplChangelog": 17696
+    }
+  },
+  "items": {
+    "hallucinated_api": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.59,
+        "probabilities": {
+          "none": 0.79,
+          "present": 0.21
+        }
+      },
+      "model": {
+        "choice": "none",
+        "confidence": 0.88,
+        "rationale": "Everything the code uses is real: Client, Wallet, xrpToDrops, autofill, submitAndWait, the MPTokenIssuanceCreateFlags values, MPTokenAuthorize with Holder, meta.mpt_issuance_id, ledger_entry with mpt_issuance and mptoken, ledger_hash, OutstandingAmount and MPTAmount. Strict typecheck passes with 0 errors, and the ledger flag values 0x04 and 0x02 are correct."
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "model"
+      }
+    },
+    "hallucination_during_run": {
+      "jev": {
+        "choice": "some",
+        "confidence": 0.99,
+        "probabilities": {
+          "some": 0.99,
+          "none": 0.01
+        }
+      },
+      "final": {
+        "choice": "some",
+        "pass": false,
+        "source": "jev"
+      }
+    },
+    "deprecated_patterns": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.8,
+        "probabilities": {
+          "present": 0.1,
+          "none": 0.9
+        }
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "strict_type_errors": {
+      "jev": {
+        "choice": "clean",
+        "confidence": 0.98,
+        "probabilities": {
+          "errors": 0,
+          "clean": 0.99,
+          "not_typescript": 0.01
+        }
+      },
+      "final": {
+        "choice": "clean",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "type_escape_hatches": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.65,
+        "probabilities": {
+          "none": 0.77,
+          "few": 0.22,
+          "pervasive": 0.01
+        }
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "outcome_checks": {
+      "jev": {
+        "choice": "all",
+        "confidence": 0.99,
+        "probabilities": {
+          "none": 0,
+          "all": 0.99,
+          "partial": 0.01
+        }
+      },
+      "final": {
+        "choice": "all",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "waits_for_validation": {
+      "jev": {
+        "choice": "validated",
+        "confidence": 0.99,
+        "probabilities": {
+          "mixed": 0.01,
+          "preliminary": 0,
+          "validated": 0.99
+        }
+      },
+      "final": {
+        "choice": "validated",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "ledger_readback": {
+      "jev": {
+        "choice": "ledger",
+        "confidence": 1,
+        "probabilities": {
+          "local": 0,
+          "not_reported": 0,
+          "ledger": 1
+        }
+      },
+      "final": {
+        "choice": "ledger",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "mpt_amount_format": {
+      "jev": {
+        "choice": "correct",
+        "confidence": 1,
+        "probabilities": {
+          "correct": 1,
+          "incorrect": 0
+        }
+      },
+      "final": {
+        "choice": "correct",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "secret_handling": {
+      "jev": {
+        "choice": "external",
+        "confidence": 0.99,
+        "probabilities": {
+          "external": 0.99,
+          "hardcoded": 0.01
+        }
+      },
+      "final": {
+        "choice": "external",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "connection_hygiene": {
+      "jev": {
+        "choice": "always",
+        "confidence": 1,
+        "probabilities": {
+          "always": 1,
+          "happy_path_only": 0,
+          "never": 0
+        }
+      },
+      "final": {
+        "choice": "always",
+        "pass": true,
+        "source": "jev"
+      }
+    }
+  }
+}

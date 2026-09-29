@@ -1,0 +1,59 @@
+{
+  "endpoint": "wss://s.altnet.rippletest.net:51233",
+  "checkedAt": "2026-09-29T13:56:04.043Z",
+  "ledger": {
+    "ledger": {
+      "account_hash": "13C2AA84F45E0C558274E92841762324526AE4A31497D35DF0F34FF0E3ACCBA9",
+      "close_flags": 0,
+      "close_time": 844005361,
+      "close_time_human": "2026-Sep-29 13:56:01.000000000 UTC",
+      "close_time_iso": "2026-09-29T13:56:01Z",
+      "close_time_resolution": 10,
+      "closed": true,
+      "ledger_hash": "8ECB69AFDE4D97B6BB214B457F5AED64A5D2DBD95073BCE0346466F3D90B3533",
+      "ledger_index": 21144903,
+      "parent_close_time": 844005360,
+      "parent_hash": "555BBA31792F6B90F86EEC6CE8745885540C150A808D7D34A67361E272188278",
+      "total_coins": "99999888739213795",
+      "transaction_hash": "F0C4E5BC0F4B0B95DF64E3CDA9B7EFECA0526F8D21692E54566C58E810D3C986"
+    },
+    "ledger_hash": "8ECB69AFDE4D97B6BB214B457F5AED64A5D2DBD95073BCE0346466F3D90B3533",
+    "ledger_index": 21144903,
+    "validated": true
+  },
+  "issuance": {
+    "index": "2BB9B922D01FAF4ACFA64282F82583316AD4AE477939BB8B5085D1860E7A98C7",
+    "ledger_hash": "8ECB69AFDE4D97B6BB214B457F5AED64A5D2DBD95073BCE0346466F3D90B3533",
+    "ledger_index": 21144903,
+    "node": {
+      "Flags": 4,
+      "Issuer": "rhFHiXkJAN7p6Un4dZ47NLU5zFhbVV4akK",
+      "LedgerEntryType": "MPTokenIssuance",
+      "OutstandingAmount": "1000",
+      "OwnerNode": "0",
+      "PreviousTxnID": "679457BE4FC9155F4AF3F24389505732A9F232A9EB2EB0E5232DC18D3A6E9728",
+      "PreviousTxnLgrSeq": 21144891,
+      "Sequence": 21144812,
+      "index": "2BB9B922D01FAF4ACFA64282F82583316AD4AE477939BB8B5085D1860E7A98C7",
+      "mpt_issuance_id": "0142A4EC29D9FF1D2E082131CC31786E909A8DD3D860BB5C"
+    },
+    "validated": true
+  },
+  "holding": {
+    "index": "C3439CF6A763DBBC8732927E2E9748D7EEFCB887155C90A48CA94536174C2787",
+    "ledger_hash": "8ECB69AFDE4D97B6BB214B457F5AED64A5D2DBD95073BCE0346466F3D90B3533",
+    "ledger_index": 21144903,
+    "node": {
+      "Account": "r3modrZSQRCc8ki2Pbb9xYPFGYuH2Ybhpa",
+      "Flags": 2,
+      "LedgerEntryType": "MPToken",
+      "MPTAmount": "1000",
+      "MPTokenIssuanceID": "0142A4EC29D9FF1D2E082131CC31786E909A8DD3D860BB5C",
+      "OwnerNode": "0",
+      "PreviousTxnID": "679457BE4FC9155F4AF3F24389505732A9F232A9EB2EB0E5232DC18D3A6E9728",
+      "PreviousTxnLgrSeq": 21144891,
+      "index": "C3439CF6A763DBBC8732927E2E9748D7EEFCB887155C90A48CA94536174C2787"
+    },
+    "validated": true
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "xrpl-mpt-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Issue and transfer a Multi-Purpose Token (MPT) on the XRPL testnet",
+  "type": "commonjs",
+  "scripts": {
+    "build": "tsc -p .",
+    "start": "ts-node src/index.ts"
+  },
+  "dependencies": {
+    "xrpl": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
+  }
+}
