@@ -1,0 +1,68 @@
+{
+  "close_time_iso": "2026-09-29T04:17:12Z",
+  "ctid": "C1427CDF00040001",
+  "hash": "DC3777AD91BCBB603360694FBA3B8B1C1D443E9A297C99F42574AC828AE9F936",
+  "ledger_hash": "4156C6AD12D0743F5FE9C7B4B43ACD79AA99D201566F4EE4030514FCF8FD3714",
+  "ledger_index": 21134559,
+  "meta": {
+    "AffectedNodes": [
+      {
+        "CreatedNode": {
+          "LedgerEntryType": "DirectoryNode",
+          "LedgerIndex": "57BA5317C841D6F8CAA91004774C08C4278B5A1CE78F4DB808D804F5F8D2A031",
+          "NewFields": {
+            "Owner": "rMu311S7WKSSsQVNwCfky3HM6JhKPEKHv1",
+            "RootIndex": "57BA5317C841D6F8CAA91004774C08C4278B5A1CE78F4DB808D804F5F8D2A031"
+          }
+        }
+      },
+      {
+        "ModifiedNode": {
+          "FinalFields": {
+            "Account": "rMu311S7WKSSsQVNwCfky3HM6JhKPEKHv1",
+            "Balance": "4999988",
+            "Flags": 0,
+            "OwnerCount": 1,
+            "Sequence": 21134557
+          },
+          "LedgerEntryType": "AccountRoot",
+          "LedgerIndex": "698E722F573182AD5B831106C6AFB7B95EB4A2458F73BE5A06D04E8D4D8B114A",
+          "PreviousFields": {
+            "Balance": "5000000",
+            "OwnerCount": 0,
+            "Sequence": 21134556
+          },
+          "PreviousTxnID": "B269BDA0286529D3FAABCAC9E9E275ED2500C3EC08AA7A8174E649AB62B3BEC6",
+          "PreviousTxnLgrSeq": 21134556
+        }
+      },
+      {
+        "CreatedNode": {
+          "LedgerEntryType": "MPToken",
+          "LedgerIndex": "A87BA79D96A8632B98AAB5A99B9618E0A2239D12AA36BF41F0D70AB7BD83AB23",
+          "NewFields": {
+            "Account": "rMu311S7WKSSsQVNwCfky3HM6JhKPEKHv1",
+            "MPTokenIssuanceID": "01427CA69B1B719C4EEA6D0D604F2D3913060A330C7AD87A"
+          }
+        }
+      }
+    ],
+    "TransactionIndex": 4,
+    "TransactionResult": "tesSUCCESS"
+  },
+  "tx_json": {
+    "Account": "rMu311S7WKSSsQVNwCfky3HM6JhKPEKHv1",
+    "Fee": "12",
+    "Flags": 0,
+    "LastLedgerSequence": 21134577,
+    "MPTokenIssuanceID": "01427CA69B1B719C4EEA6D0D604F2D3913060A330C7AD87A",
+    "Sequence": 21134556,
+    "SigningPubKey": "<TESTNET_PRIVATE_KEY_REDACTED>",
+    "TransactionType": "MPTokenAuthorize",
+    "TxnSignature": "CB91F741A3946CDA9C2F7FC839D437ABE27D5F3DB51A3E9B4B028565F857D10CF9AB8BA93093B352B5352D639A96EE055D61BF730ECCDC74CD981F7947D7BC09",
+    "ctid": "C1427CDF00040001",
+    "date": 843970632,
+    "ledger_index": 21134559
+  },
+  "validated": true
+}

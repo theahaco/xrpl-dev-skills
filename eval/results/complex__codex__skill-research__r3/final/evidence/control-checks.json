@@ -1,0 +1,10 @@
+{
+  "verifiedAt": "2026-09-29T04:18:20.266Z",
+  "ledgerHash": "4E407DDEF4DDF2CB11B8E3AE3209CBE517AC9112C67EF4F0473A9CF9427A4C0F",
+  "allowlist": "Unapproved issuer payment rejected on-ledger",
+  "individualFreeze": "Peer sends/receipts rejected; redemption rejected by DepositAuth; mint rejected by backend",
+  "globalFreeze": "Peer payment rejected; redemption rejected by DepositAuth; mint rejected by backend",
+  "issuerException": "Raw issuer payment bypassed holder lock; one-token probe was clawed back",
+  "ban": "C drained and revoked; deletion/recreation did not restore authorization; backend reapproval rejected",
+  "backendPolicyRequired": true
+}
