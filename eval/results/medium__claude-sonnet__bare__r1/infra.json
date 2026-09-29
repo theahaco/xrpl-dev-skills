@@ -5,8 +5,11 @@
   "signals": {
     "faucetErrors": [],
     "rippledErrors": [],
-    "sandboxDenials": [],
+    "sandboxDenials": [
+      "Exit code 1 (eval):1: operation not permitted: /tmp/npm_install.log tail: /tmp/npm_install.log: No such file or directory"
+    ],
+    "providerErrors": [],
     "healthOutageProbes": 0,
-    "healthProbes": 9
+    "healthProbes": 8
   }
 }

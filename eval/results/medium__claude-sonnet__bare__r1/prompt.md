@@ -19,6 +19,6 @@ Run it against testnet, so that everything above actually exists on the ledger w
 Environment:
 
 - My XRPL testnet account, already funded with 100 test XRP:
-  - Address: rJRH1GWyAGwyHdmU4St62stH5c9rNQfc9w
+  - Address: rEdNPzUSS1F2huoSYuj4BvtWJYKJEuGMBF
   - Seed: <TESTNET_SEED_REDACTED>
 - It's a testnet-only account created for this task. You can fund any other accounts you need from it.

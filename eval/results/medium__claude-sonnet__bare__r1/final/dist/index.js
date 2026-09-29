@@ -38,81 +38,105 @@ const path = __importStar(require("path"));
 const xrpl_1 = require("xrpl");
 const TESTNET_URL = "wss://s.altnet.rippletest.net:51233";
 const ISSUER_SEED = "<TESTNET_SEED_REDACTED>";
-const MPT_AMOUNT_TO_SEND = "1000";
+const ISSUER_ADDRESS = "rEdNPzUSS1F2huoSYuj4BvtWJYKJEuGMBF";
+const HOLDER_TOKEN_AMOUNT = "1000";
+function assertTesSuccess(response, label) {
+    const meta = response.result.meta;
+    if (typeof meta !== "object" || meta === null || Array.isArray(meta)) {
+        throw new Error(`${label}: missing transaction metadata`);
+    }
+    const transactionResult = meta.TransactionResult;
+    if (transactionResult !== "tesSUCCESS") {
+        throw new Error(`${label}: transaction failed with result ${String(transactionResult)}`);
+    }
+}
 async function main() {
     const client = new xrpl_1.Client(TESTNET_URL);
     await client.connect();
     try {
-        const issuerWallet = xrpl_1.Wallet.fromSeed(ISSUER_SEED);
-        console.log(`Issuer address: ${issuerWallet.address}`);
+        const issuer = xrpl_1.Wallet.fromSeed(ISSUER_SEED);
+        if (issuer.classicAddress !== ISSUER_ADDRESS) {
+            throw new Error(`Derived issuer address ${issuer.classicAddress} does not match expected ${ISSUER_ADDRESS}`);
+        }
+        console.log(`Issuer account: ${issuer.classicAddress}`);
         console.log("Funding a new holder account from the testnet faucet...");
-        const { wallet: holderWallet } = await client.fundWallet();
-        console.log(`Holder address: ${holderWallet.address}`);
-        console.log("Issuing new MPT (holders require issuer approval)...");
+        const { wallet: holder } = await client.fundWallet();
+        console.log(`Holder account: ${holder.classicAddress}`);
+        console.log("Issuing a new MPT that requires holder authorization...");
         const issuanceCreateTx = {
             TransactionType: "MPTokenIssuanceCreate",
-            Account: issuerWallet.address,
-            Flags: xrpl_1.MPTokenIssuanceCreateFlags.tfMPTRequireAuth,
-        };
-        const issuanceCreateResult = await client.submitAndWait(issuanceCreateTx, {
-            wallet: issuerWallet,
-        });
-        const issuanceMeta = issuanceCreateResult.result.meta;
-        if (typeof issuanceMeta !== "object" || issuanceMeta === null) {
-            throw new Error("MPTokenIssuanceCreate did not return transaction metadata.");
-        }
-        const issuanceId = issuanceMeta.mpt_issuance_id;
-        if (!issuanceId) {
-            throw new Error("MPTokenIssuanceCreate result did not include an mpt_issuance_id.");
-        }
-        console.log(`MPT issuance ID: ${issuanceId}`);
-        console.log("Holder opting in to the MPT (MPTokenAuthorize, no Holder field)...");
-        const holderOptInTx = {
-            TransactionType: "MPTokenAuthorize",
-            Account: holderWallet.address,
-            MPTokenIssuanceID: issuanceId,
-        };
-        await client.submitAndWait(holderOptInTx, { wallet: holderWallet });
-        console.log("Issuer approving the holder (MPTokenAuthorize with Holder field)...");
-        const issuerAuthorizeTx = {
-            TransactionType: "MPTokenAuthorize",
-            Account: issuerWallet.address,
-            MPTokenIssuanceID: issuanceId,
-            Holder: holderWallet.address,
-        };
-        await client.submitAndWait(issuerAuthorizeTx, { wallet: issuerWallet });
-        console.log(`Sending ${MPT_AMOUNT_TO_SEND} of the MPT to the holder...`);
-        const paymentTx = {
-            TransactionType: "Payment",
-            Account: issuerWallet.address,
-            Destination: holderWallet.address,
-            Amount: {
-                mpt_issuance_id: issuanceId,
-                value: MPT_AMOUNT_TO_SEND,
+            Account: issuer.classicAddress,
+            AssetScale: 0,
+            MaximumAmount: "1000000000",
+            Flags: {
+                tfMPTRequireAuth: true,
+                tfMPTCanTransfer: true,
             },
         };
-        await client.submitAndWait(paymentTx, { wallet: issuerWallet });
+        const issuanceCreateResponse = await client.submitAndWait(issuanceCreateTx, {
+            wallet: issuer,
+        });
+        assertTesSuccess(issuanceCreateResponse, "MPTokenIssuanceCreate");
+        const issuanceMeta = issuanceCreateResponse.result.meta;
+        const issuanceId = issuanceMeta.mpt_issuance_id;
+        if (!issuanceId) {
+            throw new Error("MPTokenIssuanceCreate did not return an mpt_issuance_id");
+        }
+        console.log(`MPT issuance ID: ${issuanceId}`);
+        console.log("Holder opts in to the MPT (creates its MPToken object)...");
+        const holderOptInTx = {
+            TransactionType: "MPTokenAuthorize",
+            Account: holder.classicAddress,
+            MPTokenIssuanceID: issuanceId,
+        };
+        const holderOptInResponse = await client.submitAndWait(holderOptInTx, {
+            wallet: holder,
+        });
+        assertTesSuccess(holderOptInResponse, "MPTokenAuthorize (holder opt-in)");
+        console.log("Issuer approves the holder to hold the MPT...");
+        const issuerAuthorizeTx = {
+            TransactionType: "MPTokenAuthorize",
+            Account: issuer.classicAddress,
+            MPTokenIssuanceID: issuanceId,
+            Holder: holder.classicAddress,
+        };
+        const issuerAuthorizeResponse = await client.submitAndWait(issuerAuthorizeTx, {
+            wallet: issuer,
+        });
+        assertTesSuccess(issuerAuthorizeResponse, "MPTokenAuthorize (issuer approval)");
+        console.log(`Sending ${HOLDER_TOKEN_AMOUNT} of the MPT to the holder...`);
+        const paymentTx = {
+            TransactionType: "Payment",
+            Account: issuer.classicAddress,
+            Destination: holder.classicAddress,
+            Amount: {
+                mpt_issuance_id: issuanceId,
+                value: HOLDER_TOKEN_AMOUNT,
+            },
+        };
+        const paymentResponse = await client.submitAndWait(paymentTx, { wallet: issuer });
+        assertTesSuccess(paymentResponse, "Payment");
         console.log("Reading balances back from the ledger...");
-        const mptokenResponse = await client.request({
+        const mptokenEntry = await client.request({
             command: "ledger_entry",
             mptoken: {
                 mpt_issuance_id: issuanceId,
-                account: holderWallet.address,
+                account: holder.classicAddress,
             },
+            ledger_index: "validated",
         });
-        const holderMPToken = mptokenResponse.result.node;
-        const holderBalance = holderMPToken.MPTAmount;
-        const issuanceResponse = await client.request({
+        const holderBalance = mptokenEntry.result.node.MPTAmount;
+        const issuanceEntry = await client.request({
             command: "ledger_entry",
             mpt_issuance: issuanceId,
+            ledger_index: "validated",
         });
-        const issuanceEntry = issuanceResponse.result.node;
-        const outstandingAmount = issuanceEntry.OutstandingAmount;
+        const outstandingAmount = issuanceEntry.result.node.OutstandingAmount;
         console.log(`Holder balance: ${holderBalance}`);
-        console.log(`Outstanding (total in circulation): ${outstandingAmount}`);
+        console.log(`Outstanding amount (total in circulation): ${outstandingAmount}`);
         const result = {
             issuanceId,
-            holder: holderWallet.address,
+            holder: holder.classicAddress,
             holderBalance,
             outstandingAmount,
         };

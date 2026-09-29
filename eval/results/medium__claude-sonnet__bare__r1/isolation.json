@@ -69,6 +69,36 @@
       "detail": "/bin/sh: /private/tmp/.xrpl-eval-escape-probe: Operation not permitted"
     },
     {
+      "name": "write /opt/homebrew/Caskroom/claude-code@latest/2.1.281",
+      "expect": "denied",
+      "ok": true,
+      "detail": "touch: /opt/homebrew/Caskroom/claude-code@latest/2.1.281/.xrpl-eval-escape-probe: Operation not permitted"
+    },
+    {
+      "name": "write /Users/willem/.local/share/mise/installs/node/24.18.0/bin",
+      "expect": "denied",
+      "ok": true,
+      "detail": "touch: /Users/willem/.local/share/mise/installs/node/24.18.0/bin/.xrpl-eval-escape-probe: Operation not permitted"
+    },
+    {
+      "name": "write /opt/homebrew/bin",
+      "expect": "denied",
+      "ok": true,
+      "detail": "touch: /opt/homebrew/bin/.xrpl-eval-escape-probe: Operation not permitted"
+    },
+    {
+      "name": "write /usr/local/bin",
+      "expect": "denied",
+      "ok": true,
+      "detail": "touch: /usr/local/bin/.xrpl-eval-escape-probe: Operation not permitted"
+    },
+    {
+      "name": "hard-link a protected file",
+      "expect": "denied",
+      "ok": true,
+      "detail": "ln: /Users/willem/.jev: Operation not permitted"
+    },
+    {
       "name": "node runs a project file",
       "expect": "allowed",
       "ok": true,

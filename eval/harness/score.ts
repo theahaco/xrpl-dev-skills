@@ -19,7 +19,7 @@ import {
   type Tier,
 } from "./config.ts";
 import { claudeCredential, writeCredentialFiles } from "./credentials.ts";
-import { toolOutputs } from "./infra.ts";
+import { commandOutputs } from "./infra.ts";
 import type { RunRecord } from "./run.ts";
 import type { TypecheckResult } from "./typecheck.ts";
 import { exec, isProbablyText, log, readJson, readJsonIfExists, sha256, walkFiles, writeJson } from "./util.ts";
@@ -53,25 +53,39 @@ export function blind(text: string): string {
     .replace(/\bskills?\b/gi, "[redacted]");
 }
 
+// Build output duplicates the sources and only crowds the packet.
+const SKIP_DIRS = ["node_modules", ".git", "dist", "build", "out", "coverage", ".next"];
+const FILE_FLOOR = 2_000;
+
 function codeEvidence(finalDir: string, budget: number): { text: string; truncated: boolean } {
-  const files = walkFiles(finalDir, ["node_modules", ".git"]).filter((f) => CODE_EXT.test(f.rel) || CONFIG_FILES.test(f.rel));
+  const files = walkFiles(finalDir, SKIP_DIRS).filter((f) => CODE_EXT.test(f.rel) || CONFIG_FILES.test(f.rel));
+  // TypeScript sources first, then config, then plain JS; the tail is what
+  // gets dropped if the packet still does not fit.
+  const rank = (rel: string): number => (/\.(ts|tsx|mts|cts)$/.test(rel) ? 0 : CONFIG_FILES.test(rel) ? 1 : 2);
   const parts = files
     .map((f) => ({ rel: f.rel, buf: fs.readFileSync(f.abs) }))
     .filter((f) => isProbablyText(f.buf))
-    .map((f) => ({ rel: f.rel, text: f.buf.toString("utf8") }));
-  let total = parts.reduce((s, p) => s + p.text.length + p.rel.length + 12, 0);
+    .map((f) => ({ rel: f.rel, text: f.buf.toString("utf8") }))
+    .sort((a, b) => rank(a.rel) - rank(b.rel) || a.rel.localeCompare(b.rel));
+  const size = (): number => parts.reduce((s, p) => s + p.text.length + p.rel.length + 12, 0);
   let truncated = false;
   // Trim the largest file first until the whole thing fits.
-  while (total > budget && parts.length) {
-    const largest = parts.reduce((a, b) => (b.text.length > a.text.length ? b : a));
-    const excess = total - budget;
-    const keep = Math.max(2_000, largest.text.length - excess - 100);
-    if (keep >= largest.text.length) break;
-    total -= largest.text.length - keep;
+  while (size() > budget) {
+    const largest = parts.reduce<(typeof parts)[number] | undefined>((a, b) => (!a || b.text.length > a.text.length ? b : a), undefined);
+    if (!largest || largest.text.length <= FILE_FLOOR) break;
+    const keep = Math.max(FILE_FLOOR, largest.text.length - (size() - budget) - 100);
     largest.text = `${largest.text.slice(0, keep)}\n/* [truncated by harness] */`;
     truncated = true;
   }
-  return { text: blind(parts.map((p) => `=== ${p.rel} ===\n${p.text}`).join("\n\n")), truncated };
+  // Still too big: drop whole files from the lowest-priority end.
+  const omitted: string[] = [];
+  while (size() > budget && parts.length > 1) {
+    const dropped = parts.pop();
+    if (dropped) omitted.push(dropped.rel);
+    truncated = true;
+  }
+  const note = omitted.length ? `\n\n[omitted by harness to fit: ${omitted.join(", ")}]` : "";
+  return { text: blind(parts.map((p) => `=== ${p.rel} ===\n${p.text}`).join("\n\n") + note), truncated };
 }
 
 function typecheckEvidence(tc: TypecheckResult | undefined, budget: number): string {
@@ -83,14 +97,21 @@ function typecheckEvidence(tc: TypecheckResult | undefined, budget: number): str
   return blind(text.slice(0, budget));
 }
 
-const ERROR_LINE = /\b(error|exception|failed|tec[A-Z_]+|tem[A-Z_]+|tef[A-Z_]+|ter[A-Z_]+|TS\d{4})\b/i;
+// XRPL result codes are case-sensitive (tecNO_AUTH, not "technical").
+const ERROR_WORD = /\b(error|exception|failed)\b/i;
+const ERROR_CODE = /\b(te[cmfrl][A-Z_]{2,}|TS\d{4})\b/;
+const isErrorLine = (l: string): boolean => ERROR_WORD.test(l) || ERROR_CODE.test(l);
+// Commands whose output is reference material rather than the agent's own
+// errors, and would reveal the arm: reading the installed skill, or fetching
+// docs from the web.
+const REFERENCE_COMMAND = /skills?\/|SKILL\.md|https?:\/\/|\bcurl\b|\bwget\b/i;
 
-function errorEvidence(transcriptFile: string, budget: number): string {
+export function errorEvidence(transcriptFile: string, budget: number): string {
   const snippets: string[] = [];
-  for (const out of toolOutputs(transcriptFile)) {
-    if (!ERROR_LINE.test(out)) continue;
-    const lines = out.split("\n").filter((l) => ERROR_LINE.test(l)).slice(0, 12);
-    snippets.push(lines.join("\n").slice(0, 1_500));
+  for (const { command, output } of commandOutputs(transcriptFile)) {
+    if (REFERENCE_COMMAND.test(command)) continue;
+    const lines = output.split("\n").filter(isErrorLine).slice(0, 12);
+    if (lines.length) snippets.push(lines.join("\n").slice(0, 1_500));
   }
   if (!snippets.length) return "No error output was seen during the run.";
   let text = "";
@@ -148,14 +169,23 @@ function jevKey(): string {
 
 async function askJev(state: Record<string, string>, items: RubricItem[]): Promise<{ status: number; body: JevResponse }> {
   const questions = Object.fromEntries(items.map((i) => [i.id, { type: "choice", instructions: i.instructions, criteria: i.criteria }]));
-  const res = await fetch(JEV_URL, {
-    method: "POST",
-    // The key travels only in this header; it is never logged or written.
-    headers: { "content-type": "application/json", authorization: `Bearer ${jevKey()}` },
-    body: JSON.stringify({ model: JEV_MODEL, state, questions }),
-    signal: AbortSignal.timeout(180_000),
-  });
-  return { status: res.status, body: (await res.json()) as JevResponse };
+  try {
+    const res = await fetch(JEV_URL, {
+      method: "POST",
+      // The key travels only in this header; it is never logged or written.
+      headers: { "content-type": "application/json", authorization: `Bearer ${jevKey()}` },
+      body: JSON.stringify({ model: JEV_MODEL, state, questions }),
+      signal: AbortSignal.timeout(180_000),
+    });
+    const text = await res.text();
+    try {
+      return { status: res.status, body: JSON.parse(text) as JevResponse };
+    } catch {
+      return { status: res.status, body: { detail: text.slice(0, 200) } };
+    }
+  } catch (err) {
+    return { status: 0, body: { detail: String(err).slice(0, 200) } };
+  }
 }
 
 type ModelAnswer = { choice: string; confidence: number; rationale: string };
@@ -204,9 +234,14 @@ async function askModel(state: Record<string, string>, items: RubricItem[], opts
     };
     const args = ["-p", "--model", MODEL_SCORER_ALIAS, "--tools", "", "--strict-mcp-config", "--no-session-persistence", "--output-format", "json", "--system-prompt", JUDGE_SYSTEM, "--json-schema", JSON.stringify(schema)];
     const res = await exec("claude", args, { cwd: cfg, env, input: prompt, timeoutMs: 600_000 });
-    const out = JSON.parse(res.stdout) as { structured_output?: { answers?: Record<string, ModelAnswer> }; result?: string; total_cost_usd?: number; modelUsage?: Record<string, unknown>; is_error?: boolean };
-    const answers = out.structured_output?.answers ?? (JSON.parse(out.result ?? "{}") as { answers?: Record<string, ModelAnswer> }).answers;
-    if (!answers) throw new Error(`model scorer returned no answers: ${res.stdout.slice(0, 500)}`);
+    let out: { structured_output?: { answers?: Record<string, ModelAnswer> }; result?: string; total_cost_usd?: number; modelUsage?: Record<string, unknown>; is_error?: boolean };
+    try {
+      out = JSON.parse(res.stdout) as typeof out;
+    } catch {
+      throw new Error(`model scorer exited ${res.code} without JSON output: ${(res.stderr || res.stdout).slice(0, 300)}`);
+    }
+    const answers = out.structured_output?.answers;
+    if (!answers) throw new Error(`model scorer returned no structured answers: ${String(out.result ?? "").slice(0, 300)}`);
     return { answers, model: Object.keys(out.modelUsage ?? {})[0], costUsd: out.total_cost_usd };
   } finally {
     fs.rmSync(cfg, { recursive: true, force: true });
@@ -226,7 +261,7 @@ export type ScoreRecord = {
   calibrate: boolean;
   confidenceFloor: number;
   jev: { model?: string; requests: number; inputTokens: number; outputTokens: number; errors: string[] };
-  modelScorer: { model?: string; requests: number; costUsd: number };
+  modelScorer: { model?: string; requests: number; costUsd: number; errors: string[] };
   evidence: { codeTruncated: boolean; chars: Record<string, number> };
   items: Record<string, ItemScore>;
 };
@@ -251,7 +286,7 @@ export async function scoreRun(runDir: string, opts: { calibrate: boolean }): Pr
     calibrate: opts.calibrate,
     confidenceFloor: JEV_CONFIDENCE_FLOOR,
     jev: { requests: 0, inputTokens: 0, outputTokens: 0, errors: [] },
-    modelScorer: { requests: 0, costUsd: 0 },
+    modelScorer: { requests: 0, costUsd: 0, errors: [] },
     evidence: { codeTruncated: false, chars: {} },
     items: Object.fromEntries(items.map((i) => [i.id, {}])),
   };
@@ -267,6 +302,7 @@ export async function scoreRun(runDir: string, opts: { calibrate: boolean }): Pr
     const keys = new Set<EvidenceKey>(group.flatMap((i) => i.evidence));
     return { task: ev.task, ...Object.fromEntries([...keys].map((k) => [k, ev[k]])) };
   };
+  const scorePath = path.join(runDir, "score.json");
   const modelQueue = new Map<string, RubricItem[]>();
   for (const [key, group] of groups) {
     let state = stateFor(evidence, group);
@@ -298,11 +334,20 @@ export async function scoreRun(runDir: string, opts: { calibrate: boolean }): Pr
     }
     const needModel = group.filter((i) => opts.calibrate || !record.items[i.id]?.final);
     if (needModel.length) modelQueue.set(key, needModel);
+    // Saved as it goes, so a later failure never loses answers already paid for.
+    writeJson(scorePath, record);
   }
-  for (const [, group] of modelQueue) {
+  for (const [key, group] of modelQueue) {
     const state = stateFor(await buildEvidence(runDir), group);
     log(`model scorer: ${group.map((i) => i.id).join(", ")}`);
-    const res = await askModel(state, group, { minValidMs: 20 * 60_000 });
+    let res: Awaited<ReturnType<typeof askModel>>;
+    try {
+      res = await askModel(state, group, { minValidMs: 20 * 60_000 });
+    } catch (err) {
+      record.modelScorer.errors.push(`${key}: ${String(err).slice(0, 300)}`);
+      writeJson(scorePath, record);
+      continue;
+    }
     record.modelScorer.requests++;
     record.modelScorer.model = res.model;
     record.modelScorer.costUsd += res.costUsd ?? 0;
@@ -314,8 +359,9 @@ export async function scoreRun(runDir: string, opts: { calibrate: boolean }): Pr
       if (!score.final) score.final = { choice: a.choice, pass: item.pass.includes(a.choice), source: "model" };
       record.items[item.id] = score;
     }
+    writeJson(scorePath, record);
   }
-  writeJson(path.join(runDir, "score.json"), record);
+  writeJson(scorePath, record);
   return record;
 }
 

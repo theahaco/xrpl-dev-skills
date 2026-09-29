@@ -7,8 +7,10 @@ import { endsWithQuestion } from "./agents.ts";
 import type { CheckResult } from "./check.ts";
 import { classify, outageProbes } from "./infra.ts";
 import { redactText, SEED_PLACEHOLDER } from "./redact.ts";
-import { blind } from "./score.ts";
+import { blind, errorEvidence } from "./score.ts";
 import { accountIdHex, issuanceId } from "./xrpl-rpc.ts";
+
+const buildErrors = (file: string): string => errorEvidence(file, 10_000);
 
 test("endsWithQuestion spots a trailing question, not one mid-message", () => {
   assert.equal(endsWithQuestion("Which network should I use?"), true);
@@ -41,11 +43,13 @@ test("issuance ids are sequence plus account id", () => {
   assert.equal(issuanceId(1, "rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh"), "00000001B5F762798A53D543A014CAF8B297CFF8F2F937E8");
 });
 
-function transcript(toolOutput: string): string {
+// A transcript with one tool call and its result, Claude stream-json style.
+function transcript(toolOutput: string, tool = "Bash", command = "npm start"): string {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "xrpl-eval-test-"));
   const file = path.join(dir, "agent.jsonl");
-  const ev = { type: "user", message: { content: [{ type: "tool_result", content: toolOutput }] } };
-  fs.writeFileSync(file, `${JSON.stringify(ev)}\n`);
+  const call = { type: "assistant", message: { content: [{ type: "tool_use", id: "t1", name: tool, input: { command } }] } };
+  const result = { type: "user", message: { content: [{ type: "tool_result", tool_use_id: "t1", content: toolOutput }] } };
+  fs.writeFileSync(file, `${JSON.stringify(call)}\n${JSON.stringify(result)}\n`);
   return file;
 }
 
@@ -68,6 +72,28 @@ test("infra classifier needs independent evidence", () => {
   const denied = classify({ check: failed, transcriptFile: transcript("zsh: operation not permitted: /tmp/x.log"), probes: healthy });
   assert.equal(denied.verdict, "ok");
   assert.equal(denied.signals.sandboxDenials.length, 1);
+});
+
+test("infra classifier ignores file reads and needs the faucet error near the faucet", () => {
+  const source = "await client.fundWallet(holder)\n" + "x".repeat(1_000) + "\nconst timeout = 30_000; // 503 handling";
+  assert.equal(classify({ check: failed, transcriptFile: transcript(source, "Read"), probes: healthy }).verdict, "ok");
+  assert.equal(classify({ check: failed, transcriptFile: transcript(source), probes: healthy }).verdict, "ok");
+  const limit = classify({ check: failed, transcriptFile: transcript("done"), probes: healthy, agentErrors: ["error_during_execution Claude AI usage limit reached"] });
+  assert.equal(limit.verdict, "infra");
+  assert.equal(limit.signals.providerErrors.length, 1);
+});
+
+test("redaction holds after JSON escapes", () => {
+  const json = JSON.stringify({ content: "seed:\nsEdTM1uX8pu2do5XvTnutH6HsouMaM2" });
+  assert.ok(!redactText(json, []).includes("sEdTM1u"));
+});
+
+test("error evidence skips reference reads and non-code words", () => {
+  const skillRead = buildErrors(transcript("Implement retry logic for terQUEUED and tefPAST_SEQ", "Bash", "cat .claude/skills/xrpl-dev/SKILL.md"));
+  assert.equal(skillRead, "No error output was seen during the run.");
+  const words = buildErrors(transcript("using a template in the terminal for technical reasons"));
+  assert.equal(words, "No error output was seen during the run.");
+  assert.match(buildErrors(transcript("Transaction failed: tecNO_AUTH")), /tecNO_AUTH/);
 });
 
 test("one failed probe is not an outage", () => {

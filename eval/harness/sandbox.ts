@@ -1,12 +1,14 @@
 // Isolation for agent runs: a macOS Seatbelt profile (sandbox-exec) plus a
 // scrubbed environment with a throwaway HOME.
 //
-// The profile denies every read and write under the operator's home directory,
-// /private/tmp and the operator's per-user temp dir, then re-allows only the
-// run's own workspace (read/write) and the node toolchain (read-only). That
-// covers ~/.jev, ~/.claude, ~/.claude.json, ~/.codex, the theahaco checkouts,
-// the firstmate home and this repository, and it also blocks the login
-// keychain, whose database lives under ~/Library/Keychains.
+// The profile denies every write outside the run's workspace (so an agent
+// cannot tamper with binaries the harness later runs unsandboxed) and every
+// read under the operator's home directory, /private/tmp and the operator's
+// per-user temp dir, then re-allows the run's own workspace (read/write) and
+// the node toolchain (read-only). That covers ~/.jev, ~/.claude,
+// ~/.claude.json, ~/.codex, the theahaco checkouts, the firstmate home and
+// this repository, and it also blocks the login keychain, whose database lives
+// under ~/Library/Keychains.
 import fs from "node:fs";
 import path from "node:path";
 import { EVAL_DIR, FIRSTMATE_HOME, REAL_HOME, THEAHACO_DIR } from "./config.ts";
@@ -19,7 +21,8 @@ export type Workspace = {
   config: string; // CLAUDE_CONFIG_DIR or CODEX_HOME
   tmp: string;
   bin: string; // curated PATH entries
-  profile: string; // the .sb file (outside the workspace)
+  profile: string; // the agent's .sb file (outside the workspace)
+  postProfile: string; // same, plus the harness's TypeScript, for post-run steps
 };
 
 export function createWorkspace(root: string, profileDir: string): Workspace {
@@ -31,6 +34,7 @@ export function createWorkspace(root: string, profileDir: string): Workspace {
     tmp: path.join(root, "tmp"),
     bin: path.join(root, "bin"),
     profile: path.join(profileDir, "sandbox.sb"),
+    postProfile: path.join(profileDir, "sandbox-post.sb"),
   };
   for (const dir of [ws.project, ws.home, ws.config, ws.tmp, ws.bin, path.join(ws.home, ".npm-global", "bin")]) fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(ws.home, ".gitconfig"), "[user]\n\tname = Developer\n\temail = developer@example.invalid\n[init]\n\tdefaultBranch = main\n");
@@ -86,7 +90,8 @@ function ancestors(p: string): string[] {
 
 const q = (s: string): string => JSON.stringify(s);
 
-export async function writeProfile(ws: Workspace, tc: Toolchain): Promise<void> {
+// `extraReadOnly` is for post-run profiles only; the agent never runs under one.
+export async function writeProfile(ws: Workspace, tc: Toolchain, file: string, extraReadOnly: string[] = []): Promise<void> {
   const home = fs.realpathSync(REAL_HOME);
   const root = fs.realpathSync(ws.root);
   const denied = [home, "/private/tmp", "/private/var/tmp"];
@@ -94,7 +99,9 @@ export async function writeProfile(ws: Workspace, tc: Toolchain): Promise<void> 
   if (userTmp) denied.push(userTmp);
   // Read-only grants: the node prefix (node, npm, and the codex package) and
   // the directory holding the claude binary if it lives under a denied path.
-  const readOnly = [tc.nodePrefix, path.dirname(tc.claude), path.dirname(tc.codex)].filter((p) => denied.some((d) => p === d || p.startsWith(`${d}/`)));
+  const readOnly = [tc.nodePrefix, path.dirname(tc.claude), path.dirname(tc.codex), ...extraReadOnly.map((p) => fs.realpathSync(p))].filter((p) =>
+    denied.some((d) => p === d || p.startsWith(`${d}/`)),
+  );
   const metadata = new Set<string>();
   for (const p of [root, ...readOnly]) for (const a of ancestors(p)) metadata.add(a);
   // Denied trees that contain the workspace. Tools walk up from the project
@@ -106,16 +113,18 @@ export async function writeProfile(ws: Workspace, tc: Toolchain): Promise<void> 
   const lines = [
     "(version 1)",
     "(allow default)",
+    '(deny file-write* (subpath "/"))',
     ...denied.map((d) => `(deny file-read* file-write* (subpath ${q(d)}))`),
-    // Later rules win: carve the workspace and toolchain back out.
+    // Later rules win: carve the workspace, devices and toolchain back out.
+    '(allow file-write* (subpath "/dev"))',
     `(allow file-read* file-write* (subpath ${q(root)}))`,
     ...[...new Set(readOnly)].map((p) => `(allow file-read* (subpath ${q(p)}))`),
     ...enclosing.map((d) => `(allow file-read-metadata (subpath ${q(d)}))`),
     // lstat on ancestors, needed by realpath(); does not allow listing them.
     ...[...metadata].sort().map((p) => `(allow file-read-metadata (literal ${q(p)}))`),
   ];
-  fs.mkdirSync(path.dirname(ws.profile), { recursive: true });
-  fs.writeFileSync(ws.profile, `${lines.join("\n")}\n`);
+  fs.mkdirSync(path.dirname(file), { recursive: true });
+  fs.writeFileSync(file, `${lines.join("\n")}\n`);
 }
 
 export function agentEnv(ws: Workspace, pathVar: string, extra: Record<string, string>): NodeJS.ProcessEnv {
@@ -135,8 +144,36 @@ export function agentEnv(ws: Workspace, pathVar: string, extra: Record<string, s
   };
 }
 
-export function sandboxed(ws: Workspace, cmd: string, args: string[]): [string, string[]] {
-  return ["/usr/bin/sandbox-exec", ["-f", ws.profile, cmd, ...args]];
+export function sandboxed(ws: Workspace, cmd: string, args: string[], profile = ws.profile): [string, string[]] {
+  return ["/usr/bin/sandbox-exec", ["-f", profile, cmd, ...args]];
+}
+
+// Kills anything still running from the workspace after the agent exits:
+// processes that left the agent's process group (setsid, nohup) would
+// otherwise keep changing files while the harness copies them.
+export async function killStrays(ws: Workspace): Promise<number> {
+  const root = fs.realpathSync(ws.root);
+  const pids = new Set<number>();
+  const cwd = await exec("/usr/sbin/lsof", ["-a", "-d", "cwd", "-F", "pn"]);
+  let pid = 0;
+  for (const line of cwd.stdout.split("\n")) {
+    if (line.startsWith("p")) pid = Number(line.slice(1));
+    else if (line.startsWith("n") && (line.slice(1) === root || line.slice(1).startsWith(`${root}/`))) pids.add(pid);
+  }
+  const ps = await exec("/bin/ps", ["-axo", "pid=,command="]);
+  for (const line of ps.stdout.split("\n")) {
+    const m = /^\s*(\d+)\s+(.*)$/.exec(line);
+    if (m?.[1] && m[2] && (m[2].includes(root) || m[2].includes(ws.root))) pids.add(Number(m[1]));
+  }
+  pids.delete(process.pid);
+  for (const p of pids) {
+    try {
+      process.kill(p, "SIGKILL");
+    } catch {
+      // Already gone.
+    }
+  }
+  return pids.size;
 }
 
 export type IsolationCheck = { name: string; expect: "denied" | "allowed"; ok: boolean; detail: string };
@@ -159,7 +196,7 @@ function firstFile(dir: string): string | undefined {
 
 // Runs inside the same sandbox and environment the agent will get and proves
 // the protected paths are unreadable while the workspace and toolchain work.
-export async function isolationSelfTest(ws: Workspace, env: NodeJS.ProcessEnv): Promise<IsolationCheck[]> {
+export async function isolationSelfTest(ws: Workspace, tc: Toolchain, env: NodeJS.ProcessEnv): Promise<IsolationCheck[]> {
   const mustDeny: Array<[string, string]> = [];
   const candidates: Array<[string, string | undefined]> = [
     ["~/.jev", path.join(REAL_HOME, ".jev")],
@@ -184,6 +221,11 @@ export async function isolationSelfTest(ws: Workspace, env: NodeJS.ProcessEnv): 
   await run("list /private/tmp", "denied", "ls /private/tmp >/dev/null");
   await run("keychain: Claude credentials", "denied", "security find-generic-password -s 'Claude Code-credentials' >/dev/null 2>&1");
   await run("write outside workspace", "denied", "echo x > /private/tmp/.xrpl-eval-escape-probe");
+  // Binaries the harness itself runs later, outside the sandbox.
+  for (const dir of new Set([path.dirname(tc.claude), path.dirname(tc.nodeBin), "/opt/homebrew/bin", "/usr/local/bin"])) {
+    if (fs.existsSync(dir)) await run(`write ${dir}`, "denied", `touch ${JSON.stringify(path.join(dir, ".xrpl-eval-escape-probe"))}`);
+  }
+  if (mustDeny[0]) await run("hard-link a protected file", "denied", `ln ${JSON.stringify(mustDeny[0][1])} ./.xrpl-eval-link-probe`);
   const probe = path.join(ws.project, ".isolation-probe.mjs");
   fs.writeFileSync(probe, "console.log(process.version)\n");
   await run("node runs a project file", "allowed", `node ${JSON.stringify(probe)}`);

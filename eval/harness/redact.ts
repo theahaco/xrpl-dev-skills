@@ -10,11 +10,15 @@ const TOKEN_PLACEHOLDER = "<CREDENTIAL_REDACTED>";
 const KEY_PLACEHOLDER = "<TESTNET_PRIVATE_KEY_REDACTED>";
 
 const B58 = "[1-9A-HJ-NP-Za-km-z]";
+// Word boundaries that also hold right after a JSON escape such as \n, where
+// \b fails because the escape ends in a letter.
+const START = "(?:(?<=\\\\[nrtbf])|(?<![0-9A-Za-z]))";
+const END = "(?![0-9A-Za-z])";
 const PATTERNS: Array<[RegExp, string]> = [
-  [new RegExp(`\\bsEd${B58}{28}\\b`, "g"), SEED_PLACEHOLDER],
-  [new RegExp(`\\bs${B58}{28}\\b`, "g"), SEED_PLACEHOLDER],
-  [/\bED[0-9A-Fa-f]{64}\b/g, KEY_PLACEHOLDER],
-  [/\b00[0-9A-F]{64}\b/g, KEY_PLACEHOLDER],
+  [new RegExp(`${START}sEd${B58}{28}${END}`, "g"), SEED_PLACEHOLDER],
+  [new RegExp(`${START}s${B58}{28}${END}`, "g"), SEED_PLACEHOLDER],
+  [new RegExp(`${START}ED[0-9A-Fa-f]{64}${END}`, "g"), KEY_PLACEHOLDER],
+  [new RegExp(`${START}00[0-9A-F]{64}${END}`, "g"), KEY_PLACEHOLDER],
 ];
 
 export type Secret = { value: string; kind: "seed" | "token" };

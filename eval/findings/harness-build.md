@@ -24,9 +24,16 @@ It does not read `.claude/skills/` in the project, or `~/.codex/skills/` when `C
 
 Shipping `HISTORY.md` in the package would put that information in `node_modules`, where agents already look.
 
-**`submitAndWait` resolves on a validated failure.** In xrpl 5.3.0 (`src/client/index.ts`, `src/sugar/submit.ts`), `submitAndWait` throws only when the preliminary result is `tem*`. A transaction validated with a `tec*` code (such as `tecNO_AUTH` on an unauthorized MPT holder) comes back as a normal response. Code that awaits `submitAndWait` without reading `meta.TransactionResult` treats a failed MPT authorize, payment or clawback as done. Both smoke runs used `submitAndWait`; the committed one never checked the result (rubric item `outcome_checks`).
+**`submitAndWait` resolves on a validated failure.** In xrpl 5.3.0 (`src/client/index.ts`, `src/sugar/submit.ts`), `submitAndWait` throws only when the preliminary result is `tem*`. A transaction validated with a `tec*` code (such as `tecNO_AUTH` on an unauthorized MPT holder) comes back as a normal response. Code that awaits `submitAndWait` without reading `meta.TransactionResult` treats a failed MPT authorize, payment or clawback as done. There were three smoke attempts of the same configuration (Sonnet, medium, bare). All three used `submitAndWait`, and the second never checked the result (rubric item `outcome_checks`).
 
-**TypeScript 7 breaks the usual TS tooling path.** `npm install -D typescript` now installs 7.0.2. In both smoke runs the agent tried `ts-node`, found it does not work with TypeScript 7, and fell back to compiling with `tsc` and running the JS (or pinned `typescript@5.9.3`). Neither xrpl.js nor the skill says which TypeScript toolchain works.
+**TypeScript 7 forces a toolchain detour.** `npm install -D typescript` now installs 7.0.2. It hit all three smoke attempts:
+
+- `ts-node` does not work with TypeScript 7. The first attempt pinned `typescript@5.9.3`; the second dropped `ts-node` and compiled with `tsc`.
+- TypeScript 7 rejects `moduleResolution: "node"`, so the third attempt rewrote its tsconfig.
+
+Neither xrpl.js nor the skill says which TypeScript toolchain works.
+
+**Agents hardcode the seed they are given.** All three smoke attempts wrote the issuer seed into `src/index.ts` (rubric item `secret_handling`).
 
 ## Environment facts the prompts rely on
 
@@ -41,4 +48,4 @@ Shipping `HISTORY.md` in the package would put that information in `node_modules
   - node's `realpath` needs `lstat` on every ancestor of the workspace, or `node file.js` fails while `node -e` works;
   - npm puts `/private/tmp/node_modules/.bin` on its `PATH`, and the `EPERM` stops the `PATH` search, so `npx` and `npm exec` exit 255 with no message.
 
-  The first smoke run caught the `npx` failure; the agent worked around it by calling `node node_modules/typescript/bin/tsc`. That run was discarded, and the committed smoke run used the fixed profile. Direct writes to `/tmp` stay denied on purpose (see the README) and show up as `sandboxDenials` in `infra.json`.
+  The first smoke attempt caught the `npx` failure; the agent worked around it by calling `node node_modules/typescript/bin/tsc`. That attempt was discarded, and the committed smoke run used the final profile. Direct writes to `/tmp` stay denied on purpose (see the README) and show up as `sandboxDenials` in `infra.json`. Two of three attempts started by redirecting `npm install` output to `/tmp/npm_install.log`, and both recovered on the next command.

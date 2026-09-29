@@ -10,6 +10,8 @@ import {
   armHasResearch,
   armHasSkill,
   CACHE_DIR,
+  EVAL_DIR,
+  JEV_KEY_PATH,
   RESULTS_DIR,
   SANDBOX_ROOT,
   SKILL_INSTALL_DIR,
@@ -23,9 +25,9 @@ import { type Credential, claudeCredential, codexCredential, removeCredentialFil
 import { classify, HealthMonitor, type InfraVerdict } from "./infra.ts";
 import { weeklyQuota, type QuotaReading } from "./budget.ts";
 import { leakedSecrets, redactText, redactTree, type Secret } from "./redact.ts";
-import { agentEnv, createWorkspace, isolationSelfTest, linkToolchain, resolveToolchain, writeProfile, type IsolationCheck } from "./sandbox.ts";
+import { agentEnv, createWorkspace, isolationSelfTest, killStrays, linkToolchain, resolveToolchain, sandboxed, writeProfile, type IsolationCheck } from "./sandbox.ts";
 import { typecheck } from "./typecheck.ts";
-import { copyFiles, exec, execOk, hashTree, log, nowIso, randomHex, readJsonIfExists, walkFiles, writeJson } from "./util.ts";
+import { copyFiles, exec, execOk, hashTree, log, nowIso, randomHex, readJsonInside, realpathInside, walkFiles, writeJson } from "./util.ts";
 import { fundAccount, type FundedAccount, InfraError, networkSnapshot, type NetworkSnapshot } from "./xrpl-rpc.ts";
 
 export type RunSpec = { agent: AgentName; tier: Tier; arm: Arm; rep: number };
@@ -57,7 +59,7 @@ export type RunRecord = RunSpec & {
   network?: NetworkSnapshot;
   isolation?: { mechanism: string; passed: boolean; checks: IsolationCheck[] };
   usage?: AgentRun["usage"];
-  turns?: Array<Omit<AgentRun["turns"][number], "finalText" | "input"> & { finalTextChars: number }>;
+  turns?: Array<Omit<AgentRun["turns"][number], "finalText" | "input"> & { finalTextChars: number; errorText?: string }>;
   clarifyReplies?: number;
   timedOut?: boolean;
   quota?: { before?: QuotaReading; after?: QuotaReading };
@@ -66,8 +68,18 @@ export type RunRecord = RunSpec & {
   infra?: InfraVerdict;
   error?: string;
   redactedFiles?: number;
-  capture?: { files: number; skippedLarge: string[]; renamedGitignores: string[] };
+  strayProcessesKilled?: number;
+  capture?: { files: number; skippedLarge: string[]; skippedUnsafe: string[]; renamedGitignores: string[] };
 };
+
+// Error text from the agent CLI itself (failed turns, stderr), which is where
+// provider usage limits and overload errors show up.
+export function agentErrorTexts(record: RunRecord, transcriptDir: string): string[] {
+  const texts = (record.turns ?? []).flatMap((t) => (t.isError ? [`${t.terminalReason ?? ""} ${t.errorText ?? ""}`] : []));
+  const stderr = path.join(transcriptDir, "stderr.log");
+  if (fs.existsSync(stderr)) texts.push(fs.readFileSync(stderr, "utf8").slice(-20_000));
+  return texts;
+}
 
 export const runId = (s: RunSpec): string => `${s.tier}__${s.agent}__${s.arm}__r${s.rep}`;
 
@@ -84,15 +96,20 @@ export function composePrompt(tier: Tier, arm: Arm, account: FundedAccount): str
 }
 
 // Clones upstream once per harness process, pinned to one commit for the set.
-let upstreamCache: { dir: string; commit: string } | undefined;
-async function upstreamSkill(): Promise<{ dir: string; commit: string }> {
-  if (upstreamCache) return upstreamCache;
-  const dir = path.join(CACHE_DIR, "upstream-skill");
-  fs.rmSync(dir, { recursive: true, force: true });
-  await execOk("git", ["clone", "--quiet", "--depth", "1", "--branch", UPSTREAM_SKILL_REF, UPSTREAM_SKILL_REPO, dir]);
-  const commit = (await execOk("git", ["-C", dir, "rev-parse", "HEAD"])).trim();
-  upstreamCache = { dir, commit };
-  return upstreamCache;
+// The promise is cached so concurrent skill-arm runs share one clone.
+let upstreamClone: Promise<{ dir: string; commit: string }> | undefined;
+function upstreamSkill(): Promise<{ dir: string; commit: string }> {
+  upstreamClone ??= (async () => {
+    const dir = path.join(CACHE_DIR, "upstream-skill");
+    fs.rmSync(dir, { recursive: true, force: true });
+    await execOk("git", ["clone", "--quiet", "--depth", "1", "--branch", UPSTREAM_SKILL_REF, UPSTREAM_SKILL_REPO, dir]);
+    const commit = (await execOk("git", ["-C", dir, "rev-parse", "HEAD"])).trim();
+    return { dir, commit };
+  })();
+  upstreamClone.catch(() => {
+    upstreamClone = undefined;
+  });
+  return upstreamClone;
 }
 
 async function installSkill(spec: RunSpec, projectDir: string, env: NodeJS.ProcessEnv): Promise<NonNullable<RunRecord["skill"]>> {
@@ -150,6 +167,8 @@ export async function runOne(spec: RunSpec, opts: RunOptions = {}): Promise<RunR
     host: await hostInfo(),
   };
   const secrets: Secret[] = [];
+  // Never given to a run; listed only so a leak would be caught and redacted.
+  if (fs.existsSync(JEV_KEY_PATH)) secrets.push({ value: fs.readFileSync(JEV_KEY_PATH, "utf8").trim(), kind: "token" });
   const started = Date.now();
   const wsRoot = path.join(SANDBOX_ROOT, randomHex(6));
   const ws = createWorkspace(wsRoot, outDir);
@@ -159,7 +178,8 @@ export async function runOne(spec: RunSpec, opts: RunOptions = {}): Promise<RunR
     cred = provider === "claude" ? await claudeCredential(capMs + 20 * 60_000) : await codexCredential(capMs + 20 * 60_000);
     for (const s of cred.secrets) secrets.push({ value: s, kind: "token" });
     const tc = await resolveToolchain();
-    await writeProfile(ws, tc);
+    await writeProfile(ws, tc, ws.profile);
+    await writeProfile(ws, tc, ws.postProfile, [path.join(EVAL_DIR, "node_modules")]);
     const pathVar = linkToolchain(ws, tc);
     const extra: Record<string, string> =
       provider === "claude"
@@ -169,7 +189,7 @@ export async function runOne(spec: RunSpec, opts: RunOptions = {}): Promise<RunR
     await execOk("git", ["init", "--quiet", ws.project], { env });
     if (armHasSkill(spec.arm)) record.skill = await installSkill(spec, ws.project, env);
 
-    const checks = await isolationSelfTest(ws, env);
+    const checks = await isolationSelfTest(ws, tc, env);
     fs.rmSync(path.join(ws.home, ".npm"), { recursive: true, force: true });
     record.isolation = { mechanism: "macOS sandbox-exec (Seatbelt) profile + scrubbed env + throwaway HOME/config dir", passed: checks.every((c) => c.ok), checks };
     writeJson(path.join(outDir, "isolation.json"), record.isolation);
@@ -209,6 +229,10 @@ export async function runOne(spec: RunSpec, opts: RunOptions = {}): Promise<RunR
     record.agentSeconds = Math.round((Date.now() - agentStarted) / 1000);
     const probes = monitor.stop();
     removeCredentialFiles(ws.config, cred);
+    record.strayProcessesKilled = await killStrays(ws);
+    // Everything below reads the workspace from outside the sandbox; refuse if
+    // the agent swapped the project directory for a link elsewhere.
+    if (!realpathInside(ws.root, ws.project) || !realpathInside(ws.root, ws.config)) throw new Error("project or config directory resolves outside the workspace");
     record.quota.after = await quotaSafe(provider);
 
     const expect = AGENTS[spec.agent];
@@ -224,29 +248,36 @@ export async function runOne(spec: RunSpec, opts: RunOptions = {}): Promise<RunR
       mcpServers: agentRun.mcpServers,
     };
     record.usage = agentRun.usage;
-    record.turns = agentRun.turns.map(({ finalText, input: _input, ...t }) => ({ ...t, finalTextChars: finalText.length }));
+    record.turns = agentRun.turns.map(({ finalText, input: _input, ...t }) => ({
+      ...t,
+      finalTextChars: finalText.length,
+      ...(t.isError ? { errorText: finalText.slice(0, 2_000) } : {}),
+    }));
     record.clarifyReplies = agentRun.clarifyReplies;
     record.timedOut = agentRun.timedOut;
     fs.writeFileSync(path.join(transcriptDir, "final-message.md"), agentRun.turns.at(-1)?.finalText ?? "");
-    const sessionsDir = path.join(transcriptDir, "sessions");
-    for (const f of agentRun.sessionFiles) {
-      fs.mkdirSync(sessionsDir, { recursive: true });
-      fs.copyFileSync(f, path.join(sessionsDir, path.basename(f)));
-    }
+    copyFiles(
+      agentRun.sessionFiles.map((f) => ({ rel: path.basename(f), abs: f, size: 0 })),
+      ws.config,
+      path.join(transcriptDir, "sessions"),
+    );
 
     log(`${id}: checking ledger state for ${account.address}`);
     const check = await checkRun(spec.tier, account.address, ws.project);
     writeJson(path.join(outDir, "check.json"), check);
     record.check = { status: check.status, failed: check.criteria.filter((c) => !c.pass).map((c) => c.id) };
 
-    const tcResult = await typecheck(ws.project, env);
+    const tcResult = await typecheck(ws.project, (args) => {
+      const [cmd, argv] = sandboxed(ws, tc.nodeBin, args, ws.postProfile);
+      return exec(cmd, argv, { cwd: ws.project, env, timeoutMs: 300_000 });
+    });
     writeJson(path.join(outDir, "typecheck.json"), tcResult);
 
     const skip = ["node_modules", ".git", SKILL_INSTALL_DIR[provider]];
     const all = walkFiles(ws.project, skip);
     const files = all.filter((f) => f.size <= 2_000_000);
     const finalDir = path.join(outDir, "final");
-    copyFiles(files, finalDir);
+    const unsafe = copyFiles(files, ws.project, finalDir);
     // An agent's .gitignore would hide captured files (dist/, .env) from the
     // results commit, so it is stored under another name.
     const renamed: string[] = [];
@@ -255,13 +286,13 @@ export async function runOne(spec: RunSpec, opts: RunOptions = {}): Promise<RunR
       fs.renameSync(f.abs, path.join(path.dirname(f.abs), "_gitignore"));
       renamed.push(f.rel);
     }
-    record.capture = { files: files.length, skippedLarge: all.filter((f) => f.size > 2_000_000).map((f) => f.rel), renamedGitignores: renamed };
-    const xrplPkg = readJsonIfExists<{ version?: string }>(path.join(ws.project, "node_modules", "xrpl", "package.json"));
-    const projectPkg = readJsonIfExists<{ dependencies?: Record<string, string>; devDependencies?: Record<string, string> }>(path.join(ws.project, "package.json"));
+    record.capture = { files: files.length - unsafe.length, skippedLarge: all.filter((f) => f.size > 2_000_000).map((f) => f.rel), skippedUnsafe: unsafe, renamedGitignores: renamed };
+    const xrplPkg = readJsonInside<{ version?: string }>(ws.project, path.join(ws.project, "node_modules", "xrpl", "package.json"));
+    const projectPkg = readJsonInside<{ dependencies?: Record<string, string>; devDependencies?: Record<string, string> }>(ws.project, path.join(ws.project, "package.json"));
     record.xrpl = { installedVersion: xrplPkg?.version, dependencySpec: projectPkg?.dependencies?.xrpl ?? projectPkg?.devDependencies?.xrpl };
     if (record.skill) record.skill.hashAfter = hashTree(path.join(ws.project, record.skill.installDir));
 
-    record.infra = classify({ check, transcriptFile: path.join(transcriptDir, "agent.jsonl"), probes });
+    record.infra = classify({ check, transcriptFile: path.join(transcriptDir, "agent.jsonl"), probes, agentErrors: agentErrorTexts(record, transcriptDir) });
     writeJson(path.join(outDir, "infra.json"), record.infra);
     record.status = record.infra.verdict === "infra" ? "infra" : "complete";
     return record;

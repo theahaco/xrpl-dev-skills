@@ -18,10 +18,10 @@ import {
   TIERS,
 } from "./config.ts";
 import { classify } from "./infra.ts";
-import { type RunRecord, type RunSpec, runId, runOne } from "./run.ts";
+import { agentErrorTexts, type RunRecord, type RunSpec, runId, runOne } from "./run.ts";
 import { agentEnv, createWorkspace, isolationSelfTest, linkToolchain, resolveToolchain, writeProfile } from "./sandbox.ts";
 import { agreement, scoreRun } from "./score.ts";
-import { log, randomHex, readJson, writeJson } from "./util.ts";
+import { log, randomHex, readJson, readJsonIfExists, writeJson } from "./util.ts";
 
 const { positionals, values } = parseArgs({
   allowPositionals: true,
@@ -44,7 +44,14 @@ function oneOf<T extends string>(name: string, v: string | undefined, allowed: r
   return v as T;
 }
 
+function positiveInt(name: string, v: string | undefined, fallback: number): number {
+  const n = v === undefined ? fallback : Number(v);
+  if (!Number.isInteger(n) || n < 1) throw new Error(`--${name} must be a positive integer`);
+  return n;
+}
+
 const estimatePct = values["estimate-pct"] !== undefined ? Number(values["estimate-pct"]) : undefined;
+if (estimatePct !== undefined && !(Number.isFinite(estimatePct) && estimatePct >= 0)) throw new Error("--estimate-pct must be a non-negative number");
 
 async function runWithReruns(spec: RunSpec, keepWorkspace: boolean): Promise<RunRecord> {
   const id = runId(spec);
@@ -69,7 +76,7 @@ async function cmdRun(): Promise<void> {
     agent: oneOf("agent", values.agent, AGENT_NAMES),
     tier: oneOf("tier", values.tier, TIERS),
     arm: oneOf("arm", values.arm, ARMS),
-    rep: Number(values.rep ?? "1"),
+    rep: positiveInt("rep", values.rep, 1),
   };
   if (!values["no-gate"]) {
     const decision = await gate(spec.agent, spec.tier, { runs: 1, estimatePct });
@@ -111,15 +118,24 @@ async function cmdSet(): Promise<void> {
     for (let rep = 1; rep <= REPS[s.tier]; rep++) {
       for (const arm of ARMS) {
         const spec = { agent: s.agent, tier: s.tier, arm, rep };
-        if (fs.existsSync(path.join(RESULTS_DIR, runId(spec), "run.json"))) {
-          log(`${runId(spec)}: already has results, skipping`);
+        const dir = path.join(RESULTS_DIR, runId(spec));
+        const prior = readJsonIfExists<RunRecord>(path.join(dir, "run.json"));
+        if (prior && prior.status !== "error") {
+          log(`${runId(spec)}: already has results (${prior.status}), skipping`);
           continue;
+        }
+        if (fs.existsSync(dir)) {
+          // A harness error or an interrupted run: keep it for inspection, run again.
+          let n = 1;
+          while (fs.existsSync(`${dir}__aborted${n}`)) n++;
+          fs.renameSync(dir, `${dir}__aborted${n}`);
+          log(`${runId(spec)}: previous attempt ${prior ? "errored" : "was interrupted"}; moved to __aborted${n}, running again`);
         }
         queue.push(spec);
       }
     }
   }
-  const concurrency = Number(values.concurrency ?? DEFAULT_CONCURRENCY);
+  const concurrency = positiveInt("concurrency", values.concurrency, DEFAULT_CONCURRENCY);
   log(`running ${queue.length} runs, ${concurrency} at a time`);
   const summary: Array<Pick<RunRecord, "runId" | "status" | "check" | "error">> = [];
   const worker = async (): Promise<void> => {
@@ -153,7 +169,7 @@ async function cmdCheck(args: string[]): Promise<void> {
     const check = await checkRun(rec.tier, rec.account.address, path.join(dir, "final"));
     writeJson(path.join(dir, "check.json"), check);
     rec.check = { status: check.status, failed: check.criteria.filter((c) => !c.pass).map((c) => c.id) };
-    rec.infra = classify({ check, transcriptFile: path.join(dir, "transcript", "agent.jsonl"), probes: readProbes(dir) });
+    rec.infra = classify({ check, transcriptFile: path.join(dir, "transcript", "agent.jsonl"), probes: readProbes(dir), agentErrors: agentErrorTexts(rec, path.join(dir, "transcript")) });
     rec.status = rec.infra.verdict === "infra" ? "infra" : "complete";
     writeJson(path.join(dir, "infra.json"), rec.infra);
     writeJson(path.join(dir, "run.json"), rec);
@@ -174,10 +190,15 @@ async function cmdScore(args: string[]): Promise<void> {
       log(`${path.basename(dir)}: status ${rec.status}, not scored`);
       continue;
     }
-    const s = await scoreRun(dir, { calibrate: values.calibrate === true });
-    const fails = Object.entries(s.items).filter(([, i]) => i.final && !i.final.pass).map(([id]) => id);
-    const unresolved = Object.entries(s.items).filter(([, i]) => !i.final).map(([id]) => id);
-    console.log(`${path.basename(dir)}: ${Object.keys(s.items).length} items, jev ${s.jev.requests} req, model ${s.modelScorer.requests} req; failed: ${fails.join(", ") || "none"}${unresolved.length ? `; unresolved: ${unresolved.join(", ")}` : ""}`);
+    try {
+      const s = await scoreRun(dir, { calibrate: values.calibrate === true });
+      const fails = Object.entries(s.items).filter(([, i]) => i.final && !i.final.pass).map(([id]) => id);
+      const unresolved = Object.entries(s.items).filter(([, i]) => !i.final).map(([id]) => id);
+      console.log(`${path.basename(dir)}: ${Object.keys(s.items).length} items, jev ${s.jev.requests} req, model ${s.modelScorer.requests} req; failed: ${fails.join(", ") || "none"}${unresolved.length ? `; unresolved: ${unresolved.join(", ")}` : ""}`);
+    } catch (err) {
+      process.exitCode = 1;
+      console.log(`${path.basename(dir)}: scoring failed: ${String(err)}`);
+    }
   }
 }
 
@@ -187,9 +208,9 @@ async function cmdSelftest(): Promise<void> {
   const ws = createWorkspace(root, scratch);
   try {
     const tc = await resolveToolchain();
-    await writeProfile(ws, tc);
+    await writeProfile(ws, tc, ws.profile);
     const env = agentEnv(ws, linkToolchain(ws, tc), {});
-    const checks = await isolationSelfTest(ws, env);
+    const checks = await isolationSelfTest(ws, tc, env);
     for (const c of checks) console.log(`${c.ok ? "PASS" : "FAIL"}  ${c.expect.padEnd(7)}  ${c.name}${c.ok ? "" : `  ${c.detail}`}`);
     if (!checks.every((c) => c.ok)) process.exitCode = 1;
   } finally {

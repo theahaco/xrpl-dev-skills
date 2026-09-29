@@ -1,28 +1,29 @@
 {
   "packetId": "f45d98e3df6d0314",
   "rubricVersion": 1,
-  "scoredAt": "2026-09-29T00:59:02.462Z",
+  "scoredAt": "2026-09-29T01:22:04.793Z",
   "calibrate": true,
   "confidenceFloor": 0.6,
   "jev": {
     "requests": 5,
-    "inputTokens": 19105,
+    "inputTokens": 15706,
     "outputTokens": 411,
     "errors": [],
     "model": "jev-1.13.0"
   },
   "modelScorer": {
     "requests": 5,
-    "costUsd": 0.2989456,
+    "costUsd": 0.2603256,
+    "errors": [],
     "model": "claude-opus-5-5"
   },
   "evidence": {
     "codeTruncated": false,
     "chars": {
       "task": 952,
-      "code": 10469,
+      "code": 6070,
       "typecheck": 260,
-      "errors": 702,
+      "errors": 901,
       "xrplVersion": 5,
       "xrplChangelog": 17696
     }
@@ -31,16 +32,16 @@
     "hallucinated_api": {
       "jev": {
         "choice": "none",
-        "confidence": 0.42,
+        "confidence": 0.39,
         "probabilities": {
-          "present": 0.29,
-          "none": 0.71
+          "present": 0.3,
+          "none": 0.7
         }
       },
       "model": {
         "choice": "none",
-        "confidence": 0.93,
-        "rationale": "All the APIs used exist in xrpl 5.3.0 and the XRPL protocol: MPTokenIssuanceCreateFlags, the MPTokenAuthorize Holder field, the MPT Payment Amount, the mpt_issuance_id metadata field, the ledger_entry mptoken/mpt_issuance lookups, and the MPTAmount and OutstandingAmount fields. The code also compiles cleanly under strict mode."
+        "confidence": 0.9,
+        "rationale": "All the xrpl.js exports and methods the code uses exist, and so do the MPT flags, the metadata mpt_issuance_id, the ledger_entry mptoken and mpt_issuance options, and the MPTAmount and OutstandingAmount fields. The typecheck passes in strict mode with 0 errors."
       },
       "final": {
         "choice": "none",
@@ -53,8 +54,8 @@
         "choice": "some",
         "confidence": 0.99,
         "probabilities": {
-          "some": 0.99,
-          "none": 0.01
+          "none": 0.01,
+          "some": 0.99
         }
       },
       "final": {
@@ -64,17 +65,17 @@
       },
       "model": {
         "choice": "some",
-        "confidence": 0.85,
-        "rationale": "Error 3 shows the agent importing 'MPTokenIssuance' and 'MPToken' from the xrpl package. xrpl 5.3.0 does not export either name at the top level, so the compiler rejected both imports and the agent had to change them."
+        "confidence": 0.9,
+        "rationale": "Error 3 shows the agent importing type names that xrpl does not export (MPTokenIssuanceCreateMetadata, MPToken, MPTokenIssuance), and the compiler suggested real exports instead. The other errors are tsconfig setup problems and a type cast made while working around the missing types."
       }
     },
     "deprecated_patterns": {
       "jev": {
         "choice": "none",
-        "confidence": 0.8,
+        "confidence": 0.69,
         "probabilities": {
-          "none": 0.9,
-          "present": 0.1
+          "present": 0.16,
+          "none": 0.84
         }
       },
       "final": {
@@ -85,7 +86,7 @@
       "model": {
         "choice": "none",
         "confidence": 0.8,
-        "rationale": "The code sticks to current APIs: Client.submitAndWait, fundWallet, Wallet.fromSeed, MPTokenIssuanceCreateFlags, MPTokenAuthorize, MPT Payment amounts, and ledger_entry lookups for mptoken and mpt_issuance. None of these are deprecated or removed in the changelog up to 5.3.0, and it avoids setTransactionFlagsToNumber, the only deprecated helper listed. Calling Wallet.fromSeed without an algorithm uses the current inference behaviour from 5.0.0 rather than a deprecated pattern."
+        "rationale": "The code uses current xrpl 5.3.0 APIs: MPTokenIssuanceCreate/MPTokenAuthorize/Payment with an MPT amount, ledger_entry mptoken/mpt_issuance, fundWallet and submitAndWait. Wallet.fromSeed without an explicit algorithm works under 5.x prefix inference and is guarded by an address check. Neither setTransactionFlagsToNumber nor any other deprecated API is used."
       }
     },
     "strict_type_errors": {
@@ -93,9 +94,9 @@
         "choice": "clean",
         "confidence": 0.99,
         "probabilities": {
-          "clean": 0.99,
           "errors": 0,
-          "not_typescript": 0.01
+          "not_typescript": 0.01,
+          "clean": 0.99
         }
       },
       "final": {
@@ -106,17 +107,17 @@
       "model": {
         "choice": "clean",
         "confidence": 0.95,
-        "rationale": "The forced-strict tsc run exited with code 0 and reported 0 errors (0 outside node_modules), so the agent's sources type-check cleanly in strict mode."
+        "rationale": "The strict-forced tsc run (tsconfig.xrpl-eval-strict.json) exited with code 0 and reported 0 errors, including 0 outside node_modules."
       }
     },
     "type_escape_hatches": {
       "jev": {
         "choice": "few",
-        "confidence": 0.96,
+        "confidence": 0.9,
         "probabilities": {
-          "few": 0.97,
-          "none": 0.02,
-          "pervasive": 0.01
+          "none": 0.01,
+          "pervasive": 0.06,
+          "few": 0.93
         }
       },
       "final": {
@@ -126,39 +127,39 @@
       },
       "model": {
         "choice": "few",
-        "confidence": 0.8,
-        "rationale": "There are two `as unknown as` casts, both on ledger_entry results (to LedgerEntry.MPToken and LedgerEntry.MPTokenIssuance). The cast of the metadata to { mpt_issuance_id?: string } is a narrowing cast and doesn't count."
+        "confidence": 0.85,
+        "rationale": "There are two `as unknown as` casts, both on the ledger_entry node results (LedgerEntry.MPToken and LedgerEntry.MPTokenIssuance). The other casts on meta only narrow the type and don't count."
       }
     },
     "outcome_checks": {
       "jev": {
-        "choice": "none",
-        "confidence": 0.98,
+        "choice": "all",
+        "confidence": 0.96,
         "probabilities": {
-          "partial": 0.01,
-          "none": 0.98,
-          "all": 0.01
+          "partial": 0.02,
+          "none": 0,
+          "all": 0.98
         }
       },
       "final": {
-        "choice": "none",
-        "pass": false,
+        "choice": "all",
+        "pass": true,
         "source": "jev"
       },
       "model": {
-        "choice": "none",
-        "confidence": 0.9,
-        "rationale": "No submitAndWait result has its meta.TransactionResult checked against tesSUCCESS, so a validated tec-class failure would be treated as success."
+        "choice": "all",
+        "confidence": 0.93,
+        "rationale": "All four transactions (the issuance create, both MPTokenAuthorize calls and the Payment) go through assertTesSuccess. It throws if TransactionResult is anything other than tesSUCCESS."
       }
     },
     "waits_for_validation": {
       "jev": {
         "choice": "validated",
-        "confidence": 0.96,
+        "confidence": 0.84,
         "probabilities": {
-          "preliminary": 0.01,
-          "validated": 0.97,
-          "mixed": 0.02
+          "mixed": 0.04,
+          "validated": 0.89,
+          "preliminary": 0.07
         }
       },
       "final": {
@@ -169,7 +170,7 @@
       "model": {
         "choice": "validated",
         "confidence": 0.95,
-        "rationale": "All four transactions are submitted with submitAndWait, which waits until each one is validated."
+        "rationale": "Every transaction is submitted with submitAndWait, which waits until the transaction is in a validated ledger."
       }
     },
     "ledger_readback": {
@@ -189,17 +190,17 @@
       },
       "model": {
         "choice": "ledger",
-        "confidence": 0.85,
-        "rationale": "The holder balance comes from ledger_entry mptoken (MPTAmount) and the total from ledger_entry mpt_issuance (OutstandingAmount), both read after the payment. No ledger_index is specified, so the read may not be pinned to a validated ledger."
+        "confidence": 0.93,
+        "rationale": "After the payment, the holder balance comes from a ledger_entry mptoken request and the outstanding amount from a ledger_entry mpt_issuance request, both at ledger_index 'validated'."
       }
     },
     "mpt_amount_format": {
       "jev": {
         "choice": "correct",
-        "confidence": 0.95,
+        "confidence": 0.97,
         "probabilities": {
-          "correct": 0.97,
-          "incorrect": 0.03
+          "incorrect": 0.01,
+          "correct": 0.99
         }
       },
       "final": {
@@ -209,8 +210,8 @@
       },
       "model": {
         "choice": "correct",
-        "confidence": 0.9,
-        "rationale": "The payment uses { mpt_issuance_id, value: \"1000\" }, an integer string. No AssetScale is set, so no scaling is needed."
+        "confidence": 0.92,
+        "rationale": "The Payment amount is { mpt_issuance_id, value: \"1000\" }, an integer string. AssetScale is 0, so no scaling is needed."
       }
     },
     "secret_handling": {
@@ -230,13 +231,13 @@
       "model": {
         "choice": "hardcoded",
         "confidence": 0.97,
-        "rationale": "ISSUER_SEED is a string constant written directly into src/index.ts and dist/index.js."
+        "rationale": "ISSUER_SEED is written into src/index.ts as a string literal constant."
       }
     },
     "connection_hygiene": {
       "jev": {
         "choice": "always",
-        "confidence": 1,
+        "confidence": 0.99,
         "probabilities": {
           "happy_path_only": 0,
           "never": 0,
@@ -250,8 +251,8 @@
       },
       "model": {
         "choice": "always",
-        "confidence": 0.95,
-        "rationale": "client.disconnect() is in a finally block, so it runs on both the success and error paths."
+        "confidence": 0.9,
+        "rationale": "client.disconnect() runs in a finally block that wraps all the work after connect, so the connection closes whether the code succeeds or fails."
       }
     }
   }

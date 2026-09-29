@@ -28,7 +28,7 @@ A single run, for example the smoke run committed under [`results/`](results/):
 node harness/cli.ts run --agent claude-sonnet --tier medium --arm bare --rep 1 --estimate-pct 1
 ```
 
-The committed smoke run passed all eight medium ledger criteria. Sonnet 5 finished in 253 s, with about 2.0M cached input tokens and 14.7k output tokens ($0.70 at list price). Its rubric scores flag a hardcoded seed, no `TransactionResult` checks, and non-existent xrpl.js names tried mid-run. It was scored with `--calibrate`, and Jev and the model scorer agreed on all 11 items.
+The committed smoke run passed all eight medium ledger criteria. Sonnet 5 finished in 238 s, with about 2.1M cached input tokens and 15.7k output tokens ($0.75 at list price). Its rubric scores flag a hardcoded seed and non-existent xrpl.js names tried mid-run. It was scored with `--calibrate`, and Jev and the model scorer agreed on all 11 items. Its one `/tmp` write shows up as a sandbox denial in `infra.json`.
 
 A **set** is one agent on one tier: every arm and every rep, so 8 runs for medium (4 arms x 2 reps) and 12 for complex (4 x 3). Runs go six at a time:
 
@@ -38,6 +38,8 @@ node harness/cli.ts set --sets claude-sonnet:medium,claude-opus:medium   # sever
 ```
 
 A set skips runs that already have results, so re-running the command resumes it. Before starting, `set` runs the budget gate described below and exits with status 3 if the gate refuses.
+
+If a run ended in a harness `error` or was interrupted, `set` moves its directory to `...__aborted<n>` and runs it again.
 
 Other commands:
 
@@ -72,12 +74,17 @@ With no run directories given, `check`, `score` and `agreement` process everythi
 
 Agents must not be able to read `~/.jev`, `~/.claude`, `~/.codex`, the theahaco repositories, the firstmate home, or this repository. Every agent process runs under `sandbox-exec` with a generated Seatbelt profile; each run's copy is in `results/<run>/sandbox.sb`. The profile allows everything by default, then:
 
-- denies all reads and writes under the operator's home directory, `/private/tmp`, `/private/var/tmp` and the operator's per-user temp dir;
+- denies every write outside the run's workspace and `/dev`, so an agent cannot tamper with binaries the harness later runs outside the sandbox (`git`, `claude`, `node`);
+- denies all reads under the operator's home directory, `/private/tmp`, `/private/var/tmp` and the operator's per-user temp dir;
 - re-allows read/write on the run's own workspace, and read-only on the node toolchain;
 - allows `lstat` (metadata only) on the ancestors of those paths, because node's `realpath` fails without it;
 - allows metadata-only lookups anywhere under `/private/tmp`. npm puts every ancestor's `node_modules/.bin` on its `PATH`, and a denied lookup returns `EPERM` instead of `ENOENT`, which makes `npx` and `npm exec` die with a silent exit 255. Metadata access does not allow listing a directory or reading a file.
 
-Agents still cannot write to `/tmp` directly: another lane's files, or another concurrent run's workspace, would otherwise be readable. `TMPDIR` points at the run's own `tmp/`, so `mktemp` and `os.tmpdir()` work; only hardcoded `/tmp/...` paths fail. The infra classifier records such hits as `signals.sandboxDenials` in `infra.json`, so the report can treat them as environment friction. They never count as an infra failure. The self-test checks both directions, including `npm exec`, before every run.
+Packages other lanes leave in `/private/tmp/node_modules` are therefore visible to lookups but not usable. A command that would only be found there fails with "permission denied" where a clean machine says "not found"; `npx` falls back to installing from the registry, as it would on a clean machine.
+
+Agents still cannot write to `/tmp` directly: another lane's files, or another concurrent run's workspace, would otherwise be readable. `TMPDIR` points at the run's own `tmp/`, so `mktemp` and `os.tmpdir()` work; only hardcoded `/tmp/...` paths fail. The infra classifier records such hits as `signals.sandboxDenials` in `infra.json`, so the report can treat them as environment friction. They never count as an infra failure. The self-test checks both directions before every run: every protected read, writes to `/tmp` and to the directories holding `claude`, `node` and Homebrew's binaries, and hard-linking a protected file must fail, while running a project file, `npm`, `npm exec`, `git` and the npm registry must work.
+
+**After the agent exits,** the harness kills anything still running from the workspace (found by working directory and command line), since processes that left the agent's process group could otherwise keep changing files during post-processing. The agent's `tsc` is agent-controlled code, so type-checking runs under a second profile (`sandbox-post.sb`), which is the same plus read-only access to the harness's own TypeScript. Every file the harness reads from the workspace (`result.json`, `package.json`, session files, the final code) is resolved first and skipped if it points outside the workspace, so a planted symlink cannot make the harness copy or echo another file.
 
 Denying the home directory also blocks the login keychain, since its database is under `~/Library/Keychains`, so an agent cannot pull the operator's stored credentials with `security`. On top of the profile, the environment is rebuilt from scratch: no inherited variables, a throwaway `HOME`, and a `PATH` of symlinked `node`/`npm`/`npx`/agent CLI plus the system directories.
 
@@ -93,7 +100,7 @@ One directory per run, named `<tier>__<agent>__<arm>__r<rep>`. A run that failed
 
 | File | Contents |
 | --- | --- |
-| `run.json` | Spec, status, timings, CLI/model/effort, the skill commit and install hashes, funded address, network snapshot, token usage per turn, clarify replies, quota before/after, installed `xrpl` version, a summary of the check and infra verdicts. |
+| `run.json` | Spec, status, timings, CLI/model/effort, the skill commit and install hashes, funded address, network snapshot, token usage per turn, clarify replies, quota before/after, installed `xrpl` version, stray processes killed, what the capture skipped, and a summary of the check and infra verdicts. |
 | `prompt.md` | The exact prompt, seed redacted. |
 | `transcript/agent.jsonl` | The CLI's event stream (Claude stream-json or Codex `--json`), with harness `turn_start`/`turn_end` markers. |
 | `transcript/sessions/` | The CLI's own session file(s). |
@@ -103,7 +110,7 @@ One directory per run, named `<tier>__<agent>__<arm>__r<rep>`. A run that failed
 | `typecheck.json` | `tsc` output with the project's config and with `strict` forced on. |
 | `infra.json` | Infrastructure classifier verdict and signals. |
 | `health.jsonl` | Testnet health probes taken during the run. |
-| `isolation.json`, `sandbox.sb` | The self-test results and the sandbox profile. |
+| `isolation.json`, `sandbox.sb`, `sandbox-post.sb` | The self-test results, the agent's sandbox profile and the post-run profile. |
 | `score.json` | Rubric scores (after `score`). |
 
 ## Ledger checkers
@@ -115,11 +122,12 @@ The checkers ([`harness/check.ts`](harness/check.ts)) read validated testnet sta
 
 A run passes when every criterion passes.
 
-**Infrastructure failures** ([`harness/infra.ts`](harness/infra.ts)) need independent evidence before a run counts as one:
+**Infrastructure failures** ([`harness/infra.ts`](harness/infra.ts)) need independent evidence before a run counts as one. The classifier scans only the output of shell commands the agent ran, not files it read or edited, so an agent's own source code cannot trip it:
 
 - Preflight funding or the testnet snapshot failed: infra, re-run.
 - The checker itself could not reach testnet: `check_retry`. Re-run `check`, not the agent.
-- A failed run whose tool output shows faucet errors: infra, re-run. Faucet limits never count against an agent.
+- A failed run whose agent CLI reported a provider usage limit, rate limit or overload: infra, re-run.
+- A failed run with a faucet error within 300 characters of a faucet reference in command output: infra, re-run. Faucet limits never count against an agent.
 - A failed run where the health monitor saw an outage (two or more consecutive failed probes) *and* the tool output shows rippled connectivity errors: infra, re-run.
 - Connectivity errors while the monitor saw testnet healthy count as an agent failure, and the run is marked `suspect` for a human look.
 
@@ -129,7 +137,7 @@ Passing runs are never infra. A re-run happens at most twice.
 
 The rubric ([`rubric/rubric.json`](rubric/rubric.json)) is a fixed list of choice questions. It covers hallucinated APIs (in the final code and during the run), deprecated patterns, strict-mode type errors, type-system escape hatches, missing outcome checks, waiting for validation, ledger read-back, MPT amount shape, seed handling and connection hygiene. The complex tier adds ban, freeze and clawback semantics. Each item names the evidence it needs.
 
-`score` builds one evidence packet per run: the task text, the final code, compiler output, error excerpts from the transcript, the installed `xrpl` version, and that version's changelog, fetched from the `xrpl@<version>` tag on GitHub. The packet never carries the arm, the agent or the run id. It is scrubbed of skill paths and the word "skill", and the prompt (which differs by arm) is left out. Items that share an evidence set go to Jev in one request, with the key sent only as a header. An answer with confidence of 0.6 or more is final. The rest go to a blind model scorer: Claude Code (`--model opus`, override with `XRPL_EVAL_SCORER_MODEL`) with no tools, a fixed judging system prompt and a JSON schema for the answers. `--calibrate` sends every item to both scorers so `agreement` can report how often they agree.
+`score` builds one evidence packet per run: the task text, the final code (build output excluded), compiler output, error excerpts from the transcript, the installed `xrpl` version, and that version's changelog, fetched from the `xrpl@<version>` tag on GitHub. Error excerpts come only from commands the agent ran. Commands that read the installed skill or fetch URLs are left out, since their output is reference text that would reveal the arm. The packet never carries the arm, the agent or the run id. It is scrubbed of skill paths and the word "skill", and the prompt (which differs by arm) is left out. Items that share an evidence set go to Jev in one request, with the key sent only as a header. An answer with confidence of 0.6 or more is final. The rest go to a blind model scorer: Claude Code (`--model opus`, override with `XRPL_EVAL_SCORER_MODEL`) with no tools, a fixed judging system prompt and a JSON schema for the answers. `--calibrate` sends every item to both scorers so `agreement` can report how often they agree.
 
 **Jev's input limit** was measured on 2026-09-28 by sending growing states:
 
@@ -141,7 +149,7 @@ The rubric ([`rubric/rubric.json`](rubric/rubric.json)) is a fixed list of choic
 | 125,000 | 32,566 | 200, confidence 0.60 |
 | 130,000 | n/a | 400 `max_tokens_exceeded` |
 
-The hard limit is therefore about 32.7k input tokens. On that needle-style probe, confidence fell off well before the limit. The scorer sizes each request to 24k tokens at 3 characters per token, and it truncates the largest code file first. If Jev still returns `max_tokens_exceeded`, the scorer shrinks the packet and retries.
+The hard limit is therefore about 32.7k input tokens. On that needle-style probe, confidence fell off well before the limit. The scorer sizes each request to 24k tokens at 3 characters per token, and it truncates the largest code file first. If Jev still returns `max_tokens_exceeded`, the scorer shrinks the packet and retries, dropping whole files once trimming is not enough. `score.json` is written after every request, so a failure part-way keeps the answers already paid for. Failed requests are listed under `jev.errors` and `modelScorer.errors`.
 
 ## Budget gate
 
@@ -151,7 +159,7 @@ The hard limit is therefore about 32.7k input tokens. On that needle-style probe
 remaining - reserved by running sets - 1.25 x (runs x per-run estimate + scoring) >= 40%
 ```
 
-A `WARN` line prints when the current or projected level is at or below 55%. Running sets hold a reservation under `results/.reservations/` until they finish. A set with no estimate is refused until the calibration pass fills `estimates.json`, or until `--estimate-pct` is passed. Each run records its quota before and after, and its token usage (plus list-price `costUsd` for Claude), as the raw data for calibration. quota-axi reports whole percentages, so one cheap run often moves nothing: a medium Sonnet run read 92% before and after while using about $0.8 of tokens at list price. Estimate from the delta across a batch of runs, or from a percent-per-dollar ratio measured that way, rather than from single-run deltas.
+A `WARN` line prints when the current or projected level is at or below 55%. Running sets hold a reservation under `results/.reservations/` until they finish. A set with no estimate is refused until the calibration pass fills `estimates.json`, or until `--estimate-pct` is passed. Each run records its quota before and after, and its token usage (plus list-price `costUsd` for Claude), as the raw data for calibration. quota-axi reports whole percentages, so one cheap run often moves nothing: each medium Sonnet smoke attempt read the same percentage before and after, while using $0.70 to $0.81 of tokens at list price. Estimate from the delta across a batch of runs, or from a percent-per-dollar ratio measured that way, rather than from single-run deltas.
 
 ## Files
 

@@ -42,6 +42,9 @@ export function exec(cmd: string, args: string[], opts: ExecOptions = {}): Promi
       if (errStream) errStream.write(chunk);
       else stderr += chunk.toString("utf8");
     });
+    // A child that exits before reading all of its input (EPIPE) is reported
+    // through its exit status, not by crashing the harness.
+    child.stdin?.on("error", () => {});
     child.stdin?.end(opts.input ?? "");
     let timer: NodeJS.Timeout | undefined;
     if (opts.timeoutMs !== undefined) {
@@ -131,12 +134,52 @@ export function walkFiles(root: string, skipDirs: string[]): WalkEntry[] {
   return out.sort((a, b) => a.rel.localeCompare(b.rel));
 }
 
-export function copyFiles(entries: WalkEntry[], destRoot: string): void {
+// Resolves `p` and returns the real path only if it stays inside `root`.
+// Everything the harness reads from an agent's workspace goes through this,
+// so a symlink planted by the agent cannot point the harness at other files.
+export function realpathInside(root: string, p: string): string | undefined {
+  try {
+    const realRoot = fs.realpathSync(root);
+    const real = fs.realpathSync(p);
+    return real === realRoot || real.startsWith(`${realRoot}${path.sep}`) ? real : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+export function readFileInside(root: string, p: string, maxBytes = 5_000_000): string | undefined {
+  const real = realpathInside(root, p);
+  if (!real) return undefined;
+  const st = fs.statSync(real);
+  if (!st.isFile() || st.size > maxBytes) return undefined;
+  return fs.readFileSync(real, "utf8");
+}
+
+export function readJsonInside<T>(root: string, p: string): T | undefined {
+  const text = readFileInside(root, p);
+  if (text === undefined) return undefined;
+  try {
+    return JSON.parse(text) as T;
+  } catch {
+    return undefined;
+  }
+}
+
+// Copies regular files that resolve inside `srcRoot`; anything else is skipped
+// and returned.
+export function copyFiles(entries: WalkEntry[], srcRoot: string, destRoot: string): string[] {
+  const skipped: string[] = [];
   for (const e of entries) {
+    const real = realpathInside(srcRoot, e.abs);
+    if (!real || !fs.statSync(real).isFile()) {
+      skipped.push(e.rel);
+      continue;
+    }
     const dest = path.join(destRoot, e.rel);
     fs.mkdirSync(path.dirname(dest), { recursive: true });
-    fs.copyFileSync(e.abs, dest);
+    fs.copyFileSync(real, dest);
   }
+  return skipped;
 }
 
 export function hashTree(root: string): string {

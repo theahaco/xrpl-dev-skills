@@ -2,8 +2,8 @@
 // account the harness created and decide pass/fail per criterion. The agent's
 // result.json only tells the checker where to look; every claim in it is
 // verified against the ledger.
-import fs from "node:fs";
 import type { Tier } from "./config.ts";
+import { readFileInside } from "./util.ts";
 import {
   accountTransactions,
   InfraError,
@@ -49,10 +49,10 @@ const ok = (c: Criterion[], id: string, pass: boolean, detail: string): void => 
 };
 
 function readResultJson(projectDir: string): { value?: Record<string, unknown>; error?: string } {
-  const file = `${projectDir}/result.json`;
-  if (!fs.existsSync(file)) return { error: "result.json not found" };
+  const text = readFileInside(projectDir, `${projectDir}/result.json`, 1_000_000);
+  if (text === undefined) return { error: "result.json not found (or not a regular file inside the project)" };
   try {
-    const value = JSON.parse(fs.readFileSync(file, "utf8")) as unknown;
+    const value = JSON.parse(text) as unknown;
     if (value === null || typeof value !== "object" || Array.isArray(value)) return { error: "result.json is not a JSON object" };
     return { value: value as Record<string, unknown> };
   } catch (err) {

@@ -29,7 +29,7 @@ export async function weeklyQuota(provider: Provider): Promise<QuotaReading> {
   const data = JSON.parse(res.stdout) as QuotaJson;
   const p = data.providers?.find((x) => x.provider === provider);
   const weekly = p?.windows?.find((w) => w.kind === "weekly");
-  if (!weekly) throw new Error(`quota-axi reported no weekly window for ${provider}`);
+  if (!weekly || !Number.isFinite(weekly.percentRemaining)) throw new Error(`quota-axi reported no weekly window for ${provider}`);
   return { provider, percentRemaining: weekly.percentRemaining, windowId: weekly.id, resetsAt: weekly.resetsAt, readAt: new Date().toISOString() };
 }
 
@@ -89,6 +89,11 @@ export async function gate(agent: AgentName, tier: Tier, opts: { runs?: number; 
   const est = loadEstimates();
   const perRun = opts.estimatePct ?? est.runs[agent]?.[tier]?.weeklyPct;
   const lines: string[] = [];
+  for (const [name, v] of [["per-run estimate", perRun], ["scoring estimate", est.scoring.claudeWeeklyPctPerRun]] as const) {
+    if (v !== undefined && !(Number.isFinite(v) && v >= 0)) {
+      return { set, runs, allowed: false, lines: [`REFUSE ${set}: ${name} ${String(v)} is not a non-negative number`], cost: { claudePct: 0, codexPct: 0 }, quota: {} };
+    }
+  }
   if (perRun === undefined) {
     return { set, runs, allowed: false, lines: [`REFUSE ${set}: no per-run estimate for ${agent}/${tier} in budget/estimates.json; run the calibration pass or pass --estimate-pct`], cost: { claudePct: 0, codexPct: 0 }, quota: {} };
   }
@@ -106,7 +111,8 @@ export async function gate(agent: AgentName, tier: Tier, opts: { runs?: number; 
     const held = reserved.reduce((s, r) => s + (p === "claude" ? r.claudePct : r.codexPct), 0);
     const projected = q.percentRemaining - held - need * BUDGET_MARGIN;
     const summary = `${p}: ${q.percentRemaining}% weekly remaining, ${held.toFixed(1)}% reserved by running sets, set needs ${need.toFixed(1)}% x${BUDGET_MARGIN} margin -> ${projected.toFixed(1)}% projected (floor ${BUDGET_FLOOR_PCT}%)`;
-    if (projected < BUDGET_FLOOR_PCT) {
+    // Written so that NaN refuses rather than passes.
+    if (!(projected >= BUDGET_FLOOR_PCT)) {
       allowed = false;
       lines.push(`REFUSE ${set}: ${summary}`);
     } else {
