@@ -1,0 +1,55 @@
+{
+  "intent": "{\"TransactionType\":\"MPTokenIssuanceSet\",\"Account\":\"rnALUjoU7amSCUJkk18CxbfFhsQ9JtcJ3u\",\"MPTokenIssuanceID\":\"0142A2BC3626FE9194BAD4CE7F19DC86646ED23FFCBB14D5\",\"Flags\":2}",
+  "blob": "1200382200000002240142A2CF201B0142A35F68400000000000000C7321ED0B663F199CDDC1BF4007260677EF33594B2954570FCEF3387714A7DF233F18457440710093A549C1BD28956EEF5DA9130FB8BE727D279D78BC71AA894C38133E5FC03A2F76FA1F3ED365A69276CDA9099C148A54637186BF291264A29A09C503400081143626FE9194BAD4CE7F19DC86646ED23FFCBB14D501150142A2BC3626FE9194BAD4CE7F19DC86646ED23FFCBB14D5",
+  "hash": "EEB1A8F20C780D55CA1D538EAB22C6F71E4EEDBCE9AF3D83619AAB611E086A26",
+  "receipt": {
+    "hash": "EEB1A8F20C780D55CA1D538EAB22C6F71E4EEDBCE9AF3D83619AAB611E086A26",
+    "ledgerIndex": 21144397,
+    "code": "tesSUCCESS",
+    "meta": {
+      "AffectedNodes": [
+        {
+          "ModifiedNode": {
+            "FinalFields": {
+              "Account": "rnALUjoU7amSCUJkk18CxbfFhsQ9JtcJ3u",
+              "Balance": "84999760",
+              "Flags": 0,
+              "OwnerCount": 1,
+              "Sequence": 21144272
+            },
+            "LedgerEntryType": "AccountRoot",
+            "LedgerIndex": "69A662A07CBA7B1FF80317128F38B06578F459AC7ACC939305D8E165D45FB4C5",
+            "PreviousFields": {
+              "Balance": "84999772",
+              "Sequence": 21144271
+            },
+            "PreviousTxnID": "54B47C0B54C3DE063328DFC2BE44BA597EB551DBAEBA99E0947ACC670F786302",
+            "PreviousTxnLgrSeq": 21144393
+          }
+        },
+        {
+          "ModifiedNode": {
+            "FinalFields": {
+              "Flags": 102,
+              "Issuer": "rnALUjoU7amSCUJkk18CxbfFhsQ9JtcJ3u",
+              "MPTokenMetadata": "7B2274223A22434D50222C226E223A22436F6D706C69616E6365205465737420546F6B656E222C2264223A22546573746E65742064656D6F3B206E6F206D6F6E6574617279206261636B696E67222C226163223A226F74686572227D",
+              "MaximumAmount": "9223372036854775807",
+              "OutstandingAmount": "1400",
+              "OwnerNode": "0",
+              "Sequence": 21144252
+            },
+            "LedgerEntryType": "MPTokenIssuance",
+            "LedgerIndex": "AB66DC787089052AE52EC1BD20B7931A89448B51D246624AE3FB5FA63962B10B",
+            "PreviousFields": {
+              "Flags": 103
+            },
+            "PreviousTxnID": "54B47C0B54C3DE063328DFC2BE44BA597EB551DBAEBA99E0947ACC670F786302",
+            "PreviousTxnLgrSeq": 21144393
+          }
+        }
+      ],
+      "TransactionIndex": 6,
+      "TransactionResult": "tesSUCCESS"
+    }
+  }
+}

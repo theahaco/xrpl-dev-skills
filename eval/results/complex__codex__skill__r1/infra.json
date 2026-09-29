@@ -1,0 +1,20 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [],
+    "sandboxDenials": [
+      "python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-3QJQeRzG' (errno=Operation not permitted) python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-5xRptXz1' (errno=Operation not pe",
+      "python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-ydYHJi3W' (errno=Operation not permitted) python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-emuX8KVU' (errno=Operation not pe",
+      "4.23.15 ├── typescript@5.9.3 └── xrpl@4.6.0 git: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-zUqgVQ8k' (errno=Operation not permitted) git: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-S5wFidlF' (errno=Operation not permit",
+      "python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-kP1hQ0PE' (errno=Operation not permitted) python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-C80yu22r' (errno=Operation not pe",
+      "python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-QDI6dsTB' (errno=Operation not permitted) python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-mtJmZawI' (errno=Operation not pe",
+      "python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-VeKwuAmF' (errno=Operation not permitted) python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-LKBhoqpy' (errno=Operation not pe"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 18
+  }
+}

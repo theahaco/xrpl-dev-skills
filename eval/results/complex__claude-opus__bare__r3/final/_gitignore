@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.env
+# Demo holder wallets (contain seeds) and local ban registry
+.demo-holders.json
+data/

@@ -1,0 +1,45 @@
+{
+  "completed": true,
+  "result": {
+    "hash": "30E59EB190FA80A95D8FEC0F0798C1476F45528A2D94F71480AD870EA3888321",
+    "ledger": 21144308,
+    "code": "tesSUCCESS",
+    "meta": {
+      "AffectedNodes": [
+        {
+          "ModifiedNode": {
+            "FinalFields": {
+              "Account": "rDXCSJkxZtZobieHcCzZeeRJw4TG4KxqfE",
+              "Balance": "84999964",
+              "Flags": 0,
+              "OwnerCount": 0,
+              "Sequence": 21144233
+            },
+            "LedgerEntryType": "AccountRoot",
+            "LedgerIndex": "34E85DED1D2CA9DF2B5D56339ABC88ACE643C57576442632BE0C98611BFF80B3",
+            "PreviousFields": {
+              "Balance": "89999976",
+              "Sequence": 21144232
+            },
+            "PreviousTxnID": "E1E5B744C29D8823BE57DC2079437C69A4DC984DC4990082A7D91E2051DA555A",
+            "PreviousTxnLgrSeq": 21144307
+          }
+        },
+        {
+          "CreatedNode": {
+            "LedgerEntryType": "AccountRoot",
+            "LedgerIndex": "C23823DD8FF3D04A9F31287C9D50F40C4FA7954E0484B34DDFD16C7C9F3A6FB0",
+            "NewFields": {
+              "Account": "rPtmnAjE3UzhXDVjMEz4mMq7WaxdDJwpEh",
+              "Balance": "5000000",
+              "Sequence": 21144308
+            }
+          }
+        }
+      ],
+      "TransactionIndex": 14,
+      "TransactionResult": "tesSUCCESS",
+      "delivered_amount": "5000000"
+    }
+  }
+}

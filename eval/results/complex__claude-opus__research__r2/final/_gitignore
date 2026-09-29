@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.env
+# Demo state: contains holder secrets and the issuer's ban registry.
+.state/
+.docs1.txt

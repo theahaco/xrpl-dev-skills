@@ -1,0 +1,21 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [],
+    "sandboxDenials": [
+      "nd` for details found 0 vulnerabilities python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-pRucS4zQ' (errno=Operation not permitted) python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-ZjQPthww' (errno=Operation not pe",
+      "python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-3wzf57VG' (errno=Operation not permitted) python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-eLlHW1ch' (errno=Operation not pe",
+      "python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-2Sinuw7f' (errno=Operation not permitted) python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-2qqN9DL2' (errno=Operation not pe",
+      "python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-hSm0Tgd1' (errno=Operation not permitted) python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-ytfe6VTS' (errno=Operation not pe",
+      "git: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-3lmIsVxl' (errno=Operation not permitted) git: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-vwpcIWbq' (errno=Operation not permit",
+      "python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-CaYynC0m' (errno=Operation not permitted) python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-jxwNKpFR' (errno=Operation not pe",
+      "python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-qZ1C7yDL' (errno=Operation not permitted) python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-lvfxbTrW' (errno=Operation not pe"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 15
+  }
+}

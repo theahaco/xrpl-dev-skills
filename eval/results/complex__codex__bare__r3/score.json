@@ -1,0 +1,251 @@
+{
+  "packetId": "2837e7b7548a5238",
+  "rubricVersion": 1,
+  "scoredAt": "2026-09-29T13:40:09.301Z",
+  "calibrate": false,
+  "confidenceFloor": 0.6,
+  "jev": {
+    "requests": 5,
+    "inputTokens": 33619,
+    "outputTokens": 500,
+    "errors": [],
+    "model": "jev-1.13.0"
+  },
+  "modelScorer": {
+    "requests": 2,
+    "costUsd": 0.23342459999999998,
+    "errors": [],
+    "model": "claude-opus-5-5"
+  },
+  "evidence": {
+    "codeTruncated": false,
+    "chars": {
+      "task": 1949,
+      "code": 24113,
+      "typecheck": 430,
+      "errors": 2645,
+      "xrplVersion": 5,
+      "xrplChangelog": 17696
+    }
+  },
+  "items": {
+    "hallucinated_api": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.31,
+        "probabilities": {
+          "none": 0.66,
+          "present": 0.34
+        }
+      },
+      "model": {
+        "choice": "none",
+        "confidence": 0.85,
+        "rationale": "All xrpl.js APIs used exist in 5.3.0: the maxFeeXRP Client option, the MPTokenIssuanceCreateFlags and isValidClassicAddress exports, and the ledger_entry mpt_issuance and mptoken options. All XRPL fields used are real: Holder on MPTokenAuthorize, MPTokenIssuanceSet and Clawback, plus meta.mpt_issuance_id. The strict typecheck passes with 0 errors."
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "model"
+      }
+    },
+    "hallucination_during_run": {
+      "jev": {
+        "choice": "some",
+        "confidence": 0.97,
+        "probabilities": {
+          "some": 0.99,
+          "none": 0.01
+        }
+      },
+      "final": {
+        "choice": "some",
+        "pass": false,
+        "source": "jev"
+      }
+    },
+    "deprecated_patterns": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.76,
+        "probabilities": {
+          "none": 0.88,
+          "present": 0.12
+        }
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "strict_type_errors": {
+      "jev": {
+        "choice": "clean",
+        "confidence": 0.98,
+        "probabilities": {
+          "clean": 0.99,
+          "errors": 0,
+          "not_typescript": 0.01
+        }
+      },
+      "final": {
+        "choice": "clean",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "type_escape_hatches": {
+      "jev": {
+        "choice": "few",
+        "confidence": 0.52,
+        "probabilities": {
+          "pervasive": 0.31,
+          "none": 0.01,
+          "few": 0.68
+        }
+      },
+      "model": {
+        "choice": "pervasive",
+        "confidence": 0.72,
+        "rationale": "src/issuer.ts casts `r.result.node as unknown as MPToken`. src/demo.ts uses `Wallet.generate().seed!` three times without checking `seed`, which makes four escape hatches."
+      },
+      "final": {
+        "choice": "pervasive",
+        "pass": false,
+        "source": "model"
+      }
+    },
+    "outcome_checks": {
+      "jev": {
+        "choice": "all",
+        "confidence": 0.42,
+        "probabilities": {
+          "none": 0.01,
+          "partial": 0.37,
+          "all": 0.62
+        }
+      },
+      "model": {
+        "choice": "all",
+        "confidence": 0.88,
+        "rationale": "Every submission goes through Submitter.submit, which requires validated metadata and throws TransactionFailure when TransactionResult is not tesSUCCESS. The demo accepts a failure only where it expects one, and it checks for specific codes."
+      },
+      "final": {
+        "choice": "all",
+        "pass": true,
+        "source": "model"
+      }
+    },
+    "waits_for_validation": {
+      "jev": {
+        "choice": "validated",
+        "confidence": 0.92,
+        "probabilities": {
+          "preliminary": 0,
+          "validated": 0.95,
+          "mixed": 0.05
+        }
+      },
+      "final": {
+        "choice": "validated",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "mpt_amount_format": {
+      "jev": {
+        "choice": "correct",
+        "confidence": 0.99,
+        "probabilities": {
+          "incorrect": 0,
+          "correct": 1
+        }
+      },
+      "final": {
+        "choice": "correct",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "secret_handling": {
+      "jev": {
+        "choice": "external",
+        "confidence": 0.92,
+        "probabilities": {
+          "external": 0.96,
+          "hardcoded": 0.04
+        }
+      },
+      "final": {
+        "choice": "external",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "connection_hygiene": {
+      "jev": {
+        "choice": "always",
+        "confidence": 1,
+        "probabilities": {
+          "always": 1,
+          "happy_path_only": 0,
+          "never": 0
+        }
+      },
+      "final": {
+        "choice": "always",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "ban_semantics": {
+      "jev": {
+        "choice": "complete",
+        "confidence": 0.91,
+        "probabilities": {
+          "absent": 0,
+          "partial": 0.06,
+          "complete": 0.94
+        }
+      },
+      "final": {
+        "choice": "complete",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "freeze_semantics": {
+      "jev": {
+        "choice": "mpt_lock",
+        "confidence": 0.97,
+        "probabilities": {
+          "absent": 0,
+          "mpt_lock": 0.98,
+          "other": 0.02
+        }
+      },
+      "final": {
+        "choice": "mpt_lock",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "clawback_semantics": {
+      "jev": {
+        "choice": "mpt_clawback",
+        "confidence": 1,
+        "probabilities": {
+          "absent": 0,
+          "other": 0,
+          "mpt_clawback": 1
+        }
+      },
+      "final": {
+        "choice": "mpt_clawback",
+        "pass": true,
+        "source": "jev"
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "intent": "{\"TransactionType\":\"Payment\",\"Account\":\"rPAeKFKujhRwZW3wZZw9u6WCfH8mXwd68Y\",\"Destination\":\"rDnAyiumF5yq9sYXPDTHjxjpcgqr3iP2vb\",\"Amount\":{\"mpt_issuance_id\":\"0142A2BC3626FE9194BAD4CE7F19DC86646ED23FFCBB14D5\",\"value\":\"1\"}}",
+  "blob": "1200002200000000240142A31D201B0142A35D616000000000000000010142A2BC3626FE9194BAD4CE7F19DC86646ED23FFCBB14D568400000000000000C7321ED8671837E3BE3EE669AAEBFD50F58A581080EE0D0863DF46C7A392E5E60E250D97440506A7E371B9E234272B656ED2B7442EB83473FFC021345423A0FEAD09BFF79F4FA6F90D8E3C9B42ECF046C37D23634F671FBFB46E28DE44E2101AE7628C316008114FBA862D2EA7F47D274FE6531640C54842750AAF783148491118BDEAC427B4A83B0E8C706D2CDFD69D5C4",
+  "hash": "F9F338FEFDA1752CEF0977C238AD1B9B84DC7D756D53DF85E4D25C277B599FA9",
+  "receipt": {
+    "hash": "F9F338FEFDA1752CEF0977C238AD1B9B84DC7D756D53DF85E4D25C277B599FA9",
+    "ledgerIndex": 21144395,
+    "code": "tecLOCKED",
+    "meta": {
+      "AffectedNodes": [
+        {
+          "ModifiedNode": {
+            "FinalFields": {
+              "Account": "rPAeKFKujhRwZW3wZZw9u6WCfH8mXwd68Y",
+              "Balance": "4999928",
+              "Flags": 0,
+              "OwnerCount": 1,
+              "Sequence": 21144350
+            },
+            "LedgerEntryType": "AccountRoot",
+            "LedgerIndex": "BC612B294D03D441DE6F9731DBFED1693E39DB45BC285D1499FDBFC556376DEC",
+            "PreviousFields": {
+              "Balance": "4999940",
+              "Sequence": 21144349
+            },
+            "PreviousTxnID": "088A1B1BD7217228C9DB225A8657ABDDFFE48EA434C276D7D5D231FBBBD5517B",
+            "PreviousTxnLgrSeq": 21144391
+          }
+        }
+      ],
+      "TransactionIndex": 14,
+      "TransactionResult": "tecLOCKED"
+    }
+  }
+}

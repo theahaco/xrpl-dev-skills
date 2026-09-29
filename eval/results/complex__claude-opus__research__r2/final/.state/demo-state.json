@@ -1,0 +1,20 @@
+{
+  "network": "wss://s.altnet.rippletest.net:51233",
+  "issuer": "rHsBSrosuXfEzebwqB3vZNSyMcdTtHe76a",
+  "holders": {
+    "A": {
+      "address": "rEcJPJRdiDiiiLBGu2W5tpAtWqpkZUgcba",
+      "seed": "<TESTNET_SEED_REDACTED>"
+    },
+    "B": {
+      "address": "rGs17W1ovU1HAKnyusrrWFGjbTKxmzKTMq",
+      "seed": "<TESTNET_SEED_REDACTED>"
+    },
+    "C": {
+      "address": "rBB3HYL7CmraiPpsXqkxJXcK3TkrwwZVhE",
+      "seed": "<TESTNET_SEED_REDACTED>"
+    }
+  },
+  "issuanceId": "0142A0F5AFEB8D53282D05913DF7D20348AE5C184CC3AA44",
+  "completedAt": "2026-09-29T13:10:59.876Z"
+}

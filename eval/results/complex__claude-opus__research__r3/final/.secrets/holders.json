@@ -1,0 +1,17 @@
+{
+  "issuanceId": "0142A1B351FE8B98F8BBB19B1726378877F08BF50E5908DB",
+  "holders": {
+    "A": {
+      "address": "rscu2CMU9fsHR8af1ceg73ACXRgc117xEB",
+      "seed": "<TESTNET_SEED_REDACTED>"
+    },
+    "B": {
+      "address": "r2MBKFtuktBSRZ5TEvEwtBus5kTmH5ZG2",
+      "seed": "<TESTNET_SEED_REDACTED>"
+    },
+    "C": {
+      "address": "rwK5NXubgdyFJVypiVeEBKtfeJFg5DKoR3",
+      "seed": "<TESTNET_SEED_REDACTED>"
+    }
+  }
+}

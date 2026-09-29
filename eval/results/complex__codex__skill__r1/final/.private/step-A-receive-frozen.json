@@ -1,0 +1,33 @@
+{
+  "completed": true,
+  "result": {
+    "hash": "2A4CF3C335862D0EFF1E0C446D61BE3BF6DC676A9C36E5019953A187293CBAF5",
+    "ledger": 21144339,
+    "code": "tecLOCKED",
+    "meta": {
+      "AffectedNodes": [
+        {
+          "ModifiedNode": {
+            "FinalFields": {
+              "Account": "rDMGutSZXQjU9ayTs9dYUZLH8Y2kVpvfRp",
+              "Balance": "4999976",
+              "Flags": 0,
+              "OwnerCount": 1,
+              "Sequence": 21144309
+            },
+            "LedgerEntryType": "AccountRoot",
+            "LedgerIndex": "38895B26DE9B5E79E92CAE392A099DF138A96CB75F3CAEDE7B8C69BD5AB38001",
+            "PreviousFields": {
+              "Balance": "4999988",
+              "Sequence": 21144308
+            },
+            "PreviousTxnID": "E6DECD6EBEBD3B83502D569C417219B14FD9D3EBFCA8EF9B856B3C854A013444",
+            "PreviousTxnLgrSeq": 21144318
+          }
+        }
+      ],
+      "TransactionIndex": 21,
+      "TransactionResult": "tecLOCKED"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [
+      "andard. ## 4.4.2 (2025-09-25) ### Fixed * improve Batch inner transaction typing ## 4.4.1 (2025-08-29) ### Fixed * Prevent Node.js process termination when WebSocket send() errors after the connection is closed. ## 4.4.0 (2025-07-29) ### Added * Support for `PermissionedDEX` (XLS-81d) * Support for `Token Escrow`",
+      "class XrplError extends Error { errors.ts:62:class RippledError extends XrplError {} errors.ts:69:class UnexpectedError extends XrplError {} errors.ts:76:class ConnectionError extends XrplError {} errors.ts:83:class NotConnectedError extends ConnectionError {} errors.ts:90:class DisconnectedError extends ConnectionErro"
+    ],
+    "sandboxDenials": [
+      "(eval):1: operation not permitted: feat.json 3.4.1 1 {'age': 2, 'base_fee_xrp': 1e-05, 'hash': '91A9B9E574C7E91694A9F1DA7A905FAAD2A48E7EB8F2375AC58A636139C1CF0A', 'reserv"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 28
+  }
+}

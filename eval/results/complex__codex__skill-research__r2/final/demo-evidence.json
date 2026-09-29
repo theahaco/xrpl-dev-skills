@@ -1,0 +1,336 @@
+{
+  "network": "wss://s.altnet.rippletest.net:51233",
+  "issuer": "rp8Jk8kiQzfZeUuUTmWd1bvV4gSpbaQBAW",
+  "ledgerIndex": 21144618,
+  "verifiedAt": "2026-09-29T13:39:53.399Z",
+  "issuance": {
+    "Flags": 102,
+    "Issuer": "rp8Jk8kiQzfZeUuUTmWd1bvV4gSpbaQBAW",
+    "LedgerEntryType": "MPTokenIssuance",
+    "MaximumAmount": "9223372036854775807",
+    "OutstandingAmount": "1200",
+    "OwnerNode": "0",
+    "PreviousTxnID": "DE78F42DA93D521F73A36F8A9C3FA7106B458668A1EAF1E9B5483273DFFDBCAE",
+    "PreviousTxnLgrSeq": 21144592,
+    "Sequence": 21144391,
+    "index": "CF37BF7E9EC98C82EB6EB70C8C41D7C0F64EC7A3D06AC75DCC8CB46C9AD866D7",
+    "mpt_issuance_id": "0142A3471389AA48FA29A7E0A36B1971E2317CFCAD67B3C8"
+  },
+  "holders": {
+    "A": {
+      "Account": "rp46rn6LZV2LsiSjFbwM8Fq3AoaszgPr54",
+      "Flags": 2,
+      "LedgerEntryType": "MPToken",
+      "MPTAmount": "500",
+      "MPTokenIssuanceID": "0142A3471389AA48FA29A7E0A36B1971E2317CFCAD67B3C8",
+      "OwnerNode": "0",
+      "PreviousTxnID": "401F6444C5B6755D1F935658B384A6B648FA137721A57D488980FC010126FFD0",
+      "PreviousTxnLgrSeq": 21144586,
+      "index": "4F52807394A0AC42EE8608D1A56ADF004FD999D61D7A0F4E71E09B62AD9D7316"
+    },
+    "B": {
+      "Account": "r4QhXSgh4LXtU44ZR2vYpW14E5x4Vuvy4p",
+      "Flags": 3,
+      "LedgerEntryType": "MPToken",
+      "MPTAmount": "700",
+      "MPTokenIssuanceID": "0142A3471389AA48FA29A7E0A36B1971E2317CFCAD67B3C8",
+      "OwnerNode": "0",
+      "PreviousTxnID": "7F64CCAF1EFD1C465FD1524C637FEF676B44D9DE0149BAC86B53F991D50B1181",
+      "PreviousTxnLgrSeq": 21144577,
+      "index": "9D6B3B83FDA01C835376CC6F1A1AD03BC7FDFDB59095E025206978F9499E7403"
+    },
+    "C": {
+      "Account": "rwM2SjkyTAS2uwgv6E3gjVSxwpzGfJ9zQx",
+      "Flags": 0,
+      "LedgerEntryType": "MPToken",
+      "MPTokenIssuanceID": "0142A3471389AA48FA29A7E0A36B1971E2317CFCAD67B3C8",
+      "OwnerNode": "0",
+      "PreviousTxnID": "D4CA6FD7CF9DAE63342DC4CF83E28200A1C826C067BCAA28AA80EB3015374E7C",
+      "PreviousTxnLgrSeq": 21144616,
+      "index": "E7B5320D30D03A44EE63C8A4A0C68BCE70085CACFDB431ECC0BC1D0C097E5BB0",
+      "MPTAmount": "0"
+    }
+  },
+  "negativeTests": [
+    {
+      "test": "unapproved-issuer-payment",
+      "hash": "D947716EBC141DFE60A0430858B5BC0FF49B857A5A759BB538086E9EA678FDFD",
+      "ledger": 21144532,
+      "code": "tecNO_AUTH",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rp8Jk8kiQzfZeUuUTmWd1bvV4gSpbaQBAW",
+                "Balance": "84999940",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144393
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "06EE94283A37DD960C7771875FBF5BDD60169F5E7B750947D48BFFBAF10ED7D8",
+              "PreviousFields": {
+                "Balance": "84999952",
+                "Sequence": 21144392
+              },
+              "PreviousTxnID": "50C9B3016F1CF951457B830B3DD6777EE818AA71F1647E8D4DFAAD1DD2CF7368",
+              "PreviousTxnLgrSeq": 21144525
+            }
+          }
+        ],
+        "TransactionIndex": 15,
+        "TransactionResult": "tecNO_AUTH"
+      }
+    },
+    {
+      "test": "frozen-A-outbound",
+      "hash": "454D07FCD3F41AE7E9D19668752ADAF3A3D3F3BBCD400EC1EEB0154C9530CBBB",
+      "ledger": 21144547,
+      "code": "tecLOCKED",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rp46rn6LZV2LsiSjFbwM8Fq3AoaszgPr54",
+                "Balance": "4999976",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144521
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "0D753FCB5C24BDCD36230D557768DA76B815AC8BCE654226AAE1376F64FF55B0",
+              "PreviousFields": {
+                "Balance": "4999988",
+                "Sequence": 21144520
+              },
+              "PreviousTxnID": "C36BF16DCBC38A8DC92F5D018A05FE44351569775D94BAA3EF759517C6187706",
+              "PreviousTxnLgrSeq": 21144527
+            }
+          }
+        ],
+        "TransactionIndex": 18,
+        "TransactionResult": "tecLOCKED"
+      }
+    },
+    {
+      "test": "frozen-A-inbound",
+      "hash": "09FAF797650D995C419E0F27BF933A0272F368A2FE063D1020A8DD385D34B412",
+      "ledger": 21144549,
+      "code": "tecLOCKED",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "r4QhXSgh4LXtU44ZR2vYpW14E5x4Vuvy4p",
+                "Balance": "4999976",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144523
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "C7F1EC64E38B623B6DA2EE30A53E71185FF0B5FFE28A6E249927247A52FB8D3F",
+              "PreviousFields": {
+                "Balance": "4999988",
+                "Sequence": 21144522
+              },
+              "PreviousTxnID": "5FB15EFB75062290B70BEC08DD66563738282B740C9A81C3EE14FB6C8B43D801",
+              "PreviousTxnLgrSeq": 21144528
+            }
+          }
+        ],
+        "TransactionIndex": 17,
+        "TransactionResult": "tecLOCKED"
+      }
+    },
+    {
+      "test": "frozen-B-outbound",
+      "hash": "4513DBB0F7BA394429BF842AB5F269EDA3C43A338D27D7CC87AEFAE86101A1BF",
+      "ledger": 21144578,
+      "code": "tecLOCKED",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "r4QhXSgh4LXtU44ZR2vYpW14E5x4Vuvy4p",
+                "Balance": "4999952",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144525
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "C7F1EC64E38B623B6DA2EE30A53E71185FF0B5FFE28A6E249927247A52FB8D3F",
+              "PreviousFields": {
+                "Balance": "4999964",
+                "Sequence": 21144524
+              },
+              "PreviousTxnID": "F95DBCD773852FAEF0C223B534350EE1FEE9CD7411F0D2A4A8879CA17F894F85",
+              "PreviousTxnLgrSeq": 21144573
+            }
+          }
+        ],
+        "TransactionIndex": 49,
+        "TransactionResult": "tecLOCKED"
+      }
+    },
+    {
+      "test": "frozen-B-inbound",
+      "hash": "406434B71EA89896705E2BD3AE3E2FDACBE23E64C70325AA93DFDDF28D65A50F",
+      "ledger": 21144579,
+      "code": "tecLOCKED",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rp46rn6LZV2LsiSjFbwM8Fq3AoaszgPr54",
+                "Balance": "4999940",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144524
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "0D753FCB5C24BDCD36230D557768DA76B815AC8BCE654226AAE1376F64FF55B0",
+              "PreviousFields": {
+                "Balance": "4999952",
+                "Sequence": 21144523
+              },
+              "PreviousTxnID": "9878349409D3518531665AE6731A3B027F410B3C40CDFE078FA97B10A2D69D95",
+              "PreviousTxnLgrSeq": 21144571
+            }
+          }
+        ],
+        "TransactionIndex": 26,
+        "TransactionResult": "tecLOCKED"
+      }
+    },
+    {
+      "test": "global-holder-payment",
+      "hash": "ABA098A1C7B13268E78B65790DE07E3AC643F910AADF23F17B2F56C837136DAC",
+      "ledger": 21144582,
+      "code": "tecLOCKED",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rp46rn6LZV2LsiSjFbwM8Fq3AoaszgPr54",
+                "Balance": "4999928",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144525
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "0D753FCB5C24BDCD36230D557768DA76B815AC8BCE654226AAE1376F64FF55B0",
+              "PreviousFields": {
+                "Balance": "4999940",
+                "Sequence": 21144524
+              },
+              "PreviousTxnID": "406434B71EA89896705E2BD3AE3E2FDACBE23E64C70325AA93DFDDF28D65A50F",
+              "PreviousTxnLgrSeq": 21144579
+            }
+          }
+        ],
+        "TransactionIndex": 14,
+        "TransactionResult": "tecLOCKED"
+      }
+    },
+    {
+      "test": "banned-C-holder-payment",
+      "hash": "04BF54187902B4D6D3573BDB08F1C7EBC831E07DC91D7D6E74ACB9D5736A6EAB",
+      "ledger": 21144611,
+      "code": "tecNO_AUTH",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rp46rn6LZV2LsiSjFbwM8Fq3AoaszgPr54",
+                "Balance": "4999904",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144527
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "0D753FCB5C24BDCD36230D557768DA76B815AC8BCE654226AAE1376F64FF55B0",
+              "PreviousFields": {
+                "Balance": "4999916",
+                "Sequence": 21144526
+              },
+              "PreviousTxnID": "401F6444C5B6755D1F935658B384A6B648FA137721A57D488980FC010126FFD0",
+              "PreviousTxnLgrSeq": 21144586
+            }
+          }
+        ],
+        "TransactionIndex": 17,
+        "TransactionResult": "tecNO_AUTH"
+      }
+    },
+    {
+      "test": "banned-C-issuer-payment",
+      "hash": "E68BFCFE5EA630D77515273CF0E75824344EDE24111F00D35CF22288D5933E90",
+      "ledger": 21144613,
+      "code": "tecNO_AUTH",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rp8Jk8kiQzfZeUuUTmWd1bvV4gSpbaQBAW",
+                "Balance": "84999736",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144410
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "06EE94283A37DD960C7771875FBF5BDD60169F5E7B750947D48BFFBAF10ED7D8",
+              "PreviousFields": {
+                "Balance": "84999748",
+                "Sequence": 21144409
+              },
+              "PreviousTxnID": "DE78F42DA93D521F73A36F8A9C3FA7106B458668A1EAF1E9B5483273DFFDBCAE",
+              "PreviousTxnLgrSeq": 21144592
+            }
+          }
+        ],
+        "TransactionIndex": 19,
+        "TransactionResult": "tecNO_AUTH"
+      }
+    },
+    {
+      "test": "banned-C-recreated-holder-payment",
+      "hash": "3CD0F1F6C0D54B90B09F2082341D7ACC4FF91E66396759ACDB037B34BCBEDBB1",
+      "ledger": 21144618,
+      "code": "tecNO_AUTH",
+      "meta": {
+        "AffectedNodes": [
+          {
+            "ModifiedNode": {
+              "FinalFields": {
+                "Account": "rp46rn6LZV2LsiSjFbwM8Fq3AoaszgPr54",
+                "Balance": "4999892",
+                "Flags": 0,
+                "OwnerCount": 1,
+                "Sequence": 21144528
+              },
+              "LedgerEntryType": "AccountRoot",
+              "LedgerIndex": "0D753FCB5C24BDCD36230D557768DA76B815AC8BCE654226AAE1376F64FF55B0",
+              "PreviousFields": {
+                "Balance": "4999904",
+                "Sequence": 21144527
+              },
+              "PreviousTxnID": "04BF54187902B4D6D3573BDB08F1C7EBC831E07DC91D7D6E74ACB9D5736A6EAB",
+              "PreviousTxnLgrSeq": 21144611
+            }
+          }
+        ],
+        "TransactionIndex": 20,
+        "TransactionResult": "tecNO_AUTH"
+      }
+    }
+  ],
+  "limitation": "Local and global locks permit direct issuer payments in both directions. The module blocks issuance while locked; direct ledger redemption remains possible. All four exceptions were demonstrated."
+}

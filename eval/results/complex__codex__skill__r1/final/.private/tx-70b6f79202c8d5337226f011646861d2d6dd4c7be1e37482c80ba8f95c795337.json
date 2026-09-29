@@ -1,0 +1,57 @@
+{
+  "fingerprint": "cbc5c2ef0a0324c0ab130252361733a98338041c5cd4a4e1371f241ae1d6ad95",
+  "blob": "1200392200000000240142A2F4201B0142A31668400000000000000C7321EDA2E662997B70C1860BEB494337230F6CFAB303D87FB81042D26BC56A87470B6B74405D1761A155BEE543966026A2AA26A6DFB710F957CFFD5FA47053C19EEEE7C006D67C4AA50E4C83D697602BB1CDE769DEACE97DF50423A0DD68CDD495029C1D0B8114FB1CC823B3135F3239E88F410FBB36352FBBFA9F01150142A2A9896E12C2514E55AF8C6C1A580BC8797D3F5E8455",
+  "hash": "A05D6A8AF322493A034F750878E59E3538226934356A63EE671498AF318DD76C",
+  "lastLedger": 21144342,
+  "receipt": {
+    "hash": "A05D6A8AF322493A034F750878E59E3538226934356A63EE671498AF318DD76C",
+    "ledger": 21144324,
+    "code": "tesSUCCESS",
+    "meta": {
+      "AffectedNodes": [
+        {
+          "CreatedNode": {
+            "LedgerEntryType": "DirectoryNode",
+            "LedgerIndex": "5570928E23750492F9EDCA747E5843D3FFDC4E076D53BBA4BA1965DF8581623C",
+            "NewFields": {
+              "Owner": "rPtmnAjE3UzhXDVjMEz4mMq7WaxdDJwpEh",
+              "RootIndex": "5570928E23750492F9EDCA747E5843D3FFDC4E076D53BBA4BA1965DF8581623C"
+            }
+          }
+        },
+        {
+          "ModifiedNode": {
+            "FinalFields": {
+              "Account": "rPtmnAjE3UzhXDVjMEz4mMq7WaxdDJwpEh",
+              "Balance": "4999988",
+              "Flags": 0,
+              "OwnerCount": 1,
+              "Sequence": 21144309
+            },
+            "LedgerEntryType": "AccountRoot",
+            "LedgerIndex": "C23823DD8FF3D04A9F31287C9D50F40C4FA7954E0484B34DDFD16C7C9F3A6FB0",
+            "PreviousFields": {
+              "Balance": "5000000",
+              "OwnerCount": 0,
+              "Sequence": 21144308
+            },
+            "PreviousTxnID": "30E59EB190FA80A95D8FEC0F0798C1476F45528A2D94F71480AD870EA3888321",
+            "PreviousTxnLgrSeq": 21144308
+          }
+        },
+        {
+          "CreatedNode": {
+            "LedgerEntryType": "MPToken",
+            "LedgerIndex": "EA3842A9EA2C4A43AC5D4C99B0E28C20552465EE6513EC8AC1FC112474D541BA",
+            "NewFields": {
+              "Account": "rPtmnAjE3UzhXDVjMEz4mMq7WaxdDJwpEh",
+              "MPTokenIssuanceID": "0142A2A9896E12C2514E55AF8C6C1A580BC8797D3F5E8455"
+            }
+          }
+        }
+      ],
+      "TransactionIndex": 4,
+      "TransactionResult": "tesSUCCESS"
+    }
+  }
+}

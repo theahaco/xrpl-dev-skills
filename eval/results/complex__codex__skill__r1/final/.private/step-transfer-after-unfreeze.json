@@ -1,0 +1,73 @@
+{
+  "completed": true,
+  "result": {
+    "hash": "C731256576E2FA9556DB653C616B6CA0B170071BE5AF746B38F6FE6E94788290",
+    "ledger": 21144343,
+    "code": "tesSUCCESS",
+    "meta": {
+      "AffectedNodes": [
+        {
+          "ModifiedNode": {
+            "FinalFields": {
+              "Account": "rDMGutSZXQjU9ayTs9dYUZLH8Y2kVpvfRp",
+              "Flags": 2,
+              "MPTAmount": "1001",
+              "MPTokenIssuanceID": "0142A2A9896E12C2514E55AF8C6C1A580BC8797D3F5E8455",
+              "OwnerNode": "0"
+            },
+            "LedgerEntryType": "MPToken",
+            "LedgerIndex": "34562B14DBD8241689483062AE2EA00F5D497EE342E063AD3B6E11659E22A13F",
+            "PreviousFields": {
+              "MPTAmount": "1000"
+            },
+            "PreviousTxnID": "0EF7C3C2D8E94D8755F35AA19275A84321107934A55E915C310B0508754B5823",
+            "PreviousTxnLgrSeq": 21144331
+          }
+        },
+        {
+          "ModifiedNode": {
+            "FinalFields": {
+              "Account": "r34ZYFR9yMJq1bEzkNNPvqkSoBaaHgSba8",
+              "Flags": 2,
+              "MPTAmount": "499",
+              "MPTokenIssuanceID": "0142A2A9896E12C2514E55AF8C6C1A580BC8797D3F5E8455",
+              "OwnerNode": "0"
+            },
+            "LedgerEntryType": "MPToken",
+            "LedgerIndex": "8666504F39AD9A1BA3AA0F402AAF6773B23C473D0729F58FEF2242D9902BD96E",
+            "PreviousFields": {
+              "MPTAmount": "500"
+            },
+            "PreviousTxnID": "04B7C66CE31F61B27293B77D494BB2EBD5E4ADEEBBABA445951538F51CEE7F0C",
+            "PreviousTxnLgrSeq": 21144341
+          }
+        },
+        {
+          "ModifiedNode": {
+            "FinalFields": {
+              "Account": "r34ZYFR9yMJq1bEzkNNPvqkSoBaaHgSba8",
+              "Balance": "4999964",
+              "Flags": 0,
+              "OwnerCount": 1,
+              "Sequence": 21144308
+            },
+            "LedgerEntryType": "AccountRoot",
+            "LedgerIndex": "A347F275C38A090EBF64D19EDFC7714218695658F788084B00069E553026B9FC",
+            "PreviousFields": {
+              "Balance": "4999976",
+              "Sequence": 21144307
+            },
+            "PreviousTxnID": "70BAC533BFAF62F5FEF39706627AF7B41CD798DF1586A0A39B543199281E8011",
+            "PreviousTxnLgrSeq": 21144337
+          }
+        }
+      ],
+      "TransactionIndex": 5,
+      "TransactionResult": "tesSUCCESS",
+      "delivered_amount": {
+        "mpt_issuance_id": "0142A2A9896E12C2514E55AF8C6C1A580BC8797D3F5E8455",
+        "value": "1"
+      }
+    }
+  }
+}

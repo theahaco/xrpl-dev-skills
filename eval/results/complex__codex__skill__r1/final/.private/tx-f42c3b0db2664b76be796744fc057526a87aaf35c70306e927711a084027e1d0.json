@@ -1,0 +1,57 @@
+{
+  "fingerprint": "249aecec0061c4000fc2e37c4c3eecb2027e2e75a3becd2661d1ab73b5c02b36",
+  "blob": "1200392200000000240142A2F1201B0142A30A68400000000000000C7321ED540AB647C81187FB04BA253CAA0684A8E10E7A2A4AB0F69928049E2952CC6F037440B4CA40EF12A55D1C0C13868654FEE87D757AA3D20E502F1EA498906C036C6DB29D3126C1E2747879C977CB283412065101FD5A89ADCE5BFE72DF1E503B8E770A811450DCC92EB0659A8CE86CDE249C17093359E95F7901150142A2A9896E12C2514E55AF8C6C1A580BC8797D3F5E8455",
+  "hash": "3E96EBFB9D6E7FA9253EF677D62E2417908F4BE7F469CCF80E73BE5EB192C16B",
+  "lastLedger": 21144330,
+  "receipt": {
+    "hash": "3E96EBFB9D6E7FA9253EF677D62E2417908F4BE7F469CCF80E73BE5EB192C16B",
+    "ledger": 21144312,
+    "code": "tesSUCCESS",
+    "meta": {
+      "AffectedNodes": [
+        {
+          "CreatedNode": {
+            "LedgerEntryType": "MPToken",
+            "LedgerIndex": "8666504F39AD9A1BA3AA0F402AAF6773B23C473D0729F58FEF2242D9902BD96E",
+            "NewFields": {
+              "Account": "r34ZYFR9yMJq1bEzkNNPvqkSoBaaHgSba8",
+              "MPTokenIssuanceID": "0142A2A9896E12C2514E55AF8C6C1A580BC8797D3F5E8455"
+            }
+          }
+        },
+        {
+          "ModifiedNode": {
+            "FinalFields": {
+              "Account": "r34ZYFR9yMJq1bEzkNNPvqkSoBaaHgSba8",
+              "Balance": "4999988",
+              "Flags": 0,
+              "OwnerCount": 1,
+              "Sequence": 21144306
+            },
+            "LedgerEntryType": "AccountRoot",
+            "LedgerIndex": "A347F275C38A090EBF64D19EDFC7714218695658F788084B00069E553026B9FC",
+            "PreviousFields": {
+              "Balance": "5000000",
+              "OwnerCount": 0,
+              "Sequence": 21144305
+            },
+            "PreviousTxnID": "A81029B64A8393F0242D0173F138CBF6999AB7A4831F93FAF6BF57D3FA432E2A",
+            "PreviousTxnLgrSeq": 21144305
+          }
+        },
+        {
+          "CreatedNode": {
+            "LedgerEntryType": "DirectoryNode",
+            "LedgerIndex": "B0EC7961B036A93E178E02744C1528EEE0D67EA508E25D05941F3BA72BDBF5FE",
+            "NewFields": {
+              "Owner": "r34ZYFR9yMJq1bEzkNNPvqkSoBaaHgSba8",
+              "RootIndex": "B0EC7961B036A93E178E02744C1528EEE0D67EA508E25D05941F3BA72BDBF5FE"
+            }
+          }
+        }
+      ],
+      "TransactionIndex": 2,
+      "TransactionResult": "tesSUCCESS"
+    }
+  }
+}

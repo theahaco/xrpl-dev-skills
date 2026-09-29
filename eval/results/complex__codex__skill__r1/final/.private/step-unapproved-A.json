@@ -1,0 +1,33 @@
+{
+  "completed": true,
+  "result": {
+    "hash": "566FB6B1F2E20FA7E63A38F0159F060B089FEF31349314CF9D91B86EFF6BD070",
+    "ledger": 21144314,
+    "code": "tecNO_AUTH",
+    "meta": {
+      "AffectedNodes": [
+        {
+          "ModifiedNode": {
+            "FinalFields": {
+              "Account": "rDXCSJkxZtZobieHcCzZeeRJw4TG4KxqfE",
+              "Balance": "84999940",
+              "Flags": 0,
+              "OwnerCount": 1,
+              "Sequence": 21144235
+            },
+            "LedgerEntryType": "AccountRoot",
+            "LedgerIndex": "34E85DED1D2CA9DF2B5D56339ABC88ACE643C57576442632BE0C98611BFF80B3",
+            "PreviousFields": {
+              "Balance": "84999952",
+              "Sequence": 21144234
+            },
+            "PreviousTxnID": "B8D0370109EB1546B5A00C2087D91598621D071E0A62BC72B7CFCF386C454FD6",
+            "PreviousTxnLgrSeq": 21144310
+          }
+        }
+      ],
+      "TransactionIndex": 10,
+      "TransactionResult": "tecNO_AUTH"
+    }
+  }
+}

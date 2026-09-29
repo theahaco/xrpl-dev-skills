@@ -1,0 +1,7 @@
+node_modules/
+dist/
+# Secrets: never commit seeds.
+.env
+.secrets/
+# Local runtime state
+data/

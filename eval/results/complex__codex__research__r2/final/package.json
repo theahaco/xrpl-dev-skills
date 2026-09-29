@@ -1,0 +1,26 @@
+{
+  "name": "regulated-mpt-issuer",
+  "version": "1.0.0",
+  "description": "Testnet MPT issuer with audited compliance controls",
+  "main": "dist/src/issuer.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx --test test/*.test.ts",
+    "demo": "tsx src/demo.ts",
+    "verify": "tsx src/verify.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "xrpl": "5.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.3",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2"
+  },
+  "private": true,
+  "types": "dist/src/issuer.d.ts"
+}

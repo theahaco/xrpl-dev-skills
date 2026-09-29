@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.env
+# Demo holder seeds and local compliance state (contain secrets / PII)
+.secrets/
+state/

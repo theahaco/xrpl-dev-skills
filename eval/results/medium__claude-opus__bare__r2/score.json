@@ -1,0 +1,214 @@
+{
+  "packetId": "7c50143236c67731",
+  "rubricVersion": 1,
+  "scoredAt": "2026-09-29T13:43:43.065Z",
+  "calibrate": false,
+  "confidenceFloor": 0.6,
+  "jev": {
+    "requests": 5,
+    "inputTokens": 15819,
+    "outputTokens": 410,
+    "errors": [],
+    "model": "jev-1.13.0"
+  },
+  "modelScorer": {
+    "requests": 2,
+    "costUsd": 0.10302800000000001,
+    "errors": [],
+    "model": "claude-opus-5-5"
+  },
+  "evidence": {
+    "codeTruncated": false,
+    "chars": {
+      "task": 952,
+      "code": 6188,
+      "typecheck": 430,
+      "errors": 749,
+      "xrplVersion": 5,
+      "xrplChangelog": 17696
+    }
+  },
+  "items": {
+    "hallucinated_api": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.5,
+        "probabilities": {
+          "present": 0.25,
+          "none": 0.75
+        }
+      },
+      "model": {
+        "choice": "none",
+        "confidence": 0.87,
+        "rationale": "Every API and field used is real in xrpl 5.3.0 and the XRPL protocol: MPTokenIssuanceCreateFlags, the LedgerEntry.MPToken* types and flags, the ledger_entry mpt_issuance/mptoken options, MPTokenAuthorize Holder, MPTAmount, OutstandingAmount and mpt_issuance_id metadata. The strict typecheck passes with 0 errors."
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "model"
+      }
+    },
+    "hallucination_during_run": {
+      "jev": {
+        "choice": "some",
+        "confidence": 0.99,
+        "probabilities": {
+          "none": 0.01,
+          "some": 0.99
+        }
+      },
+      "final": {
+        "choice": "some",
+        "pass": false,
+        "source": "jev"
+      }
+    },
+    "deprecated_patterns": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.77,
+        "probabilities": {
+          "none": 0.89,
+          "present": 0.11
+        }
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "strict_type_errors": {
+      "jev": {
+        "choice": "clean",
+        "confidence": 0.98,
+        "probabilities": {
+          "not_typescript": 0.01,
+          "clean": 0.99,
+          "errors": 0
+        }
+      },
+      "final": {
+        "choice": "clean",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "type_escape_hatches": {
+      "jev": {
+        "choice": "few",
+        "confidence": 0.32,
+        "probabilities": {
+          "pervasive": 0.02,
+          "few": 0.54,
+          "none": 0.44
+        }
+      },
+      "model": {
+        "choice": "none",
+        "confidence": 0.75,
+        "rationale": "There are no `as any`, `as unknown as`, `@ts-*` directives or non-null assertions. The casts narrow to known types, and the cast of the `unknown` MPToken node comes after a runtime LedgerEntryType check."
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "model"
+      }
+    },
+    "outcome_checks": {
+      "jev": {
+        "choice": "all",
+        "confidence": 0.96,
+        "probabilities": {
+          "all": 0.98,
+          "none": 0,
+          "partial": 0.02
+        }
+      },
+      "final": {
+        "choice": "all",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "waits_for_validation": {
+      "jev": {
+        "choice": "validated",
+        "confidence": 0.97,
+        "probabilities": {
+          "preliminary": 0,
+          "mixed": 0.02,
+          "validated": 0.98
+        }
+      },
+      "final": {
+        "choice": "validated",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "ledger_readback": {
+      "jev": {
+        "choice": "ledger",
+        "confidence": 1,
+        "probabilities": {
+          "local": 0,
+          "not_reported": 0,
+          "ledger": 1
+        }
+      },
+      "final": {
+        "choice": "ledger",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "mpt_amount_format": {
+      "jev": {
+        "choice": "correct",
+        "confidence": 0.99,
+        "probabilities": {
+          "incorrect": 0,
+          "correct": 1
+        }
+      },
+      "final": {
+        "choice": "correct",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "secret_handling": {
+      "jev": {
+        "choice": "external",
+        "confidence": 0.99,
+        "probabilities": {
+          "hardcoded": 0,
+          "external": 1
+        }
+      },
+      "final": {
+        "choice": "external",
+        "pass": true,
+        "source": "jev"
+      }
+    },
+    "connection_hygiene": {
+      "jev": {
+        "choice": "always",
+        "confidence": 0.99,
+        "probabilities": {
+          "always": 1,
+          "never": 0,
+          "happy_path_only": 0
+        }
+      },
+      "final": {
+        "choice": "always",
+        "pass": true,
+        "source": "jev"
+      }
+    }
+  }
+}

@@ -1,0 +1,1 @@
+{"name":"regulated-mpt-issuer","version":"1.0.0","private":true,"type":"module","exports":"./dist/src/issuer.js","scripts":{"build":"tsc","test":"tsx --test test/*.test.ts","demo":"tsx src/demo.ts"},"dependencies":{"xrpl":"5.3.0"},"devDependencies":{"@types/node":"^25.0.0","tsx":"^4.21.0","typescript":"^5.9.3"}}
