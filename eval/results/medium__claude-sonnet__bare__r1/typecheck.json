@@ -6,6 +6,11 @@
   "tsFiles": [
     "src/index.ts"
   ],
+  "projectStrictness": {
+    "source": "showConfig",
+    "strict": true,
+    "optOuts": []
+  },
   "project": {
     "config": "tsconfig.json",
     "exitCode": 0,
@@ -19,5 +24,9 @@
     "errorCount": 0,
     "errorsInProject": 0,
     "output": ""
+  },
+  "rebuilt": {
+    "from": "final/package-lock.json",
+    "at": "2026-09-29T02:19:04.261Z"
   }
 }

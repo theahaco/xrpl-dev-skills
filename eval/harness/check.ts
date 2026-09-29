@@ -42,7 +42,7 @@ export type CheckResult = {
   observed: Record<string, unknown>;
 };
 
-type Ctx = { issuer: string; txs: TxRecord[]; issuance?: MptIssuance; scale: bigint };
+export type Ctx = { issuer: string; txs: TxRecord[]; issuance?: MptIssuance; scale: bigint };
 
 const ok = (c: Criterion[], id: string, pass: boolean, detail: string): void => {
   c.push({ id, pass, detail });
@@ -76,7 +76,7 @@ function mptAmount(v: unknown, issuanceIdHex: string): bigint | undefined {
 }
 
 // MPT delivered to `holder` by validated, successful issuer payments.
-function deliveredTo(ctx: Ctx, holder: string): bigint {
+export function deliveredTo(ctx: Ctx, holder: string): bigint {
   const id = ctx.issuance?.id ?? "";
   let total = 0n;
   for (const t of ctx.txs) {
@@ -188,8 +188,10 @@ async function checkMedium(issuer: string, projectDir: string): Promise<{ criter
   const balance = token?.amount ?? 0n;
   ok(c, "holder_balance_1000", balance === want, `holder balance ${fmt(ctx, balance)}; expected ${fmt(ctx, want)}`);
 
+  // The issuer itself must have paid the full amount: a balance topped up by
+  // another holder does not count.
   const paid = deliveredTo(ctx, holder);
-  ok(c, "payment_validated", paid > 0n, `validated tesSUCCESS issuer→holder MPT payments delivered ${fmt(ctx, paid)}`);
+  ok(c, "payment_validated", paid === want, `validated tesSUCCESS issuer→holder MPT payments delivered ${fmt(ctx, paid)}; expected ${fmt(ctx, want)}`);
 
   ok(c, "outstanding_matches", iss.outstanding === balance, `OutstandingAmount ${fmt(ctx, iss.outstanding)}; holder balance ${fmt(ctx, balance)}`);
 

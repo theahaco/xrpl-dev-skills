@@ -17,7 +17,7 @@ import {
   RESULTS_DIR,
   type Tier,
 } from "./config.ts";
-import { exec, readJson, writeJson } from "./util.ts";
+import { exec, randomHex, readJson, sleep, writeJson } from "./util.ts";
 
 export type QuotaReading = { provider: Provider; percentRemaining: number; windowId: string; resetsAt?: string; readAt: string };
 
@@ -44,29 +44,72 @@ export function loadEstimates(): Estimates {
   return readJson<Estimates>(ESTIMATES_PATH);
 }
 
-const RESERVATIONS_DIR = path.join(RESULTS_DIR, ".reservations");
+export const RESERVATIONS_DIR = path.join(RESULTS_DIR, ".reservations");
 
 export type Reservation = { set: string; claudePct: number; codexPct: number; pid: number; at: string };
 
-function activeReservations(): Reservation[] {
-  if (!fs.existsSync(RESERVATIONS_DIR)) return [];
+function activeReservations(dir = RESERVATIONS_DIR): Reservation[] {
+  if (!fs.existsSync(dir)) return [];
   const out: Reservation[] = [];
-  for (const f of fs.readdirSync(RESERVATIONS_DIR)) {
-    const r = readJson<Reservation>(path.join(RESERVATIONS_DIR, f));
+  for (const f of fs.readdirSync(dir)) {
+    if (!f.endsWith(".json")) continue;
+    const r = readJson<Reservation>(path.join(dir, f));
     try {
       process.kill(r.pid, 0);
       out.push(r);
     } catch {
-      fs.rmSync(path.join(RESERVATIONS_DIR, f), { force: true });
+      fs.rmSync(path.join(dir, f), { force: true });
     }
   }
   return out;
 }
 
-export function reserve(r: Reservation): () => void {
-  const file = path.join(RESERVATIONS_DIR, `${r.set.replace(/[^a-z0-9-]/gi, "_")}.json`);
+// One file per reservation, named by pid and a random suffix, so two
+// processes gating the same set never overwrite or delete each other's.
+export function reserve(r: Reservation, dir = RESERVATIONS_DIR): () => void {
+  const file = path.join(dir, `${r.set.replace(/[^a-z0-9-]/gi, "_")}-${r.pid}-${randomHex(4)}.json`);
   writeJson(file, r);
   return () => fs.rmSync(file, { force: true });
+}
+
+// Serializes gate-plus-reserve across processes. mkdir is atomic; a lock
+// whose owner process is gone is taken over.
+export async function withBudgetLock<T>(fn: () => Promise<T>, dir = RESERVATIONS_DIR, timeoutMs = 300_000): Promise<T> {
+  const lock = path.join(dir, ".lock");
+  fs.mkdirSync(dir, { recursive: true });
+  const deadline = Date.now() + timeoutMs;
+  for (;;) {
+    try {
+      fs.mkdirSync(lock);
+      fs.writeFileSync(path.join(lock, "owner"), String(process.pid));
+      break;
+    } catch (err) {
+      if ((err as NodeJS.ErrnoException).code !== "EEXIST") throw err;
+      let owner = 0;
+      try {
+        owner = Number(fs.readFileSync(path.join(lock, "owner"), "utf8")) || 0;
+      } catch {
+        // The owner has created the lock but not written its pid yet.
+      }
+      let alive = false;
+      if (owner > 0) {
+        try {
+          process.kill(owner, 0);
+          alive = true;
+        } catch {
+          alive = false;
+        }
+      }
+      if (owner > 0 && !alive) fs.rmSync(lock, { recursive: true, force: true });
+      else if (Date.now() > deadline) throw new Error(`budget lock ${lock} still held by pid ${owner || "?"}`);
+      else await sleep(200);
+    }
+  }
+  try {
+    return await fn();
+  } finally {
+    fs.rmSync(lock, { recursive: true, force: true });
+  }
 }
 
 export type GateDecision = {
@@ -82,7 +125,7 @@ export const setName = (agent: AgentName, tier: Tier): string => `${agent}:${tie
 export const runsInSet = (tier: Tier): number => ARMS.length * REPS[tier];
 
 // `runs` defaults to a whole set; pass 1 to gate a single run.
-export async function gate(agent: AgentName, tier: Tier, opts: { runs?: number; estimatePct?: number } = {}): Promise<GateDecision> {
+export async function gate(agent: AgentName, tier: Tier, opts: { runs?: number; estimatePct?: number; reservationsDir?: string } = {}): Promise<GateDecision> {
   const set = setName(agent, tier);
   const runs = opts.runs ?? runsInSet(tier);
   const provider = AGENTS[agent].provider;
@@ -100,7 +143,7 @@ export async function gate(agent: AgentName, tier: Tier, opts: { runs?: number; 
   const agentPct = perRun * runs;
   const scoringPct = est.scoring.claudeWeeklyPctPerRun * runs;
   const cost = { claudePct: (provider === "claude" ? agentPct : 0) + scoringPct, codexPct: provider === "codex" ? agentPct : 0 };
-  const reserved = activeReservations();
+  const reserved = activeReservations(opts.reservationsDir);
   const quota: Partial<Record<Provider, QuotaReading>> = {};
   let allowed = true;
   for (const p of ["claude", "codex"] as const) {

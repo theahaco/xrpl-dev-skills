@@ -24,6 +24,8 @@ It does not read `.claude/skills/` in the project, or `~/.codex/skills/` when `C
 
 Shipping `HISTORY.md` in the package would put that information in `node_modules`, where agents already look.
 
+**xrpl 5.3.0 pulls in a low-adoption crypto package.** Socket flagged `@xrplf/mpt-crypto` as low-adoption; it comes in transitively through the released `xrpl@5.3.0` (see the smoke run's `final/package-lock.json`).
+
 **`submitAndWait` resolves on a validated failure.** In xrpl 5.3.0 (`src/client/index.ts`, `src/sugar/submit.ts`), `submitAndWait` throws only when the preliminary result is `tem*`. A transaction validated with a `tec*` code (such as `tecNO_AUTH` on an unauthorized MPT holder) comes back as a normal response. Code that awaits `submitAndWait` without reading `meta.TransactionResult` treats a failed MPT authorize, payment or clawback as done. There were three smoke attempts of the same configuration (Sonnet, medium, bare). All three used `submitAndWait`, and the second never checked the result (rubric item `outcome_checks`).
 
 **TypeScript 7 forces a toolchain detour.** `npm install -D typescript` now installs 7.0.2. It hit all three smoke attempts:

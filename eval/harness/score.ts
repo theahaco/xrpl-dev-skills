@@ -56,25 +56,35 @@ export function blind(text: string): string {
 // Build output duplicates the sources and only crowds the packet.
 const SKIP_DIRS = ["node_modules", ".git", "dist", "build", "out", "coverage", ".next"];
 const FILE_FLOOR = 2_000;
+const TRUNCATION_MARKER = "\n/* [truncated by harness] */";
 
-function codeEvidence(finalDir: string, budget: number): { text: string; truncated: boolean } {
+type CodePart = { rel: string; full: string; keep: number };
+const rendered = (p: CodePart): string => (p.keep < p.full.length ? p.full.slice(0, p.keep) + TRUNCATION_MARKER : p.full);
+
+export function codeEvidence(finalDir: string, budget: number): { text: string; truncated: boolean } {
   const files = walkFiles(finalDir, SKIP_DIRS).filter((f) => CODE_EXT.test(f.rel) || CONFIG_FILES.test(f.rel));
   // TypeScript sources first, then config, then plain JS; the tail is what
   // gets dropped if the packet still does not fit.
   const rank = (rel: string): number => (/\.(ts|tsx|mts|cts)$/.test(rel) ? 0 : CONFIG_FILES.test(rel) ? 1 : 2);
-  const parts = files
+  const parts: CodePart[] = files
     .map((f) => ({ rel: f.rel, buf: fs.readFileSync(f.abs) }))
     .filter((f) => isProbablyText(f.buf))
-    .map((f) => ({ rel: f.rel, text: f.buf.toString("utf8") }))
+    .map((f) => {
+      const full = f.buf.toString("utf8");
+      return { rel: f.rel, full, keep: full.length };
+    })
     .sort((a, b) => rank(a.rel) - rank(b.rel) || a.rel.localeCompare(b.rel));
-  const size = (): number => parts.reduce((s, p) => s + p.text.length + p.rel.length + 12, 0);
+  const len = (p: CodePart): number => rendered(p).length;
+  const size = (): number => parts.reduce((s, p) => s + len(p) + p.rel.length + 12, 0);
   let truncated = false;
-  // Trim the largest file first until the whole thing fits.
+  // Trim the largest file first until the whole thing fits. Only parts longer
+  // than floor + marker are candidates, and the new length is at most the old
+  // one minus the excess (or floor + marker), so every step strictly shrinks.
   while (size() > budget) {
-    const largest = parts.reduce<(typeof parts)[number] | undefined>((a, b) => (!a || b.text.length > a.text.length ? b : a), undefined);
-    if (!largest || largest.text.length <= FILE_FLOOR) break;
-    const keep = Math.max(FILE_FLOOR, largest.text.length - (size() - budget) - 100);
-    largest.text = `${largest.text.slice(0, keep)}\n/* [truncated by harness] */`;
+    const candidates = parts.filter((p) => len(p) > FILE_FLOOR + TRUNCATION_MARKER.length);
+    const largest = candidates.reduce<CodePart | undefined>((a, b) => (!a || len(b) > len(a) ? b : a), undefined);
+    if (!largest) break;
+    largest.keep = Math.max(FILE_FLOOR, len(largest) - (size() - budget) - TRUNCATION_MARKER.length);
     truncated = true;
   }
   // Still too big: drop whole files from the lowest-priority end.
@@ -85,7 +95,7 @@ function codeEvidence(finalDir: string, budget: number): { text: string; truncat
     truncated = true;
   }
   const note = omitted.length ? `\n\n[omitted by harness to fit: ${omitted.join(", ")}]` : "";
-  return { text: blind(parts.map((p) => `=== ${p.rel} ===\n${p.text}`).join("\n\n") + note), truncated };
+  return { text: blind(parts.map((p) => `=== ${p.rel} ===\n${rendered(p)}`).join("\n\n") + note), truncated };
 }
 
 function typecheckEvidence(tc: TypecheckResult | undefined, budget: number): string {
@@ -93,7 +103,16 @@ function typecheckEvidence(tc: TypecheckResult | undefined, budget: number): str
   if (tc.status === "not_typescript") return "The project contains no TypeScript source files.";
   const section = (label: string, r: TypecheckResult["strict"]): string =>
     r ? `[${label}: tsc -p ${r.config}] exit ${r.exitCode}, ${r.errorCount} errors (${r.errorsInProject} outside node_modules)\n${r.output.trim() || "(no output)"}` : `[${label}] not run (no tsconfig.json)`;
-  const text = [`TypeScript ${tc.tscVersion ?? "?"} (${tc.tscSource === "project" ? "the project's own compiler" : "harness compiler"})`, section("project config", tc.project), section("strict forced on", tc.strict)].join("\n\n");
+  const ps = tc.projectStrictness;
+  const strictness = ps
+    ? `Project tsconfig: strict=${ps.strict === undefined ? "unset" : String(ps.strict)}; strict-family options explicitly turned off: ${ps.optOuts.join(", ") || "none"}`
+    : "Project tsconfig: none";
+  const text = [
+    `TypeScript ${tc.tscVersion ?? "?"} (${tc.tscSource === "project" ? "the project's own compiler" : "harness compiler"})`,
+    strictness,
+    section("project config", tc.project),
+    section("strict forced on, every strict-family option set explicitly", tc.strict),
+  ].join("\n\n");
   return blind(text.slice(0, budget));
 }
 
@@ -262,7 +281,8 @@ export type ScoreRecord = {
   confidenceFloor: number;
   jev: { model?: string; requests: number; inputTokens: number; outputTokens: number; errors: string[] };
   modelScorer: { model?: string; requests: number; costUsd: number; errors: string[] };
-  evidence: { codeTruncated: boolean; chars: Record<string, number> };
+  // shrunkForGroups: evidence groups that Jev only accepted after shrinking.
+  evidence: { codeTruncated: boolean; chars: Record<string, number>; shrunkForGroups?: string[] };
   items: Record<string, ItemScore>;
 };
 
@@ -275,7 +295,9 @@ function packetId(runDir: string): string {
   return sha256(`${fs.readFileSync(saltFile, "utf8")}:${path.basename(runDir)}`).slice(0, 16);
 }
 
-export async function scoreRun(runDir: string, opts: { calibrate: boolean }): Promise<ScoreRecord> {
+export type ScoreDeps = { askJev: typeof askJev; askModel: typeof askModel };
+
+export async function scoreRun(runDir: string, opts: { calibrate: boolean }, deps: ScoreDeps = { askJev, askModel }): Promise<ScoreRecord> {
   const run = readJson<RunRecord>(path.join(runDir, "run.json"));
   const rubric = loadRubric();
   const items = rubric.items.filter((i) => i.tiers.includes(run.tier));
@@ -296,7 +318,7 @@ export async function scoreRun(runDir: string, opts: { calibrate: boolean }): Pr
     const key = [...item.evidence].sort().join("+");
     groups.set(key, [...(groups.get(key) ?? []), item]);
   }
-  let evidence = await buildEvidence(runDir);
+  const evidence = await buildEvidence(runDir);
   record.evidence = { codeTruncated: evidence.codeTruncated, chars: Object.fromEntries(Object.entries(evidence).filter(([, v]) => typeof v === "string").map(([k, v]) => [k, (v as string).length])) };
   const stateFor = (ev: Evidence, group: RubricItem[]): Record<string, string> => {
     const keys = new Set<EvidenceKey>(group.flatMap((i) => i.evidence));
@@ -305,10 +327,12 @@ export async function scoreRun(runDir: string, opts: { calibrate: boolean }): Pr
   const scorePath = path.join(runDir, "score.json");
   const modelQueue = new Map<string, RubricItem[]>();
   for (const [key, group] of groups) {
+    // Every group starts from the full packet; a shrink for one group's
+    // retry never carries over to the next.
     let state = stateFor(evidence, group);
     let scale = 1;
     for (let attempt = 0; attempt < 4; attempt++) {
-      const { status, body } = await askJev(state, group);
+      const { status, body } = await deps.askJev(state, group);
       record.jev.requests++;
       if (status === 200 && body.answers) {
         record.jev.model = body.model;
@@ -328,9 +352,9 @@ export async function scoreRun(runDir: string, opts: { calibrate: boolean }): Pr
       record.jev.errors.push(`${key}: HTTP ${status} ${detail}`);
       if (!detail.includes("max_tokens_exceeded")) break;
       scale *= 0.7;
-      evidence = await buildEvidence(runDir, scale);
-      record.evidence.codeTruncated = true;
-      state = stateFor(evidence, group);
+      const reduced = await buildEvidence(runDir, scale);
+      record.evidence.shrunkForGroups = [...new Set([...(record.evidence.shrunkForGroups ?? []), key])];
+      state = stateFor(reduced, group);
     }
     const needModel = group.filter((i) => opts.calibrate || !record.items[i.id]?.final);
     if (needModel.length) modelQueue.set(key, needModel);
@@ -338,11 +362,11 @@ export async function scoreRun(runDir: string, opts: { calibrate: boolean }): Pr
     writeJson(scorePath, record);
   }
   for (const [key, group] of modelQueue) {
-    const state = stateFor(await buildEvidence(runDir), group);
+    const state = stateFor(evidence, group);
     log(`model scorer: ${group.map((i) => i.id).join(", ")}`);
     let res: Awaited<ReturnType<typeof askModel>>;
     try {
-      res = await askModel(state, group, { minValidMs: 20 * 60_000 });
+      res = await deps.askModel(state, group, { minValidMs: 20 * 60_000 });
     } catch (err) {
       record.modelScorer.errors.push(`${key}: ${String(err).slice(0, 300)}`);
       writeJson(scorePath, record);

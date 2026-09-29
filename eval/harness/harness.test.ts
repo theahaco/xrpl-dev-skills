@@ -4,11 +4,14 @@ import os from "node:os";
 import path from "node:path";
 import { test } from "node:test";
 import { endsWithQuestion } from "./agents.ts";
-import type { CheckResult } from "./check.ts";
+import { withBudgetLock, reserve } from "./budget.ts";
+import { type CheckResult, type Ctx, deliveredTo } from "./check.ts";
 import { classify, outageProbes } from "./infra.ts";
-import { redactText, SEED_PLACEHOLDER } from "./redact.ts";
-import { blind, errorEvidence } from "./score.ts";
-import { accountIdHex, issuanceId } from "./xrpl-rpc.ts";
+import { redactedJson, redactText, SEED_PLACEHOLDER } from "./redact.ts";
+import { blind, buildEvidence, codeEvidence, errorEvidence, type RubricItem, scoreRun } from "./score.ts";
+import { parseJsonc, strictFamily, typecheck } from "./typecheck.ts";
+import { exec } from "./util.ts";
+import { accountIdHex, issuanceId, type MptIssuance, type TxRecord } from "./xrpl-rpc.ts";
 
 const buildErrors = (file: string): string => errorEvidence(file, 10_000);
 
@@ -99,4 +102,113 @@ test("error evidence skips reference reads and non-code words", () => {
 test("one failed probe is not an outage", () => {
   assert.equal(outageProbes([...healthy, { at: "a", ok: false, latencyMs: 1 }, ...healthy]), 0);
   assert.equal(outageProbes(outage), 2);
+});
+
+// --- Review fixes -------------------------------------------------------------
+
+test("only the issuer's own payments count toward the holder's 1,000", () => {
+  const id = "00000001B5F762798A53D543A014CAF8B297CFF8F2F937E8";
+  const pay = (account: string, value: string): TxRecord => ({
+    hash: value,
+    ledgerIndex: 1,
+    txIndex: 0,
+    validated: true,
+    result: "tesSUCCESS",
+    tx: { TransactionType: "Payment", Account: account, Destination: "rHolder", DeliverMax: { mpt_issuance_id: id, value } },
+    meta: { delivered_amount: { mpt_issuance_id: id, value } },
+  });
+  const issuance: MptIssuance = { id, issuer: "rIssuer", flags: 0, outstanding: 1000n, assetScale: 0, raw: {} };
+  const ctx: Ctx = { issuer: "rIssuer", txs: [pay("rIssuer", "1"), pay("rOtherHolder", "999")], issuance, scale: 1n };
+  assert.equal(deliveredTo(ctx, "rHolder"), 1n);
+});
+
+test("lowercase secp256k1 private keys are redacted", () => {
+  const key = `00${"ab".repeat(32)}`;
+  assert.ok(!redactText(`key=${key}`, []).includes(key));
+  assert.ok(!redactText(`key=${key.toUpperCase()}`, []).includes(key.toUpperCase()));
+});
+
+test("redactedJson scrubs pattern-only secrets from an in-memory record", () => {
+  const record = { turns: [{ errorText: "holder seed sEdSKaCy2JT7JaM7v95H9SxkhP9wS2r and key ED" + "cd".repeat(32) }] };
+  const out = redactedJson(record, []);
+  assert.ok(!out.includes("sEdSKaCy2JT7JaM7v95H9SxkhP9wS2r"));
+  assert.ok(!out.includes("cdcdcd"));
+  assert.doesNotThrow(() => JSON.parse(out));
+});
+
+test("code evidence truncation terminates when files sit just above the floor", () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "xrpl-eval-code-"));
+  fs.mkdirSync(path.join(dir, "src"));
+  // Two files just over the 2,000-char floor and a budget neither fits in:
+  // the old loop re-added the marker and picked the same file forever.
+  fs.writeFileSync(path.join(dir, "src", "a.ts"), "a".repeat(2_050));
+  fs.writeFileSync(path.join(dir, "src", "b.ts"), "b".repeat(2_050));
+  const res = codeEvidence(dir, 3_000);
+  assert.equal(res.truncated, true);
+  assert.ok(res.text.length < 4_200);
+  assert.match(res.text, /omitted by harness to fit: src\/b\.ts/);
+});
+
+test("reservations get one file each and the budget lock serializes", async () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "xrpl-eval-res-"));
+  const r = { set: "claude-opus:complex", claudePct: 1, codexPct: 0, pid: process.pid, at: "" };
+  const releaseA = reserve(r, dir);
+  reserve(r, dir);
+  assert.equal(fs.readdirSync(dir).filter((f) => f.endsWith(".json")).length, 2);
+  releaseA();
+  assert.equal(fs.readdirSync(dir).filter((f) => f.endsWith(".json")).length, 1);
+
+  let inside = 0;
+  let maxInside = 0;
+  const critical = async (): Promise<void> => {
+    inside++;
+    maxInside = Math.max(maxInside, inside);
+    await new Promise((res) => setTimeout(res, 50));
+    inside--;
+  };
+  await Promise.all([withBudgetLock(critical, dir), withBudgetLock(critical, dir), withBudgetLock(critical, dir)]);
+  assert.equal(maxInside, 1);
+
+  // A lock left by a process that no longer exists is taken over.
+  fs.mkdirSync(path.join(dir, ".lock"));
+  fs.writeFileSync(path.join(dir, ".lock", "owner"), "999999");
+  assert.equal(await withBudgetLock(async () => "ran", dir, 2_000), "ran");
+});
+
+test("a shrink for one rubric group does not carry over to the next", async () => {
+  const runDir = fs.mkdtempSync(path.join(os.tmpdir(), "xrpl-eval-score-"));
+  fs.writeFileSync(path.join(runDir, "run.json"), JSON.stringify({ tier: "medium", xrpl: {} }));
+  fs.mkdirSync(path.join(runDir, "final", "src"), { recursive: true });
+  fs.writeFileSync(path.join(runDir, "final", "src", "index.ts"), `${"const x = 1;\n".repeat(3_000)}`);
+  const full = (await buildEvidence(runDir)).code.length;
+  const codeLengths: number[] = [];
+  let calls = 0;
+  const askJev = async (state: Record<string, string>, items: RubricItem[]) => {
+    calls++;
+    if (state.code !== undefined) codeLengths.push(state.code.length);
+    if (calls === 1) return { status: 400, body: { detail: { error_type: "max_tokens_exceeded" } } };
+    const answers = Object.fromEntries(items.map((i) => [i.id, { type: "choice", choice: Object.keys(i.criteria)[0] ?? "", confidence: 0.99, probabilities: {} }]));
+    return { status: 200, body: { answers } };
+  };
+  const askModel = async () => {
+    throw new Error("not expected");
+  };
+  const rec = await scoreRun(runDir, { calibrate: false }, { askJev, askModel });
+  assert.ok((codeLengths[1] ?? full) < full, "the retry shrinks");
+  assert.deepEqual(codeLengths.slice(2), codeLengths.slice(2).map(() => full), "later groups get the full code");
+  assert.equal(rec.evidence.shrunkForGroups?.length, 1);
+});
+
+test("strict run overrides explicit strict-family opt-outs and records them", async () => {
+  assert.ok(strictFamily("Version 5.9.3").includes("strictBuiltinIteratorReturn"));
+  assert.ok(!strictFamily("Version 5.4.5").includes("strictBuiltinIteratorReturn"));
+  assert.deepEqual(parseJsonc('{ // c\n "a": [1, 2,], /* x */ "b": "//not a comment", }'), { a: [1, 2], b: "//not a comment" });
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "xrpl-eval-tsc-"));
+  fs.mkdirSync(path.join(dir, "src"));
+  fs.writeFileSync(path.join(dir, "tsconfig.json"), '{\n  // opted out\n  "compilerOptions": { "strict": true, "strictNullChecks": false, "noImplicitAny": false, "noEmit": true, "types": [] },\n  "include": ["src/**/*.ts"],\n}\n');
+  fs.writeFileSync(path.join(dir, "src", "a.ts"), "const x: string = null;\nexport function f(a) { return a; }\nexport { x };\n");
+  const res = await typecheck(dir, (args) => exec(process.execPath, args, { cwd: dir, timeoutMs: 120_000 }));
+  assert.equal(res.project?.errorsInProject, 0);
+  assert.ok((res.strict?.errorsInProject ?? 0) >= 2, res.strict?.output);
+  assert.deepEqual(res.projectStrictness?.optOuts.sort(), ["noImplicitAny: false", "strictNullChecks: false"]);
 });

@@ -1,7 +1,7 @@
 {
   "tier": "medium",
   "issuer": "rEdNPzUSS1F2huoSYuj4BvtWJYKJEuGMBF",
-  "checkedAt": "2026-09-29T01:21:39.791Z",
+  "checkedAt": "2026-09-29T02:19:01.538Z",
   "status": "pass",
   "criteria": [
     {
@@ -32,7 +32,7 @@
     {
       "id": "payment_validated",
       "pass": true,
-      "detail": "validated tesSUCCESS issuer→holder MPT payments delivered 1000"
+      "detail": "validated tesSUCCESS issuer→holder MPT payments delivered 1000; expected 1000"
     },
     {
       "id": "outstanding_matches",

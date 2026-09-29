@@ -5,17 +5,30 @@
 import fs from "node:fs";
 import path from "node:path";
 import { EVAL_DIR } from "./config.ts";
-import { type ExecResult, realpathInside, walkFiles } from "./util.ts";
+import { type ExecResult, readFileInside, realpathInside, walkFiles } from "./util.ts";
 
 export type TscRun = { config: string; exitCode: number | null; errorCount: number; errorsInProject: number; output: string };
+export type ProjectStrictness = {
+  // Where the effective options came from: `tsc --showConfig` (extends
+  // resolved), the raw tsconfig.json, or nothing to read.
+  source: "showConfig" | "tsconfig.json" | "none";
+  strict?: boolean;
+  // Strict-family options the project explicitly turned off. Any entry means
+  // the agent's own `tsc` was not checking in full strict mode.
+  optOuts: string[];
+};
 export type TypecheckResult = {
   status: "checked" | "not_typescript";
   tscPath?: string;
   tscVersion?: string;
   tscSource?: "project" | "harness";
   tsFiles: string[];
+  projectStrictness?: ProjectStrictness;
   project?: TscRun;
   strict?: TscRun;
+  // Set when re-run after the fact by `cli.ts typecheck`, with dependencies
+  // reinstalled from the committed lockfile.
+  rebuilt?: { from: string; at: string };
 };
 
 // Runs `node <args>` in the project directory, inside the sandbox.
@@ -25,14 +38,96 @@ const STRICT_CONFIG = "tsconfig.xrpl-eval-strict.json";
 const MAX_OUTPUT = 20_000;
 export const HARNESS_TSC = path.join(EVAL_DIR, "node_modules", "typescript", "bin", "tsc");
 
-export async function typecheck(projectDir: string, node: SandboxedNode): Promise<TypecheckResult> {
+// `strict: true` only sets defaults: an explicit `strictNullChecks: false`
+// in the project's config still wins. The strict run sets every member of the
+// family explicitly. strictBuiltinIteratorReturn exists from TypeScript 5.6.
+export function strictFamily(tscVersion: string | undefined): string[] {
+  const family = [
+    "noImplicitAny",
+    "noImplicitThis",
+    "strictNullChecks",
+    "strictFunctionTypes",
+    "strictBindCallApply",
+    "strictPropertyInitialization",
+    "alwaysStrict",
+    "useUnknownInCatchVariables",
+  ];
+  const m = /(\d+)\.(\d+)/.exec(tscVersion ?? "");
+  const [major, minor] = m ? [Number(m[1]), Number(m[2])] : [0, 0];
+  if (major > 5 || (major === 5 && minor >= 6)) family.push("strictBuiltinIteratorReturn");
+  return family;
+}
+
+export function strictOverrides(tscVersion: string | undefined): Record<string, boolean> {
+  return Object.fromEntries([["strict", true], ...strictFamily(tscVersion).map((k) => [k, true] as const)]);
+}
+
+export function strictnessOf(compilerOptions: Record<string, unknown>, tscVersion: string | undefined): Omit<ProjectStrictness, "source"> {
+  const strict = typeof compilerOptions.strict === "boolean" ? compilerOptions.strict : undefined;
+  const optOuts = ["strict", ...strictFamily(tscVersion)].filter((k) => compilerOptions[k] === false).map((k) => `${k}: false`);
+  return { strict, optOuts };
+}
+
+// tsconfig files are JSONC: comments and trailing commas are allowed.
+export function parseJsonc(text: string): unknown {
+  let out = "";
+  let inString = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    const next = text[i + 1];
+    if (inString) {
+      out += ch;
+      if (ch === "\\") {
+        out += next ?? "";
+        i++;
+      } else if (ch === '"') {
+        inString = false;
+      }
+    } else if (ch === '"') {
+      inString = true;
+      out += ch;
+    } else if (ch === "/" && next === "/") {
+      while (i < text.length && text[i] !== "\n") i++;
+      out += "\n";
+    } else if (ch === "/" && next === "*") {
+      i += 2;
+      while (i < text.length && !(text[i] === "*" && text[i + 1] === "/")) i++;
+      i++;
+    } else {
+      out += ch;
+    }
+  }
+  return JSON.parse(out.replace(/,(\s*[}\]])/g, "$1"));
+}
+
+async function projectStrictness(projectDir: string, node: SandboxedNode, tscPath: string, tscVersion: string): Promise<ProjectStrictness> {
+  const shown = await node([tscPath, "--showConfig", "-p", "tsconfig.json"]);
+  if (shown.code === 0) {
+    try {
+      const cfg = JSON.parse(shown.stdout) as { compilerOptions?: Record<string, unknown> };
+      return { source: "showConfig", ...strictnessOf(cfg.compilerOptions ?? {}, tscVersion) };
+    } catch {
+      // Fall through to the raw file.
+    }
+  }
+  const raw = readFileInside(projectDir, path.join(projectDir, "tsconfig.json"), 1_000_000);
+  if (raw === undefined) return { source: "none", optOuts: [] };
+  try {
+    const cfg = parseJsonc(raw) as { compilerOptions?: Record<string, unknown> };
+    return { source: "tsconfig.json", ...strictnessOf(cfg.compilerOptions ?? {}, tscVersion) };
+  } catch {
+    return { source: "none", optOuts: [] };
+  }
+}
+
+export async function typecheck(projectDir: string, node: SandboxedNode, harnessTsc = HARNESS_TSC): Promise<TypecheckResult> {
   const tsFiles = walkFiles(projectDir, ["node_modules", ".git", ".claude", ".agents", ".codex"])
     .map((f) => f.rel)
     .filter((f) => /\.(ts|tsx|mts|cts)$/.test(f) && !f.endsWith(".d.ts"));
   if (tsFiles.length === 0) return { status: "not_typescript", tsFiles };
   const own = path.join(projectDir, "node_modules", "typescript", "bin", "tsc");
   const useOwn = realpathInside(projectDir, own) !== undefined;
-  const tscPath = useOwn ? own : HARNESS_TSC;
+  const tscPath = useOwn ? own : harnessTsc;
   const tscVersion = (await node([tscPath, "--version"])).stdout.trim();
   const hasConfig = realpathInside(projectDir, path.join(projectDir, "tsconfig.json")) !== undefined;
   const run = async (config: string): Promise<TscRun> => {
@@ -48,11 +143,15 @@ export async function typecheck(projectDir: string, node: SandboxedNode): Promis
     };
   };
   const result: TypecheckResult = { status: "checked", tscPath: useOwn ? "node_modules/typescript/bin/tsc" : "harness", tscVersion, tscSource: useOwn ? "project" : "harness", tsFiles };
-  if (hasConfig) result.project = await run("tsconfig.json");
+  if (hasConfig) {
+    result.projectStrictness = await projectStrictness(projectDir, node, tscPath, tscVersion);
+    result.project = await run("tsconfig.json");
+  }
+  const overrides = { ...strictOverrides(tscVersion), noEmit: true };
   const strictConfig = hasConfig
-    ? { extends: "./tsconfig.json", compilerOptions: { strict: true, noEmit: true } }
+    ? { extends: "./tsconfig.json", compilerOptions: overrides }
     : {
-        compilerOptions: { strict: true, noEmit: true, target: "es2022", module: "nodenext", moduleResolution: "nodenext", skipLibCheck: true },
+        compilerOptions: { ...overrides, target: "es2022", module: "nodenext", moduleResolution: "nodenext", skipLibCheck: true },
         include: ["**/*.ts", "**/*.mts", "**/*.cts", "**/*.tsx"],
         exclude: ["node_modules"],
       };

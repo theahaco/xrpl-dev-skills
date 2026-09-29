@@ -24,10 +24,10 @@ import {
 import { type Credential, claudeCredential, codexCredential, removeCredentialFiles, writeCredentialFiles } from "./credentials.ts";
 import { classify, HealthMonitor, type InfraVerdict } from "./infra.ts";
 import { weeklyQuota, type QuotaReading } from "./budget.ts";
-import { leakedSecrets, redactText, redactTree, type Secret } from "./redact.ts";
-import { agentEnv, createWorkspace, isolationSelfTest, killStrays, linkToolchain, resolveToolchain, sandboxed, writeProfile, type IsolationCheck } from "./sandbox.ts";
+import { leakedSecrets, redactedJson, redactText, redactTree, type Secret } from "./redact.ts";
+import { agentEnv, createWorkspace, isolationSelfTest, killStrays, linkToolchain, resolveToolchain, sandboxed, writeProfile, type IsolationCheck, type Workspace } from "./sandbox.ts";
 import { typecheck } from "./typecheck.ts";
-import { copyFiles, exec, execOk, hashTree, log, nowIso, randomHex, readJsonInside, realpathInside, walkFiles, writeJson } from "./util.ts";
+import { copyFiles, exec, execOk, hashTree, log, nowIso, randomHex, readJsonInside, realpathInside, sha256, walkFiles, writeJson } from "./util.ts";
 import { fundAccount, type FundedAccount, InfraError, networkSnapshot, type NetworkSnapshot } from "./xrpl-rpc.ts";
 
 export type RunSpec = { agent: AgentName; tier: Tier; arm: Arm; rep: number };
@@ -54,7 +54,7 @@ export type RunRecord = RunSpec & {
     skillsVisible?: string[];
     mcpServers?: unknown[];
   };
-  skill?: { repo: string; ref: string; commit: string; installCommand: string; installDir: string; hashBefore: string; hashAfter?: string };
+  skill?: { repo: string; ref: string; commit: string; installerSha256: string; installCommand: string; installDir: string; hashBefore: string; hashAfter?: string };
   account?: { address: string; fundedXrp: number };
   network?: NetworkSnapshot;
   isolation?: { mechanism: string; passed: boolean; checks: IsolationCheck[] };
@@ -112,7 +112,7 @@ function upstreamSkill(): Promise<{ dir: string; commit: string }> {
   return upstreamClone;
 }
 
-async function installSkill(spec: RunSpec, projectDir: string, env: NodeJS.ProcessEnv): Promise<NonNullable<RunRecord["skill"]>> {
+export async function installSkill(spec: RunSpec, ws: Workspace, env: NodeJS.ProcessEnv): Promise<NonNullable<RunRecord["skill"]>> {
   const up = await upstreamSkill();
   const provider = AGENTS[spec.agent].provider;
   const installDir = SKILL_INSTALL_DIR[provider];
@@ -120,14 +120,32 @@ async function installSkill(spec: RunSpec, projectDir: string, env: NodeJS.Proce
   // Codex the installer has no matching option, so --path points it at the
   // directory Codex loads.
   const args = provider === "claude" ? ["--project"] : ["--path", installDir];
-  await execOk("/bin/bash", [path.join(up.dir, "install.sh"), ...args], { cwd: projectDir, env });
+  // The installer is upstream code, so it gets the agent's boundary: an
+  // exact copy of the pinned commit (git archive, not the working tree) runs
+  // inside the sandbox, which only lets it write into the workspace.
+  const src = path.join(ws.root, ".skill-installer");
+  const tarball = path.join(ws.tmp, "skill-installer.tar");
+  await execOk("git", ["-C", up.dir, "archive", "--format=tar", "-o", tarball, up.commit]);
+  fs.mkdirSync(src);
+  await execOk("/usr/bin/tar", ["-xf", tarball, "-C", src]);
+  const installer = path.join(src, "install.sh");
+  const installerSha256 = sha256(fs.readFileSync(installer));
+  try {
+    const [cmd, argv] = sandboxed(ws, "/bin/bash", [installer, ...args]);
+    const res = await exec(cmd, argv, { cwd: ws.project, env, timeoutMs: 120_000 });
+    if (res.code !== 0) throw new Error(`skill installer exited ${res.code}: ${(res.stderr || res.stdout).trim().slice(0, 300)}`);
+  } finally {
+    fs.rmSync(src, { recursive: true, force: true });
+    fs.rmSync(tarball, { force: true });
+  }
   return {
     repo: UPSTREAM_SKILL_REPO,
     ref: UPSTREAM_SKILL_REF,
     commit: up.commit,
+    installerSha256,
     installCommand: `install.sh ${args.join(" ")}`,
     installDir,
-    hashBefore: hashTree(path.join(projectDir, installDir)),
+    hashBefore: hashTree(path.join(ws.project, installDir)),
   };
 }
 
@@ -187,7 +205,7 @@ export async function runOne(spec: RunSpec, opts: RunOptions = {}): Promise<RunR
         : { CODEX_HOME: ws.config };
     const env = agentEnv(ws, pathVar, extra);
     await execOk("git", ["init", "--quiet", ws.project], { env });
-    if (armHasSkill(spec.arm)) record.skill = await installSkill(spec, ws.project, env);
+    if (armHasSkill(spec.arm)) record.skill = await installSkill(spec, ws, env);
 
     const checks = await isolationSelfTest(ws, tc, env);
     fs.rmSync(path.join(ws.home, ".npm"), { recursive: true, force: true });
@@ -306,9 +324,10 @@ export async function runOne(spec: RunSpec, opts: RunOptions = {}): Promise<RunR
     record.endedAt = nowIso();
     record.wallClockSeconds = Math.round((Date.now() - started) / 1000);
     if (record.error) record.error = redactText(record.error, secrets);
-    writeJson(path.join(outDir, "run.json"), record);
+    const runJson = path.join(outDir, "run.json");
+    fs.writeFileSync(runJson, redactedJson(record, secrets));
     record.redactedFiles = redactTree(outDir, secrets);
-    writeJson(path.join(outDir, "run.json"), record);
+    fs.writeFileSync(runJson, redactedJson(record, secrets));
     const leaks = leakedSecrets(outDir, secrets);
     if (leaks.length) throw new Error(`secrets survived redaction in ${leaks.join(", ")}; do not commit ${outDir}`);
     if (!opts.keepWorkspace) fs.rmSync(wsRoot, { recursive: true, force: true });

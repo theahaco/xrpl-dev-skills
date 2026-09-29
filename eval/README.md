@@ -47,6 +47,7 @@ Other commands:
 | --- | --- |
 | `budget --agent A --tier T [--estimate-pct P]` | Prints the gate decision for a set without running it. |
 | `check [run-dir...]` | Re-reads testnet for finished runs. Use it after a checker infra error. |
+| `typecheck [run-dir...]` | Re-runs the typecheck for finished runs, reinstalling dependencies from the committed `final/` lockfile inside the sandbox. Use it after the typecheck logic changes. |
 | `score [run-dir...] [--calibrate]` | Scores runs against the rubric. `--calibrate` sends every item to both scorers. |
 | `agreement [run-dir...]` | Reports Jev vs. model-scorer agreement over items both scored. |
 | `selftest` | Runs the isolation self-test in a throwaway workspace. |
@@ -57,7 +58,7 @@ With no run directories given, `check`, `score` and `agreement` process everythi
 
 1. Resolves the credentials. The Claude OAuth access token comes from the macOS keychain; the Codex tokens come from `~/.codex/auth.json`. The copies carry no refresh token (see Isolation).
 2. Creates a workspace at `/private/tmp/ws/<random>/` with `project/` (the agent's cwd, an empty `git init` repo), `home/` (its `HOME`), `cfg/` (its `CLAUDE_CONFIG_DIR` or `CODEX_HOME`), `tmp/` and `bin/`. The random name keeps the arm out of any path the agent can see.
-3. For skill arms, shallow-clones upstream `main` of XRPL-Commons/xrpl-dev-skills, records the commit, and runs upstream's own `install.sh` inside the project:
+3. For skill arms, shallow-clones upstream `main` of XRPL-Commons/xrpl-dev-skills and records the commit. It then runs upstream's own `install.sh` from a `git archive` of exactly that commit, inside the same sandbox the agent gets, so the installer can only write into the workspace. The installer's SHA-256 is recorded next to the commit in `run.json`, and the installer copy is removed before the agent starts.
    - Claude: `install.sh --project`, which puts the skill in `.claude/skills/xrpl-dev`.
    - Codex: `install.sh --path .agents/skills/xrpl-dev`. The installer has no Codex option; see the findings.
 4. Runs the isolation self-test inside the sandbox. The run aborts if any check fails.
@@ -107,7 +108,7 @@ One directory per run, named `<tier>__<agent>__<arm>__r<rep>`. A run that failed
 | `transcript/final-message.md`, `transcript/stderr.log` | The last agent message, and stderr. |
 | `final/` | The final project minus `node_modules`, `.git` and the installed skill. Any `.gitignore` the agent wrote is stored as `_gitignore`, so it cannot hide captured files from the results commit. |
 | `check.json` | Ledger checker result, per criterion. |
-| `typecheck.json` | `tsc` output with the project's config and with `strict` forced on. |
+| `typecheck.json` | `tsc` output with the project's config, and with strict mode forced on. The forced run sets `strict` and every strict-family option explicitly, since an explicit `strictNullChecks: false` in the project's config would otherwise still win. `projectStrictness` records any strict-family options the project turned off. |
 | `infra.json` | Infrastructure classifier verdict and signals. |
 | `health.jsonl` | Testnet health probes taken during the run. |
 | `isolation.json`, `sandbox.sb`, `sandbox-post.sb` | The self-test results, the agent's sandbox profile and the post-run profile. |
@@ -117,7 +118,7 @@ One directory per run, named `<tier>__<agent>__<arm>__r<rep>`. A run that failed
 
 The checkers ([`harness/check.ts`](harness/check.ts)) read validated testnet state over plain JSON-RPC, not xrpl.js, so they never share a bug with the SDK under test. They look at the funded account's MPT issuances, its transaction history and the holders' `MPToken` entries. `result.json` only tells the checker which issuance and holders to look at; every value in it is checked against the ledger. "1,000 of the token" means display units, so the raw amount must be `1000 x 10^AssetScale`.
 
-- **medium:** `result_json`, `issuance_exists`, `requires_approval` (lsfMPTRequireAuth), `holder_authorized`, `holder_balance_1000`, `payment_validated`, `outstanding_matches`, `readback_matches_ledger`.
+- **medium:** `result_json`, `issuance_exists`, `requires_approval` (lsfMPTRequireAuth), `holder_authorized`, `holder_balance_1000`, `payment_validated` (the issuer's own validated payments to the holder total exactly 1,000, so a balance topped up by another account does not count), `outstanding_matches`, `readback_matches_ledger`.
 - **complex:** `result_json`, `issuance_exists`, `issuance_capabilities` (can-lock, require-auth, can-clawback), `holder_a_state` (500, authorized, not locked), `holder_a_freeze_cycle`, `holder_b_state` (700, authorized, locked), `holder_b_sent_1000`, `holder_b_clawback_300`, `holder_c_banned` (zero balance, not authorized), `holder_c_received_before_ban`, `global_freeze_cycle`, `not_globally_frozen`, `outstanding_consistent`.
 
 A run passes when every criterion passes.
@@ -149,7 +150,7 @@ The rubric ([`rubric/rubric.json`](rubric/rubric.json)) is a fixed list of choic
 | 125,000 | 32,566 | 200, confidence 0.60 |
 | 130,000 | n/a | 400 `max_tokens_exceeded` |
 
-The hard limit is therefore about 32.7k input tokens. On that needle-style probe, confidence fell off well before the limit. The scorer sizes each request to 24k tokens at 3 characters per token, and it truncates the largest code file first. If Jev still returns `max_tokens_exceeded`, the scorer shrinks the packet and retries, dropping whole files once trimming is not enough. `score.json` is written after every request, so a failure part-way keeps the answers already paid for. Failed requests are listed under `jev.errors` and `modelScorer.errors`.
+The hard limit is therefore about 32.7k input tokens. On that needle-style probe, confidence fell off well before the limit. The scorer sizes each request to 24k tokens at 3 characters per token, and it truncates the largest code file first. If Jev still returns `max_tokens_exceeded`, the scorer shrinks the packet and retries, dropping whole files once trimming is not enough. A shrink applies only to that group's retry, and every group starts from the full packet. `score.json` is written after every request, so a failure part-way keeps the answers already paid for. Failed requests are listed under `jev.errors` and `modelScorer.errors`.
 
 ## Budget gate
 
@@ -159,7 +160,7 @@ The hard limit is therefore about 32.7k input tokens. On that needle-style probe
 remaining - reserved by running sets - 1.25 x (runs x per-run estimate + scoring) >= 40%
 ```
 
-A `WARN` line prints when the current or projected level is at or below 55%. Running sets hold a reservation under `results/.reservations/` until they finish. A set with no estimate is refused until the calibration pass fills `estimates.json`, or until `--estimate-pct` is passed. Each run records its quota before and after, and its token usage (plus list-price `costUsd` for Claude), as the raw data for calibration. quota-axi reports whole percentages, so one cheap run often moves nothing: each medium Sonnet smoke attempt read the same percentage before and after, while using $0.70 to $0.81 of tokens at list price. Estimate from the delta across a batch of runs, or from a percent-per-dollar ratio measured that way, rather than from single-run deltas.
+A `WARN` line prints when the current or projected level is at or below 55%. Running sets hold a reservation under `results/.reservations/` until they finish, one file per invocation. Gate and reserve run under a cross-process lock, so two `set` processes started together cannot both pass against the same remaining allowance. A set with no estimate is refused until the calibration pass fills `estimates.json`, or until `--estimate-pct` is passed. Each run records its quota before and after, and its token usage (plus list-price `costUsd` for Claude), as the raw data for calibration. quota-axi reports whole percentages, so one cheap run often moves nothing: each medium Sonnet smoke attempt read the same percentage before and after, while using $0.70 to $0.81 of tokens at list price. Estimate from the delta across a batch of runs, or from a percent-per-dollar ratio measured that way, rather than from single-run deltas.
 
 ## Files
 
