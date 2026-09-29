@@ -1,0 +1,251 @@
+{
+  "network": "testnet",
+  "endpoint": "wss://s.altnet.rippletest.net:51233",
+  "verifiedAt": "2026-09-29T04:13:31.399Z",
+  "snapshot": {
+    "ledgerHash": "30D7936493251B7616ED219125BB33C0D84764D9B3C90F680E11897231884EC0",
+    "ledgerIndex": 21134489,
+    "issuer": "rp6RHAeLoaj98n9QSHDCr3eAvWLPhEedDX",
+    "issuanceId": "01427B95129D0AD320ACD48CD40EAF8A571E2B237A21CD87",
+    "issuanceFlags": 102,
+    "globallyFrozen": false,
+    "outstandingAmount": "1200",
+    "holders": {
+      "A": {
+        "exists": true,
+        "balance": "500",
+        "authorized": true,
+        "frozen": false
+      },
+      "B": {
+        "exists": true,
+        "balance": "700",
+        "authorized": true,
+        "frozen": true
+      },
+      "C": {
+        "exists": true,
+        "balance": "0",
+        "authorized": false,
+        "frozen": false
+      }
+    }
+  },
+  "transactions": [
+    {
+      "operation": "create-issuance",
+      "hash": "78F29C66FBB7A13FA88EE8D320C1CC99440B6FCAE64A6C16A70C6C03EFF26472",
+      "ledgerIndex": 21134386,
+      "code": "tesSUCCESS"
+    },
+    {
+      "operation": "unapproved-rejected",
+      "hash": "A185BA4D94F3F50387FFD802BE1936F5FE52366CB77402B22F15FCCA73109E4A",
+      "ledgerIndex": 21134394,
+      "code": "tecNO_AUTH"
+    },
+    {
+      "operation": "approve-A",
+      "hash": "9703ADE4A349A3E905DA432226D70F6F65C99542F199CA3FA7B092EE12AFCADB",
+      "ledgerIndex": 21134396,
+      "code": "tesSUCCESS"
+    },
+    {
+      "operation": "approve-B",
+      "hash": "A9DE3AB5F5E21EFD9BE00DBB096FCE1D3BD8D968654FE373E319A45B3C99B52A",
+      "ledgerIndex": 21134398,
+      "code": "tesSUCCESS"
+    },
+    {
+      "operation": "approve-C",
+      "hash": "6D4F62991CDE3A118387864E6EC13B3040557E43E21C6DD5B04BD68DB760599C",
+      "ledgerIndex": 21134400,
+      "code": "tesSUCCESS"
+    },
+    {
+      "operation": "mint-A",
+      "hash": "C04B4C0163870155C89FA699F82C71688C5B1A012A4C5AC1A49876E975C6D85E",
+      "ledgerIndex": 21134402,
+      "code": "tesSUCCESS"
+    },
+    {
+      "operation": "mint-B",
+      "hash": "230516122132F6D8A7B27F5737B45EFD0CF49D357AE4656E7A9575BDF586EC75",
+      "ledgerIndex": 21134404,
+      "code": "tesSUCCESS"
+    },
+    {
+      "operation": "mint-C",
+      "hash": "CBA6D9DF4ADE11DB88813789E7462F3AC66C918AA391B93BEFFB73D547CF1FE5",
+      "ledgerIndex": 21134406,
+      "code": "tesSUCCESS"
+    },
+    {
+      "operation": "clawback-B-300",
+      "hash": "89B00497A79E9A50BF31234FDE989274418C4E0F738BD4E4C703126CA1882454",
+      "ledgerIndex": 21134408,
+      "code": "tesSUCCESS"
+    },
+    {
+      "operation": "freeze-A",
+      "hash": "723E7781DF6AAFFFA13809D7E2E5D71DF23F6DC5CC8AC52FFD93A012AF7BF333",
+      "ledgerIndex": 21134410,
+      "code": "tesSUCCESS"
+    },
+    {
+      "operation": "frozen-A-outbound-rejected",
+      "hash": "A1413C27DB1165CA91F907B0445E223D0B8C4450ADABDC2AEAD1C65181298EAE",
+      "ledgerIndex": 21134412,
+      "code": "tecLOCKED"
+    },
+    {
+      "operation": "frozen-A-inbound-rejected",
+      "hash": "30FA81C859694E60E54E73799AC8F0C5D51CE698AFC60A89C1CFAF8DF7823646",
+      "ledgerIndex": 21134414,
+      "code": "tecLOCKED"
+    },
+    {
+      "operation": "frozen-redemption-exception",
+      "hash": "91495A4CE84FD7917DD3B364BCA1315913960ACB93E5A83633C392834FD18929",
+      "ledgerIndex": 21134415,
+      "code": "tesSUCCESS"
+    },
+    {
+      "operation": "unfreeze-A",
+      "hash": "CC7F872D905044049FBBD313A97437017C7DE8877B058C34B5B47B41F882A19A",
+      "ledgerIndex": 21134417,
+      "code": "tesSUCCESS"
+    },
+    {
+      "operation": "restore-A",
+      "hash": "D1B901011ADEC14058A306732691502E3F88E904D5BB1C16AA40F005F1656C31",
+      "ledgerIndex": 21134419,
+      "code": "tesSUCCESS"
+    },
+    {
+      "operation": "unfrozen-A-transfer",
+      "hash": "897871C1AB602D0DEA539BCC819F353E503046F46673983286C742BA24213110",
+      "ledgerIndex": 21134421,
+      "code": "tesSUCCESS"
+    },
+    {
+      "operation": "return-A-transfer",
+      "hash": "B72D19EB5E1CCDC48D977841129717A158F2025A9571E43A220EB3883CF2D31C",
+      "ledgerIndex": 21134423,
+      "code": "tesSUCCESS"
+    },
+    {
+      "operation": "freeze-global",
+      "hash": "70A73BBDC551DD5E6BE0E3FDBFB54C00FBFFF4EC6036BD4CD1E3EC658F84CC88",
+      "ledgerIndex": 21134425,
+      "code": "tesSUCCESS"
+    },
+    {
+      "operation": "global-outbound-rejected",
+      "hash": "9135F60C85B3E34DD12528964A4C6EC6F2C6238984FA3F22200888012E1C75AB",
+      "ledgerIndex": 21134426,
+      "code": "tecLOCKED"
+    },
+    {
+      "operation": "global-inbound-rejected",
+      "hash": "5DAEE337DFD49361C094B70A1B9D288AF9704402490F3A8999389D3DBA7F68DE",
+      "ledgerIndex": 21134428,
+      "code": "tecLOCKED"
+    },
+    {
+      "operation": "global-redemption-exception",
+      "hash": "0341C1375364FFFB9AF9074055427FA7EAF668D817B56A0AD174E4EE5EF5467A",
+      "ledgerIndex": 21134430,
+      "code": "tesSUCCESS"
+    },
+    {
+      "operation": "unfreeze-global",
+      "hash": "4374DFDDF71A67EE8DB974179B061ACB5A3A323794F1C585457FF81E82CABDA6",
+      "ledgerIndex": 21134432,
+      "code": "tesSUCCESS"
+    },
+    {
+      "operation": "restore-A-global",
+      "hash": "EF235BAC18009FA2C1D79DC7918E384B8C8962E3CF940B5247B6DFE548ACCC87",
+      "ledgerIndex": 21134434,
+      "code": "tesSUCCESS"
+    },
+    {
+      "operation": "global-unfrozen-transfer",
+      "hash": "4C27A75D938DC0FCF2B0516659A2941847B09FB5BE0F765931658ED74811311A",
+      "ledgerIndex": 21134436,
+      "code": "tesSUCCESS"
+    },
+    {
+      "operation": "global-return-transfer",
+      "hash": "2C768BA8150DD43F2988349E9C6A6ABE165726406FCAF35C81DC853438DC4DD4",
+      "ledgerIndex": 21134438,
+      "code": "tesSUCCESS"
+    },
+    {
+      "operation": "freeze-B",
+      "hash": "974CF0FC7EDA380D85FCE12DE3839C1D9CD0559C943588963B13FDD6931ABC36",
+      "ledgerIndex": 21134439,
+      "code": "tesSUCCESS"
+    },
+    {
+      "operation": "ban-C:revoke",
+      "hash": "E7A8EC7576FF82BFB363334B7F3B6FB94A03949EB0FE83D7B0C6680FF5BD3234",
+      "ledgerIndex": 21134441,
+      "code": "tesSUCCESS"
+    },
+    {
+      "operation": "ban-C:lock",
+      "hash": "A0FAAB602BD338EF4BD88F0C5F20A3FF361BB1C0B806A1AD493E00E80E41EAFC",
+      "ledgerIndex": 21134443,
+      "code": "tesSUCCESS"
+    },
+    {
+      "operation": "ban-C:drain",
+      "hash": "A5CF78D64899189507AC087CBAB57F26C2DE1D8F2F371479CB5F2A2E9C3AA4CD",
+      "ledgerIndex": 21134445,
+      "code": "tesSUCCESS"
+    },
+    {
+      "operation": "banned-issuer-payment-rejected",
+      "hash": "C6F18367B50D3E3C8C2C4B144242ECFB2F249D326C5000DF993EF91140AF17A7",
+      "ledgerIndex": 21134472,
+      "code": "tecNO_AUTH"
+    },
+    {
+      "operation": "banned-holder-payment-rejected",
+      "hash": "AD745ED6AD378BFD20C4728536628853F3530FFF540BE0DDC148C068CDD0BFA3",
+      "ledgerIndex": 21134473,
+      "code": "tecNO_AUTH"
+    },
+    {
+      "operation": "C-delete-holding",
+      "hash": "2E5F2B3511EE1B6DDDEF19D14271B12E3020ADAC1B1F43F29C44C63842EA6F44",
+      "ledgerIndex": 21134475,
+      "code": "tesSUCCESS"
+    },
+    {
+      "operation": "C-recreate-holding",
+      "hash": "0883475521430E1E5093E87BC68407A1213FF126A5B797005171288D90A20228",
+      "ledgerIndex": 21134477,
+      "code": "tesSUCCESS"
+    },
+    {
+      "operation": "C-recreation-still-blocked",
+      "hash": "AD705CE0ACF728F41F1EA349C7DCF9C03381B3DF0FCC13C10807C02E861B62DC",
+      "ledgerIndex": 21134479,
+      "code": "tecNO_AUTH"
+    },
+    {
+      "operation": "C-recreation-issuer-still-blocked",
+      "hash": "59813FE754568EC586A78FAE9961EC1CB27514AF5716E14FACCCEBF8AD8C123F",
+      "ledgerIndex": 21134480,
+      "code": "tecNO_AUTH"
+    }
+  ],
+  "limitations": [
+    "Native MPT locks permit redemption to issuer; not absolute no-movement freezes.",
+    "Issuer payment exceptions are guarded by backend policy; protect issuer signing authority.",
+    "Bans require persistent issuer policy to prevent future issuer reauthorization."
+  ]
+}

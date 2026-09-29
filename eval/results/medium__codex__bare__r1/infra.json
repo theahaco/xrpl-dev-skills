@@ -1,0 +1,16 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [],
+    "sandboxDenials": [
+      "zsh:1: can't create temp file for here document: operation not permitted > xrpl-testnet-mpt@1.0.0 check > tsc --noEmit src/index.ts(3,47): error TS2724: '\"xrpl\"' has no exported member named 'MPTokenIssuance",
+      "git: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-d6RMe6F4' (errno=Operation not permitted) git: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-DyrSa7y6' (errno=Operation not permit"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 7
+  }
+}

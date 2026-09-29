@@ -1,0 +1,11 @@
+{
+  "issuanceId": "01427A7BA6F1FE98BE3368F28E094610AF1FF8110CC8B1A4",
+  "issuer": "rGDjhvNHdxyhRQRSsukGXnkNiZvyReN4vv",
+  "bans": {
+    "rwcRnM9ZgPSkggXstyPXtvBz33yqySooXE": {
+      "reason": "Demo compliance ban",
+      "requestedAt": "2026-09-29T03:56:55.870Z",
+      "complete": true
+    }
+  }
+}

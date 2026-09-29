@@ -1,0 +1,64 @@
+{
+  "status": "checked",
+  "tscPath": "node_modules/typescript/bin/tsc",
+  "tscVersion": "Version 5.9.3",
+  "tscSource": "project",
+  "tsFiles": [
+    "src/demo.ts",
+    "src/issuer.ts",
+    "src/reconcile.ts",
+    "src/storage.ts",
+    "src/verification.ts",
+    "src/verify.ts",
+    "test/issuer.test.ts",
+    "test/storage.test.ts"
+  ],
+  "projectStrictness": {
+    "source": "showConfig",
+    "strict": true,
+    "optOuts": []
+  },
+  "project": {
+    "config": "tsconfig.json",
+    "exitCode": 0,
+    "errorCount": 0,
+    "errorsInProject": 0,
+    "output": ""
+  },
+  "strictConfig": {
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+      "strict": true,
+      "noImplicitAny": true,
+      "noImplicitThis": true,
+      "strictNullChecks": true,
+      "strictFunctionTypes": true,
+      "strictBindCallApply": true,
+      "strictPropertyInitialization": true,
+      "alwaysStrict": true,
+      "useUnknownInCatchVariables": true,
+      "strictBuiltinIteratorReturn": true,
+      "noCheck": false,
+      "noEmit": true,
+      "rootDir": "."
+    },
+    "files": [
+      "src/demo.ts",
+      "src/issuer.ts",
+      "src/reconcile.ts",
+      "src/storage.ts",
+      "src/verification.ts",
+      "src/verify.ts",
+      "test/issuer.test.ts",
+      "test/storage.test.ts"
+    ],
+    "include": []
+  },
+  "strict": {
+    "config": "tsconfig.xrpl-eval-strict.json",
+    "exitCode": 0,
+    "errorCount": 0,
+    "errorsInProject": 0,
+    "output": ""
+  }
+}

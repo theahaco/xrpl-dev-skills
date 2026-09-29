@@ -1,0 +1,27 @@
+[
+  {
+    "step": "Fund holder with 5 test XRP",
+    "hash": "0FC775ED17C2AE6A56F8738B88DE66C3E0155942135591714BB4B0A021391309",
+    "ledgerIndex": 21134410
+  },
+  {
+    "step": "Create approval-required MPT",
+    "hash": "873C5B50E0D142130B17CA93FE0B6653063A9CFFEFF0F7CD09DE3D3EA436834E",
+    "ledgerIndex": 21134411
+  },
+  {
+    "step": "Holder opts in",
+    "hash": "67AA6578A1CC50144DF07A962F55DF70656A6C920475DB05C8140C926180396E",
+    "ledgerIndex": 21134412
+  },
+  {
+    "step": "Issuer approves holder",
+    "hash": "25566E84E25D33D771036E4115C0A8A5ED297C3E35EB09FD9065160D107386F7",
+    "ledgerIndex": 21134414
+  },
+  {
+    "step": "Send 1000 MPT",
+    "hash": "D7B12566B92C5218AFED3BC4F666E7F9AD754C65A4A21CE2FC43DAB71102CFDE",
+    "ledgerIndex": 21134416
+  }
+]

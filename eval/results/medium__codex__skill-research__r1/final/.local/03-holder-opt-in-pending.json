@@ -1,0 +1,12 @@
+{
+  "hash": "655A1C13A220E0332E447841D8ED2EE08F1634D3AEB74A28DB9EF99C34B20D38",
+  "prepared": {
+    "TransactionType": "MPTokenAuthorize",
+    "Account": "rnNikafgstHn8j9mTv99qEovh9YsjcWnDA",
+    "MPTokenIssuanceID": "01427C57E2966F1CA20471ADC70A2C41E7CEE17663865A38",
+    "Flags": 0,
+    "Sequence": 21134475,
+    "Fee": "12",
+    "LastLedgerSequence": 21134497
+  }
+}

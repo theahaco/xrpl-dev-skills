@@ -1,0 +1,19 @@
+{
+  "network": "wss://s.altnet.rippletest.net:51233",
+  "issuer": {
+    "address": "rs6iA2dxBqrHYJysS892uEj1u8w7n1jEAA",
+    "seed": "<TESTNET_SEED_REDACTED>"
+  },
+  "A": {
+    "address": "rNdSs6pXNHpT2oyYNxecqhXwudCLh7fTP4",
+    "seed": "<TESTNET_SEED_REDACTED>"
+  },
+  "B": {
+    "address": "rJbEEWnKN5FHWDqxqpP4s7zUpmM4GgA4Pt",
+    "seed": "<TESTNET_SEED_REDACTED>"
+  },
+  "C": {
+    "address": "rwovhDZqDNxu9FdTV2cBUEWb8aVLvPLPXE",
+    "seed": "<TESTNET_SEED_REDACTED>"
+  }
+}

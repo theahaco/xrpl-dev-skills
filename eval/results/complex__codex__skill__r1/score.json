@@ -1,0 +1,301 @@
+{
+  "packetId": "75e61556b08d09f4",
+  "rubricVersion": 1,
+  "scoredAt": "2026-09-29T04:12:08.636Z",
+  "calibrate": true,
+  "confidenceFloor": 0.6,
+  "jev": {
+    "requests": 5,
+    "inputTokens": 40705,
+    "outputTokens": 502,
+    "errors": [],
+    "model": "jev-1.13.0"
+  },
+  "modelScorer": {
+    "requests": 5,
+    "costUsd": 0.5746693999999999,
+    "errors": [],
+    "model": "claude-opus-5-5"
+  },
+  "evidence": {
+    "codeTruncated": false,
+    "chars": {
+      "task": 1949,
+      "code": 32441,
+      "typecheck": 430,
+      "errors": 3210,
+      "xrplVersion": 5,
+      "xrplChangelog": 17696
+    }
+  },
+  "items": {
+    "hallucinated_api": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.07,
+        "probabilities": {
+          "none": 0.54,
+          "present": 0.46
+        }
+      },
+      "model": {
+        "choice": "none",
+        "confidence": 0.85,
+        "rationale": "All xrpl.js APIs used are real: Client timeout options, the MPT flag enums, isValidClassicAddress, autofill and submitAndWait. So are the XRPL fields: ledger_entry mpt_issuance/mptoken, Holder on Clawback and MPTokenIssuanceSet, and meta.mpt_issuance_id. The project also passes a strict type check with 0 errors."
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "model"
+      }
+    },
+    "hallucination_during_run": {
+      "jev": {
+        "choice": "some",
+        "confidence": 0.99,
+        "probabilities": {
+          "some": 0.99,
+          "none": 0.01
+        }
+      },
+      "final": {
+        "choice": "some",
+        "pass": false,
+        "source": "jev"
+      },
+      "model": {
+        "choice": "some",
+        "confidence": 0.72,
+        "rationale": "In error 4, the agent tried to import `MPToken` and `MPTokenIssuance` as named exports from xrpl 5.3.0, but that version does not export them (TS2305/TS2724). It also compared LedgerEntryType to 'MPToken', which is not in the xrpl.js union type, so it had to back out API names that do not exist. The other errors are config, environment or expected ledger results."
+      }
+    },
+    "deprecated_patterns": {
+      "jev": {
+        "choice": "none",
+        "confidence": 0.69,
+        "probabilities": {
+          "none": 0.85,
+          "present": 0.15
+        }
+      },
+      "final": {
+        "choice": "none",
+        "pass": true,
+        "source": "jev"
+      },
+      "model": {
+        "choice": "none",
+        "confidence": 0.8,
+        "rationale": "The code uses current APIs: Client.autofill and submitAndWait, Wallet.fromSeed (whose algorithm is now inferred from the seed prefix, which is fine), Wallet.generate, numeric MPT flag enums, and MPT Clawback with a Holder field. It does not use anything the changelog marks as deprecated or removed, such as setTransactionFlagsToNumber, Wallet.fromEntropy with a hex string, or an implicit ed25519 default. One weak point: it deep-imports types from xrpl/dist internals, which is fragile but not deprecated."
+      }
+    },
+    "strict_type_errors": {
+      "jev": {
+        "choice": "clean",
+        "confidence": 0.98,
+        "probabilities": {
+          "clean": 0.99,
+          "errors": 0,
+          "not_typescript": 0.01
+        }
+      },
+      "final": {
+        "choice": "clean",
+        "pass": true,
+        "source": "jev"
+      },
+      "model": {
+        "choice": "clean",
+        "confidence": 0.95,
+        "rationale": "I ran the compiler twice. The strict run, with every strict-family option turned on and all discovered sources listed, exited 0 with 0 errors, and the project's own strict config was also clean."
+      }
+    },
+    "type_escape_hatches": {
+      "jev": {
+        "choice": "pervasive",
+        "confidence": 0.46,
+        "probabilities": {
+          "few": 0.35,
+          "pervasive": 0.64,
+          "none": 0.01
+        }
+      },
+      "model": {
+        "choice": "pervasive",
+        "confidence": 0.85,
+        "rationale": "There are `as unknown as` casts in issuer.ts and verify.ts, many `as unknown as Client` casts in the tests, and a non-null assertion on `Wallet.generate().seed!`."
+      },
+      "final": {
+        "choice": "pervasive",
+        "pass": false,
+        "source": "model"
+      }
+    },
+    "outcome_checks": {
+      "jev": {
+        "choice": "all",
+        "confidence": 0.75,
+        "probabilities": {
+          "partial": 0.16,
+          "none": 0,
+          "all": 0.84
+        }
+      },
+      "final": {
+        "choice": "all",
+        "pass": true,
+        "source": "jev"
+      },
+      "model": {
+        "choice": "all",
+        "confidence": 0.9,
+        "rationale": "All submissions go through Transactions.execute, which requires a validated result and throws LedgerFailure unless the code is tesSUCCESS."
+      }
+    },
+    "waits_for_validation": {
+      "jev": {
+        "choice": "validated",
+        "confidence": 0.86,
+        "probabilities": {
+          "validated": 0.91,
+          "preliminary": 0,
+          "mixed": 0.09
+        }
+      },
+      "final": {
+        "choice": "validated",
+        "pass": true,
+        "source": "jev"
+      },
+      "model": {
+        "choice": "validated",
+        "confidence": 0.9,
+        "rationale": "It uses submitAndWait (or a tx lookup) and rejects any result where validated is not true."
+      }
+    },
+    "mpt_amount_format": {
+      "jev": {
+        "choice": "correct",
+        "confidence": 1,
+        "probabilities": {
+          "correct": 1,
+          "incorrect": 0
+        }
+      },
+      "final": {
+        "choice": "correct",
+        "pass": true,
+        "source": "jev"
+      },
+      "model": {
+        "choice": "correct",
+        "confidence": 0.9,
+        "rationale": "All MPT amounts use { mpt_issuance_id, value } with validated integer strings, and AssetScale is 0."
+      }
+    },
+    "secret_handling": {
+      "jev": {
+        "choice": "external",
+        "confidence": 0.95,
+        "probabilities": {
+          "hardcoded": 0.03,
+          "external": 0.97
+        }
+      },
+      "final": {
+        "choice": "external",
+        "pass": true,
+        "source": "jev"
+      },
+      "model": {
+        "choice": "external",
+        "confidence": 0.95,
+        "rationale": "The seed is read from the ISSUER_SEED environment variable."
+      }
+    },
+    "connection_hygiene": {
+      "jev": {
+        "choice": "always",
+        "confidence": 0.99,
+        "probabilities": {
+          "happy_path_only": 0.01,
+          "never": 0,
+          "always": 0.99
+        }
+      },
+      "final": {
+        "choice": "always",
+        "pass": true,
+        "source": "jev"
+      },
+      "model": {
+        "choice": "always",
+        "confidence": 0.9,
+        "rationale": "The demo and the verify script both call disconnect in a finally block."
+      }
+    },
+    "ban_semantics": {
+      "jev": {
+        "choice": "complete",
+        "confidence": 0.96,
+        "probabilities": {
+          "absent": 0,
+          "partial": 0.03,
+          "complete": 0.97
+        }
+      },
+      "final": {
+        "choice": "complete",
+        "pass": true,
+        "source": "jev"
+      },
+      "model": {
+        "choice": "complete",
+        "confidence": 0.9,
+        "rationale": "Ban revokes authorization, locks the holder and claws back the full balance, then verifies zero balance and no authorization, and blocks re-approval."
+      }
+    },
+    "freeze_semantics": {
+      "jev": {
+        "choice": "mpt_lock",
+        "confidence": 1,
+        "probabilities": {
+          "other": 0,
+          "mpt_lock": 1,
+          "absent": 0
+        }
+      },
+      "final": {
+        "choice": "mpt_lock",
+        "pass": true,
+        "source": "jev"
+      },
+      "model": {
+        "choice": "mpt_lock",
+        "confidence": 0.95,
+        "rationale": "MPTokenIssuanceSet uses tfMPTLock/tfMPTUnlock with an optional Holder field, on an issuance created with tfMPTCanLock."
+      }
+    },
+    "clawback_semantics": {
+      "jev": {
+        "choice": "mpt_clawback",
+        "confidence": 0.99,
+        "probabilities": {
+          "other": 0,
+          "mpt_clawback": 1,
+          "absent": 0
+        }
+      },
+      "final": {
+        "choice": "mpt_clawback",
+        "pass": true,
+        "source": "jev"
+      },
+      "model": {
+        "choice": "mpt_clawback",
+        "confidence": 0.95,
+        "rationale": "A Clawback transaction with an MPT Amount and a Holder field, on an issuance created with tfMPTCanClawback."
+      }
+    }
+  }
+}

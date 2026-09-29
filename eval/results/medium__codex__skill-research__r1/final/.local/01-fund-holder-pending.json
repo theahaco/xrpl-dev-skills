@@ -1,0 +1,13 @@
+{
+  "hash": "B1C66B4B5343497BCEC411BF53E535943DCF95C1F9599E146AA66591CD773659",
+  "prepared": {
+    "TransactionType": "Payment",
+    "Account": "rMCnv6DVfXrFfZsqPq9kqVAeGkVLAdn8wz",
+    "Destination": "rnNikafgstHn8j9mTv99qEovh9YsjcWnDA",
+    "Amount": "5000000",
+    "Flags": 0,
+    "Sequence": 21134422,
+    "Fee": "12",
+    "LastLedgerSequence": 21134493
+  }
+}

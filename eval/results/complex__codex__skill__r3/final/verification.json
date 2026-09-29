@@ -1,0 +1,52 @@
+{
+  "network": 1,
+  "ledgerIndex": 21134483,
+  "ledgerHash": "78F42AEEBFCB665684F2138A4D6E5E351A2A482E72DC0C20A51E67971DCD77DA",
+  "issuance": {
+    "Flags": 102,
+    "Issuer": "rnKzFF5SvNHU3pNF66YMPSBHR7H75DQZdy",
+    "LedgerEntryType": "MPTokenIssuance",
+    "MaximumAmount": "1000000000",
+    "OutstandingAmount": "1200",
+    "OwnerNode": "0",
+    "PreviousTxnID": "DF70BFF43B0B470032032C9AFEE36CD653DBC1ECFFFA071406526A98B67D1631",
+    "PreviousTxnLgrSeq": 21134477,
+    "Sequence": 21134249,
+    "index": "B9BB5972D6484A71F39FEC4D34039FE26917FCBC17F29F2E88163F8AD83089E6",
+    "mpt_issuance_id": "01427BA92F78428AF90396DC41E13BAAF6F330CF1E8736EF"
+  },
+  "holders": {
+    "A": {
+      "Account": "rH2cYJaWUhXv3RUZ15ZivrrJ9z5PhhcQzD",
+      "Flags": 2,
+      "LedgerEntryType": "MPToken",
+      "MPTAmount": "500",
+      "MPTokenIssuanceID": "01427BA92F78428AF90396DC41E13BAAF6F330CF1E8736EF",
+      "OwnerNode": "0",
+      "PreviousTxnID": "E9734E1EE0EE2FEADE853D93FCACA27A07579FC227AFB44C9EF7B1CBD1DC0721",
+      "PreviousTxnLgrSeq": 21134469,
+      "index": "7420184EAC7B21B70AFEB5F653584A010E64B976CB076FFC03C35950DD4F9FA4"
+    },
+    "B": {
+      "Account": "rhKiVo9niNvXqkmurDeWQauxcanZTjS8Tw",
+      "Flags": 3,
+      "LedgerEntryType": "MPToken",
+      "MPTAmount": "700",
+      "MPTokenIssuanceID": "01427BA92F78428AF90396DC41E13BAAF6F330CF1E8736EF",
+      "OwnerNode": "0",
+      "PreviousTxnID": "56F5F6C59204C0F4CC37B95C5F7D67754D2E9D8BDD10FA5EB7480DA9F7F4BEF8",
+      "PreviousTxnLgrSeq": 21134472,
+      "index": "BA411D7629F75DA544D8147636D8567DFE4FD1413B79446C3008FA2604E9C012"
+    },
+    "C": {
+      "Account": "rpYcbMjDjbQjGQMt6kLEfqQBgqNbeeFeWH",
+      "Flags": 1,
+      "LedgerEntryType": "MPToken",
+      "MPTokenIssuanceID": "01427BA92F78428AF90396DC41E13BAAF6F330CF1E8736EF",
+      "OwnerNode": "0",
+      "PreviousTxnID": "DF70BFF43B0B470032032C9AFEE36CD653DBC1ECFFFA071406526A98B67D1631",
+      "PreviousTxnLgrSeq": 21134477,
+      "index": "BA7F2CCFD06782BAD4C7895C25932AD8BC881F27ED92487D18A60CC106CDEBAF"
+    }
+  }
+}

@@ -1,0 +1,483 @@
+{
+  "ledgerHash": "BF2AA467551DD37AD7F26EA54E2DD26403D31861EF3F5D4EBD3BFFAA7E5CF443",
+  "ledgerIndex": 21134300,
+  "issuer": "rNbSd1jtyvmwv5Pj91BV2iYUhT77Vo2E5u",
+  "flags": 102,
+  "outstandingAmount": "1200",
+  "A": {
+    "exists": true,
+    "balance": "500",
+    "authorized": true,
+    "frozen": false
+  },
+  "B": {
+    "exists": true,
+    "balance": "700",
+    "authorized": true,
+    "frozen": true
+  },
+  "C": {
+    "exists": true,
+    "balance": "0",
+    "authorized": false,
+    "frozen": false
+  },
+  "transactions": [
+    {
+      "type": "settled",
+      "hash": "55CCDECFEF20C0524253C23E797168A124C197C6FBDC3BC2B997FD92E785D597",
+      "ledgerIndex": 21134197,
+      "code": "tesSUCCESS"
+    },
+    {
+      "type": "settled",
+      "hash": "E6B6BD2402BD219568EDF6726EA0BBFB17FC6DFA3652FDCBDD9E4B6DB4DEC8D8",
+      "ledgerIndex": 21134199,
+      "code": "tesSUCCESS"
+    },
+    {
+      "type": "settled",
+      "hash": "E945E5BC7721E53615B56E6573B9EA42AEB223DB94D6DA5C00DC1158B6A083BB",
+      "ledgerIndex": 21134200,
+      "code": "tesSUCCESS"
+    },
+    {
+      "type": "settled",
+      "hash": "A61047E21B545096D1416F7ECDE349424F0A02826156916AA070C69CD1269EC0",
+      "ledgerIndex": 21134202,
+      "code": "tesSUCCESS"
+    },
+    {
+      "type": "settled",
+      "hash": "DF43310CE470241888860BD857E7E396DBF3A1085866B422D55FBC9886F37F4B",
+      "ledgerIndex": 21134204,
+      "code": "tesSUCCESS"
+    },
+    {
+      "type": "settled",
+      "hash": "F043DCD03F436AA85E7F6D8AE010F8225D76682E349549ED7368838B4D7313BA",
+      "ledgerIndex": 21134206,
+      "code": "tesSUCCESS"
+    },
+    {
+      "type": "settled",
+      "hash": "25CCB3B2168A12C569A2A0BE349E1B8B028110A0A6CC16D574B65025CFA7CA4F",
+      "ledgerIndex": 21134208,
+      "code": "tesSUCCESS"
+    },
+    {
+      "type": "settled",
+      "hash": "0835972B6088109BF56A544373D86FE7F889A3D6722A8A56107E73092CFABADE",
+      "ledgerIndex": 21134210,
+      "code": "tecNO_AUTH"
+    },
+    {
+      "type": "settled",
+      "hash": "C203918288436536716CD87159772454FAF7D69191540EC9E0C82D42073E344B",
+      "ledgerIndex": 21134212,
+      "code": "tesSUCCESS"
+    },
+    {
+      "type": "settled",
+      "hash": "B3426E92183CCADF9D47F035798927BEEF3A9EAFEA5C994A3E68405C7E33F49C",
+      "ledgerIndex": 21134214,
+      "code": "tesSUCCESS"
+    },
+    {
+      "type": "settled",
+      "hash": "69B77DE278870A4931D5EB88EE298D42B1926BB460D435EB775F3C8777271F71",
+      "ledgerIndex": 21134216,
+      "code": "tesSUCCESS"
+    },
+    {
+      "type": "settled",
+      "hash": "8AC69A8B02353F572BADE18EBB85D0AAA62AD4F237611EEF5225DF5DE4476271",
+      "ledgerIndex": 21134252,
+      "code": "tesSUCCESS"
+    },
+    {
+      "type": "settled",
+      "hash": "FEF0922C491C01A99744C01A47691E4BA97A6665164964581A198891DD2B3CEA",
+      "ledgerIndex": 21134254,
+      "code": "tesSUCCESS"
+    },
+    {
+      "type": "settled",
+      "hash": "3D190015ACCC0D39C4E737D628FF66451F46AB0EF89326B77D6C7DA81AAD9827",
+      "ledgerIndex": 21134256,
+      "code": "tesSUCCESS"
+    },
+    {
+      "type": "settled",
+      "hash": "D0F38DE9848B8B50D35099AFDDCFAF5A5F7635CDF270865832B7A32E15176744",
+      "ledgerIndex": 21134258,
+      "code": "tesSUCCESS"
+    },
+    {
+      "type": "settled",
+      "hash": "783841B99A3CB4FC4C117BEC0CD6F31FCD89E6B38E4E497325990CA586D96012",
+      "ledgerIndex": 21134260,
+      "code": "tecLOCKED"
+    },
+    {
+      "type": "settled",
+      "hash": "5615FF1100C00D760B8C3F4C464796E94CD8EDBDD792A647D738702F7D016AFA",
+      "ledgerIndex": 21134261,
+      "code": "tecLOCKED"
+    },
+    {
+      "type": "settled",
+      "hash": "0A3DD9A0D05356D99CBD99621E6A40ED67AE9929453D63378F2AE31D32B02670",
+      "ledgerIndex": 21134263,
+      "code": "tesSUCCESS"
+    },
+    {
+      "type": "settled",
+      "hash": "B08A1243BC96A2669F835454F6071F1E3ED337E707816CE9BE53BD601F7DBAA2",
+      "ledgerIndex": 21134265,
+      "code": "tesSUCCESS"
+    },
+    {
+      "type": "settled",
+      "hash": "C0A494E59A31455E36D982E6FD293D6F13E14488A1FC9BD0279AADFA0C3B5BA6",
+      "ledgerIndex": 21134267,
+      "code": "tesSUCCESS"
+    },
+    {
+      "type": "settled",
+      "hash": "CCDBC7C0DC84B1EFF5FD07073C30EE3C615289C3F7F22D5C812B3B5AF73A4522",
+      "ledgerIndex": 21134268,
+      "code": "tesSUCCESS"
+    },
+    {
+      "type": "settled",
+      "hash": "516A4FDF16F35166AB27B2A451136FBAE8081E355373DB269DAA6B43933ACCB8",
+      "ledgerIndex": 21134270,
+      "code": "tesSUCCESS"
+    },
+    {
+      "type": "settled",
+      "hash": "F5DE3D5C97ACBEF305FED5143F3CC348F975CE051C36136405E164D6E4E6BA62",
+      "ledgerIndex": 21134272,
+      "code": "tecLOCKED"
+    },
+    {
+      "type": "settled",
+      "hash": "E7B9F108DD3EFDEB43661AC9B4FCEAF8FA399437BAB3F1A622821F0D98493617",
+      "ledgerIndex": 21134274,
+      "code": "tecLOCKED"
+    },
+    {
+      "type": "settled",
+      "hash": "0BED4A5EF16212FE4D54509344535319289565AC31A805E38E6E3030D6B3FF22",
+      "ledgerIndex": 21134276,
+      "code": "tesSUCCESS"
+    },
+    {
+      "type": "settled",
+      "hash": "9D624B65BE80DE01C9B0C152C487B47599AA565DBF9DD61E35C4E360E5104EFC",
+      "ledgerIndex": 21134278,
+      "code": "tesSUCCESS"
+    },
+    {
+      "type": "settled",
+      "hash": "F592749B0CE281B1C531B78665595D45E1AC63BA077A2A92C9D3D2DC8559270E",
+      "ledgerIndex": 21134280,
+      "code": "tesSUCCESS"
+    },
+    {
+      "type": "settled",
+      "hash": "7960F17ABDCDDB6C55F5B8ED2AA5BB3AB1FEE62386E06EF4A665FFC035C2E68D",
+      "ledgerIndex": 21134282,
+      "code": "tesSUCCESS"
+    },
+    {
+      "type": "settled",
+      "hash": "8BF346CCB8A276F2CAD37587CEE6EB011B7BC337372EFE01B83EEA539CE8531D",
+      "ledgerIndex": 21134284,
+      "code": "tesSUCCESS"
+    },
+    {
+      "type": "settled",
+      "hash": "69EB00A825E249491AE0BFB316224C4AE7F33CB1E513BF7E56ADE5DE846655D0",
+      "ledgerIndex": 21134286,
+      "code": "tecNO_AUTH"
+    },
+    {
+      "type": "settled",
+      "hash": "E8A87236D98017C673FF8483C204BC861E181925F1B35348FF84B67CFEF5042F",
+      "ledgerIndex": 21134288,
+      "code": "tecNO_AUTH"
+    },
+    {
+      "type": "settled",
+      "hash": "FF9C1820D0979A814CFACC01778DDD70CFA4D6A448EC013E7D2160420F9B590A",
+      "ledgerIndex": 21134290,
+      "code": "tesSUCCESS"
+    },
+    {
+      "type": "settled",
+      "hash": "ADFC3E6DAB678B63A3B45ABCECAC0AF472D22FBB082FB67FEB75DB80104237C0",
+      "ledgerIndex": 21134292,
+      "code": "tesSUCCESS"
+    },
+    {
+      "type": "settled",
+      "hash": "85EF976A03D682B6F2167527379E7C31AB0C47C6A6E129B034B8B57C92181171",
+      "ledgerIndex": 21134294,
+      "code": "tecNO_AUTH"
+    },
+    {
+      "type": "settled",
+      "hash": "94F2BF945503EFC1014194F81E121685E3D49DC1662B1288A48B97F1CE71B6E8",
+      "ledgerIndex": 21134296,
+      "code": "tesSUCCESS"
+    },
+    {
+      "type": "settled",
+      "hash": "BF8EC119836FA8FCD89548458B094C898EE28475DAC10B5D1C27FBE62F69F63B",
+      "ledgerIndex": 21134298,
+      "code": "tecLOCKED"
+    },
+    {
+      "type": "settled",
+      "hash": "BECC6A32C9259A62969FC26CEF82CF740B15A358673B2FDACD7429AA338A5859",
+      "ledgerIndex": 21134300,
+      "code": "tecLOCKED"
+    }
+  ],
+  "checks": [
+    {
+      "type": "step-done",
+      "name": "generate encrypted holder wallets",
+      "value": [
+        "rK7nFxKgvL4fFZMSqdL9KQaTxkdns2hyj2",
+        "r3L5GgHyh2X7eEFFeTdznpUXzvBRsWLDdT",
+        "rMAnX9RouBYH4MqiHaHyNwVKJ4UacKu8p9"
+      ]
+    },
+    {
+      "type": "step-done",
+      "name": "fund rK7nFxKgvL4fFZMSqdL9KQaTxkdns2hyj2"
+    },
+    {
+      "type": "step-done",
+      "name": "fund r3L5GgHyh2X7eEFFeTdznpUXzvBRsWLDdT"
+    },
+    {
+      "type": "step-done",
+      "name": "fund rMAnX9RouBYH4MqiHaHyNwVKJ4UacKu8p9"
+    },
+    {
+      "type": "step-done",
+      "name": "create issuance with all controls",
+      "value": "01427B03951D2D7444CFB4A31EAD226A43292CDE87D30367"
+    },
+    {
+      "type": "step-done",
+      "name": "opt in rK7nFxKgvL4fFZMSqdL9KQaTxkdns2hyj2"
+    },
+    {
+      "type": "step-done",
+      "name": "opt in r3L5GgHyh2X7eEFFeTdznpUXzvBRsWLDdT"
+    },
+    {
+      "type": "step-done",
+      "name": "opt in rMAnX9RouBYH4MqiHaHyNwVKJ4UacKu8p9"
+    },
+    {
+      "type": "step-done",
+      "name": "reject issuance to unapproved A",
+      "value": {
+        "hash": "0835972B6088109BF56A544373D86FE7F889A3D6722A8A56107E73092CFABADE",
+        "ledgerIndex": 21134210,
+        "code": "tecNO_AUTH"
+      }
+    },
+    {
+      "type": "step-done",
+      "name": "approve rK7nFxKgvL4fFZMSqdL9KQaTxkdns2hyj2"
+    },
+    {
+      "type": "step-done",
+      "name": "approve r3L5GgHyh2X7eEFFeTdznpUXzvBRsWLDdT"
+    },
+    {
+      "type": "step-done",
+      "name": "approve rMAnX9RouBYH4MqiHaHyNwVKJ4UacKu8p9"
+    },
+    {
+      "type": "step-done",
+      "name": "mint A 500"
+    },
+    {
+      "type": "step-done",
+      "name": "mint B 1000"
+    },
+    {
+      "type": "step-done",
+      "name": "mint C 200"
+    },
+    {
+      "type": "step-done",
+      "name": "freeze A"
+    },
+    {
+      "type": "step-done",
+      "name": "native holder freeze redemption exception",
+      "value": {
+        "simulatedOnly": true,
+        "code": "tesSUCCESS",
+        "ledgerIndex": 21134259,
+        "limitation": "Native locks permit redemption directly to the issuer"
+      }
+    },
+    {
+      "type": "step-done",
+      "name": "frozen A cannot send",
+      "value": {
+        "hash": "783841B99A3CB4FC4C117BEC0CD6F31FCD89E6B38E4E497325990CA586D96012",
+        "ledgerIndex": 21134260,
+        "code": "tecLOCKED"
+      }
+    },
+    {
+      "type": "step-done",
+      "name": "frozen A cannot receive",
+      "value": {
+        "hash": "5615FF1100C00D760B8C3F4C464796E94CD8EDBDD792A647D738702F7D016AFA",
+        "ledgerIndex": 21134261,
+        "code": "tecLOCKED"
+      }
+    },
+    {
+      "type": "step-done",
+      "name": "unfreeze A"
+    },
+    {
+      "type": "step-done",
+      "name": "A can send after unfreeze"
+    },
+    {
+      "type": "step-done",
+      "name": "A can receive after unfreeze"
+    },
+    {
+      "type": "step-done",
+      "name": "claw back B 300"
+    },
+    {
+      "type": "step-done",
+      "name": "global freeze"
+    },
+    {
+      "type": "step-done",
+      "name": "native global freeze redemption exception",
+      "value": {
+        "simulatedOnly": true,
+        "code": "tesSUCCESS",
+        "ledgerIndex": 21134271,
+        "limitation": "Native locks permit redemption directly to the issuer"
+      }
+    },
+    {
+      "type": "step-done",
+      "name": "global freeze blocks A to B",
+      "value": {
+        "hash": "F5DE3D5C97ACBEF305FED5143F3CC348F975CE051C36136405E164D6E4E6BA62",
+        "ledgerIndex": 21134272,
+        "code": "tecLOCKED"
+      }
+    },
+    {
+      "type": "step-done",
+      "name": "global freeze blocks B to A",
+      "value": {
+        "hash": "E7B9F108DD3EFDEB43661AC9B4FCEAF8FA399437BAB3F1A622821F0D98493617",
+        "ledgerIndex": 21134274,
+        "code": "tecLOCKED"
+      }
+    },
+    {
+      "type": "step-done",
+      "name": "global unfreeze"
+    },
+    {
+      "type": "step-done",
+      "name": "transfer after global unfreeze"
+    },
+    {
+      "type": "step-done",
+      "name": "restore balances after global unfreeze"
+    },
+    {
+      "type": "step-done",
+      "name": "ban C"
+    },
+    {
+      "type": "step-done",
+      "name": "banned C cannot receive from holder",
+      "value": {
+        "hash": "69EB00A825E249491AE0BFB316224C4AE7F33CB1E513BF7E56ADE5DE846655D0",
+        "ledgerIndex": 21134286,
+        "code": "tecNO_AUTH"
+      }
+    },
+    {
+      "type": "step-done",
+      "name": "banned C cannot receive from issuer",
+      "value": {
+        "hash": "E8A87236D98017C673FF8483C204BC861E181925F1B35348FF84B67CFEF5042F",
+        "ledgerIndex": 21134288,
+        "code": "tecNO_AUTH"
+      }
+    },
+    {
+      "type": "step-done",
+      "name": "C deletes zero balance holding"
+    },
+    {
+      "type": "step-done",
+      "name": "C opts in again without issuer approval"
+    },
+    {
+      "type": "step-done",
+      "name": "recreated C holding remains unauthorized",
+      "value": {
+        "hash": "85EF976A03D682B6F2167527379E7C31AB0C47C6A6E129B034B8B57C92181171",
+        "ledgerIndex": 21134294,
+        "code": "tecNO_AUTH"
+      }
+    },
+    {
+      "type": "step-done",
+      "name": "ban C is idempotent"
+    },
+    {
+      "type": "step-done",
+      "name": "ban prevents reapproval through issuer module"
+    },
+    {
+      "type": "step-done",
+      "name": "freeze B at end"
+    },
+    {
+      "type": "step-done",
+      "name": "B cannot send at end",
+      "value": {
+        "hash": "BF8EC119836FA8FCD89548458B094C898EE28475DAC10B5D1C27FBE62F69F63B",
+        "ledgerIndex": 21134298,
+        "code": "tecLOCKED"
+      }
+    },
+    {
+      "type": "step-done",
+      "name": "B cannot receive at end",
+      "value": {
+        "hash": "BECC6A32C9259A62969FC26CEF82CF740B15A358673B2FDACD7429AA338A5859",
+        "ledgerIndex": 21134300,
+        "code": "tecLOCKED"
+      }
+    }
+  ]
+}

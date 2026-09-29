@@ -1,0 +1,17 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [],
+    "sandboxDenials": [
+      "zsh:1: can't create temp file for here document: operation not permitted zsh:4: can't create temp file for here document: operation not permitted zsh:7: can't create temp file for here document: operation not ",
+      "python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-qxjNFF2o' (errno=Operation not permitted) python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-HtU9T4Pu' (errno=Operation not pe",
+      "git: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-6JJStlug' (errno=Operation not permitted) git: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-ZZidYawG' (errno=Operation not permit"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 29
+  }
+}

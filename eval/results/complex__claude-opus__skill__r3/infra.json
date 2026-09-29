@@ -1,0 +1,17 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [],
+    "sandboxDenials": [
+      " \"dependencies\": { \"xrpl\": \"^5.3.0\" }, \"devDependencies\": { \"@types/node\": \"^26.6.3\", \"tsx\": \"^4.23.15\", \"typescript\": \"^7.0.2\" (eval):1: operation not permitted: /tmp/probe.mjs cp: /tmp/probe.mjs: No such file or directory rm: probe.mjs: No such file or directory",
+      "(eval):1: can't create temp file for here document: operation not permitted",
+      "Exit code 1 (eval):1: can't create temp file for here document: operation not permitted"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 39
+  }
+}

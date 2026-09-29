@@ -1,0 +1,21 @@
+{
+  "tier": "complex",
+  "issuer": "rrnAphohgtpkUPVji2fdffbNu7XeJaLRPM",
+  "checkedAt": "2026-09-29T03:55:02.635Z",
+  "status": "fail",
+  "criteria": [
+    {
+      "id": "result_json",
+      "pass": false,
+      "detail": "result.json not found (or not a regular file inside the project)"
+    },
+    {
+      "id": "issuance_exists",
+      "pass": false,
+      "detail": "no MPTokenIssuance owned by the issuer"
+    }
+  ],
+  "observed": {
+    "txCount": 1
+  }
+}

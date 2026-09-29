@@ -1,0 +1,22 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [
+      "andard. ## 4.4.2 (2025-09-25) ### Fixed * improve Batch inner transaction typing ## 4.4.1 (2025-08-29) ### Fixed * Prevent Node.js process termination when WebSocket send() errors after the connection is closed. ## 4.4.0 (2025-07-29) ### Added curl: (56) Failure writing output to destination, passed 16366 returne"
+    ],
+    "sandboxDenials": [
+      "zsh:1: can't create temp file for here document: operation not permitted zsh:4: can't create temp file for here document: operation not permitted zsh:7: can't create temp file for here document: operation not ",
+      "python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-LCtN1VvZ' (errno=Operation not permitted) python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-v21bOnlO' (errno=Operation not pe",
+      "python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-75wKia25' (errno=Operation not permitted) python3: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-RSlzRoCd' (errno=Operation not pe",
+      "git: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-SfKCn32N' (errno=Operation not permitted) git: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-FHU3gsnw' (errno=Operation not permit",
+      ".md test/runtime.test.ts test/issuer.test.ts git: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-FSRpBJqP' (errno=Operation not permitted) git: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-kQpdbXcw' (errno=Operation not permit",
+      "git: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-UYiIrSGw' (errno=Operation not permitted) git: error: couldn't create cache file '/var/folders/dl/tpw6wbvd18z24n2q2842lb500000gn/T/xcrun_db-Xw75LSgD' (errno=Operation not permit"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 31
+  }
+}

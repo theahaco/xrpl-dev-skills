@@ -1,0 +1,52 @@
+{
+  "ledgerHash": "4FC7E1CA1DA83770E0C6D7652AB20BDED70DBB09FD55B03386278719FE1418B3",
+  "ledgerIndex": 21134237,
+  "issuance": {
+    "Flags": 102,
+    "Issuer": "rGDjhvNHdxyhRQRSsukGXnkNiZvyReN4vv",
+    "LedgerEntryType": "MPTokenIssuance",
+    "MaximumAmount": "1000000000000",
+    "OutstandingAmount": "1200",
+    "OwnerNode": "0",
+    "PreviousTxnID": "F6B2F1BD13D7A88DCFFFE3141271C003096621342CAC9736166E83C96C2E0D9B",
+    "PreviousTxnLgrSeq": 21134209,
+    "Sequence": 21133947,
+    "index": "D9E6B78E6F40B3F73342A17A3859A393D46C6BD940415D635872C86FED34CD40",
+    "mpt_issuance_id": "01427A7BA6F1FE98BE3368F28E094610AF1FF8110CC8B1A4"
+  },
+  "holders": {
+    "rPAmhiCuZvLXqAW3Q5cHTkpGMpzXcLVncK": {
+      "Account": "rPAmhiCuZvLXqAW3Q5cHTkpGMpzXcLVncK",
+      "Flags": 2,
+      "LedgerEntryType": "MPToken",
+      "MPTAmount": "500",
+      "MPTokenIssuanceID": "01427A7BA6F1FE98BE3368F28E094610AF1FF8110CC8B1A4",
+      "OwnerNode": "0",
+      "PreviousTxnID": "2DA674165EA3CBB4E6372030F2305D8C16C7877686CB3E27138EB0E0471DE7B6",
+      "PreviousTxnLgrSeq": 21134203,
+      "index": "40B64DF2FA421E7FAA373EC3C830744062974EB21A08FAEA637776722912C2E7"
+    },
+    "rqumrrzqT9RMUNzKGVky247tag1zZdcs8": {
+      "Account": "rqumrrzqT9RMUNzKGVky247tag1zZdcs8",
+      "Flags": 3,
+      "LedgerEntryType": "MPToken",
+      "MPTAmount": "700",
+      "MPTokenIssuanceID": "01427A7BA6F1FE98BE3368F28E094610AF1FF8110CC8B1A4",
+      "OwnerNode": "0",
+      "PreviousTxnID": "99204B3F99B3322FD47CA8D33A89749FF4093AB1F86CAFC774611BFCC8139031",
+      "PreviousTxnLgrSeq": 21134187,
+      "index": "79B8940D3CA7D3A32BAD542BC5047360A9C337BFD951132B41C4D423DD9F3D18"
+    },
+    "rwcRnM9ZgPSkggXstyPXtvBz33yqySooXE": {
+      "Account": "rwcRnM9ZgPSkggXstyPXtvBz33yqySooXE",
+      "Flags": 0,
+      "LedgerEntryType": "MPToken",
+      "MPTokenIssuanceID": "01427A7BA6F1FE98BE3368F28E094610AF1FF8110CC8B1A4",
+      "OwnerNode": "0",
+      "PreviousTxnID": "36A37DE32334A0654B7D9C7AEC38E49B81A2F809D9A8AEA8E4D5D3190862A0AC",
+      "PreviousTxnLgrSeq": 21134217,
+      "index": "9941C51369F5727E20BEF56CFA7970EB36DE2247BD8DA3EF06D618116A2C7399",
+      "MPTAmount": "0"
+    }
+  }
+}

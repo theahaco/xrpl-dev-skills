@@ -1,0 +1,376 @@
+0 verbose cli /opt/homebrew/Cellar/node/25.9.0_3/bin/node /opt/homebrew/bin/npm
+1 info using npm@11.12.1
+2 info using node@v25.9.0
+3 silly config load:file:/opt/homebrew/lib/node_modules/npm/npmrc
+4 silly config load:file:/private/tmp/ws/3be0fe6f0834/project/.npmrc
+5 silly config load:file:/private/tmp/ws/3be0fe6f0834/home/.npmrc
+6 silly config load:file:/private/tmp/ws/3be0fe6f0834/home/.npm-global/etc/npmrc
+7 verbose title npm install
+8 verbose argv "install" "--cache" ".npm-cache"
+9 verbose logfile logs-max:10 dir:/private/tmp/ws/3be0fe6f0834/project/.npm-cache/_logs/2026-09-29T04_10_59_536Z-
+10 verbose logfile /private/tmp/ws/3be0fe6f0834/project/.npm-cache/_logs/2026-09-29T04_10_59_536Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+13 silly idealTree buildDeps
+14 silly fetch manifest xrpl@5.3.0
+15 silly packumentCache full:https://registry.npmjs.org/xrpl cache-miss
+16 http fetch GET 200 https://registry.npmjs.org/xrpl 147ms (cache miss)
+17 silly packumentCache full:https://registry.npmjs.org/xrpl set size:undefined disposed:false
+18 silly fetch manifest typescript@7.0.2
+19 silly packumentCache full:https://registry.npmjs.org/typescript cache-miss
+20 http fetch GET 200 https://registry.npmjs.org/typescript 216ms (cache miss)
+21 silly packumentCache full:https://registry.npmjs.org/typescript set size:undefined disposed:false
+22 silly fetch manifest @types/node@26.6.3
+23 silly packumentCache full:https://registry.npmjs.org/@types%2fnode cache-miss
+24 http fetch GET 200 https://registry.npmjs.org/@types%2fnode 152ms (cache miss)
+25 silly packumentCache full:https://registry.npmjs.org/@types%2fnode set size:undefined disposed:false
+26 silly placeDep ROOT @types/node@26.6.3 OK for: xrpl-testnet-mpt-demo@1.0.0 want: 26.6.3
+27 silly placeDep ROOT typescript@7.0.2 OK for: xrpl-testnet-mpt-demo@1.0.0 want: 7.0.2
+28 silly placeDep ROOT xrpl@5.3.0 OK for: xrpl-testnet-mpt-demo@1.0.0 want: 5.3.0
+29 silly fetch manifest undici-types@~8.9.0
+30 silly packumentCache full:https://registry.npmjs.org/undici-types cache-miss
+31 silly fetch manifest @typescript/typescript-aix-ppc64@7.0.2
+32 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-aix-ppc64 cache-miss
+33 silly fetch manifest @typescript/typescript-linux-arm@7.0.2
+34 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-linux-arm cache-miss
+35 silly fetch manifest @typescript/typescript-linux-x64@7.0.2
+36 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-linux-x64 cache-miss
+37 silly fetch manifest @typescript/typescript-sunos-x64@7.0.2
+38 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-sunos-x64 cache-miss
+39 silly fetch manifest @typescript/typescript-win32-x64@7.0.2
+40 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-win32-x64 cache-miss
+41 silly fetch manifest @typescript/typescript-darwin-x64@7.0.2
+42 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-darwin-x64 cache-miss
+43 silly fetch manifest @typescript/typescript-netbsd-x64@7.0.2
+44 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-netbsd-x64 cache-miss
+45 silly fetch manifest @typescript/typescript-freebsd-x64@7.0.2
+46 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-freebsd-x64 cache-miss
+47 silly fetch manifest @typescript/typescript-linux-arm64@7.0.2
+48 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-linux-arm64 cache-miss
+49 silly fetch manifest @typescript/typescript-linux-ppc64@7.0.2
+50 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-linux-ppc64 cache-miss
+51 silly fetch manifest @typescript/typescript-linux-s390x@7.0.2
+52 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-linux-s390x cache-miss
+53 silly fetch manifest @typescript/typescript-openbsd-x64@7.0.2
+54 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-openbsd-x64 cache-miss
+55 silly fetch manifest @typescript/typescript-win32-arm64@7.0.2
+56 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-win32-arm64 cache-miss
+57 silly fetch manifest @typescript/typescript-darwin-arm64@7.0.2
+58 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-darwin-arm64 cache-miss
+59 silly fetch manifest @typescript/typescript-netbsd-arm64@7.0.2
+60 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-netbsd-arm64 cache-miss
+61 silly fetch manifest @typescript/typescript-freebsd-arm64@7.0.2
+62 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-freebsd-arm64 cache-miss
+63 http fetch GET 200 https://registry.npmjs.org/undici-types 27ms (cache miss)
+64 silly packumentCache full:https://registry.npmjs.org/undici-types set size:undefined disposed:false
+65 silly fetch manifest @typescript/typescript-linux-loong64@7.0.2
+66 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-linux-loong64 cache-miss
+67 http fetch GET 200 https://registry.npmjs.org/@typescript%2ftypescript-darwin-x64 57ms (cache miss)
+68 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-darwin-x64 set size:undefined disposed:false
+69 silly fetch manifest @typescript/typescript-linux-riscv64@7.0.2
+70 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-linux-riscv64 cache-miss
+71 http fetch GET 200 https://registry.npmjs.org/@typescript%2ftypescript-sunos-x64 67ms (cache miss)
+72 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-sunos-x64 set size:undefined disposed:false
+73 silly fetch manifest @typescript/typescript-openbsd-arm64@7.0.2
+74 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-openbsd-arm64 cache-miss
+75 http fetch GET 200 https://registry.npmjs.org/@typescript%2ftypescript-aix-ppc64 69ms (cache miss)
+76 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-aix-ppc64 set size:undefined disposed:false
+77 silly fetch manifest @typescript/typescript-linux-mips64el@7.0.2
+78 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-linux-mips64el cache-miss
+79 http fetch GET 200 https://registry.npmjs.org/@typescript%2ftypescript-freebsd-x64 68ms (cache miss)
+80 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-freebsd-x64 set size:undefined disposed:false
+81 silly fetch manifest @scure/bip32@^2.0.1
+82 silly packumentCache full:https://registry.npmjs.org/@scure%2fbip32 cache-miss
+83 http fetch GET 200 https://registry.npmjs.org/@typescript%2ftypescript-linux-ppc64 69ms (cache miss)
+84 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-linux-ppc64 set size:undefined disposed:false
+85 silly fetch manifest @scure/bip39@^2.0.1
+86 silly packumentCache full:https://registry.npmjs.org/@scure%2fbip39 cache-miss
+87 http fetch GET 200 https://registry.npmjs.org/@typescript%2ftypescript-linux-arm 72ms (cache miss)
+88 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-linux-arm set size:undefined disposed:false
+89 silly fetch manifest bignumber.js@^10.0.2
+90 silly packumentCache full:https://registry.npmjs.org/bignumber.js cache-miss
+91 http fetch GET 200 https://registry.npmjs.org/@typescript%2ftypescript-win32-arm64 74ms (cache miss)
+92 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-win32-arm64 set size:undefined disposed:false
+93 silly fetch manifest eventemitter3@^5.0.1
+94 silly packumentCache full:https://registry.npmjs.org/eventemitter3 cache-miss
+95 http fetch GET 200 https://registry.npmjs.org/@typescript%2ftypescript-openbsd-x64 75ms (cache miss)
+96 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-openbsd-x64 set size:undefined disposed:false
+97 silly fetch manifest ripple-keypairs@^3.1.0
+98 silly packumentCache full:https://registry.npmjs.org/ripple-keypairs cache-miss
+99 http fetch GET 200 https://registry.npmjs.org/@typescript%2ftypescript-netbsd-x64 77ms (cache miss)
+100 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-netbsd-x64 set size:undefined disposed:false
+101 silly fetch manifest @xrplf/isomorphic@^1.0.2
+102 silly packumentCache full:https://registry.npmjs.org/@xrplf%2fisomorphic cache-miss
+103 http fetch GET 200 https://registry.npmjs.org/@typescript%2ftypescript-darwin-arm64 80ms (cache miss)
+104 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-darwin-arm64 set size:undefined disposed:false
+105 silly fetch manifest @xrplf/mpt-crypto@^0.1.1
+106 silly packumentCache full:https://registry.npmjs.org/@xrplf%2fmpt-crypto cache-miss
+107 http fetch GET 200 https://registry.npmjs.org/@typescript%2ftypescript-linux-s390x 83ms (cache miss)
+108 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-linux-s390x set size:undefined disposed:false
+109 silly fetch manifest ripple-binary-codec@^2.11.0
+110 silly packumentCache full:https://registry.npmjs.org/ripple-binary-codec cache-miss
+111 http fetch GET 200 https://registry.npmjs.org/@typescript%2ftypescript-freebsd-arm64 83ms (cache miss)
+112 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-freebsd-arm64 set size:undefined disposed:false
+113 silly fetch manifest ripple-address-codec@^5.0.1
+114 silly packumentCache full:https://registry.npmjs.org/ripple-address-codec cache-miss
+115 http fetch GET 200 https://registry.npmjs.org/@typescript%2ftypescript-linux-loong64 69ms (cache miss)
+116 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-linux-loong64 set size:undefined disposed:false
+117 silly fetch manifest @xrplf/secret-numbers@^3.0.0
+118 silly packumentCache full:https://registry.npmjs.org/@xrplf%2fsecret-numbers cache-miss
+119 http fetch GET 200 https://registry.npmjs.org/@typescript%2ftypescript-openbsd-arm64 29ms (cache miss)
+120 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-openbsd-arm64 set size:undefined disposed:false
+121 silly fetch manifest fast-json-stable-stringify@^2.1.0
+122 silly packumentCache full:https://registry.npmjs.org/fast-json-stable-stringify cache-miss
+123 http fetch GET 200 https://registry.npmjs.org/@typescript%2ftypescript-linux-riscv64 43ms (cache miss)
+124 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-linux-riscv64 set size:undefined disposed:false
+125 http fetch GET 200 https://registry.npmjs.org/@scure%2fbip32 34ms (cache miss)
+126 silly packumentCache full:https://registry.npmjs.org/@scure%2fbip32 set size:undefined disposed:false
+127 http fetch GET 200 https://registry.npmjs.org/@scure%2fbip39 35ms (cache miss)
+128 silly packumentCache full:https://registry.npmjs.org/@scure%2fbip39 set size:undefined disposed:false
+129 http fetch GET 200 https://registry.npmjs.org/eventemitter3 30ms (cache miss)
+130 silly packumentCache full:https://registry.npmjs.org/eventemitter3 set size:undefined disposed:false
+131 http fetch GET 200 https://registry.npmjs.org/bignumber.js 33ms (cache miss)
+132 silly packumentCache full:https://registry.npmjs.org/bignumber.js set size:undefined disposed:false
+133 http fetch GET 200 https://registry.npmjs.org/ripple-keypairs 30ms (cache miss)
+134 silly packumentCache full:https://registry.npmjs.org/ripple-keypairs set size:undefined disposed:false
+135 http fetch GET 200 https://registry.npmjs.org/@xrplf%2fisomorphic 31ms (cache miss)
+136 silly packumentCache full:https://registry.npmjs.org/@xrplf%2fisomorphic set size:undefined disposed:false
+137 http fetch GET 200 https://registry.npmjs.org/@typescript%2ftypescript-linux-arm64 110ms (cache miss)
+138 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-linux-arm64 set size:undefined disposed:false
+139 http fetch GET 200 https://registry.npmjs.org/@xrplf%2fmpt-crypto 31ms (cache miss)
+140 silly packumentCache full:https://registry.npmjs.org/@xrplf%2fmpt-crypto set size:undefined disposed:false
+141 http fetch GET 200 https://registry.npmjs.org/ripple-binary-codec 37ms (cache miss)
+142 silly packumentCache full:https://registry.npmjs.org/ripple-binary-codec set size:undefined disposed:false
+143 http fetch GET 200 https://registry.npmjs.org/@typescript%2ftypescript-netbsd-arm64 121ms (cache miss)
+144 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-netbsd-arm64 set size:undefined disposed:false
+145 http fetch GET 200 https://registry.npmjs.org/ripple-address-codec 39ms (cache miss)
+146 silly packumentCache full:https://registry.npmjs.org/ripple-address-codec set size:undefined disposed:false
+147 http fetch GET 200 https://registry.npmjs.org/fast-json-stable-stringify 27ms (cache miss)
+148 silly packumentCache full:https://registry.npmjs.org/fast-json-stable-stringify set size:undefined disposed:false
+149 http fetch GET 200 https://registry.npmjs.org/@xrplf%2fsecret-numbers 28ms (cache miss)
+150 silly packumentCache full:https://registry.npmjs.org/@xrplf%2fsecret-numbers set size:undefined disposed:false
+151 http fetch GET 200 https://registry.npmjs.org/@typescript%2ftypescript-win32-x64 131ms (cache miss)
+152 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-win32-x64 set size:undefined disposed:false
+153 http fetch GET 200 https://registry.npmjs.org/@typescript%2ftypescript-linux-x64 152ms (cache miss)
+154 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-linux-x64 set size:undefined disposed:false
+155 http fetch GET 200 https://registry.npmjs.org/@typescript%2ftypescript-linux-mips64el 109ms (cache miss)
+156 silly packumentCache full:https://registry.npmjs.org/@typescript%2ftypescript-linux-mips64el set size:undefined disposed:false
+157 silly placeDep ROOT undici-types@8.9.0 OK for: @types/node@26.6.3 want: ~8.9.0
+158 silly placeDep ROOT @typescript/typescript-aix-ppc64@7.0.2 OK for: typescript@7.0.2 want: 7.0.2
+159 silly placeDep ROOT @typescript/typescript-darwin-arm64@7.0.2 OK for: typescript@7.0.2 want: 7.0.2
+160 silly placeDep ROOT @typescript/typescript-darwin-x64@7.0.2 OK for: typescript@7.0.2 want: 7.0.2
+161 silly placeDep ROOT @typescript/typescript-freebsd-arm64@7.0.2 OK for: typescript@7.0.2 want: 7.0.2
+162 silly placeDep ROOT @typescript/typescript-freebsd-x64@7.0.2 OK for: typescript@7.0.2 want: 7.0.2
+163 silly placeDep ROOT @typescript/typescript-linux-arm@7.0.2 OK for: typescript@7.0.2 want: 7.0.2
+164 silly placeDep ROOT @typescript/typescript-linux-arm64@7.0.2 OK for: typescript@7.0.2 want: 7.0.2
+165 silly placeDep ROOT @typescript/typescript-linux-loong64@7.0.2 OK for: typescript@7.0.2 want: 7.0.2
+166 silly placeDep ROOT @typescript/typescript-linux-mips64el@7.0.2 OK for: typescript@7.0.2 want: 7.0.2
+167 silly placeDep ROOT @typescript/typescript-linux-ppc64@7.0.2 OK for: typescript@7.0.2 want: 7.0.2
+168 silly placeDep ROOT @typescript/typescript-linux-riscv64@7.0.2 OK for: typescript@7.0.2 want: 7.0.2
+169 silly placeDep ROOT @typescript/typescript-linux-s390x@7.0.2 OK for: typescript@7.0.2 want: 7.0.2
+170 silly placeDep ROOT @typescript/typescript-linux-x64@7.0.2 OK for: typescript@7.0.2 want: 7.0.2
+171 silly placeDep ROOT @typescript/typescript-netbsd-arm64@7.0.2 OK for: typescript@7.0.2 want: 7.0.2
+172 silly placeDep ROOT @typescript/typescript-netbsd-x64@7.0.2 OK for: typescript@7.0.2 want: 7.0.2
+173 silly placeDep ROOT @typescript/typescript-openbsd-arm64@7.0.2 OK for: typescript@7.0.2 want: 7.0.2
+174 silly placeDep ROOT @typescript/typescript-openbsd-x64@7.0.2 OK for: typescript@7.0.2 want: 7.0.2
+175 silly placeDep ROOT @typescript/typescript-sunos-x64@7.0.2 OK for: typescript@7.0.2 want: 7.0.2
+176 silly placeDep ROOT @typescript/typescript-win32-arm64@7.0.2 OK for: typescript@7.0.2 want: 7.0.2
+177 silly placeDep ROOT @typescript/typescript-win32-x64@7.0.2 OK for: typescript@7.0.2 want: 7.0.2
+178 silly placeDep ROOT @scure/bip32@2.4.0 OK for: xrpl@5.3.0 want: ^2.0.1
+179 silly placeDep ROOT @scure/bip39@2.4.0 OK for: xrpl@5.3.0 want: ^2.0.1
+180 silly placeDep ROOT @xrplf/isomorphic@1.0.2 OK for: xrpl@5.3.0 want: ^1.0.2
+181 silly placeDep ROOT @xrplf/mpt-crypto@0.1.1 OK for: xrpl@5.3.0 want: ^0.1.1
+182 silly placeDep ROOT @xrplf/secret-numbers@3.0.0 OK for: xrpl@5.3.0 want: ^3.0.0
+183 silly placeDep ROOT bignumber.js@10.0.2 OK for: xrpl@5.3.0 want: ^10.0.2
+184 silly placeDep ROOT eventemitter3@5.0.4 OK for: xrpl@5.3.0 want: ^5.0.1
+185 silly placeDep ROOT fast-json-stable-stringify@2.1.0 OK for: xrpl@5.3.0 want: ^2.1.0
+186 silly placeDep ROOT ripple-address-codec@5.0.1 OK for: xrpl@5.3.0 want: ^5.0.1
+187 silly placeDep ROOT ripple-binary-codec@2.11.0 OK for: xrpl@5.3.0 want: ^2.11.0
+188 silly placeDep ROOT ripple-keypairs@3.1.0 OK for: xrpl@5.3.0 want: ^3.1.0
+189 silly fetch manifest @scure/base@2.4.0
+190 silly packumentCache full:https://registry.npmjs.org/@scure%2fbase cache-miss
+191 silly fetch manifest @noble/curves@2.4.0
+192 silly packumentCache full:https://registry.npmjs.org/@noble%2fcurves cache-miss
+193 silly fetch manifest @noble/hashes@2.4.0
+194 silly packumentCache full:https://registry.npmjs.org/@noble%2fhashes cache-miss
+195 silly fetch manifest @noble/hashes@2.4.0
+196 silly packumentCache full:https://registry.npmjs.org/@noble%2fhashes cache-miss
+197 silly fetch manifest @noble/hashes@^2.0.1
+198 silly packumentCache full:https://registry.npmjs.org/@noble%2fhashes cache-miss
+199 silly fetch manifest eventemitter3@5.0.1
+200 silly packumentCache full:https://registry.npmjs.org/eventemitter3 cache-miss
+201 silly fetch manifest ws@^8.20.0
+202 silly packumentCache full:https://registry.npmjs.org/ws cache-miss
+203 silly fetch manifest ripple-keypairs@^3.0.0
+204 silly packumentCache full:https://registry.npmjs.org/ripple-keypairs cache-miss
+205 silly fetch manifest @scure/base@^2.0.0
+206 silly packumentCache full:https://registry.npmjs.org/@scure%2fbase cache-miss
+207 silly fetch manifest @noble/curves@^2.0.1
+208 silly packumentCache full:https://registry.npmjs.org/@noble%2fcurves cache-miss
+209 http cache https://registry.npmjs.org/eventemitter3 5ms (cache hit)
+210 silly packumentCache full:https://registry.npmjs.org/eventemitter3 set size:92292 disposed:false
+211 http cache https://registry.npmjs.org/ripple-keypairs 5ms (cache hit)
+212 silly packumentCache full:https://registry.npmjs.org/ripple-keypairs set size:138113 disposed:false
+213 http fetch GET 200 https://registry.npmjs.org/@scure%2fbase 29ms (cache miss)
+214 silly packumentCache full:https://registry.npmjs.org/@scure%2fbase set size:undefined disposed:false
+215 http fetch GET 200 https://registry.npmjs.org/@scure%2fbase 29ms (cache miss)
+216 silly packumentCache full:https://registry.npmjs.org/@scure%2fbase set size:undefined disposed:false
+217 http fetch GET 200 https://registry.npmjs.org/ws 37ms (cache miss)
+218 silly packumentCache full:https://registry.npmjs.org/ws set size:undefined disposed:false
+219 http fetch GET 200 https://registry.npmjs.org/@noble%2fcurves 38ms (cache miss)
+220 silly packumentCache full:https://registry.npmjs.org/@noble%2fcurves set size:undefined disposed:false
+221 http fetch GET 200 https://registry.npmjs.org/@noble%2fcurves 39ms (cache miss)
+222 silly packumentCache full:https://registry.npmjs.org/@noble%2fcurves set size:undefined disposed:false
+223 http fetch GET 200 https://registry.npmjs.org/@noble%2fhashes 43ms (cache miss)
+224 silly packumentCache full:https://registry.npmjs.org/@noble%2fhashes set size:undefined disposed:false
+225 http fetch GET 200 https://registry.npmjs.org/@noble%2fhashes 44ms (cache miss)
+226 silly packumentCache full:https://registry.npmjs.org/@noble%2fhashes set size:undefined disposed:false
+227 http fetch GET 200 https://registry.npmjs.org/@noble%2fhashes 45ms (cache miss)
+228 silly packumentCache full:https://registry.npmjs.org/@noble%2fhashes set size:undefined disposed:false
+229 silly placeDep ROOT @noble/curves@2.4.0 OK for: @scure/bip32@2.4.0 want: 2.4.0
+230 silly placeDep ROOT @noble/hashes@2.4.0 OK for: @scure/bip32@2.4.0 want: 2.4.0
+231 silly placeDep ROOT @scure/base@2.4.0 OK for: @scure/bip32@2.4.0 want: 2.4.0
+232 silly fetch manifest bufferutil@^4.0.1
+233 silly packumentCache full:https://registry.npmjs.org/bufferutil cache-miss
+234 http fetch GET 200 https://registry.npmjs.org/bufferutil 19ms (cache miss)
+235 silly packumentCache full:https://registry.npmjs.org/bufferutil set size:undefined disposed:false
+236 silly fetch manifest utf-8-validate@>=5.0.2
+237 silly packumentCache full:https://registry.npmjs.org/utf-8-validate cache-miss
+238 http fetch GET 200 https://registry.npmjs.org/utf-8-validate 21ms (cache miss)
+239 silly packumentCache full:https://registry.npmjs.org/utf-8-validate set size:undefined disposed:false
+240 silly placeDep node_modules/@xrplf/isomorphic eventemitter3@5.0.1 OK for: @xrplf/isomorphic@1.0.2 want: 5.0.1
+241 silly placeDep ROOT ws@8.22.0 OK for: @xrplf/isomorphic@1.0.2 want: ^8.20.0
+242 silly reify moves {}
+243 silly audit bulk request {
+243 silly audit   '@types/node': [ '26.6.3' ],
+243 silly audit   typescript: [ '7.0.2' ],
+243 silly audit   xrpl: [ '5.3.0' ],
+243 silly audit   'undici-types': [ '8.9.0' ],
+243 silly audit   '@typescript/typescript-aix-ppc64': [ '7.0.2' ],
+243 silly audit   '@typescript/typescript-darwin-arm64': [ '7.0.2' ],
+243 silly audit   '@typescript/typescript-darwin-x64': [ '7.0.2' ],
+243 silly audit   '@typescript/typescript-freebsd-arm64': [ '7.0.2' ],
+243 silly audit   '@typescript/typescript-freebsd-x64': [ '7.0.2' ],
+243 silly audit   '@typescript/typescript-linux-arm': [ '7.0.2' ],
+243 silly audit   '@typescript/typescript-linux-arm64': [ '7.0.2' ],
+243 silly audit   '@typescript/typescript-linux-loong64': [ '7.0.2' ],
+243 silly audit   '@typescript/typescript-linux-mips64el': [ '7.0.2' ],
+243 silly audit   '@typescript/typescript-linux-ppc64': [ '7.0.2' ],
+243 silly audit   '@typescript/typescript-linux-riscv64': [ '7.0.2' ],
+243 silly audit   '@typescript/typescript-linux-s390x': [ '7.0.2' ],
+243 silly audit   '@typescript/typescript-linux-x64': [ '7.0.2' ],
+243 silly audit   '@typescript/typescript-netbsd-arm64': [ '7.0.2' ],
+243 silly audit   '@typescript/typescript-netbsd-x64': [ '7.0.2' ],
+243 silly audit   '@typescript/typescript-openbsd-arm64': [ '7.0.2' ],
+243 silly audit   '@typescript/typescript-openbsd-x64': [ '7.0.2' ],
+243 silly audit   '@typescript/typescript-sunos-x64': [ '7.0.2' ],
+243 silly audit   '@typescript/typescript-win32-arm64': [ '7.0.2' ],
+243 silly audit   '@typescript/typescript-win32-x64': [ '7.0.2' ],
+243 silly audit   '@scure/bip32': [ '2.4.0' ],
+243 silly audit   '@scure/bip39': [ '2.4.0' ],
+243 silly audit   '@xrplf/isomorphic': [ '1.0.2' ],
+243 silly audit   '@xrplf/mpt-crypto': [ '0.1.1' ],
+243 silly audit   '@xrplf/secret-numbers': [ '3.0.0' ],
+243 silly audit   'bignumber.js': [ '10.0.2' ],
+243 silly audit   eventemitter3: [ '5.0.4', '5.0.1' ],
+243 silly audit   'fast-json-stable-stringify': [ '2.1.0' ],
+243 silly audit   'ripple-address-codec': [ '5.0.1' ],
+243 silly audit   'ripple-binary-codec': [ '2.11.0' ],
+243 silly audit   'ripple-keypairs': [ '3.1.0' ],
+243 silly audit   '@noble/curves': [ '2.4.0' ],
+243 silly audit   '@noble/hashes': [ '2.4.0' ],
+243 silly audit   '@scure/base': [ '2.4.0' ],
+243 silly audit   ws: [ '8.22.0' ]
+243 silly audit }
+244 http cache ws@https://registry.npmjs.org/ws/-/ws-8.22.0.tgz 0ms (cache hit)
+245 http cache @scure/base@https://registry.npmjs.org/@scure/base/-/base-2.4.0.tgz 0ms (cache hit)
+246 http cache @noble/hashes@https://registry.npmjs.org/@noble/hashes/-/hashes-2.4.0.tgz 0ms (cache hit)
+247 http cache ripple-keypairs@https://registry.npmjs.org/ripple-keypairs/-/ripple-keypairs-3.1.0.tgz 0ms (cache hit)
+248 http cache ripple-binary-codec@https://registry.npmjs.org/ripple-binary-codec/-/ripple-binary-codec-2.11.0.tgz 0ms (cache hit)
+249 http cache @noble/curves@https://registry.npmjs.org/@noble/curves/-/curves-2.4.0.tgz 0ms (cache hit)
+250 http cache ripple-address-codec@https://registry.npmjs.org/ripple-address-codec/-/ripple-address-codec-5.0.1.tgz 0ms (cache hit)
+251 http cache fast-json-stable-stringify@https://registry.npmjs.org/fast-json-stable-stringify/-/fast-json-stable-stringify-2.1.0.tgz 0ms (cache hit)
+252 http cache eventemitter3@https://registry.npmjs.org/eventemitter3/-/eventemitter3-5.0.4.tgz 0ms (cache hit)
+253 http cache bignumber.js@https://registry.npmjs.org/bignumber.js/-/bignumber.js-10.0.2.tgz 0ms (cache hit)
+254 http cache @xrplf/secret-numbers@https://registry.npmjs.org/@xrplf/secret-numbers/-/secret-numbers-3.0.0.tgz 0ms (cache hit)
+255 http cache @xrplf/mpt-crypto@https://registry.npmjs.org/@xrplf/mpt-crypto/-/mpt-crypto-0.1.1.tgz 0ms (cache hit)
+256 http cache @scure/bip39@https://registry.npmjs.org/@scure/bip39/-/bip39-2.4.0.tgz 0ms (cache hit)
+257 http cache @xrplf/isomorphic@https://registry.npmjs.org/@xrplf/isomorphic/-/isomorphic-1.0.2.tgz 0ms (cache hit)
+258 http cache @scure/bip32@https://registry.npmjs.org/@scure/bip32/-/bip32-2.4.0.tgz 0ms (cache hit)
+259 http cache @typescript/typescript-darwin-arm64@https://registry.npmjs.org/@typescript/typescript-darwin-arm64/-/typescript-darwin-arm64-7.0.2.tgz 0ms (cache hit)
+260 http cache undici-types@https://registry.npmjs.org/undici-types/-/undici-types-8.9.0.tgz 0ms (cache hit)
+261 http cache xrpl@https://registry.npmjs.org/xrpl/-/xrpl-5.3.0.tgz 0ms (cache hit)
+262 http cache typescript@https://registry.npmjs.org/typescript/-/typescript-7.0.2.tgz 0ms (cache hit)
+263 http cache @types/node@https://registry.npmjs.org/@types/node/-/node-26.6.3.tgz 0ms (cache hit)
+264 http cache eventemitter3@https://registry.npmjs.org/eventemitter3/-/eventemitter3-5.0.1.tgz 0ms (cache hit)
+265 silly tarball no local data for ws@https://registry.npmjs.org/ws/-/ws-8.22.0.tgz. Extracting by manifest.
+266 silly tarball no local data for @scure/base@https://registry.npmjs.org/@scure/base/-/base-2.4.0.tgz. Extracting by manifest.
+267 silly tarball no local data for @noble/hashes@https://registry.npmjs.org/@noble/hashes/-/hashes-2.4.0.tgz. Extracting by manifest.
+268 silly tarball no local data for ripple-keypairs@https://registry.npmjs.org/ripple-keypairs/-/ripple-keypairs-3.1.0.tgz. Extracting by manifest.
+269 silly tarball no local data for ripple-binary-codec@https://registry.npmjs.org/ripple-binary-codec/-/ripple-binary-codec-2.11.0.tgz. Extracting by manifest.
+270 silly tarball no local data for @noble/curves@https://registry.npmjs.org/@noble/curves/-/curves-2.4.0.tgz. Extracting by manifest.
+271 silly tarball no local data for ripple-address-codec@https://registry.npmjs.org/ripple-address-codec/-/ripple-address-codec-5.0.1.tgz. Extracting by manifest.
+272 silly tarball no local data for fast-json-stable-stringify@https://registry.npmjs.org/fast-json-stable-stringify/-/fast-json-stable-stringify-2.1.0.tgz. Extracting by manifest.
+273 silly tarball no local data for eventemitter3@https://registry.npmjs.org/eventemitter3/-/eventemitter3-5.0.4.tgz. Extracting by manifest.
+274 silly tarball no local data for bignumber.js@https://registry.npmjs.org/bignumber.js/-/bignumber.js-10.0.2.tgz. Extracting by manifest.
+275 silly tarball no local data for @xrplf/secret-numbers@https://registry.npmjs.org/@xrplf/secret-numbers/-/secret-numbers-3.0.0.tgz. Extracting by manifest.
+276 silly tarball no local data for @xrplf/mpt-crypto@https://registry.npmjs.org/@xrplf/mpt-crypto/-/mpt-crypto-0.1.1.tgz. Extracting by manifest.
+277 silly tarball no local data for @scure/bip39@https://registry.npmjs.org/@scure/bip39/-/bip39-2.4.0.tgz. Extracting by manifest.
+278 silly tarball no local data for @xrplf/isomorphic@https://registry.npmjs.org/@xrplf/isomorphic/-/isomorphic-1.0.2.tgz. Extracting by manifest.
+279 silly tarball no local data for @scure/bip32@https://registry.npmjs.org/@scure/bip32/-/bip32-2.4.0.tgz. Extracting by manifest.
+280 silly tarball no local data for @typescript/typescript-darwin-arm64@https://registry.npmjs.org/@typescript/typescript-darwin-arm64/-/typescript-darwin-arm64-7.0.2.tgz. Extracting by manifest.
+281 silly tarball no local data for undici-types@https://registry.npmjs.org/undici-types/-/undici-types-8.9.0.tgz. Extracting by manifest.
+282 silly tarball no local data for xrpl@https://registry.npmjs.org/xrpl/-/xrpl-5.3.0.tgz. Extracting by manifest.
+283 silly tarball no local data for typescript@https://registry.npmjs.org/typescript/-/typescript-7.0.2.tgz. Extracting by manifest.
+284 silly tarball no local data for @types/node@https://registry.npmjs.org/@types/node/-/node-26.6.3.tgz. Extracting by manifest.
+285 silly tarball no local data for eventemitter3@https://registry.npmjs.org/eventemitter3/-/eventemitter3-5.0.1.tgz. Extracting by manifest.
+286 http fetch GET 200 https://registry.npmjs.org/eventemitter3/-/eventemitter3-5.0.4.tgz 40ms (cache miss)
+287 http fetch GET 200 https://registry.npmjs.org/ripple-address-codec/-/ripple-address-codec-5.0.1.tgz 44ms (cache miss)
+288 http fetch GET 200 https://registry.npmjs.org/fast-json-stable-stringify/-/fast-json-stable-stringify-2.1.0.tgz 45ms (cache miss)
+289 http fetch GET 200 https://registry.npmjs.org/@scure/base/-/base-2.4.0.tgz 47ms (cache miss)
+290 http fetch GET 200 https://registry.npmjs.org/bignumber.js/-/bignumber.js-10.0.2.tgz 52ms (cache miss)
+291 http fetch GET 200 https://registry.npmjs.org/@scure/bip32/-/bip32-2.4.0.tgz 54ms (cache miss)
+292 http fetch GET 200 https://registry.npmjs.org/ws/-/ws-8.22.0.tgz 57ms (cache miss)
+293 http fetch GET 200 https://registry.npmjs.org/@scure/bip39/-/bip39-2.4.0.tgz 58ms (cache miss)
+294 http fetch GET 200 https://registry.npmjs.org/undici-types/-/undici-types-8.9.0.tgz 62ms (cache miss)
+295 http fetch GET 200 https://registry.npmjs.org/eventemitter3/-/eventemitter3-5.0.1.tgz 67ms (cache miss)
+296 http fetch GET 200 https://registry.npmjs.org/@noble/hashes/-/hashes-2.4.0.tgz 76ms (cache miss)
+297 http fetch GET 200 https://registry.npmjs.org/@xrplf/secret-numbers/-/secret-numbers-3.0.0.tgz 77ms (cache miss)
+298 http fetch GET 200 https://registry.npmjs.org/@noble/curves/-/curves-2.4.0.tgz 97ms (cache miss)
+299 http fetch GET 200 https://registry.npmjs.org/@xrplf/isomorphic/-/isomorphic-1.0.2.tgz 99ms (cache miss)
+300 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 105ms
+301 silly audit report {}
+302 http fetch GET 200 https://registry.npmjs.org/@types/node/-/node-26.6.3.tgz 104ms (cache miss)
+303 http fetch GET 200 https://registry.npmjs.org/@xrplf/mpt-crypto/-/mpt-crypto-0.1.1.tgz 107ms (cache miss)
+304 http fetch GET 200 https://registry.npmjs.org/ripple-keypairs/-/ripple-keypairs-3.1.0.tgz 108ms (cache miss)
+305 http fetch GET 200 https://registry.npmjs.org/ripple-binary-codec/-/ripple-binary-codec-2.11.0.tgz 169ms (cache miss)
+306 http fetch GET 200 https://registry.npmjs.org/typescript/-/typescript-7.0.2.tgz 195ms (cache miss)
+307 http fetch GET 200 https://registry.npmjs.org/@typescript/typescript-darwin-arm64/-/typescript-darwin-arm64-7.0.2.tgz 209ms (cache miss)
+308 http fetch GET 200 https://registry.npmjs.org/xrpl/-/xrpl-5.3.0.tgz 305ms (cache miss)
+309 silly ADD node_modules/ws
+310 silly ADD node_modules/@scure/base
+311 silly ADD node_modules/@noble/hashes
+312 silly ADD node_modules/@noble/curves
+313 silly ADD node_modules/ripple-keypairs
+314 silly ADD node_modules/ripple-binary-codec
+315 silly ADD node_modules/ripple-address-codec
+316 silly ADD node_modules/fast-json-stable-stringify
+317 silly ADD node_modules/eventemitter3
+318 silly ADD node_modules/bignumber.js
+319 silly ADD node_modules/@xrplf/secret-numbers
+320 silly ADD node_modules/@xrplf/mpt-crypto
+321 silly ADD node_modules/@xrplf/isomorphic
+322 silly ADD node_modules/@xrplf/isomorphic/node_modules/eventemitter3
+323 silly ADD node_modules/@scure/bip39
+324 silly ADD node_modules/@scure/bip32
+325 silly ADD node_modules/@typescript/typescript-darwin-arm64
+326 silly ADD node_modules/undici-types
+327 silly ADD node_modules/xrpl
+328 silly ADD node_modules/typescript
+329 silly ADD node_modules/@types/node
+330 verbose cwd /private/tmp/ws/3be0fe6f0834/project
+331 verbose os Darwin 25.5.0
+332 verbose node v25.9.0
+333 verbose npm  v11.12.1
+334 verbose exit 0
+335 info ok

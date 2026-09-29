@@ -1,0 +1,12 @@
+{
+  "hash": "4440878003C5C21C3A6B65B18D6336DC45E52F00048255E1FE6F6EABB089A4CC",
+  "prepared": {
+    "TransactionType": "MPTokenIssuanceCreate",
+    "Account": "rMCnv6DVfXrFfZsqPq9kqVAeGkVLAdn8wz",
+    "AssetScale": 0,
+    "Flags": 4,
+    "Sequence": 21134423,
+    "Fee": "12",
+    "LastLedgerSequence": 21134495
+  }
+}
