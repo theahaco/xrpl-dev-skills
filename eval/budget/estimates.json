@@ -1,0 +1,7 @@
+{
+  "runs": {},
+  "scoring": {
+    "claudeWeeklyPctPerRun": 0.2,
+    "source": "Uncalibrated placeholder. Smoke run (medium): the blind model scorer in --calibrate mode, every item scored, cost $0.26 to $0.31 at list price per run. Replace with the value measured in the calibration pass."
+  }
+}

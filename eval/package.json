@@ -1,0 +1,18 @@
+{
+  "name": "xrpl-ai-eval",
+  "private": true,
+  "type": "module",
+  "description": "Harness that stress-tests AI coding agents on XRPL MPT tasks with and without the xrpl-dev skill.",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "eval": "node harness/cli.ts",
+    "typecheck": "tsc --noEmit -p .",
+    "test": "node --test harness/*.test.ts"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.0",
+    "typescript": "7.0.2"
+  }
+}

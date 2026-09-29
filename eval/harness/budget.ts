@@ -1,0 +1,169 @@
+// Budget gate. A set (one agent, one tier: every arm and rep) starts only if
+// its whole projected cost, scoring included and padded by the margin, still
+// leaves the provider's weekly allowance above the floor. Opus and Sonnet both
+// draw on the one Claude allowance; the blind model scorer does too.
+import fs from "node:fs";
+import path from "node:path";
+import {
+  AGENTS,
+  type AgentName,
+  ARMS,
+  BUDGET_FLOOR_PCT,
+  BUDGET_MARGIN,
+  BUDGET_WARN_PCT,
+  ESTIMATES_PATH,
+  type Provider,
+  REPS,
+  RESULTS_DIR,
+  type Tier,
+} from "./config.ts";
+import { exec, randomHex, readJson, sleep, writeJson } from "./util.ts";
+
+export type QuotaReading = { provider: Provider; percentRemaining: number; windowId: string; resetsAt?: string; readAt: string };
+
+type QuotaJson = { providers?: Array<{ provider: string; windows?: Array<{ id: string; kind: string; percentRemaining: number; resetsAt?: string }> }> };
+
+export async function weeklyQuota(provider: Provider): Promise<QuotaReading> {
+  const res = await exec("quota-axi", ["--provider", provider, "--json"]);
+  if (res.code !== 0) throw new Error(`quota-axi failed: ${res.stderr.trim() || res.stdout.trim()}`);
+  const data = JSON.parse(res.stdout) as QuotaJson;
+  const p = data.providers?.find((x) => x.provider === provider);
+  const weekly = p?.windows?.find((w) => w.kind === "weekly");
+  if (!weekly || !Number.isFinite(weekly.percentRemaining)) throw new Error(`quota-axi reported no weekly window for ${provider}`);
+  return { provider, percentRemaining: weekly.percentRemaining, windowId: weekly.id, resetsAt: weekly.resetsAt, readAt: new Date().toISOString() };
+}
+
+export type Estimates = {
+  // Percent of the provider's weekly allowance one run consumes.
+  runs: Partial<Record<AgentName, Partial<Record<Tier, { weeklyPct: number; source: string }>>>>;
+  // Claude weekly percent the blind model scorer uses per scored run.
+  scoring: { claudeWeeklyPctPerRun: number; source: string };
+};
+
+export function loadEstimates(): Estimates {
+  return readJson<Estimates>(ESTIMATES_PATH);
+}
+
+export const RESERVATIONS_DIR = path.join(RESULTS_DIR, ".reservations");
+
+export type Reservation = { set: string; claudePct: number; codexPct: number; pid: number; at: string };
+
+function activeReservations(dir = RESERVATIONS_DIR): Reservation[] {
+  if (!fs.existsSync(dir)) return [];
+  const out: Reservation[] = [];
+  for (const f of fs.readdirSync(dir)) {
+    if (!f.endsWith(".json")) continue;
+    const r = readJson<Reservation>(path.join(dir, f));
+    try {
+      process.kill(r.pid, 0);
+      out.push(r);
+    } catch {
+      fs.rmSync(path.join(dir, f), { force: true });
+    }
+  }
+  return out;
+}
+
+// One file per reservation, named by pid and a random suffix, so two
+// processes gating the same set never overwrite or delete each other's.
+export function reserve(r: Reservation, dir = RESERVATIONS_DIR): () => void {
+  const file = path.join(dir, `${r.set.replace(/[^a-z0-9-]/gi, "_")}-${r.pid}-${randomHex(4)}.json`);
+  writeJson(file, r);
+  return () => fs.rmSync(file, { force: true });
+}
+
+// Serializes gate-plus-reserve across processes. mkdir is atomic; a lock
+// whose owner process is gone is taken over.
+export async function withBudgetLock<T>(fn: () => Promise<T>, dir = RESERVATIONS_DIR, timeoutMs = 300_000): Promise<T> {
+  const lock = path.join(dir, ".lock");
+  fs.mkdirSync(dir, { recursive: true });
+  const deadline = Date.now() + timeoutMs;
+  for (;;) {
+    try {
+      fs.mkdirSync(lock);
+      fs.writeFileSync(path.join(lock, "owner"), String(process.pid));
+      break;
+    } catch (err) {
+      if ((err as NodeJS.ErrnoException).code !== "EEXIST") throw err;
+      let owner = 0;
+      try {
+        owner = Number(fs.readFileSync(path.join(lock, "owner"), "utf8")) || 0;
+      } catch {
+        // The owner has created the lock but not written its pid yet.
+      }
+      let alive = false;
+      if (owner > 0) {
+        try {
+          process.kill(owner, 0);
+          alive = true;
+        } catch {
+          alive = false;
+        }
+      }
+      if (owner > 0 && !alive) fs.rmSync(lock, { recursive: true, force: true });
+      else if (Date.now() > deadline) throw new Error(`budget lock ${lock} still held by pid ${owner || "?"}`);
+      else await sleep(200);
+    }
+  }
+  try {
+    return await fn();
+  } finally {
+    fs.rmSync(lock, { recursive: true, force: true });
+  }
+}
+
+export type GateDecision = {
+  set: string;
+  runs: number;
+  allowed: boolean;
+  lines: string[];
+  cost: { claudePct: number; codexPct: number };
+  quota: Partial<Record<Provider, QuotaReading>>;
+};
+
+export const setName = (agent: AgentName, tier: Tier): string => `${agent}:${tier}`;
+export const runsInSet = (tier: Tier): number => ARMS.length * REPS[tier];
+
+// `runs` defaults to a whole set; pass 1 to gate a single run.
+export async function gate(agent: AgentName, tier: Tier, opts: { runs?: number; estimatePct?: number; reservationsDir?: string } = {}): Promise<GateDecision> {
+  const set = setName(agent, tier);
+  const runs = opts.runs ?? runsInSet(tier);
+  const provider = AGENTS[agent].provider;
+  const est = loadEstimates();
+  const perRun = opts.estimatePct ?? est.runs[agent]?.[tier]?.weeklyPct;
+  const lines: string[] = [];
+  for (const [name, v] of [["per-run estimate", perRun], ["scoring estimate", est.scoring.claudeWeeklyPctPerRun]] as const) {
+    if (v !== undefined && !(Number.isFinite(v) && v >= 0)) {
+      return { set, runs, allowed: false, lines: [`REFUSE ${set}: ${name} ${String(v)} is not a non-negative number`], cost: { claudePct: 0, codexPct: 0 }, quota: {} };
+    }
+  }
+  if (perRun === undefined) {
+    return { set, runs, allowed: false, lines: [`REFUSE ${set}: no per-run estimate for ${agent}/${tier} in budget/estimates.json; run the calibration pass or pass --estimate-pct`], cost: { claudePct: 0, codexPct: 0 }, quota: {} };
+  }
+  const agentPct = perRun * runs;
+  const scoringPct = est.scoring.claudeWeeklyPctPerRun * runs;
+  const cost = { claudePct: (provider === "claude" ? agentPct : 0) + scoringPct, codexPct: provider === "codex" ? agentPct : 0 };
+  const reserved = activeReservations(opts.reservationsDir);
+  const quota: Partial<Record<Provider, QuotaReading>> = {};
+  let allowed = true;
+  for (const p of ["claude", "codex"] as const) {
+    const need = p === "claude" ? cost.claudePct : cost.codexPct;
+    if (need === 0) continue;
+    const q = await weeklyQuota(p);
+    quota[p] = q;
+    const held = reserved.reduce((s, r) => s + (p === "claude" ? r.claudePct : r.codexPct), 0);
+    const projected = q.percentRemaining - held - need * BUDGET_MARGIN;
+    const summary = `${p}: ${q.percentRemaining}% weekly remaining, ${held.toFixed(1)}% reserved by running sets, set needs ${need.toFixed(1)}% x${BUDGET_MARGIN} margin -> ${projected.toFixed(1)}% projected (floor ${BUDGET_FLOOR_PCT}%)`;
+    // Written so that NaN refuses rather than passes.
+    if (!(projected >= BUDGET_FLOOR_PCT)) {
+      allowed = false;
+      lines.push(`REFUSE ${set}: ${summary}`);
+    } else {
+      lines.push(`OK ${set}: ${summary}`);
+    }
+    if (q.percentRemaining <= BUDGET_WARN_PCT || projected <= BUDGET_WARN_PCT) {
+      lines.push(`WARN ${p} weekly allowance at ${q.percentRemaining}% now, ${projected.toFixed(1)}% projected after ${set} (warning threshold ${BUDGET_WARN_PCT}%)`);
+    }
+  }
+  return { set, runs, allowed, lines, cost, quota };
+}
