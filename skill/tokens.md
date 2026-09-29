@@ -42,7 +42,7 @@ const trustSet = {
     value: "1000000", // max amount willing to hold
   },
 };
-// Costs 1 owner reserve (2 XRP) — always warn the user
+// Costs 1 owner reserve (0.2 XRP today) — always warn the user
 ```
 
 ### Step 3: Issuer Sends Tokens
@@ -80,6 +80,8 @@ const trustSet = {
 
 ### Freezing
 
+These are trust-line freezes. They don't apply to MPTs; for MPTs see [mpt.md](mpt.md#compliance-controls).
+
 ```typescript
 // Freeze a specific trust line
 const trustSet = {
@@ -103,50 +105,25 @@ const accountSet = {
 
 ## Multi-Purpose Tokens (MPTs)
 
-MPTs are a newer token standard that don't require trust lines.
+MPTs are a newer token standard that doesn't use trust lines. Issuing, approving holders, paying, reading balances back, and the MPT compliance controls (lock, clawback, ban) are in [mpt.md](mpt.md). The points that most often go wrong:
 
-### Creating an MPT Issuance
+- **Capabilities are fixed at creation.** Set `tfMPTRequireAuth`, `tfMPTCanLock`, `tfMPTCanClawback` and `tfMPTCanTransfer` on `MPTokenIssuanceCreate` up front; they can't be added later.
+- **Amounts are raw integers.** With `AssetScale: 2`, 1,000 tokens is `value: "100000"`. Use `AssetScale: 0` unless the token needs decimals.
+- **`TransferFee` needs `tfMPTCanTransfer`.** Without it, xrpl.js rejects the transaction.
+- **MPT freezes are not trust-line freezes.** Use `MPTokenIssuanceSet` with `tfMPTLock`, not `TrustSet` or `AccountSet` flags.
 
 ```typescript
-const mptCreate = {
+import { MPTokenIssuanceCreateFlags, type MPTokenIssuanceCreate } from "xrpl";
+
+const mptCreate: MPTokenIssuanceCreate = {
   TransactionType: "MPTokenIssuanceCreate",
   Account: issuerAddress,
-  MaximumAmount: "1000000",
-  AssetScale: 2,            // decimal places
-  TransferFee: 100,          // 0.1% (basis points, max 50000)
-};
-```
-
-### Authorizing Holders
-
-```typescript
-// Holder opts in
-const holderAuth = {
-  TransactionType: "MPTokenAuthorize",
-  Account: holderAddress,
-  MPTokenIssuanceID: "0000...",
-};
-
-// Issuer authorizes (if RequireAuth flag set)
-const issuerAuth = {
-  TransactionType: "MPTokenAuthorize",
-  Account: issuerAddress,
-  MPTokenIssuanceID: "0000...",
-  Holder: holderAddress,
-};
-```
-
-### Transferring MPTs
-
-```typescript
-const payment = {
-  TransactionType: "Payment",
-  Account: senderAddress,
-  Destination: recipientAddress,
-  Amount: {
-    mpt_issuance_id: "0000...",
-    value: "50",
-  },
+  AssetScale: 2,              // display decimals; amounts below are in 1/100 units
+  MaximumAmount: "100000000", // 1,000,000.00 tokens
+  TransferFee: 100,           // 0.1%, in units of 0.001% (max 50000)
+  Flags:
+    MPTokenIssuanceCreateFlags.tfMPTCanTransfer | // required for TransferFee
+    MPTokenIssuanceCreateFlags.tfMPTRequireAuth,
 };
 ```
 
@@ -169,8 +146,8 @@ const balances = await client.request({
 
 ## Reserve Implications
 
-- Each trust line: 1 owner reserve (2 XRP)
-- Each MPT holding: 1 owner reserve (2 XRP)
+- Each trust line: 1 owner reserve (0.2 XRP on mainnet and testnet today; read `server_info` for live values)
+- Each MPT holding: 1 owner reserve
 - To recover: set trust line limit to 0 with zero balance (deletes the object)
 - Always inform users of reserve cost before creating trust lines
 

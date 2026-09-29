@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# XRPL Dev Skill Installer for Claude Code
-# Usage: ./install.sh [--project | --path <path>]
+# XRPL Dev Skill Installer for Claude Code, Codex and other agents
+# Usage: ./install.sh [--agents] [--project | --path <path>]
 
 set -e
 
@@ -9,18 +9,26 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SKILL_NAME="xrpl-dev"
 SOURCE_DIR="$SCRIPT_DIR/skill"
 
-# Default to personal installation
-INSTALL_PATH="$HOME/.claude/skills/$SKILL_NAME"
+# Claude Code reads .claude/skills; Codex and other agents read .agents/skills.
+SKILLS_DIR=".claude/skills"
+AGENT_NAME="Claude Code"
+PROJECT=false
+CUSTOM_PATH=""
 
 # Parse arguments
 while [[ $# -gt 0 ]]; do
     case $1 in
+        --agents)
+            SKILLS_DIR=".agents/skills"
+            AGENT_NAME="Codex and other agents that read .agents/skills"
+            shift
+            ;;
         --project)
-            INSTALL_PATH=".claude/skills/$SKILL_NAME"
+            PROJECT=true
             shift
             ;;
         --path)
-            INSTALL_PATH="$2"
+            CUSTOM_PATH="$2"
             shift 2
             ;;
         -h|--help)
@@ -29,11 +37,13 @@ while [[ $# -gt 0 ]]; do
             echo "Usage: ./install.sh [OPTIONS]"
             echo ""
             echo "Options:"
-            echo "  --project     Install to current project (.claude/skills/$SKILL_NAME)"
+            echo "  --agents      Install for Codex and other agents (.agents/skills instead of .claude/skills)"
+            echo "  --project     Install to current project (./<skills dir>/$SKILL_NAME)"
             echo "  --path PATH   Install to custom path"
             echo "  -h, --help    Show this help message"
             echo ""
-            echo "Default: Install to ~/.claude/skills/$SKILL_NAME"
+            echo "Default: Install to ~/.claude/skills/$SKILL_NAME for Claude Code."
+            echo "With --agents: ~/.agents/skills/$SKILL_NAME, or ./.agents/skills/$SKILL_NAME with --project."
             exit 0
             ;;
         *)
@@ -43,6 +53,14 @@ while [[ $# -gt 0 ]]; do
             ;;
     esac
 done
+
+if [ -n "$CUSTOM_PATH" ]; then
+    INSTALL_PATH="$CUSTOM_PATH"
+elif [ "$PROJECT" = true ]; then
+    INSTALL_PATH="$SKILLS_DIR/$SKILL_NAME"
+else
+    INSTALL_PATH="$HOME/$SKILLS_DIR/$SKILL_NAME"
+fi
 
 # Check if source directory exists
 if [ ! -d "$SOURCE_DIR" ]; then
@@ -83,5 +101,5 @@ find "$INSTALL_PATH" -type f -name "*.md" | while read -r file; do
     echo "  - $(basename "$file")"
 done
 echo ""
-echo "The skill is now available in Claude Code."
+echo "The skill is now available to $AGENT_NAME."
 echo "Try asking about XRPL development to activate it!"

@@ -1,6 +1,6 @@
 ---
 name: xrpl-dev
-description: End-to-end XRPL development playbook. Covers XRP Ledger dApp development including project scaffolding (create-xrp), wallet integration (xrpl-connect), client SDKs, transactions, tokens, NFTs, DEX/AMM, cross-chain interoperability (Axelar), and security best practices.
+description: End-to-end XRPL development playbook. Covers XRP Ledger dApp development including project scaffolding (create-xrp), wallet integration (xrpl-connect), client SDKs (xrpl.js in strict TypeScript), transactions, tokens, Multi-Purpose Tokens (MPT issuance, holder authorization, lock/freeze, clawback, bans), NFTs, DEX/AMM, cross-chain interoperability (Axelar), and security best practices.
 user-invocable: true
 ---
 
@@ -14,6 +14,7 @@ Use this Skill when the user asks for:
 - Account creation, funding, and management
 - Transaction building, signing, and submission
 - Token operations (TrustLines, issued currencies, MPTs)
+- MPT compliance controls (allow-lists, lock/freeze, clawback, bans)
 - NFT operations (XLS-20 NFTokens)
 - DEX interactions (offers, order books, path finding)
 - AMM (Automated Market Maker) operations
@@ -52,13 +53,18 @@ Use this Skill when the user asks for:
 
 6. **Account management: reserves-aware**
    - Always check and communicate reserve requirements before operations.
-   - Base reserve (currently 10 XRP) + owner reserve (2 XRP per owned object).
+   - Base reserve (currently 1 XRP) + owner reserve (0.2 XRP per owned object) on mainnet and testnet; read `server_info` for live values.
    - Warn users when operations will lock up reserves.
 
 7. **Error handling: explicit**
    - Always check `validated` status, not just submission `tesSUCCESS`.
+   - `submitAndWait` resolves when a transaction is validated with a `tec*` failure. Check `meta.TransactionResult` after every call (see `submitOrThrow` in [client-sdk.md](client-sdk.md#submit-and-require-success)).
    - Handle `tec*` codes (claimed-but-failed) differently from `tef*`/`tem*` codes.
    - Implement retry logic for `terQUEUED` and `tefPAST_SEQ`.
+
+8. **Secrets: environment, not source**
+   - Read seeds from environment variables or a git-ignored `.env` file, including a seed the user pasted into the prompt.
+   - Never write a seed into a source file, even as a fallback default.
 
 ## Operating procedure (how to execute tasks)
 
@@ -80,6 +86,7 @@ Use this Skill when the user asks for:
 
 ### 3. Implement with XRPL-specific correctness
 Always be explicit about:
+- the `xrpl` package version you installed (`npm install xrpl` gets the current major; 5.x as of September 2026)
 - network (mainnet / testnet / devnet) + WebSocket endpoint
 - account reserves (base + owner reserves) and their implications
 - transaction fees (auto-filled vs explicit, fee escalation)
@@ -93,6 +100,8 @@ Always be explicit about:
 - Unit test transaction building and serialization.
 - Integration test against testnet (use faucet for funding).
 - Frontend: test wallet connection and signing flows with mocked providers.
+- Type-check in strict mode (`tsc --noEmit`) before running anything against a network.
+- Run scripts that change the ledger in the foreground and wait for them to finish. Each validated transaction takes a few seconds on testnet, so a script with dozens of them needs a command timeout of several minutes. Read the resulting state back from a validated ledger before reporting success.
 
 ### 5. Deliverables expectations
 When you implement changes, provide:
@@ -109,6 +118,7 @@ This skill incorporates best practices from:
 - Client SDK patterns (xrpl.js): [client-sdk.md](client-sdk.md)
 - Frontend & wallet integration: [frontend.md](frontend.md)
 - Tokens & TrustLines: [tokens.md](tokens.md)
+- Multi-Purpose Tokens (issue, authorize, pay, read back, lock, clawback, ban): [mpt.md](mpt.md)
 - NFTs (XLS-20): [nfts.md](nfts.md)
 - DEX & AMM: [dex-amm.md](dex-amm.md)
 - Payments, escrows & channels: [payments.md](payments.md)

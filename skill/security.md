@@ -32,6 +32,7 @@ const delivered = tx.meta.delivered_amount;
 - Never log, store in plain text, or transmit seeds/secrets
 - Use environment variables or secret management services
 - Never commit secrets to version control
+- Never write a seed into source code, including a seed the user pasted into the prompt and including a fallback such as `process.env.XRPL_SEED ?? 'sEd...'`. Put it in a git-ignored `.env` file instead
 - For frontend: never handle private keys — delegate to wallet via `xrpl-connect`
 
 ### Signing Practices
@@ -133,6 +134,12 @@ for (const tx of transactions) {
 - `NoRipple` on holder side prevents unexpected balance shifts
 - Issuers should set `DefaultRipple`; holders generally should NOT
 - Freezing: issuers can freeze individual trust lines or all at once (`GlobalFreeze`)
+
+### MPT Controls
+
+- MPT freezes use `MPTokenIssuanceSet` with `tfMPTLock`, per holder (with `Holder`) or for the whole token (without). They block payments between holders, not payments to or from the issuer. See [mpt.md](mpt.md#compliance-controls)
+- A misspelled `holder` field compiles, is dropped at signing, and turns a one-holder lock into a global lock
+- A ban is clawback of the whole balance, then revoking approval, on an issuance with `tfMPTRequireAuth`. Keep your own deny list: the ledger records no ban
 
 ### NFT Security
 

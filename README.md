@@ -1,14 +1,14 @@
-# XRPL Development Skill for Claude Code
+# XRPL Development Skill for AI Coding Agents
 
-A comprehensive Claude Code skill for modern XRP Ledger development.
+A comprehensive agent skill for modern XRP Ledger development, for Claude Code, Codex and other agents that load skills.
 
 ## Overview
 
-This skill provides Claude Code with deep knowledge of the XRPL development ecosystem:
+This skill gives coding agents deep knowledge of the XRPL development ecosystem:
 
-- **Client SDK**: `xrpl.js` (v4.x), `xrpl-py`, `xrpl4j`
+- **Client SDK**: `xrpl.js` (v5.x), `xrpl-py`, `xrpl4j`
 - **Frontend**: `xrpl-connect` wallet toolkit (Xaman, Crossmark, GemWallet, WalletConnect, Ledger)
-- **Tokens**: Issued currencies, TrustLines, Multi-Purpose Tokens (MPTs)
+- **Tokens**: Issued currencies, TrustLines, Multi-Purpose Tokens (MPTs) with compliance controls (allow-list, lock, clawback, bans)
 - **NFTs**: XLS-20 NFTokens — minting, trading, brokered sales
 - **DEX & AMM**: Order book offers, AMM pools, cross-currency routing
 - **Payments**: XRP and cross-currency payments, escrows, payment channels, checks
@@ -20,16 +20,19 @@ This skill provides Claude Code with deep knowledge of the XRPL development ecos
 ### Quick Install
 
 ```bash
-npx skills add https://github.com/xrpl-commons/xrpl-dev-skill
+npx skills add https://github.com/XRPL-Commons/xrpl-dev-skills
 ```
 
 ### Manual Install
 
 ```bash
-git clone https://github.com/xrpl-commons/xrpl-dev-skill
-cd xrpl-dev-skill
-./install.sh
+git clone https://github.com/XRPL-Commons/xrpl-dev-skills
+cd xrpl-dev-skills
+./install.sh            # Claude Code: ~/.claude/skills/xrpl-dev
+./install.sh --agents   # Codex and other agents: ~/.agents/skills/xrpl-dev
 ```
+
+Add `--project` to install into the current project (`.claude/skills/xrpl-dev` or `.agents/skills/xrpl-dev`) instead of your home directory. Codex does not read `.claude/skills`, so Codex users need `--agents`.
 
 ## Skill Structure
 
@@ -38,7 +41,8 @@ skill/
 ├── SKILL.md                 # Main skill definition (required)
 ├── client-sdk.md            # Connection, accounts, tx lifecycle, signing, querying
 ├── frontend.md              # Wallet connection, React patterns, tx signing UX
-├── tokens.md                # Issued currencies, TrustLines, MPTs
+├── tokens.md                # Issued currencies, TrustLines, MPT overview
+├── mpt.md                   # MPTs: issue, authorize, pay, read back, lock, clawback, ban
 ├── nfts.md                  # XLS-20 NFTokens
 ├── dex-amm.md               # Order book + AMM
 ├── payments.md              # XRP payments, cross-currency, escrows, channels, checks
@@ -49,12 +53,12 @@ skill/
 
 ## Usage
 
-Once installed, Claude Code will automatically use this skill when you ask about:
+Once installed, your agent will use this skill when you ask about:
 
 - XRPL dApp development
 - Wallet connection and signing flows
 - Transaction building, signing, and submission
-- Token issuance and management
+- Token issuance and management, including MPT compliance controls
 - NFT minting and trading
 - DEX/AMM interactions
 - Cross-chain interoperability
@@ -73,7 +77,7 @@ Once installed, Claude Code will automatically use this skill when you ask about
 
 ## Progressive Disclosure
 
-The skill uses Claude Code's progressive disclosure pattern. The main `SKILL.md` provides core guidance, and Claude reads specialized markdown files only when needed for specific tasks.
+The skill uses progressive disclosure. The main `SKILL.md` provides core guidance, and the agent reads the specialized markdown files only when a task needs them.
 
 ## Contributing
 
