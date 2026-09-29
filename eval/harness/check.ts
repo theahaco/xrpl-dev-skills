@@ -115,14 +115,24 @@ function lockThenUnlock(sets: Array<{ lock: boolean }>): boolean {
 const tokens = (ctx: Ctx, n: number): bigint => BigInt(n) * ctx.scale;
 const fmt = (ctx: Ctx, raw: bigint): string => (ctx.scale === 1n ? `${raw}` : `${raw} raw (scale ${ctx.scale.toString().length - 1})`);
 
-// Accepts either the raw integer string or the display value.
-function sameAmount(ctx: Ctx, claimed: unknown, raw: bigint): boolean {
-  if (typeof claimed !== "string" && typeof claimed !== "number") return false;
-  const s = String(claimed).replace(/,/g, "").trim();
-  if (s === raw.toString()) return true;
-  const n = Number(s);
-  return Number.isFinite(n) && ctx.scale > 1n && Math.abs(n * Number(ctx.scale) - Number(raw)) < 1e-6;
+// Accepts either the raw integer string or the display value (up to
+// AssetScale decimals), parsed exactly: no floating point, so a wrong
+// readback cannot round to a large ledger amount.
+export function sameAmount(scaleDigits: number, claimed: unknown, raw: bigint): boolean {
+  let s: string;
+  if (typeof claimed === "string") s = claimed.replace(/,/g, "").trim();
+  else if (typeof claimed === "number" && Number.isFinite(claimed) && (!Number.isInteger(claimed) || Number.isSafeInteger(claimed))) s = String(claimed);
+  else return false;
+  const m = /^(\d+)(?:\.(\d+))?$/.exec(s);
+  if (!m?.[1]) return false;
+  const int = BigInt(m[1]);
+  const frac = (m[2] ?? "").replace(/0+$/, "");
+  if (!frac && int === raw) return true;
+  if (frac.length > scaleDigits) return false;
+  return int * 10n ** BigInt(scaleDigits) + BigInt(frac.padEnd(scaleDigits, "0") || "0") === raw;
 }
+
+const scaleDigits = (ctx: Ctx): number => ctx.scale.toString().length - 1;
 
 async function loadCtx(issuer: string, claimedId: unknown): Promise<Ctx & { issuanceSource: string }> {
   const txs = await accountTransactions(issuer);
@@ -195,7 +205,7 @@ async function checkMedium(issuer: string, projectDir: string): Promise<{ criter
 
   ok(c, "outstanding_matches", iss.outstanding === balance, `OutstandingAmount ${fmt(ctx, iss.outstanding)}; holder balance ${fmt(ctx, balance)}`);
 
-  const readBack = sameAmount(ctx, r.holderBalance, balance) && sameAmount(ctx, r.outstandingAmount, iss.outstanding);
+  const readBack = sameAmount(scaleDigits(ctx), r.holderBalance, balance) && sameAmount(scaleDigits(ctx), r.outstandingAmount, iss.outstanding);
   ok(c, "readback_matches_ledger", readBack, `result.json holderBalance=${JSON.stringify(r.holderBalance)} outstandingAmount=${JSON.stringify(r.outstandingAmount)}; ledger ${balance} / ${iss.outstanding}`);
 
   return { criteria: c, observed: { issuance: iss.raw, holder, mptoken: token?.raw, txCount: ctx.txs.length } };

@@ -111,7 +111,7 @@ function typecheckEvidence(tc: TypecheckResult | undefined, budget: number): str
     `TypeScript ${tc.tscVersion ?? "?"} (${tc.tscSource === "project" ? "the project's own compiler" : "harness compiler"})`,
     strictness,
     section("project config", tc.project),
-    section("strict forced on, every strict-family option set explicitly", tc.strict),
+    section("strict forced on: every strict-family option set explicitly, noCheck off, every discovered source listed", tc.strict),
   ].join("\n\n");
   return blind(text.slice(0, budget));
 }

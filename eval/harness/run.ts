@@ -1,7 +1,7 @@
 // One run: (agent, tier, arm, rep) -> a results directory.
 import fs from "node:fs";
 import path from "node:path";
-import { launchAgent, type AgentRun } from "./agents.ts";
+import { collectSessions, launchAgent, type AgentRun } from "./agents.ts";
 import { type CheckResult, checkRun } from "./check.ts";
 import {
   AGENTS,
@@ -27,7 +27,7 @@ import { weeklyQuota, type QuotaReading } from "./budget.ts";
 import { leakedSecrets, redactedJson, redactText, redactTree, type Secret } from "./redact.ts";
 import { agentEnv, createWorkspace, isolationSelfTest, killStrays, linkToolchain, resolveToolchain, sandboxed, writeProfile, type IsolationCheck, type Workspace } from "./sandbox.ts";
 import { typecheck } from "./typecheck.ts";
-import { copyFiles, exec, execOk, hashTree, log, nowIso, randomHex, readJsonInside, realpathInside, sha256, walkFiles, writeJson } from "./util.ts";
+import { copyFiles, exec, execOk, hashTree, log, nowIso, randomHex, readJsonInside, readRegularFile, realpathInside, sha256, walkFiles, writeJson } from "./util.ts";
 import { fundAccount, type FundedAccount, InfraError, networkSnapshot, type NetworkSnapshot } from "./xrpl-rpc.ts";
 
 export type RunSpec = { agent: AgentName; tier: Tier; arm: Arm; rep: number };
@@ -69,7 +69,7 @@ export type RunRecord = RunSpec & {
   error?: string;
   redactedFiles?: number;
   strayProcessesKilled?: number;
-  capture?: { files: number; skippedLarge: string[]; skippedUnsafe: string[]; renamedGitignores: string[] };
+  capture?: { files: number; skippedLarge: string[]; skippedUnsafe: string[]; renamedGitignores: string[]; skippedSessions?: string[] };
 };
 
 // Error text from the agent CLI itself (failed turns, stderr), which is where
@@ -129,8 +129,11 @@ export async function installSkill(spec: RunSpec, ws: Workspace, env: NodeJS.Pro
   fs.mkdirSync(src);
   await execOk("/usr/bin/tar", ["-xf", tarball, "-C", src]);
   const installer = path.join(src, "install.sh");
-  const installerSha256 = sha256(fs.readFileSync(installer));
+  let installerSha256 = "";
   try {
+    // An archive can carry install.sh as a symlink; never follow it outside
+    // the sandbox, even to hash it.
+    installerSha256 = sha256(readRegularFile(installer, 1_000_000));
     const [cmd, argv] = sandboxed(ws, "/bin/bash", [installer, ...args]);
     const res = await exec(cmd, argv, { cwd: ws.project, env, timeoutMs: 120_000 });
     if (res.code !== 0) throw new Error(`skill installer exited ${res.code}: ${(res.stderr || res.stdout).trim().slice(0, 300)}`);
@@ -251,6 +254,7 @@ export async function runOne(spec: RunSpec, opts: RunOptions = {}): Promise<RunR
     // Everything below reads the workspace from outside the sandbox; refuse if
     // the agent swapped the project directory for a link elsewhere.
     if (!realpathInside(ws.root, ws.project) || !realpathInside(ws.root, ws.config)) throw new Error("project or config directory resolves outside the workspace");
+    const sessions = collectSessions({ agent: spec.agent, ws, run: agentRun });
     record.quota.after = await quotaSafe(provider);
 
     const expect = AGENTS[spec.agent];
@@ -304,7 +308,13 @@ export async function runOne(spec: RunSpec, opts: RunOptions = {}): Promise<RunR
       fs.renameSync(f.abs, path.join(path.dirname(f.abs), "_gitignore"));
       renamed.push(f.rel);
     }
-    record.capture = { files: files.length - unsafe.length, skippedLarge: all.filter((f) => f.size > 2_000_000).map((f) => f.rel), skippedUnsafe: unsafe, renamedGitignores: renamed };
+    record.capture = {
+      files: files.length - unsafe.length,
+      skippedLarge: all.filter((f) => f.size > 2_000_000).map((f) => f.rel),
+      skippedUnsafe: unsafe,
+      renamedGitignores: renamed,
+      skippedSessions: sessions.skipped,
+    };
     const xrplPkg = readJsonInside<{ version?: string }>(ws.project, path.join(ws.project, "node_modules", "xrpl", "package.json"));
     const projectPkg = readJsonInside<{ dependencies?: Record<string, string>; devDependencies?: Record<string, string> }>(ws.project, path.join(ws.project, "package.json"));
     record.xrpl = { installedVersion: xrplPkg?.version, dependencySpec: projectPkg?.dependencies?.xrpl ?? projectPkg?.devDependencies?.xrpl };

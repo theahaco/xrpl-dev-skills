@@ -15,6 +15,7 @@ export type ProjectStrictness = {
   strict?: boolean;
   // Strict-family options the project explicitly turned off. Any entry means
   // the agent's own `tsc` was not checking in full strict mode.
+  // Also lists `noCheck: true`, which skips semantic checking altogether.
   optOuts: string[];
 };
 export type TypecheckResult = {
@@ -26,6 +27,8 @@ export type TypecheckResult = {
   projectStrictness?: ProjectStrictness;
   project?: TscRun;
   strict?: TscRun;
+  // The generated config the strict run used.
+  strictConfig?: Record<string, unknown>;
   // Set when re-run after the fact by `cli.ts typecheck`, with dependencies
   // reinstalled from the committed lockfile.
   rebuilt?: { from: string; at: string };
@@ -41,6 +44,12 @@ export const HARNESS_TSC = path.join(EVAL_DIR, "node_modules", "typescript", "bi
 // `strict: true` only sets defaults: an explicit `strictNullChecks: false`
 // in the project's config still wins. The strict run sets every member of the
 // family explicitly. strictBuiltinIteratorReturn exists from TypeScript 5.6.
+function atLeast(tscVersion: string | undefined, major: number, minor: number): boolean {
+  const m = /(\d+)\.(\d+)/.exec(tscVersion ?? "");
+  const [maj, min] = m ? [Number(m[1]), Number(m[2])] : [0, 0];
+  return maj > major || (maj === major && min >= minor);
+}
+
 export function strictFamily(tscVersion: string | undefined): string[] {
   const family = [
     "noImplicitAny",
@@ -52,19 +61,22 @@ export function strictFamily(tscVersion: string | undefined): string[] {
     "alwaysStrict",
     "useUnknownInCatchVariables",
   ];
-  const m = /(\d+)\.(\d+)/.exec(tscVersion ?? "");
-  const [major, minor] = m ? [Number(m[1]), Number(m[2])] : [0, 0];
-  if (major > 5 || (major === 5 && minor >= 6)) family.push("strictBuiltinIteratorReturn");
+  if (atLeast(tscVersion, 5, 6)) family.push("strictBuiltinIteratorReturn");
   return family;
 }
 
+// Every strict-family option on, plus `noCheck: false` (TypeScript 5.6+):
+// an inherited `noCheck: true` would skip checking altogether.
 export function strictOverrides(tscVersion: string | undefined): Record<string, boolean> {
-  return Object.fromEntries([["strict", true], ...strictFamily(tscVersion).map((k) => [k, true] as const)]);
+  const overrides: Record<string, boolean> = Object.fromEntries([["strict", true], ...strictFamily(tscVersion).map((k) => [k, true] as const)]);
+  if (atLeast(tscVersion, 5, 6)) overrides.noCheck = false;
+  return overrides;
 }
 
 export function strictnessOf(compilerOptions: Record<string, unknown>, tscVersion: string | undefined): Omit<ProjectStrictness, "source"> {
   const strict = typeof compilerOptions.strict === "boolean" ? compilerOptions.strict : undefined;
   const optOuts = ["strict", ...strictFamily(tscVersion)].filter((k) => compilerOptions[k] === false).map((k) => `${k}: false`);
+  if (compilerOptions.noCheck === true) optOuts.push("noCheck: true");
   return { strict, optOuts };
 }
 
@@ -121,9 +133,10 @@ async function projectStrictness(projectDir: string, node: SandboxedNode, tscPat
 }
 
 export async function typecheck(projectDir: string, node: SandboxedNode, harnessTsc = HARNESS_TSC): Promise<TypecheckResult> {
-  const tsFiles = walkFiles(projectDir, ["node_modules", ".git", ".claude", ".agents", ".codex"])
-    .map((f) => f.rel)
-    .filter((f) => /\.(ts|tsx|mts|cts)$/.test(f) && !f.endsWith(".d.ts"));
+  const all = walkFiles(projectDir, ["node_modules", ".git", ".claude", ".agents", ".codex"]).map((f) => f.rel);
+  const tsFiles = all.filter((f) => /\.(ts|tsx|mts|cts)$/.test(f) && !/\.d\.[mc]?ts$/.test(f));
+  // The agent's own declaration files, not ones a build emitted.
+  const declarations = all.filter((f) => /\.d\.[mc]?ts$/.test(f) && !/^(dist|build|out|coverage)\//.test(f));
   if (tsFiles.length === 0) return { status: "not_typescript", tsFiles };
   const own = path.join(projectDir, "node_modules", "typescript", "bin", "tsc");
   const useOwn = realpathInside(projectDir, own) !== undefined;
@@ -147,14 +160,15 @@ export async function typecheck(projectDir: string, node: SandboxedNode, harness
     result.projectStrictness = await projectStrictness(projectDir, node, tscPath, tscVersion);
     result.project = await run("tsconfig.json");
   }
-  const overrides = { ...strictOverrides(tscVersion), noEmit: true };
+  // Checks exactly the discovered sources: an inherited files/include/exclude
+  // could otherwise leave some out and report them clean. rootDir "." keeps a
+  // source outside the project's rootDir from failing on layout alone.
+  const overrides = { ...strictOverrides(tscVersion), noEmit: true, rootDir: "." };
+  const inputs = { files: [...tsFiles, ...declarations], include: [] as string[] };
   const strictConfig = hasConfig
-    ? { extends: "./tsconfig.json", compilerOptions: overrides }
-    : {
-        compilerOptions: { ...overrides, target: "es2022", module: "nodenext", moduleResolution: "nodenext", skipLibCheck: true },
-        include: ["**/*.ts", "**/*.mts", "**/*.cts", "**/*.tsx"],
-        exclude: ["node_modules"],
-      };
+    ? { extends: "./tsconfig.json", compilerOptions: overrides, ...inputs }
+    : { compilerOptions: { ...overrides, target: "es2022", module: "nodenext", moduleResolution: "nodenext", skipLibCheck: true }, ...inputs };
+  result.strictConfig = strictConfig;
   const strictPath = path.join(projectDir, STRICT_CONFIG);
   // Unlink first and create exclusively, so a symlink the agent left at this
   // name cannot redirect the write.

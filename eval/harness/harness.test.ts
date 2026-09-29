@@ -3,14 +3,16 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { test } from "node:test";
-import { endsWithQuestion } from "./agents.ts";
+import { type AgentRun, collectSessions, endsWithQuestion } from "./agents.ts";
 import { withBudgetLock, reserve } from "./budget.ts";
-import { type CheckResult, type Ctx, deliveredTo } from "./check.ts";
+import { type CheckResult, type Ctx, deliveredTo, sameAmount } from "./check.ts";
+import { codexCredential } from "./credentials.ts";
 import { classify, outageProbes } from "./infra.ts";
 import { redactedJson, redactText, SEED_PLACEHOLDER } from "./redact.ts";
 import { blind, buildEvidence, codeEvidence, errorEvidence, type RubricItem, scoreRun } from "./score.ts";
+import type { Workspace } from "./sandbox.ts";
 import { parseJsonc, strictFamily, typecheck } from "./typecheck.ts";
-import { exec } from "./util.ts";
+import { exec, readRegularFile } from "./util.ts";
 import { accountIdHex, issuanceId, type MptIssuance, type TxRecord } from "./xrpl-rpc.ts";
 
 const buildErrors = (file: string): string => errorEvidence(file, 10_000);
@@ -211,4 +213,91 @@ test("strict run overrides explicit strict-family opt-outs and records them", as
   assert.equal(res.project?.errorsInProject, 0);
   assert.ok((res.strict?.errorsInProject ?? 0) >= 2, res.strict?.output);
   assert.deepEqual(res.projectStrictness?.optOuts.sort(), ["noImplicitAny: false", "strictNullChecks: false"]);
+});
+
+// --- Second review ------------------------------------------------------------
+
+function fakeWorkspace(): Workspace {
+  const root = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), "xrpl-eval-ws-")));
+  const ws = { root, project: path.join(root, "project"), home: path.join(root, "home"), config: path.join(root, "cfg"), tmp: path.join(root, "tmp"), bin: path.join(root, "bin"), profile: "", postProfile: "" };
+  fs.mkdirSync(ws.config, { recursive: true });
+  return ws;
+}
+const emptyRun = (): AgentRun => ({ cliVersion: "", turns: [], clarifyReplies: 0, timedOut: false, usage: { inputTokens: 0, cachedInputTokens: 0, cacheCreationTokens: 0, outputTokens: 0, reasoningTokens: 0 }, sessionFiles: [] });
+const rollout = (model: string): string => `${JSON.stringify({ type: "turn_context", payload: { model, effort: "medium" } })}\n`;
+
+test("session discovery never follows links out of the config dir", () => {
+  const outside = fs.mkdtempSync(path.join(os.tmpdir(), "xrpl-eval-outside-"));
+  fs.writeFileSync(path.join(outside, "rollout-x.jsonl"), rollout("leaked"));
+
+  const linkedDir = fakeWorkspace();
+  fs.symlinkSync(outside, path.join(linkedDir.config, "sessions"));
+  const a = emptyRun();
+  collectSessions({ agent: "codex", ws: linkedDir, run: a });
+  assert.deepEqual(a.sessionFiles, []);
+  assert.equal(a.model, undefined);
+
+  const mixed = fakeWorkspace();
+  fs.mkdirSync(path.join(mixed.config, "sessions", "2026"), { recursive: true });
+  fs.writeFileSync(path.join(mixed.config, "sessions", "2026", "rollout-a.jsonl"), rollout("gpt-real"));
+  fs.symlinkSync(path.join(outside, "rollout-x.jsonl"), path.join(mixed.config, "sessions", "rollout-link.jsonl"));
+  const b = emptyRun();
+  collectSessions({ agent: "codex", ws: mixed, run: b });
+  assert.deepEqual(b.sessionFiles.map((f) => path.basename(f)), ["rollout-a.jsonl"]);
+  assert.equal(b.model, "gpt-real");
+});
+
+test("claimed amounts are compared exactly, with no float rounding", () => {
+  assert.equal(sameAmount(0, "9007199254740992", 9007199254740993n), false);
+  assert.equal(sameAmount(0, "9007199254740993", 9007199254740993n), true);
+  assert.equal(sameAmount(2, "90071992547409.93", 9007199254740993n), true);
+  assert.equal(sameAmount(2, "90071992547409.92", 9007199254740993n), false);
+  assert.equal(sameAmount(2, "1,000.00", 100000n), true);
+  assert.equal(sameAmount(2, "1000", 100000n), true);
+  assert.equal(sameAmount(2, "1000.001", 100000n), false);
+  assert.equal(sameAmount(0, 1000, 1000n), true);
+  assert.equal(sameAmount(0, 1e21, 1000000000000000000000n), false);
+});
+
+test("Codex API-key logins are refused and keys are never copied", async () => {
+  const saved = process.env.CODEX_HOME;
+  const home = fs.mkdtempSync(path.join(os.tmpdir(), "xrpl-eval-codex-"));
+  process.env.CODEX_HOME = home;
+  try {
+    fs.writeFileSync(path.join(home, "auth.json"), JSON.stringify({ OPENAI_API_KEY: "sk-long-lived-test-key", tokens: null }));
+    await assert.rejects(codexCredential(60_000), /API key/);
+    const jwt = `e30.${Buffer.from(JSON.stringify({ exp: Math.floor(Date.now() / 1000) + 86_400 })).toString("base64url")}.sig`;
+    fs.writeFileSync(path.join(home, "auth.json"), JSON.stringify({ auth_mode: "chatgpt", OPENAI_API_KEY: "sk-long-lived-test-key", tokens: { access_token: jwt, id_token: jwt, refresh_token: "rt-secret" } }));
+    const cred = await codexCredential(60_000);
+    const copied = Object.values(cred.files).join("");
+    assert.ok(!copied.includes("sk-long-lived-test-key"));
+    assert.ok(!copied.includes("rt-secret"));
+  } finally {
+    if (saved === undefined) delete process.env.CODEX_HOME;
+    else process.env.CODEX_HOME = saved;
+  }
+});
+
+test("the installer must be a regular file", () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "xrpl-eval-inst-"));
+  fs.writeFileSync(path.join(dir, "real.sh"), "echo ok\n");
+  fs.symlinkSync(path.join(dir, "real.sh"), path.join(dir, "install.sh"));
+  assert.throws(() => readRegularFile(path.join(dir, "install.sh"), 1_000_000), /not a regular file/);
+  assert.equal(readRegularFile(path.join(dir, "real.sh"), 1_000_000).toString(), "echo ok\n");
+  assert.throws(() => readRegularFile(path.join(dir, "real.sh"), 3), /larger than/);
+});
+
+test("strict run ignores inherited noCheck and file selection", async () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "xrpl-eval-tsc2-"));
+  fs.mkdirSync(path.join(dir, "src"));
+  fs.mkdirSync(path.join(dir, "scripts"));
+  fs.writeFileSync(path.join(dir, "tsconfig.json"), JSON.stringify({ compilerOptions: { strict: true, noCheck: true, noEmit: true, rootDir: "src", types: [] }, include: ["src/**/*.ts"], exclude: ["src/skip.ts"] }));
+  fs.writeFileSync(path.join(dir, "src", "a.ts"), 'export const x: number = "no";\n');
+  fs.writeFileSync(path.join(dir, "src", "skip.ts"), 'export const y: number = "hidden";\n');
+  fs.writeFileSync(path.join(dir, "scripts", "s.ts"), 'export const z: number = "outside";\n');
+  const res = await typecheck(dir, (args) => exec(process.execPath, args, { cwd: dir, timeoutMs: 120_000 }));
+  assert.equal(res.project?.errorsInProject, 0);
+  assert.equal(res.strict?.errorsInProject, 3, res.strict?.output);
+  assert.ok(res.projectStrictness?.optOuts.includes("noCheck: true"));
+  assert.deepEqual((res.strictConfig?.files as string[]).sort(), ["scripts/s.ts", "src/a.ts", "src/skip.ts"]);
 });

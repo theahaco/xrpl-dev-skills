@@ -60,11 +60,18 @@ export async function codexCredential(minValidMs: number): Promise<Credential> {
   const file = path.join(process.env.CODEX_HOME ?? path.join(REAL_HOME, ".codex"), "auth.json");
   if (!fs.existsSync(file)) throw new Error(`no Codex login at ${file}; run \`codex login\``);
   const auth = JSON.parse(fs.readFileSync(file, "utf8")) as CodexAuth;
-  if (auth.OPENAI_API_KEY) {
-    return { files: { "auth.json": JSON.stringify({ OPENAI_API_KEY: auth.OPENAI_API_KEY }) }, secrets: [auth.OPENAI_API_KEY], expiresAt: Number.MAX_SAFE_INTEGER };
-  }
   const tokens = auth.tokens;
-  if (!tokens?.access_token) throw new Error("Codex auth.json has neither an API key nor ChatGPT tokens");
+  if (!tokens?.access_token) {
+    // Never copied: the sandbox allows network access, so a key in the
+    // agent's config dir could be exfiltrated and reused indefinitely. Runs
+    // only ever get credentials that expire.
+    if (auth.OPENAI_API_KEY) {
+      throw new Error(
+        "Codex is logged in with an OpenAI API key. The harness only hands agents expiring access tokens and will not copy a long-lived API key into an agent's workspace; there is no supported scoped, temporary API credential. Log in with ChatGPT (`codex login`) and retry.",
+      );
+    }
+    throw new Error("Codex auth.json has no ChatGPT tokens; run `codex login`");
+  }
   const expiresAt = jwtExpiry(tokens.access_token);
   if (expiresAt - Date.now() < minValidMs) {
     throw new CredentialTooShortError("codex", expiresAt, `Codex access token expires in ${Math.round((expiresAt - Date.now()) / 60_000)} min; run any codex command to refresh it, then retry.`);

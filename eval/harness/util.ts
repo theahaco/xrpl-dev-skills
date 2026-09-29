@@ -155,6 +155,15 @@ export function readFileInside(root: string, p: string, maxBytes = 5_000_000): s
   return fs.readFileSync(real, "utf8");
 }
 
+// Reads `p` only if it is itself a regular file (not a symlink, device or
+// directory) no larger than `maxBytes`.
+export function readRegularFile(p: string, maxBytes: number): Buffer {
+  const st = fs.lstatSync(p, { throwIfNoEntry: false });
+  if (!st?.isFile()) throw new Error(`${path.basename(p)} is not a regular file`);
+  if (st.size > maxBytes) throw new Error(`${path.basename(p)} is larger than ${maxBytes} bytes`);
+  return fs.readFileSync(p);
+}
+
 export function readJsonInside<T>(root: string, p: string): T | undefined {
   const text = readFileInside(root, p);
   if (text === undefined) return undefined;

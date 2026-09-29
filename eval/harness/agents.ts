@@ -4,7 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { AGENTS, type AgentName, CLARIFY_REPLY, MAX_CLARIFY_REPLIES } from "./config.ts";
 import { sandboxed, type Workspace } from "./sandbox.ts";
-import { exec, log, nowIso } from "./util.ts";
+import { exec, log, nowIso, readFileInside, realpathInside, walkFiles } from "./util.ts";
 
 export type Usage = {
   inputTokens: number;
@@ -149,12 +149,6 @@ async function runClaude(opts: LaunchOptions): Promise<AgentRun> {
     (line, turn, r) => parseClaudeLine(line, turn, r),
     run,
   );
-  const projects = path.join(opts.ws.config, "projects");
-  if (fs.existsSync(projects)) {
-    for (const dir of fs.readdirSync(projects)) {
-      for (const f of fs.readdirSync(path.join(projects, dir))) if (f.endsWith(".jsonl")) run.sessionFiles.push(path.join(projects, dir, f));
-    }
-  }
   return run;
 }
 
@@ -210,12 +204,33 @@ async function runCodex(opts: LaunchOptions): Promise<AgentRun> {
     (line, turn, r) => parseCodexLine(line, turn, r),
     run,
   );
-  const sessions = path.join(opts.ws.config, "sessions");
-  if (fs.existsSync(sessions)) {
-    for (const f of fs.readdirSync(sessions, { recursive: true, encoding: "utf8" })) if (f.endsWith(".jsonl")) run.sessionFiles.push(path.join(sessions, f));
+  return run;
+}
+
+const MAX_SESSION_BYTES = 64 * 1024 * 1024;
+
+// Finds the CLI's own session files and, for Codex, the model and effort it
+// recorded. The config dir is agent-writable, so this runs only after the
+// harness has killed stray processes, never follows a link out of the
+// config dir, skips anything that is not a regular file, and bounds reads.
+export function collectSessions(opts: { agent: AgentName; ws: Workspace; run: AgentRun }): { skipped: string[] } {
+  const { ws, run } = opts;
+  const provider = AGENTS[opts.agent].provider;
+  const dir = path.join(ws.config, provider === "claude" ? "projects" : "sessions");
+  const skipped: string[] = [];
+  if (!fs.existsSync(dir) || realpathInside(ws.config, dir) === undefined) return { skipped };
+  for (const f of walkFiles(dir, [])) {
+    if (!f.rel.endsWith(".jsonl")) continue;
+    if (f.size > MAX_SESSION_BYTES || realpathInside(ws.config, f.abs) === undefined) {
+      skipped.push(f.rel);
+      continue;
+    }
+    run.sessionFiles.push(f.abs);
   }
+  if (provider !== "codex") return { skipped };
   for (const f of run.sessionFiles) {
-    for (const line of fs.readFileSync(f, "utf8").split("\n")) {
+    const text = readFileInside(ws.config, f, MAX_SESSION_BYTES) ?? "";
+    for (const line of text.split("\n")) {
       if (!line.includes('"turn_context"')) continue;
       try {
         const ev = JSON.parse(line) as { type?: string; payload?: { model?: string; effort?: string | null; reasoning_effort?: string | null } };
@@ -228,7 +243,7 @@ async function runCodex(opts: LaunchOptions): Promise<AgentRun> {
       }
     }
   }
-  return run;
+  return { skipped };
 }
 
 function parseCodexLine(line: string, turn: Turn, run: AgentRun): void {

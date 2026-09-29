@@ -18,6 +18,28 @@
     "errorsInProject": 0,
     "output": ""
   },
+  "strictConfig": {
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+      "strict": true,
+      "noImplicitAny": true,
+      "noImplicitThis": true,
+      "strictNullChecks": true,
+      "strictFunctionTypes": true,
+      "strictBindCallApply": true,
+      "strictPropertyInitialization": true,
+      "alwaysStrict": true,
+      "useUnknownInCatchVariables": true,
+      "strictBuiltinIteratorReturn": true,
+      "noCheck": false,
+      "noEmit": true,
+      "rootDir": "."
+    },
+    "files": [
+      "src/index.ts"
+    ],
+    "include": []
+  },
   "strict": {
     "config": "tsconfig.xrpl-eval-strict.json",
     "exitCode": 0,
@@ -27,6 +49,6 @@
   },
   "rebuilt": {
     "from": "final/package-lock.json",
-    "at": "2026-09-29T02:19:04.261Z"
+    "at": "2026-09-29T02:45:07.559Z"
   }
 }
