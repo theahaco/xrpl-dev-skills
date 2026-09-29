@@ -2,6 +2,38 @@
 
 ## xrpl.js (JavaScript / TypeScript) — Primary
 
+### Project Setup
+
+Install the current release instead of writing a version range from memory:
+
+```bash
+npm install xrpl                          # 5.x as of September 2026
+npm install -D typescript tsx @types/node # TypeScript 7.x
+npm view xrpl version                     # confirm what you got
+```
+
+The npm package ships no changelog. Read `packages/xrpl/HISTORY.md` in [XRPLF/xrpl.js](https://github.com/XRPLF/xrpl.js), at the `xrpl@<version>` tag you installed rather than `main`. 5.0.0 changed `Wallet.fromSeed` to infer the key algorithm from the seed.
+
+A `tsconfig.json` that works with TypeScript 7 and ES modules (`"type": "module"` in `package.json`):
+
+```json
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "strict": true,
+    "rootDir": "src",
+    "outDir": "dist",
+    "skipLibCheck": true,
+    "types": ["node"]
+  },
+  "include": ["src"]
+}
+```
+
+TypeScript 7 removed `moduleResolution: "node"` (`node10`), wants an explicit `rootDir` when emitting, and does not work with `ts-node`. Type-check with `tsc --noEmit` and run scripts with `tsx`. With `nodenext`, relative imports need a `.js` extension (`import { toRawUnits } from './units.js'`).
+
 ### Connection Management
 
 ```typescript
@@ -36,8 +68,8 @@ import { Wallet } from 'xrpl';
 // Generate a new wallet (random keypair)
 const wallet = Wallet.generate();
 
-// From a seed/secret
-const wallet = Wallet.fromSeed('sEdT...');
+// From a seed/secret: read it from the environment, never from source
+const wallet = Wallet.fromSeed(requireEnv('XRPL_SEED'));
 
 // From a mnemonic
 const wallet = Wallet.fromMnemonic('abandon abandon ...');
@@ -46,6 +78,19 @@ const wallet = Wallet.fromMnemonic('abandon abandon ...');
 const fundResult = await client.fundWallet(wallet);
 // fundResult.balance contains the funded amount
 ```
+
+```typescript
+/** Read a secret from the environment (or a git-ignored .env file). */
+export function requireEnv(name: string): string {
+  const value = process.env[name];
+  if (value === undefined || value === '') {
+    throw new Error(`Set ${name} in the environment`);
+  }
+  return value;
+}
+```
+
+When the user hands you a seed in the prompt, put it in a git-ignored `.env` file and read it with `requireEnv`. Don't write it into a source file, not even as a fallback (`process.env.XRPL_SEED ?? 'sEd...'`).
 
 **Reserve requirements (always communicate these):**
 
@@ -115,15 +160,32 @@ const signed = wallet.sign(prepared);
 
 #### 4. Submit and wait for validation
 
-```typescript
-// Preferred: submit and wait for final result
-const result = await client.submitAndWait(signed.tx_blob);
+`submitAndWait` throws for local validation errors, `tem*` results and expiry past `LastLedgerSequence`. A transaction that is validated with a `tec*` failure (`tecNO_AUTH`, `tecLOCKED`, `tecUNFUNDED_PAYMENT`, ...) resolves normally, so every call needs an explicit result check. In xrpl.js 5.x, `meta` is typed `TransactionMetadata | string | undefined`, so the check has to narrow it.
 
-// Check the VALIDATED result, not just submission
-if (result.result.meta.TransactionResult === 'tesSUCCESS') {
-  // Transaction succeeded and is in a validated ledger
+#### Submit and require success
+
+```typescript
+import { Client, Wallet, type SubmittableTransaction, type TxResponse } from 'xrpl';
+
+/** Autofill, sign, submit, wait for validation, and throw unless the result is tesSUCCESS. */
+export async function submitOrThrow<T extends SubmittableTransaction>(
+  client: Client,
+  tx: T,
+  wallet: Wallet,
+): Promise<TxResponse<T>> {
+  const response = await client.submitAndWait(tx, { wallet, autofill: true });
+  const meta = response.result.meta;
+  const result = typeof meta === 'object' ? meta.TransactionResult : undefined;
+  if (response.result.validated !== true || result !== 'tesSUCCESS') {
+    throw new Error(
+      `${tx.TransactionType} failed: ${result ?? 'no metadata'} (hash ${response.result.hash})`,
+    );
+  }
+  return response;
 }
 ```
+
+Type helper parameters as `SubmittableTransaction` or a specific transaction type. `submitAndWait` rejects the wider `Transaction` type, which includes pseudo-transactions.
 
 **Critical: never trust submission alone.** A `tesSUCCESS` at submission means "accepted into the queue", not "permanently succeeded." Always wait for validation or poll by hash.
 
@@ -237,7 +299,9 @@ Payment payment = Payment.builder()
 ## Anti-patterns
 
 - **Never send secrets over the network.** Always sign locally.
+- **Never write a seed into a source file**, not even as a default for a missing environment variable.
 - **Never skip `LastLedgerSequence`.** Without it, a transaction can be stuck in limbo indefinitely.
 - **Never treat submission success as final.** Always wait for validation.
+- **Never treat a resolved `submitAndWait` as success.** Check `meta.TransactionResult` (see `submitOrThrow`).
 - **Never use floating-point for XRP amounts.** Use string-based helpers (`xrpToDrops`).
 - **Never hardcode mainnet endpoints in dev code.** Use environment variables or config.

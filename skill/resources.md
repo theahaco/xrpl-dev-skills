@@ -5,9 +5,12 @@
 - [Transaction Types Reference](https://xrpl.org/docs/references/protocol/transactions/types)
 - [Ledger Object Types Reference](https://xrpl.org/docs/references/protocol/ledger-data/ledger-entry-types)
 - [WebSocket/JSON-RPC API Reference](https://xrpl.org/docs/references/http-websocket-apis)
+- [Multi-Purpose Tokens](https://xrpl.org/docs/concepts/tokens/fungible-tokens/multi-purpose-tokens) — concepts, flags and compliance controls
+- [Known Amendments](https://xrpl.org/resources/known-amendments) and the [`feature` method](https://xrpl.org/docs/references/http-websocket-apis/admin-api-methods/status-and-debugging-methods/feature) — check what a network has enabled
 
 ## Client Libraries
 - [xrpl.js (JavaScript/TypeScript)](https://js.xrpl.org/) — Primary JS SDK
+- [xrpl.js changelog](https://github.com/XRPLF/xrpl.js/blob/main/packages/xrpl/HISTORY.md) — `packages/xrpl/HISTORY.md`; the npm package does not include it. For the version you installed, open the file at the `xrpl@<version>` tag
 - [xrpl-py (Python)](https://xrpl-py.readthedocs.io/) — Python SDK
 - [xrpl4j (Java)](https://github.com/XRPLF/xrpl4j) — Java SDK
 
