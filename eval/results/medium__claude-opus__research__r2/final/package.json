@@ -1,0 +1,21 @@
+{
+  "name": "xrpl-mpt-demo",
+  "version": "1.0.0",
+  "description": "Issue and send a Multi-Purpose Token on the XRPL testnet",
+  "scripts": {
+    "start": "tsx --env-file=.env src/index.ts",
+    "typecheck": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "xrpl": "^5.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

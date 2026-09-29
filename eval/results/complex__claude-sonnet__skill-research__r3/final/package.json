@@ -1,0 +1,23 @@
+{
+  "name": "mpt-stablecoin-issuer",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Issuer-side controls for a regulated MPT-based stablecoin on the XRP Ledger.",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "demo": "tsx src/demo.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "xrpl": "^5.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

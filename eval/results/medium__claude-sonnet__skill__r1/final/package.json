@@ -1,0 +1,19 @@
+{
+  "name": "xrpl-mpt-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Issue and transfer a Multi-Purpose Token (MPT) on the XRP Ledger testnet",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "tsx src/index.ts"
+  },
+  "dependencies": {
+    "xrpl": "^5.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}

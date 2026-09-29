@@ -1,0 +1,9 @@
+{"at":"2026-09-29T04:58:27.661Z","ok":true,"latencyMs":77,"serverState":"full","validatedAgeSec":2}
+{"at":"2026-09-29T04:58:57.663Z","ok":true,"latencyMs":304,"serverState":"full","validatedAgeSec":2}
+{"at":"2026-09-29T04:59:27.665Z","ok":true,"latencyMs":306,"serverState":"full","validatedAgeSec":3}
+{"at":"2026-09-29T04:59:57.667Z","ok":true,"latencyMs":302,"serverState":"full","validatedAgeSec":3}
+{"at":"2026-09-29T05:00:27.669Z","ok":true,"latencyMs":298,"serverState":"full","validatedAgeSec":3}
+{"at":"2026-09-29T05:00:57.670Z","ok":true,"latencyMs":306,"serverState":"full","validatedAgeSec":2}
+{"at":"2026-09-29T05:01:27.672Z","ok":true,"latencyMs":305,"serverState":"full","validatedAgeSec":3}
+{"at":"2026-09-29T05:01:57.674Z","ok":true,"latencyMs":302,"serverState":"full","validatedAgeSec":1}
+{"at":"2026-09-29T05:02:27.676Z","ok":true,"latencyMs":310,"serverState":"full","validatedAgeSec":0}

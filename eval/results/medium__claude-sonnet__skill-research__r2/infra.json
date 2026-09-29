@@ -1,0 +1,13 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [],
+    "sandboxDenials": [],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 13
+  }
+}
