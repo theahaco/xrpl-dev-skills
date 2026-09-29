@@ -1,0 +1,324 @@
+{
+  "network": "wss://s.altnet.rippletest.net:51233",
+  "negativeTests": [
+    {
+      "hash": "ABEFC41C013094EDD11C2ECF4F12AE17EB29F166A1EFC945BE48E894907DDA40",
+      "code": "tecNO_AUTH",
+      "ledger": 21144619,
+      "operationKey": "deny:unapproved"
+    },
+    {
+      "hash": "CB568EF0437F149E918F2B2762B8C6F82DA21AA1AEE84F6E7638FD7C9D7FB105",
+      "code": "tecLOCKED",
+      "ledger": 21144640,
+      "operationKey": "deny:A:outgoing"
+    },
+    {
+      "hash": "5163503E4FE3DC3DB6F3031944EB7A08540CC7B7ED427782ABAB591AB39F3C7F",
+      "code": "tecLOCKED",
+      "ledger": 21144641,
+      "operationKey": "deny:A:incoming"
+    },
+    {
+      "hash": "8B6C929A09A24125FD9CDC135F56A66B970459B11C5448D828A025D977D60213",
+      "code": "tecLOCKED",
+      "ledger": 21144694,
+      "operationKey": "deny:global:transfer"
+    },
+    {
+      "hash": "384C65D32DDFA286161971E3A03223B02E57D2BE61D75B8F5E60E301C7ECD29D",
+      "code": "tecLOCKED",
+      "ledger": 21144704,
+      "operationKey": "deny:B:outgoing"
+    },
+    {
+      "hash": "81605885E8F919F55B4D4AF891248AC2AC6EAA06FD766EAFC636CF311F1812A1",
+      "code": "tecLOCKED",
+      "ledger": 21144706,
+      "operationKey": "deny:B:incoming"
+    },
+    {
+      "hash": "B55A993100D95097D0C78DC61291CF5689D94979108FE9CD371FC20E29183AD4",
+      "code": "tecNO_AUTH",
+      "ledger": 21144732,
+      "operationKey": "deny:C:banned:issuer"
+    },
+    {
+      "hash": "9516661D243C4197D656379BA6DE36C223DF3449875E5926C06CD2BB04422285",
+      "code": "tecNO_AUTH",
+      "ledger": 21144734,
+      "operationKey": "deny:C:banned:peer"
+    },
+    {
+      "hash": "67AF449696BF1344666BD7178164A33DEF5702E07143F374CFE88CE4B9684AEA",
+      "code": "tecNO_AUTH",
+      "ledger": 21144740,
+      "operationKey": "deny:C:recreated:issuer"
+    },
+    {
+      "hash": "34CAD0215DF0ABFDC2F7510E139133E518BE7887B5C6F6D33914BFA4B65AC427",
+      "code": "tecNO_AUTH",
+      "ledger": 21144742,
+      "operationKey": "deny:C:recreated:peer"
+    }
+  ],
+  "policyChecks": {
+    "individualIssuanceBlocked": true,
+    "globalIssuanceBlocked": true
+  },
+  "receipts": [
+    {
+      "hash": "3BC9D08C25DF96853BF80C5680F05EC1F9AC4A5F5D3881F16CA54408282EE71F",
+      "code": "tesSUCCESS",
+      "ledger": 21144606,
+      "operationKey": "fund:A"
+    },
+    {
+      "hash": "AB6FC2E8C6644D191277DACC631AB397A887BCC196EDB6960D88F67420E1D3B5",
+      "code": "tesSUCCESS",
+      "ledger": 21144608,
+      "operationKey": "fund:B"
+    },
+    {
+      "hash": "80FBF09DCD657CFCB72033D02550E34FDCE71FE91F41C1B0C93B4C9277090A6B",
+      "code": "tesSUCCESS",
+      "ledger": 21144610,
+      "operationKey": "fund:C"
+    },
+    {
+      "hash": "0876091418F1A1FF513BAF09A7FB87CF812F18B427216F69FDD08089D41E6605",
+      "code": "tesSUCCESS",
+      "ledger": 21144612,
+      "issuanceId": "0142A3A218E49FEAB5100EF247B7EAE12F550E592464B51B",
+      "operationKey": "create:regulated-token"
+    },
+    {
+      "hash": "3A0F3EEB44FA64A001D9DFB4F91128D3B0A8F6F0ADA075E6E40443F14821BF6E",
+      "code": "tesSUCCESS",
+      "ledger": 21144614,
+      "operationKey": "opt-in:A"
+    },
+    {
+      "hash": "57D6F68384B77CECB5BD7778AB898137C9C2B8F9660A1C1321ADE090226053FD",
+      "code": "tesSUCCESS",
+      "ledger": 21144616,
+      "operationKey": "opt-in:B"
+    },
+    {
+      "hash": "835576D6665ED06123328C1E1E20BDAF95860944CF7317AF3606B912C33216B7",
+      "code": "tesSUCCESS",
+      "ledger": 21144617,
+      "operationKey": "opt-in:C"
+    },
+    {
+      "hash": "ABEFC41C013094EDD11C2ECF4F12AE17EB29F166A1EFC945BE48E894907DDA40",
+      "code": "tecNO_AUTH",
+      "ledger": 21144619,
+      "operationKey": "deny:unapproved"
+    },
+    {
+      "hash": "3B0E7DA619FFC9AC78EECB5D0EE4FCCE343E6320F70CC885B31683166D4FC752",
+      "code": "tesSUCCESS",
+      "ledger": 21144621,
+      "operationKey": "approve:A"
+    },
+    {
+      "hash": "F2CEDABBCA94E51BC81D0BA849267FC85DA9B52089A8341AB6FC622C1D9B38F7",
+      "code": "tesSUCCESS",
+      "ledger": 21144623,
+      "operationKey": "approve:B"
+    },
+    {
+      "hash": "EAB40481B2E097225F9849FC382F177FB5913360A3CC8379971B25E525C95815",
+      "code": "tesSUCCESS",
+      "ledger": 21144625,
+      "operationKey": "approve:C"
+    },
+    {
+      "hash": "09745BA47F70BFCAC8F27B7EAA3E7325CCB2551452483549B39E1FA3DCD5FB4A",
+      "code": "tesSUCCESS",
+      "ledger": 21144627,
+      "operationKey": "issue:A:500"
+    },
+    {
+      "hash": "59BBF797D0B54DBA6D36C68BEEDEE0947DB892EF0806E323FF8F4078D57D7234",
+      "code": "tesSUCCESS",
+      "ledger": 21144629,
+      "operationKey": "issue:B:1000"
+    },
+    {
+      "hash": "13B4E342E256CA7294A85B2F2E55D4A5EB195C54157B1309446AFC355AFDE5D9",
+      "code": "tesSUCCESS",
+      "ledger": 21144631,
+      "operationKey": "issue:C:100"
+    },
+    {
+      "hash": "84863463315537DCC33CDFE155519C07A548A632E9B2A3318EB28E571502CB5E",
+      "code": "tesSUCCESS",
+      "ledger": 21144633,
+      "operationKey": "clawback:B:300"
+    },
+    {
+      "hash": "DED9BF1ED51006088633B2ECFECFAEE1785D044DEB84A30B26A71E2CB3C882ED",
+      "code": "tesSUCCESS",
+      "ledger": 21144635,
+      "operationKey": "transfer:A:B"
+    },
+    {
+      "hash": "8632B9D2FA869B3872E66CE3AA44BEE60B18C2B2869A4772DEC90A72DB4D7313",
+      "code": "tesSUCCESS",
+      "ledger": 21144637,
+      "operationKey": "transfer:B:A"
+    },
+    {
+      "hash": "97EEEC4A75AF9380581D11A7B58C73F0ABCE67F062924C02385461CEBF058B71",
+      "code": "tesSUCCESS",
+      "ledger": 21144638,
+      "operationKey": "freeze:A"
+    },
+    {
+      "hash": "CB568EF0437F149E918F2B2762B8C6F82DA21AA1AEE84F6E7638FD7C9D7FB105",
+      "code": "tecLOCKED",
+      "ledger": 21144640,
+      "operationKey": "deny:A:outgoing"
+    },
+    {
+      "hash": "5163503E4FE3DC3DB6F3031944EB7A08540CC7B7ED427782ABAB591AB39F3C7F",
+      "code": "tecLOCKED",
+      "ledger": 21144641,
+      "operationKey": "deny:A:incoming"
+    },
+    {
+      "hash": "6FB5041F784179855AF59DBD6ACCE7F718728E364C7315D75DB2F29F059BF921",
+      "code": "tesSUCCESS",
+      "ledger": 21144643,
+      "operationKey": "deny:A:issuance"
+    },
+    {
+      "hash": "07D86F383E042FBA327DDC6B9DC8385B84E40BF5BFC6F7B8271F489762E79D10",
+      "code": "tesSUCCESS",
+      "ledger": 21144684,
+      "operationKey": "exception:A:redeem-while-frozen"
+    },
+    {
+      "hash": "B6BAE51A411805D544D70299FFF720EE32DE741F681E6C8E88946E3AE5778B37",
+      "code": "tesSUCCESS",
+      "ledger": 21144686,
+      "operationKey": "unfreeze:A"
+    },
+    {
+      "hash": "16DAF3B40151FB8C4DF8F50980B6EEE28557A49A70FFDF56888EC627218E2BDF",
+      "code": "tesSUCCESS",
+      "ledger": 21144688,
+      "operationKey": "transfer:A:B:after-thaw"
+    },
+    {
+      "hash": "F059059AD1F9E810D6C2E29DCDC3D665981DACB5E142989CB674845634C6377D",
+      "code": "tesSUCCESS",
+      "ledger": 21144690,
+      "operationKey": "transfer:B:A:after-thaw"
+    },
+    {
+      "hash": "0D5B0CA24D1F80E70F435133695F669142A305FCDA9833FF7B015B33D12B4C32",
+      "code": "tesSUCCESS",
+      "ledger": 21144692,
+      "operationKey": "freeze:global"
+    },
+    {
+      "hash": "8B6C929A09A24125FD9CDC135F56A66B970459B11C5448D828A025D977D60213",
+      "code": "tecLOCKED",
+      "ledger": 21144694,
+      "operationKey": "deny:global:transfer"
+    },
+    {
+      "hash": "583428225863067BE0EA5B8BB746CC262748490B60E99C7B9641ED8688D0B1BB",
+      "code": "tesSUCCESS",
+      "ledger": 21144696,
+      "operationKey": "exception:global:issuance"
+    },
+    {
+      "hash": "41D8BF7F67C299ED30AB3C1E14B95A2499ED98133CD90F25511228DEA19F30A7",
+      "code": "tesSUCCESS",
+      "ledger": 21144698,
+      "operationKey": "exception:A:redeem-while-global-frozen"
+    },
+    {
+      "hash": "376979A637B222E97017E20E57C7E81D4C273DE2C9E41D06FF0DFE35F4ACA77B",
+      "code": "tesSUCCESS",
+      "ledger": 21144700,
+      "operationKey": "unfreeze:global"
+    },
+    {
+      "hash": "E5B5B812EFC458F8711C9ACE25A2673B2EBCB3533208A0D5D972F1F0A3FD4D03",
+      "code": "tesSUCCESS",
+      "ledger": 21144702,
+      "operationKey": "freeze:B"
+    },
+    {
+      "hash": "384C65D32DDFA286161971E3A03223B02E57D2BE61D75B8F5E60E301C7ECD29D",
+      "code": "tecLOCKED",
+      "ledger": 21144704,
+      "operationKey": "deny:B:outgoing"
+    },
+    {
+      "hash": "81605885E8F919F55B4D4AF891248AC2AC6EAA06FD766EAFC636CF311F1812A1",
+      "code": "tecLOCKED",
+      "ledger": 21144706,
+      "operationKey": "deny:B:incoming"
+    },
+    {
+      "hash": "4D3D60BE83271EE95E8C3BA5C436EDF5A96AFE548235D790123E72F6D3656C04",
+      "code": "tesSUCCESS",
+      "ledger": 21144708,
+      "operationKey": "ban:0142A3A218E49FEAB5100EF247B7EAE12F550E592464B51B:rfQ7t5UcLvwRNoKQAgHRbr9wEnJakZbgW2:lock"
+    },
+    {
+      "hash": "E80097C7F684F0533BF3C36CD8ADAC3914AAA3805E17DE8EA2CF2C188492795F",
+      "code": "tesSUCCESS",
+      "ledger": 21144710,
+      "operationKey": "ban:0142A3A218E49FEAB5100EF247B7EAE12F550E592464B51B:rfQ7t5UcLvwRNoKQAgHRbr9wEnJakZbgW2:revoke"
+    },
+    {
+      "hash": "3A64703EF23064E0FF2100276EB67CF1D2D93046C4A4CA2805C59DC987B98FD8",
+      "code": "tesSUCCESS",
+      "ledger": 21144712,
+      "operationKey": "ban:0142A3A218E49FEAB5100EF247B7EAE12F550E592464B51B:rfQ7t5UcLvwRNoKQAgHRbr9wEnJakZbgW2:clawback"
+    },
+    {
+      "hash": "B55A993100D95097D0C78DC61291CF5689D94979108FE9CD371FC20E29183AD4",
+      "code": "tecNO_AUTH",
+      "ledger": 21144732,
+      "operationKey": "deny:C:banned:issuer"
+    },
+    {
+      "hash": "9516661D243C4197D656379BA6DE36C223DF3449875E5926C06CD2BB04422285",
+      "code": "tecNO_AUTH",
+      "ledger": 21144734,
+      "operationKey": "deny:C:banned:peer"
+    },
+    {
+      "hash": "716797ECB2D9EFA8D81BC4D50FB8A557C44C85AF102B473C21E071CF04899834",
+      "code": "tesSUCCESS",
+      "ledger": 21144736,
+      "operationKey": "C:delete-holding"
+    },
+    {
+      "hash": "BFBA39FE2A5A46C45B01DA28B561E4240A98ED3E12DCA860E0B026CD060BDD6F",
+      "code": "tesSUCCESS",
+      "ledger": 21144738,
+      "operationKey": "C:recreate-holding"
+    },
+    {
+      "hash": "67AF449696BF1344666BD7178164A33DEF5702E07143F374CFE88CE4B9684AEA",
+      "code": "tecNO_AUTH",
+      "ledger": 21144740,
+      "operationKey": "deny:C:recreated:issuer"
+    },
+    {
+      "hash": "34CAD0215DF0ABFDC2F7510E139133E518BE7887B5C6F6D33914BFA4B65AC427",
+      "code": "tecNO_AUTH",
+      "ledger": 21144742,
+      "operationKey": "deny:C:recreated:peer"
+    }
+  ]
+}
