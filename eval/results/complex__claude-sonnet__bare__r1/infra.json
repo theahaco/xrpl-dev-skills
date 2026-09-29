@@ -1,0 +1,16 @@
+{
+  "verdict": "ok",
+  "rerun": false,
+  "reasons": [],
+  "signals": {
+    "faucetErrors": [],
+    "rippledErrors": [],
+    "sandboxDenials": [
+      "(eval):1: operation not permitted: /tmp/npm_install_xrpl.log DONE cat: /tmp/npm_install_xrpl.log: No such file or directory --- cat: /tmp/npm_install_dev.log: No such fil",
+      "Exit code 1 (eval):1: operation not permitted: /tmp_test_lock.js node:internal/modules/cjs/loader:1520 throw err; ^ Error: Cannot find module '/tmp_test_lock.js' at Module._"
+    ],
+    "providerErrors": [],
+    "healthOutageProbes": 0,
+    "healthProbes": 35
+  }
+}

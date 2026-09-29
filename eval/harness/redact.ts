@@ -39,11 +39,34 @@ export function redactedJson(value: unknown, secrets: Secret[]): string {
   return `${redactText(JSON.stringify(value, null, 2), secrets)}\n`;
 }
 
+// Binary files (an agent's SQLite store, say) can hold holder seeds too. They
+// are masked byte for byte, through latin1 so the round trip is lossless and
+// the file keeps its length and layout.
+export function redactBinary(buf: Buffer, secrets: Secret[]): Buffer {
+  let text = buf.toString("latin1");
+  const mask = (m: string): string => "X".repeat(m.length);
+  for (const s of secrets) {
+    if (s.value.length >= 8) text = text.split(s.value).join(mask(s.value));
+  }
+  for (const [re] of PATTERNS) text = text.replace(re, mask);
+  // A record header byte right before a seed can be any letter, so the
+  // unambiguous Ed25519 form is also masked without the word boundary.
+  text = text.replace(new RegExp(`sEd${B58}{28}`, "g"), mask);
+  return Buffer.from(text, "latin1");
+}
+
 export function redactTree(dir: string, secrets: Secret[]): number {
   let changed = 0;
   for (const f of walkFiles(dir, [])) {
     const buf = fs.readFileSync(f.abs);
-    if (!isProbablyText(buf)) continue;
+    if (!isProbablyText(buf)) {
+      const masked = redactBinary(buf, secrets);
+      if (!masked.equals(buf)) {
+        fs.writeFileSync(f.abs, masked);
+        changed++;
+      }
+      continue;
+    }
     const before = buf.toString("utf8");
     const after = redactText(before, secrets);
     if (after !== before) {

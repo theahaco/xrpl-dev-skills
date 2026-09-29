@@ -1,0 +1,41 @@
+{
+  "network": "testnet",
+  "ledgerIndex": 21133305,
+  "ledgerHash": "2239F17AC32B56512A7163FB80818039EFD604F257D2FC0593A6FD79D08CDCB9",
+  "issuanceId": "014277096C737AC96D0F5B1E3EF3816A25F5AB7299D35E12",
+  "issuer": "rwtSKPNxCCKaLRpTgpYnWgZ8t2DBw8vXgo",
+  "issuance": {
+    "Flags": 102,
+    "Issuer": "rwtSKPNxCCKaLRpTgpYnWgZ8t2DBw8vXgo",
+    "LedgerEntryType": "MPTokenIssuance",
+    "MPTokenMetadata": "7B2274223A22434D50222C226E223A22436F6D706C69616E6365205465737420546F6B656E222C2264223A22546573746E657420636F6D706C69616E63652064656D6F6E7374726174696F6E222C226163223A226F74686572227D",
+    "MaximumAmount": "1000000000",
+    "OutstandingAmount": "1200",
+    "OwnerNode": "0",
+    "PreviousTxnID": "A09793875F867E527F209878E3E88D9ED2E7CFFFF88AB93FDBE2230E2787B8DD",
+    "PreviousTxnLgrSeq": 21133289,
+    "Sequence": 21133065,
+    "index": "6E25E6C217A0E2C322BD467600ED1E659109D6AA0740E3F133FF9805ED870C4B",
+    "mpt_issuance_id": "014277096C737AC96D0F5B1E3EF3816A25F5AB7299D35E12"
+  },
+  "holders": {
+    "A": {
+      "address": "rMwJWiR76mhEaEEgVymxhosg5ycTpFH7it",
+      "balance": "500",
+      "authorized": true,
+      "frozen": false
+    },
+    "B": {
+      "address": "rKQjuteuPnfRseQsh3nJYc49D1YQeawmHX",
+      "balance": "700",
+      "authorized": true,
+      "frozen": true
+    },
+    "C": {
+      "address": "rEfYFwQs3643DKSiiZL5CvKaqjnYfjvyGz",
+      "balance": "0",
+      "authorized": false,
+      "frozen": false
+    }
+  }
+}

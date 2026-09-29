@@ -1,7 +1,20 @@
 {
-  "runs": {},
+  "runs": {
+    "claude-opus": {
+      "complex": { "weeklyPct": 1.0, "source": "Calibration 2026-09-29 (budget/calibration.md): complex bare r1 cost $2.33 at list price; x 0.41 %/$ (the conservative Claude ratio) = 0.96%." },
+      "medium": { "weeklyPct": 0.4, "source": "Not run in calibration. The Sonnet medium smoke run cost $0.75 (0.31% at 0.41 %/$); Opus and Sonnet complex cost about the same, so Opus medium takes the same figure, rounded up." }
+    },
+    "claude-sonnet": {
+      "complex": { "weeklyPct": 1.1, "source": "Calibration 2026-09-29 (budget/calibration.md): complex bare r1 cost $2.55 at list price; x 0.41 %/$ = 1.05%." },
+      "medium": { "weeklyPct": 0.4, "source": "Smoke run medium bare r1 cost $0.75 at list price; x 0.41 %/$ = 0.31%, rounded up." }
+    },
+    "codex": {
+      "complex": { "weeklyPct": 2.0, "source": "Calibration 2026-09-29 (budget/calibration.md): complex bare r1 moved Codex weekly 94% -> 93% on its own. With whole-percent readings, a one-point step is at most 2 points of real use, so 2.0 is the upper bound." },
+      "medium": { "weeklyPct": 1.0, "source": "Not run in calibration. Half the complex figure, the same medium/complex ratio as Claude (0.4 vs 1.0), rounded up." }
+    }
+  },
   "scoring": {
-    "claudeWeeklyPctPerRun": 0.2,
-    "source": "Uncalibrated placeholder. Smoke run (medium): the blind model scorer in --calibrate mode, every item scored, cost $0.26 to $0.31 at list price per run. Replace with the value measured in the calibration pass."
+    "claudeWeeklyPctPerRun": 0.3,
+    "source": "Calibration 2026-09-29: the blind model scorer in --calibrate mode (every item) cost $0.50 to $0.70 per complex run; $0.70 x 0.41 %/$ = 0.29%. Runs scored without --calibrate send only low-confidence items, so this over-counts them."
   }
 }

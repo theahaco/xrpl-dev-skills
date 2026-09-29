@@ -8,7 +8,7 @@ import { withBudgetLock, reserve } from "./budget.ts";
 import { type CheckResult, type Ctx, deliveredTo, sameAmount } from "./check.ts";
 import { codexCredential } from "./credentials.ts";
 import { classify, outageProbes } from "./infra.ts";
-import { redactedJson, redactText, SEED_PLACEHOLDER } from "./redact.ts";
+import { redactBinary, redactedJson, redactText, SEED_PLACEHOLDER } from "./redact.ts";
 import { blind, buildEvidence, codeEvidence, errorEvidence, type RubricItem, scoreRun } from "./score.ts";
 import type { Workspace } from "./sandbox.ts";
 import { parseJsonc, strictFamily, typecheck } from "./typecheck.ts";
@@ -35,6 +35,16 @@ test("redactText removes known secrets and anything seed- or key-shaped", () => 
   assert.ok(!out.includes("A1A1A1"));
   assert.ok(!out.includes("abcdefghijkl"));
   assert.ok(out.includes(SEED_PLACEHOLDER));
+});
+
+test("redactBinary masks seeds in binary files without changing their length", () => {
+  const seed = "sEdSKaCy2JT7JaM7v95H9SxkhP9wS2r";
+  const buf = Buffer.concat([Buffer.from([0, 1, 2, 0xff]), Buffer.from(`x${seed}\0`, "latin1"), Buffer.from([0xfe, 0])]);
+  const out = redactBinary(buf, []);
+  assert.equal(out.length, buf.length);
+  assert.ok(!out.toString("latin1").includes(seed));
+  assert.deepEqual([...out.subarray(0, 4)], [0, 1, 2, 0xff]);
+  assert.deepEqual([...out.subarray(-2)], [0xfe, 0]);
 });
 
 test("blind strips skill tells", () => {
