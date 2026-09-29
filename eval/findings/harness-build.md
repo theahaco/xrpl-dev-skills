@@ -51,3 +51,8 @@ Neither xrpl.js nor the skill says which TypeScript toolchain works.
   - npm puts `/private/tmp/node_modules/.bin` on its `PATH`, and the `EPERM` stops the `PATH` search, so `npx` and `npm exec` exit 255 with no message.
 
   The first smoke attempt caught the `npx` failure; the agent worked around it by calling `node node_modules/typescript/bin/tsc`. That attempt was discarded, and the committed smoke run used the final profile. Direct writes to `/tmp` stay denied on purpose (see the README) and show up as `sandboxDenials` in `infra.json`. Two of three attempts started by redirecting `npm install` output to `/tmp/npm_install.log`, and both recovered on the next command.
+
+## Defects found during the grid run
+
+- **Clarifying questions mid-message went unanswered.** The first detector only looked at the last line of the final message. `complex__codex__research__r2` asked "Should I use native MPT freezes with that exception, or extend the design…?" and then added a closing paragraph, so it never got the fixed reply and stopped without code. Now any question in the final message's prose counts, with code and URLs ignored. The caller still replies only while `result.json` is missing, so an offer made after finishing does not count. Every affected run was re-run; the originals are kept as `…__qdefect1`.
+- **Binary result files skipped seed redaction.** Text-only redaction left holder seeds in a Codex run's SQLite store (`final/.private/demo.sqlite`). Binary files are now masked byte for byte. V8's `node-compile-cache`, which one run wrote into the project, is no longer captured.

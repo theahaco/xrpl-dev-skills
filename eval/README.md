@@ -68,7 +68,7 @@ With no run directories given, `check`, `score` and `agreement` process everythi
    - Claude: `claude -p --model <alias> --dangerously-skip-permissions --strict-mcp-config --output-format stream-json --verbose`, with the prompt on stdin.
    - Codex: `codex exec --json --dangerously-bypass-approvals-and-sandbox --disable apps -C project -`.
 
-   If the agent ends a turn on a question before `result.json` exists, the harness resumes the session with the fixed reply "Proceed with your best judgment." It does this up to three times, within the same time cap. A health monitor probes testnet every 30 s for the whole run, and weekly quota is read before and after.
+   If a turn ends before `result.json` exists and the final message asks a question anywhere in its prose (code and URLs ignored), the harness resumes the session with the fixed reply "Proceed with your best judgment." It does this up to three times, within the same time cap. A health monitor probes testnet every 30 s for the whole run, and weekly quota is read before and after.
 8. Runs the ledger checker, type-checks the project, copies the final code, classifies infrastructure failures, and scrubs secrets from everything it wrote.
 
 ## Isolation
